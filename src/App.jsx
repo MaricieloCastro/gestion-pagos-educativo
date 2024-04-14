@@ -3,16 +3,16 @@ import { Routes, Route } from "react-router-dom";
 
 //MODULOS
 //Modulo de seguridad
-import InformacionUsuario from "./modules/Seguridad/InformacionUsuario";
+import InformacionUsuario from "./modules/Seguridad/pages/InformacionUsuario";
 
-import IniciarSesion from "./modules/Seguridad/IniciarSesion";
-import ListaUsuarios from "./modules/Seguridad/ListaUsuarios";
-import PanelAdministrador from "./modules/Seguridad/PanelAdministrador";
-import Perfil from "./modules/Seguridad/Perfil";
+import IniciarSesion from "./modules/Seguridad/pages/IniciarSesion";
+import ListaUsuarios from "./modules/Seguridad/pages/ListaUsuarios";
+import PanelAdministrador from "./modules/Seguridad/pages/PanelAdministrador";
+import Perfil from "./modules/Seguridad/pages/Perfil";
 
-import RestablecerContrasenia from "./modules/Seguridad/RestablecerContrasenia";
-import ActualizarContrasenia from "./modules/Seguridad/ActualizarContrasenia";
-import CrearUsuario from "./modules/Seguridad/CrearUsuario";
+import RestablecerContrasenia from "./modules/Seguridad/pages/RestablecerContrasenia";
+import ActualizarContrasenia from "./modules/Seguridad/pages/ActualizarContrasenia";
+import CrearUsuario from "./modules/Seguridad/pages/CrearUsuario";
 
 //RutasPrivadas
 import PrivateRoutes from "./utils/PrivateRoutes";

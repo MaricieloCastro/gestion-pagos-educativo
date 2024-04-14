@@ -17,6 +17,10 @@ module.exports = {
       },
     },
     extend: {
+      gridTemplateColumns: {
+        // Simple 16 column grid
+        "login-grid": "1fr 3fr",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
