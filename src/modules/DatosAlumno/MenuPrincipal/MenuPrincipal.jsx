@@ -1,14 +1,13 @@
-import React from 'react'
-import MenuLateral from '@/components/MenuLateral'
+import React from "react";
+import MenuLateral from "@/components/MenuLateral";
+import MenuLateralPrueba from "@/components/MenuLateral/MenuLateral-prueba";
 
 const MenuPrincipal = () => {
-    return (
-        <div className='flex h-screen blue-oscuro'>
-            <MenuLateral>
-                contenido
-            </MenuLateral>
-        </div>
-    )
-}
+  return (
+    <div className="flex h-screen blue-oscuro">
+      <MenuLateralPrueba>contenido</MenuLateralPrueba>
+    </div>
+  );
+};
 
-export default MenuPrincipal
+export default MenuPrincipal;

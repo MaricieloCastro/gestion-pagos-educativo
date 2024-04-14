@@ -1,20 +1,46 @@
 .menu__li {
   li {
-    //   background-color: black !important;
-    border-style: solid !important;
-    border-top-width: 1px;
-    border-color: #c1c1c1 !important;
     margin: 0 !important;
     width: 100% !important;
 
     div {
       margin: 0 !important;
       width: 100% !important;
-      //   background-color: black !important;
-      //   border-style: solid !important;
-      //   border-top-width: 1px;
-      //   border-bottom-width: 1px;
-      //   border-color: #c1c1c1 !important;
     }
+  }
+}
+.ant-menu {
+  &-item {
+    border-style: solid !important;
+    border-top-width: 1px;
+    border-color: #c1c1c1 !important;
+  }
+
+  &-submenu {
+    border-style: solid !important;
+    border-top-width: 1px;
+    border-color: #c1c1c1 !important;
+
+    &-open {
+      background-color: #003154 !important;
+    }
+  }
+
+  &-sub {
+    .ant-menu-submenu-inline {
+      border-style: none !important;
+    }
+
+    .ant-menu-item-only-child {
+      border-style: none !important;
+    }
+  }
+
+  &-item-danger {
+    background-color: #940303 !important;
+    color: #c9c9c9 !important;
+    border-style: solid !important;
+    border-bottom-width: 1px;
+    border-color: #c1c1c1 !important;
   }
 }

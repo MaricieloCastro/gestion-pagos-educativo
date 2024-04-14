@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const ActualizarContrasenia = () => {
-    return (
-        <div>ActualizarContrasenia</div>
-    )
-}
+  return <div>ActualizarContrasenia</div>;
+};
 
-export default ActualizarContrasenia
+export default ActualizarContrasenia;
