@@ -21,6 +21,9 @@ module.exports = {
         // Simple 16 column grid
         "login-grid": "1fr 2fr",
       },
+      gridTemplateRows: {
+        "caja-contenido": "1fr 3.5fr",
+      },
       width: {
         "login-caja": "350px",
         "login-header": "220px",
@@ -29,6 +32,9 @@ module.exports = {
         "login-minWidth": "600px",
         "login-minWidth-responsive": "400px",
         "login-minWidth-global": "600px",
+      },
+      padding: {
+        "caja-contenido": "11px",
       },
       colors: {
         border: "hsl(var(--border))",
