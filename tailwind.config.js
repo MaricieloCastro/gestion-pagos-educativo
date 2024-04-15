@@ -25,6 +25,11 @@ module.exports = {
         "login-caja": "350px",
         "login-header": "220px",
       },
+      minWidth: {
+        "login-minWidth": "600px",
+        "login-minWidth-responsive": "400px",
+        "login-minWidth-global": "600px",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
