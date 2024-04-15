@@ -19,7 +19,11 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         // Simple 16 column grid
-        "login-grid": "1fr 3fr",
+        "login-grid": "1fr 2fr",
+      },
+      width: {
+        "login-caja": "350px",
+        "login-header": "220px",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -61,6 +65,13 @@ module.exports = {
         "blue-claro+": "#004B82",
         "white-cabecera": "#D9D9D9",
         "white-linea": "#C1C1C1",
+        "white-texto": "#D9D9D9",
+        "red-boton": "#C42727",
+        "red-boton-hover": "#DF3030",
+      },
+      fontFamily: {
+        jost: ["Jost", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
       borderWidth: {
         1: "1px",

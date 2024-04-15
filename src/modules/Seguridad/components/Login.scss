@@ -1,0 +1,60 @@
+.login {
+  min-height: 600px;
+  min-width: 900px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-columns: 1.7fr 1fr;
+
+  &__image {
+    filter: brightness(70%);
+    img {
+      min-height: 600px;
+    }
+  }
+
+  &__input {
+    &-fields {
+      //   width: 350px;
+
+      &-header {
+        img {
+          width: 105px;
+        }
+        h1 {
+          text-align: center;
+          color: #dadada;
+          font-family: "Jost", sans-serif;
+          font-weight: 500;
+          font-size: 110%;
+          letter-spacing: 1px;
+        }
+      }
+
+      label {
+        color: rgb(197, 197, 197);
+        cursor: pointer;
+      }
+
+      button {
+        background-color: #c42727;
+
+        &:hover {
+          background-color: #df3030;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .login {
+    min-width: 500px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-columns: 1.7fr;
+
+    &__image {
+      display: none; /* Oculta el div cuando el ancho de la pantalla sea menor o igual a 768px */
+    }
+  }
+}
