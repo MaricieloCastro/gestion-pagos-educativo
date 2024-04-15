@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const RestablecerContrasenia = () => {
-    return (
-        <div>RestablecerContrasenia</div>
-    )
-}
+  return (
+    <div>
+      <h1>hoLAAAAAAAAA</h1>
+    </div>
+  );
+};
 
-export default RestablecerContrasenia
+export default RestablecerContrasenia;
