@@ -22,11 +22,15 @@ module.exports = {
         "login-grid": "1fr 2fr",
       },
       gridTemplateRows: {
-        "caja-contenido": "1fr 3.5fr",
+        "caja-contenido": "1fr 5fr",
       },
       width: {
         "login-caja": "350px",
         "login-header": "220px",
+        "date-listas": "130px",
+      },
+      height: {
+        "height-listas": "40px",
       },
       minWidth: {
         "login-minWidth": "600px",
@@ -34,7 +38,7 @@ module.exports = {
         "login-minWidth-global": "600px",
       },
       padding: {
-        "caja-contenido": "11px",
+        "caja-contenido": "15px",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -74,6 +78,7 @@ module.exports = {
         "blue-claro": "#003862",
         "blue-oscuro": "#001F36",
         "blue-claro+": "#004B82",
+        "blue-hover": "#005BA0",
         "white-cabecera": "#D9D9D9",
         "white-linea": "#C1C1C1",
         "white-texto": "#D9D9D9",
