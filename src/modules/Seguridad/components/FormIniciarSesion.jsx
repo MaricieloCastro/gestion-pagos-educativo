@@ -62,15 +62,17 @@ const FormIniciarSesion = () => {
           type="text"
           placeholder="Ingrese su usuario"
           icon={faUser}
+          classNameInput="pr-10 text-base"
         />
 
         <InputCredenciales
           control={form.control}
           name="password"
-          labelText="Contrseña"
+          labelText="Contraseña"
           type="password"
           placeholder="Ingrese su contraseña"
           icon={faLock}
+          classNameInput="pr-10 text-base"
         />
 
         {/* BOTON DE OLVIDASTE TU CONTRASEÑA */}
@@ -92,7 +94,7 @@ const FormIniciarSesion = () => {
             className={buttonVariants({
               variant: "default",
               className:
-                "w-32 h-11 mt-4 text-xs bg-red-boton hover:bg-red-boton-hover",
+                "w-32 h-11 mt-4 text-xs bg-red-boton hover:bg-red-boton-hover rounded-none",
             })}
             type="submit"
           >
