@@ -1,0 +1,152 @@
+.usario-datos {
+  background-color: #001f36;
+  color: #fff;
+  padding: 5px;
+  box-sizing: border-box; /* Ajusta el tamaño del box para incluir el padding */
+  overflow-y: auto;
+  margin: 9px;
+  align-self: flex-end;
+  height: 35vh;
+  &_perfil {
+    background-color: #001f36;
+    color: #fff;
+    padding: 5px;
+    box-sizing: border-box; /* Ajusta el tamaño del box para incluir el padding */
+    margin: 9px;
+    align-self: flex-end;
+    height: 16vh;
+
+    input {
+      background-color: #d9d9d9;
+      border: 0px;
+      width: 100%; /* Hace que el input ocupe todo el ancho disponible */
+      box-sizing: border-box; /* Ajusta el tamaño del box para incluir el padding */
+      color: #000;
+      font-size: 20px;
+      height: 33px;
+    }
+
+    button {
+      color: #000;
+      background-color: #d9d9d9;
+      border-radius: 0;
+      width: 100%;
+      height: 33px;
+    }
+    h2 {
+      text-decoration: underline;
+      margin-left: 8px;
+    }
+  }
+  h2 {
+    text-decoration: underline;
+    margin-left: 8px;
+  }
+
+  //Componentes del primer sector "DATOS PERSONALES"
+  &_nombres {
+    display: flex;
+    justify-content: space-between;
+    margin: 1px;
+    padding-left: 8px;
+    padding-right: 8px;
+    .space-y-2 {
+      width: 49vh;
+      .checkbox-label {
+        padding-top: 0px;
+        .MuiFormGroup-root {
+          margin-left: 50px;
+        }
+
+        .MuiButtonBase-root {
+          color: #fff;
+        }
+      }
+    }
+
+    &-edad {
+      display: flex;
+      width: 49vh;
+      box-sizing: border-box;
+      margin: 1px;
+      justify-content: space-between;
+      .space-y-2 {
+        .MuiStack-root {
+          overflow: hidden;
+          padding-top: 0px;
+        }
+        .MuiPickersInputBase-root {
+          color: #000;
+          background-color: #d9d9d9;
+          width: 25vh;
+          height: 32px;
+          border-radius: 0;
+        }
+      }
+    }
+  }
+  input {
+    background-color: #d9d9d9;
+    border: 0px;
+    width: 100%; /* Hace que el input ocupe todo el ancho disponible */
+    box-sizing: border-box; /* Ajusta el tamaño del box para incluir el padding */
+    color: #000;
+    font-size: 16px;
+    height: 33px;
+  }
+  button {
+    color: #000;
+    background-color: #d9d9d9;
+    border-radius: 0;
+    width: 100%;
+    height: 33px;
+  }
+}
+.boton {
+  display: flex;
+  justify-content: flex-end;
+  margin: 8px;
+  padding: 0px;
+
+  button {
+    background-color: #1ec468;
+    width: 15%;
+    span {
+      margin-right: 5px;
+    }
+  }
+
+  button.inline-flex.items-center.justify-center.whitespace-nowrap.rounded-sm.text-sm.font-medium.ring-offset-background.transition-colors.focus-visible\:outline-none.focus-visible\:ring-2.focus-visible\:ring-ring.focus-visible\:ring-offset-2.disabled\:pointer-events-none.disabled\:opacity-50.bg-primary.text-primary-foreground.hover\:bg-primary\/90.h-10.px-4.py-2 {
+    background-color: #1ec468;
+    box-sizing: border-box;
+    padding: 20px;
+  }
+}
+
+.fotografia {
+  display: flex;
+  justify-content: center; /* Centrado horizontal */
+  align-items: center;
+  flex-direction: column;
+  padding: 2px;
+
+  img {
+    height: 175px;
+    width: 15%;
+  }
+  .imp {
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center;
+    width: 20%;
+    margin-top: 5px;
+    button {
+      background-color: #a4a4a4;
+      height: 20px;
+      width: 50%;
+      color: #000;
+      font-size: 10px;
+      font-weight: normal;
+    }
+  }
+}
