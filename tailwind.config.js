@@ -19,7 +19,7 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         // Simple 16 column grid
-        "login-grid": "1fr 1fr 1fr",
+        "login-grid": "1fr 2fr",
       },
       gridTemplateRows: {
         "caja-contenido": "1fr 5.5fr 1fr",
@@ -27,7 +27,8 @@ module.exports = {
       width: {
         "login-caja": "350px",
         "login-header": "220px",
-        "date-listas": "130px",
+        "date-listas": "140px",
+        "input-listas": "295px",
       },
       height: {
         "height-listas": "40px",
