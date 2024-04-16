@@ -79,6 +79,8 @@ module.exports = {
         "white-texto": "#D9D9D9",
         "red-boton": "#C42727",
         "red-boton-hover": "#DF3030",
+        "green-boton": "#1EC468",
+        "green-boton-hover": "#1DAF5E",
       },
       fontFamily: {
         jost: ["Jost", "sans-serif"],
