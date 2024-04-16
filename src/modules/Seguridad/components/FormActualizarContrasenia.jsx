@@ -40,11 +40,11 @@ const FormActualizarContrasenia = () => {
   });
 
   function onSubmit(values) {
-    const {username, password, repeat_new_password}=values;
-    if(password==repeat_new_password){
-      console.log({"username": username, "password": password})
-    }else{ 
-      alert("Las contraseñas no coinciden")
+    const { username, password, repeat_new_password } = values;
+    if (password == repeat_new_password) {
+      console.log({ username: username, password: password });
+    } else {
+      alert("Las contraseñas no coinciden");
     }
   }
   //NO TOCAR CIERRE
@@ -64,32 +64,31 @@ const FormActualizarContrasenia = () => {
         icon: EL ICONO DENTRO DEL INPUT
         */}
 
-        <InputCredenciales
-          control={form.control}
-          name="username"
-          type="text"
-          placeholder="Usuario"
-          icon={faUser}
-          classNameInput="pr-10 text-base mb-4"
-        />
+        <div className="flex flex-col gap-6">
+          <InputCredenciales
+            control={form.control}
+            name="username"
+            type="text"
+            placeholder="Usuario"
+            icon={faUser}
+          />
 
-        <InputCredenciales
-          control={form.control}
-          name="password"
-          type="password"
-          placeholder="Contraseña"
-          icon={faLock}
-          classNameInput="pr-10 text-base mb-4"
-        />
-        
-        <InputCredenciales
-          control={form.control}
-          name="repeat_new_password"
-          type="password"
-          placeholder="Confirmar contraseña"
-          icon={faLock}
-          classNameInput="pr-10 text-base"
-        />
+          <InputCredenciales
+            control={form.control}
+            name="password"
+            type="password"
+            placeholder="Contraseña"
+            icon={faLock}
+          />
+
+          <InputCredenciales
+            control={form.control}
+            name="repeat_new_password"
+            type="password"
+            placeholder="Confirmar contraseña"
+            icon={faLock}
+          />
+        </div>
 
         {/* BOTON DE OLVIDASTE TU CONTRASEÑA */}
 

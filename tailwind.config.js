@@ -22,7 +22,7 @@ module.exports = {
         "login-grid": "1fr 2fr",
       },
       gridTemplateRows: {
-        "caja-contenido": "1fr 5fr",
+        "caja-contenido": "1fr 5fr 1fr",
       },
       width: {
         "login-caja": "350px",
@@ -31,11 +31,15 @@ module.exports = {
       },
       height: {
         "height-listas": "40px",
+        "height-caja-listas": "72vh",
       },
       minWidth: {
         "login-minWidth": "600px",
         "login-minWidth-responsive": "400px",
         "login-minWidth-global": "600px",
+      },
+      maxWidth: {
+        "lista-maxWidth": "600px",
       },
       padding: {
         "caja-contenido": "15px",
@@ -84,8 +88,12 @@ module.exports = {
         "white-texto": "#D9D9D9",
         "red-boton": "#C42727",
         "red-boton-hover": "#DF3030",
+        "red-boton-listas": "#F53151",
+        "red-boton-listas-hover": "#C1233E",
         "green-boton": "#1EC468",
         "green-boton-hover": "#1DAF5E",
+        "gray-listas": "#A29C9C",
+        "gray-listas-header": "#514E4E",
       },
       fontFamily: {
         jost: ["Jost", "sans-serif"],

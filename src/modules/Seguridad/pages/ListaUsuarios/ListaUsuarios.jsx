@@ -7,7 +7,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import DateFiltros from "@/components/DateFiltros";
 import HourFiltros from "@/components/HourFiltros";
 
-import SimpleTable from "@/components/SimpleTable";
+import SimpleTable from "@/components/SimpleTable/SimpleTable";
+import { PaginationList } from "@/components/PaginationList/PaginationList";
 
 const ListaUsuarios = () => {
   return (
@@ -41,14 +42,18 @@ const ListaUsuarios = () => {
               <ButtonWithIcon
                 text="CREAR USUARIO"
                 icon={faPlus}
+                classNameIcon="pr-3"
                 classNameVariants="rounded-sm
                 p-4 bg-green-boton hover:bg-green-boton-hover
                 absolute right-4"
               />
             </div>
           </div>
-          <div className="bg-white-texto">
+          <div className="bg-white-texto overflow-y-scroll h-height-caja-listas">
             <SimpleTable />
+          </div>
+          <div className="flex justify-center items-center max-h-16 gap-2">
+            <PaginationList />
           </div>
         </div>
       </MenuLateral>
