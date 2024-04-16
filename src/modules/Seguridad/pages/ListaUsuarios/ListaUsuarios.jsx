@@ -7,6 +7,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import DateFiltros from "@/components/DateFiltros";
 import HourFiltros from "@/components/HourFiltros";
 
+import SimpleTable from "@/components/SimpleTable";
+
 const ListaUsuarios = () => {
   return (
     <div className="flex h-screen blue-oscuro overflow-hidden">
@@ -45,7 +47,9 @@ const ListaUsuarios = () => {
               />
             </div>
           </div>
-          <div className="bg-white-texto">ay</div>
+          <div className="bg-white-texto">
+            <SimpleTable />
+          </div>
         </div>
       </MenuLateral>
     </div>
