@@ -21,10 +21,13 @@ const formSchema = z.object({
   password: z.string().min(8, {
     message: "La contraseña debe tener un minimo de 8 caracteres.",
   }),
+  repeat_new_password: z.string().min(8, {
+    message: "La contraseña debe ser igual que a la anterior",
+  }),
 });
 //CONFIGURACION CIERRE
 
-const FormIniciarSesion = () => {
+const FormActualizarContrasenia = () => {
   // NO TOCAR INICIO
   // CONTENIDO DE LA LIBRERIA SHADCN
   const form = useForm({
@@ -32,11 +35,17 @@ const FormIniciarSesion = () => {
     defaultValues: {
       username: "",
       password: "",
+      repeat_new_password: "",
     },
   });
 
   function onSubmit(values) {
-    console.log(values);
+    const {username, password, repeat_new_password}=values;
+    if(password==repeat_new_password){
+      console.log({"username": username, "password": password})
+    }else{ 
+      alert("Las contraseñas no coinciden")
+    }
   }
   //NO TOCAR CIERRE
 
@@ -58,19 +67,26 @@ const FormIniciarSesion = () => {
         <InputCredenciales
           control={form.control}
           name="username"
-          labelText="Usuario"
           type="text"
-          placeholder="Ingrese su usuario"
+          placeholder="Usuario"
           icon={faUser}
-          classNameInput="pr-10 text-base"
+          classNameInput="pr-10 text-base mb-4"
         />
 
         <InputCredenciales
           control={form.control}
           name="password"
-          labelText="Contraseña"
           type="password"
-          placeholder="Ingrese su contraseña"
+          placeholder="Contraseña"
+          icon={faLock}
+          classNameInput="pr-10 text-base mb-4"
+        />
+        
+        <InputCredenciales
+          control={form.control}
+          name="repeat_new_password"
+          type="password"
+          placeholder="Confirmar contraseña"
           icon={faLock}
           classNameInput="pr-10 text-base"
         />
@@ -78,12 +94,6 @@ const FormIniciarSesion = () => {
         {/* BOTON DE OLVIDASTE TU CONTRASEÑA */}
 
         {/* ESTE BOTON TE ENVIARÁ A LA PANTALLA DE REESTABLECER CUANDO LO CONFIGUREMOS */}
-
-        <div>
-          <Link className="text-base text-white text-opacity-40" to="#">
-            ¿Olvidaste tu contraseña?
-          </Link>
-        </div>
 
         {/* BOTON */}
 
@@ -94,11 +104,11 @@ const FormIniciarSesion = () => {
             className={buttonVariants({
               variant: "default",
               className:
-                "w-32 h-11 mt-4 text-xs bg-red-boton hover:bg-red-boton-hover rounded-none",
+                "w-full h-11 mt-4 text-xs bg-red-boton hover:bg-red-boton-hover rounded-none",
             })}
             type="submit"
           >
-            INICIAR SESION
+            RESTABLECER CONTRASEÑA
           </Button>
         </div>
       </form>
@@ -106,4 +116,4 @@ const FormIniciarSesion = () => {
   );
 };
 
-export default FormIniciarSesion;
+export default FormActualizarContrasenia;
