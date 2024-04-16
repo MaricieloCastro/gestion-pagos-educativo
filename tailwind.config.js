@@ -19,10 +19,10 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         // Simple 16 column grid
-        "login-grid": "1fr 2fr",
+        "login-grid": "1fr 1fr 1fr",
       },
       gridTemplateRows: {
-        "caja-contenido": "1fr 5fr 1fr",
+        "caja-contenido": "1fr 5.5fr 1fr",
       },
       width: {
         "login-caja": "350px",
@@ -31,7 +31,6 @@ module.exports = {
       },
       height: {
         "height-listas": "40px",
-        "height-caja-listas": "72vh",
       },
       minWidth: {
         "login-minWidth": "600px",
@@ -40,6 +39,9 @@ module.exports = {
       },
       maxWidth: {
         "lista-maxWidth": "600px",
+      },
+      maxHeight: {
+        // "caja-listas": "55vh",
       },
       padding: {
         "caja-contenido": "15px",

@@ -10,7 +10,7 @@ import {
 
 export function PaginationList() {
   return (
-    <Pagination>
+    <Pagination className="absolute top-2.5">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
@@ -18,20 +18,19 @@ export function PaginationList() {
             className="border-1 rounded-full h-10 w-10 bg-blue-oscuro hover:bg-blue-hover"
           />
         </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">1</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" isActive>
-            2
-          </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">3</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
+        <div className="flex mx-3">
+          <PaginationItem>
+            <PaginationLink className="border-1 rounded-full h-10 w-10 bg-white hover:bg-blue-hover hover:text-white text-slate-600" href="#">1</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink className="border-1 rounded-full h-10 w-10 hover:bg-blue-hover text-white" href="#" isActive>
+              2
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink className="border-1 rounded-full h-10 w-10 bg-white hover:bg-blue-hover text-slate-600 hover:text-white" href="#">3</PaginationLink>
+          </PaginationItem>
+        </div>
         <PaginationItem>
           <PaginationNext
             className="border-1 rounded-full h-10 w-10 bg-blue-oscuro hover:bg-blue-hover"

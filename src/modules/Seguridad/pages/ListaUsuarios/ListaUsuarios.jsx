@@ -14,8 +14,8 @@ const ListaUsuarios = () => {
   return (
     <div className="flex h-screen blue-oscuro overflow-hidden">
       <MenuLateral>
-        <div className="h-screen px-caja-contenido grid grid-rows-caja-contenido gap-4">
-          <div className="bg-white-texto flex justify-between ">
+        <div className="h-screen px-caja-contenido grid grid-rows-caja-contenido">
+          <div className=" bg-white-texto flex justify-between ">
             <div className="w-2/3 grid grid-rows-2">
               <div className="flex gap-4 items-center px-4">
                 <SelectFiltros
@@ -49,10 +49,10 @@ const ListaUsuarios = () => {
               />
             </div>
           </div>
-          <div className="bg-white-texto overflow-y-scroll h-height-caja-listas">
+          <div className="bg-white-texto overflow-y-scroll h-height-caja-listas mt-4">
             <SimpleTable />
           </div>
-          <div className="flex justify-center items-center max-h-16 gap-2">
+          <div className="relative">
             <PaginationList />
           </div>
         </div>
