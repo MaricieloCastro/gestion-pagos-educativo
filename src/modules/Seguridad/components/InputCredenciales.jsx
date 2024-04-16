@@ -17,7 +17,7 @@ const InputCredenciales = (props) => {
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="mb-6">
+        <FormItem className="mb-4">
           <FormLabel className="text-white-texto text-base cursor-pointer">
             {labelText}
           </FormLabel>
