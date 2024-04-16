@@ -40,7 +40,12 @@ const FormActualizarContrasenia = () => {
   });
 
   function onSubmit(values) {
-    console.log(values);
+    const {username, password, repeat_new_password}=values;
+    if(password==repeat_new_password){
+      console.log({"username": username, "password": password})
+    }else{ 
+      alert("Las contraseñas no coinciden")
+    }
   }
   //NO TOCAR CIERRE
 
@@ -65,6 +70,7 @@ const FormActualizarContrasenia = () => {
           type="text"
           placeholder="Usuario"
           icon={faUser}
+          classNameInput="pr-10 text-base mb-4"
         />
 
         <InputCredenciales
@@ -73,14 +79,16 @@ const FormActualizarContrasenia = () => {
           type="password"
           placeholder="Contraseña"
           icon={faLock}
+          classNameInput="pr-10 text-base mb-4"
         />
         
         <InputCredenciales
           control={form.control}
           name="repeat_new_password"
           type="password"
-          placeholder="Confirmar Contraseña"
+          placeholder="Confirmar contraseña"
           icon={faLock}
+          classNameInput="pr-10 text-base"
         />
 
         {/* BOTON DE OLVIDASTE TU CONTRASEÑA */}
@@ -96,11 +104,11 @@ const FormActualizarContrasenia = () => {
             className={buttonVariants({
               variant: "default",
               className:
-                "w-32 h-11 mt-4 text-xs bg-red-boton hover:bg-red-boton-hover",
+                "w-full h-11 mt-4 text-xs bg-red-boton hover:bg-red-boton-hover rounded-none",
             })}
             type="submit"
           >
-            ENVIAR
+            RESTABLECER CONTRASEÑA
           </Button>
         </div>
       </form>

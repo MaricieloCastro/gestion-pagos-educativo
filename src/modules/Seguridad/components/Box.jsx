@@ -7,7 +7,7 @@ const Box = ({ children }) => {
     <div className="h-screen grid grid-cols-login-grid relative max-lg:grid-cols-1">
       <div className="flex justify-center items-center min-w-login-minWidth">
         <div className="flex flex-col justify-center h-full w-full mx-28 max-lg:mx-60 min-w-login-minWidth-responsive">
-          <div className="flex justify-between mb-10">
+          <div className="flex justify-between">
             <a href="https://www.iepciencias.edu.pe/" target="_blank">
               <img
                 className="w-login-header"
