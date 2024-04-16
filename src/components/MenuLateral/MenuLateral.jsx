@@ -170,7 +170,7 @@ const MenuLateral = ({ children }) => {
         </div>
       </nav>
       <div className="w-screen">
-        <div>cabecera de cada pagina</div>
+        <div className=" h-8">cabecera de cada pagina</div>
         <div>{children}</div>
       </div>
     </>
