@@ -19,7 +19,33 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         // Simple 16 column grid
-        "login-grid": "1fr 3fr",
+        "login-grid": "1fr 2fr",
+      },
+      gridTemplateRows: {
+        "caja-contenido": "1fr 5.5fr 1fr",
+      },
+      width: {
+        "login-caja": "350px",
+        "login-header": "220px",
+        "date-listas": "140px",
+        "input-listas": "295px",
+      },
+      height: {
+        "height-listas": "40px",
+      },
+      minWidth: {
+        "login-minWidth": "600px",
+        "login-minWidth-responsive": "400px",
+        "login-minWidth-global": "600px",
+      },
+      maxWidth: {
+        "lista-maxWidth": "600px",
+      },
+      maxHeight: {
+        // "caja-listas": "55vh",
+      },
+      padding: {
+        "caja-contenido": "15px",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -59,8 +85,22 @@ module.exports = {
         "blue-claro": "#003862",
         "blue-oscuro": "#001F36",
         "blue-claro+": "#004B82",
+        "blue-hover": "#005BA0",
         "white-cabecera": "#D9D9D9",
         "white-linea": "#C1C1C1",
+        "white-texto": "#D9D9D9",
+        "red-boton": "#C42727",
+        "red-boton-hover": "#DF3030",
+        "red-boton-listas": "#F53151",
+        "red-boton-listas-hover": "#C1233E",
+        "green-boton": "#1EC468",
+        "green-boton-hover": "#1DAF5E",
+        "gray-listas": "#A29C9C",
+        "gray-listas-header": "#514E4E",
+      },
+      fontFamily: {
+        jost: ["Jost", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
       borderWidth: {
         1: "1px",

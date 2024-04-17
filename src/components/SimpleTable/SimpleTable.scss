@@ -1,0 +1,43 @@
+tr {
+  &:nth-child(even) {
+    background: #c1c1c1;
+  }
+}
+
+th {
+  &:nth-child(1) {
+    text-align: left;
+  }
+  &:nth-child(5) {
+    font-size: 13px;
+  }
+  &:nth-child(6) {
+    font-size: 13px;
+  }
+}
+
+td {
+  &:nth-child(1) {
+    max-width: 200px;
+  }
+
+  &:nth-child(3) {
+    text-align: center;
+  }
+
+  &:nth-child(2) {
+    max-width: 300px;
+  }
+
+  &:nth-child(5) {
+    text-align: center;
+  }
+
+  &:nth-child(6) {
+    text-align: center;
+  }
+
+  &:nth-child(7) {
+    min-width: 211.3px;
+  }
+}
