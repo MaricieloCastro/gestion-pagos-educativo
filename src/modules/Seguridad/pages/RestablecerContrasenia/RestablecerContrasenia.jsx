@@ -1,3 +1,4 @@
+
 import React from 'react'
 const RestablecerContrasenia = () => {
     return (
@@ -10,4 +11,4 @@ Restablecesr
     );
   };
 
-export default RestablecerContrasenia
+export default RestablecerContrasenia;

@@ -1,0 +1,21 @@
+.login {
+    &__img {
+      background-image: url(../../../../assets/img/background_login_2.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: brightness(50%);
+    }
+  }
+  
+  // @media screen and (max-width: 910px) {
+  //   .login {
+  //     display: grid;
+  //     grid-template-columns: 1fr;
+  
+  //     &__img {
+  //       display: none;
+  //     }
+  //   }
+  // }
+  
