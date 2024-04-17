@@ -62,7 +62,7 @@ const FormIniciarSesion = () => {
           type="text"
           placeholder="Ingrese su usuario"
           icon={faUser}
-          classNameInput="pr-10 text-base"
+          classNameFormItem="pt-8"
         />
 
         <InputCredenciales
@@ -72,7 +72,6 @@ const FormIniciarSesion = () => {
           type="password"
           placeholder="Ingrese su contraseña"
           icon={faLock}
-          classNameInput="pr-10 text-base"
         />
 
         {/* BOTON DE OLVIDASTE TU CONTRASEÑA */}

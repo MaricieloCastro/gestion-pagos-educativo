@@ -135,7 +135,7 @@ const MenuLateral = ({ children }) => {
           <img className="w-14 h-12 mr-3" src={EscuadoCiencias} alt="escudo" />
           <h1>I.E.P "CIENCIAS"</h1>
         </div>
-        <div className="h-48 flex justify-center items-center">
+        <div className="h-48 flex justify-center items-center my-4">
           <AvantarCN />
         </div>
         <div className="menu__li h-screen">
