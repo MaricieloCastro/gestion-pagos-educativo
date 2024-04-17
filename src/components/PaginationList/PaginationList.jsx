@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBan } from '@fortawesome/free-solid-svg-icons'
+
 import {
   Pagination,
   PaginationContent,
@@ -6,6 +9,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "./PaginationBase";
+
 
 function PaginationList(props) {
 
@@ -18,11 +22,12 @@ function PaginationList(props) {
           <PaginationPrevious
             onClick={goFirstPage}
             className="border-1 rounded-full h-10 w-10 bg-blue-oscuro hover:bg-blue-hover cursor-pointer"
+            disabled
           />
         </PaginationItem>
         <div className="flex mx-3">
           <PaginationItem>
-            <PaginationLink className="border-1 rounded-full h-10 w-10 bg-white hover:bg-blue-hover hover:text-white text-slate-600 cursor-pointer" onClick={goPrevPage}>{prevPage == 0 ? (".") : (prevPage)}</PaginationLink>
+            <PaginationLink className="border-1 rounded-full h-10 w-10 bg-white hover:bg-blue-hover hover:text-white text-slate-600 cursor-pointer" onClick={goPrevPage}>{prevPage == 0 ? (<FontAwesomeIcon icon={faBan} />) : (prevPage)}</PaginationLink>
           </PaginationItem>
           <PaginationItem>
             <PaginationLink className="border-1 rounded-full h-10 w-10 hover:bg-blue-hover text-white cursor-pointer" isActive>

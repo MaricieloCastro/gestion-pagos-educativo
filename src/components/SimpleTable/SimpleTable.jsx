@@ -59,6 +59,9 @@ const SimpleTable = () => {
   const numItemsForPage = table.getRowModel().rows.length
   const totalItems = data.length
 
+  console.log("actual", table.getState().pagination.pageIndex + 1)
+  console.log("anterior", table.getState().pagination.pageIndex)
+
   return (
     <>
       <div className="bg-white-texto overflow-y-scroll h-height-caja-listas mt-4">
@@ -107,8 +110,8 @@ const SimpleTable = () => {
         <PaginationList
           goLastPage={() => table.setPageIndex(table.getPageCount() - 1)}
           goFirstPage={() => table.setPageIndex(0)}
-          goNextPage={() => table.setPageIndex(table.getState().pagination.pageIndex + 2)}
-          goPrevPage={() => table.setPageIndex(table.getState().pagination.pageIndex)}
+          goNextPage={() => table.setPageIndex(table.getState().pagination.pageIndex + 1)}
+          goPrevPage={() => table.setPageIndex(table.getState().pagination.pageIndex - 1)}
           currentPage={table.getState().pagination.pageIndex + 1}
           prevPage={table.getState().pagination.pageIndex}
           nextPage={table.getState().pagination.pageIndex + 2}
