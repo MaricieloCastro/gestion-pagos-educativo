@@ -9,6 +9,8 @@ import { Input } from "@/components/InputListas";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import { enlaces } from "@/components/MenuLateral/rutas";
 
 const FiltrosTableListaUsuarios = (props) => {
   const { setFilteringTipo, setFilteringSearch, filteringSearch } = props;
@@ -66,14 +68,16 @@ const FiltrosTableListaUsuarios = (props) => {
         </div>
       </div>
       <div className="w-1/3 flex justify-center relative items-center">
-        <ButtonWithIcon
-          text="CREAR USUARIO"
-          icon={faPlus}
-          classNameIcon="pr-3"
-          classNameVariants="rounded-sm
-                p-4 bg-green-boton hover:bg-green-boton-hover
-                absolute right-4"
-        />
+        <Link to={enlaces[7].path} className="
+                absolute right-4">
+          <ButtonWithIcon
+            text="CREAR USUARIO"
+            icon={faPlus}
+            classNameIcon="pr-3"
+            classNameVariants="rounded-sm
+                p-4 bg-green-boton hover:bg-green-boton-hover"
+          />
+        </Link>
       </div>
     </div>
   );

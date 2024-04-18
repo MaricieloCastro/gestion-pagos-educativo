@@ -26,24 +26,24 @@ const App = () => {
   return (
     <div className="bg-blue-claro h-screen">
       <Routes>
-        <Route element={<IniciarSesion />} path={enlaces[3].path + enlaces[0].path} />
-        <Route element={<RestablecerContrasenia />} path={enlaces[3].path + enlaces[0].path + enlaces[1].path} />
-        <Route element={<ActualizarContrasenia />} path={enlaces[3].path + enlaces[0].path + enlaces[2].path} />
+        <Route element={<IniciarSesion />} path={enlaces[0].prevPath + enlaces[0].path} />
+        <Route element={<RestablecerContrasenia />} path={enlaces[1].prevPath + enlaces[1].path} />
+        <Route element={<ActualizarContrasenia />} path={enlaces[2].prevPath + enlaces[2].path} />
         {/* <Route element={<PrivateRoutes />}> */}
         <Route element={<MenuPrincipal />} path={enlaces[3].path} />
-        <Route element={<Perfil />} path={enlaces[3].path + enlaces[4].path} />
-        <Route element={<PanelAdministrador />} path={enlaces[3].path + enlaces[5].path} />
+        <Route element={<Perfil />} path={enlaces[4].prevPath + enlaces[4].path} />
+        <Route element={<PanelAdministrador />} path={enlaces[5].prevPath + enlaces[5].path} />
         <Route
           element={<ListaUsuarios />}
-          path={enlaces[3].path + enlaces[5].path + enlaces[6].path}
+          path={enlaces[6].prevPath + enlaces[6].path}
         />
         <Route
           element={<CrearUsuario />}
-          path={enlaces[3].path + enlaces[5].path + enlaces[6].path + enlaces[7].path}
+          path={enlaces[7].prevPath + enlaces[7].path}
         />
         <Route
           element={<InformacionUsuario />}
-          path={enlaces[3].path + enlaces[5].path + enlaces[6].path + enlaces[8].path}
+          path={enlaces[8].prevPath + enlaces[8].path}
         />
         {/* </Route> */}
       </Routes>
