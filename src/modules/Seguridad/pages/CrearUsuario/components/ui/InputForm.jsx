@@ -31,6 +31,8 @@ import CheckboxLabels from "./CheckboxLabels";
 //Calendario
 import Calendario from "../../compenetes/reuse/Calendario";
 
+import { Usuarios } from "../../compenetes/reuse/ConstObj";
+
 // Lógica del componente
 const FormSchema = z.object({
   //Contra cuátos caracteres hay en el input
@@ -86,26 +88,18 @@ function onSubmit(data) {
 }
 
 export default function InputFormI(props) {
-  const {
-    disabled,
-    Alumno: {
-      nombre,
-      apellido_paterno,
-      apellido_materno,
-      dni,
-      edad,
-      telefono,
-      direccion,
-      correo,
-      usuario,
-      contraseña,
-      sexo,
-      tipo_usuario,
-    },
-    ButtonView,
-    textButton,
-  } = props;
+  const { disabled, ButtonView, textButton } = props;
 
+  const [useUsuario, setUsuario] = useState([]);
+  useEffect(() => {
+    const allUsuario = Usuarios;
+    const allDateUser = JSON.stringify(allUsuario);
+    setUsuario(allDateUser);
+  }, []);
+  console.log(useUsuario);
+
+  const { nombre, apellido_materno, apellido_paterno, dni } = Usuarios[0];
+  console.log(nombre);
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -165,21 +159,21 @@ export default function InputFormI(props) {
               nameLabel="NOMBRES:"
               parametros="nombre"
               disabled={disabled}
-              dato={nombre}
+              //dato={nombre}
             />
             <Formulario
               form={form}
               nameLabel="AP.PATERNO:"
               parametros="apellido_paterno"
               disabled={disabled}
-              dato={apellido_paterno}
+              //dato={apellido_paterno}
             />
             <Formulario
               form={form}
               nameLabel="AP.MATERNO:"
               parametros="apellido_materno"
               disabled={disabled}
-              dato={apellido_materno}
+              //dato={apellido_materno}
             />
           </div>
           <div className="usario-datos_nombres">
@@ -188,19 +182,19 @@ export default function InputFormI(props) {
               nameLabel="DNI:"
               parametros="dni"
               disabled={disabled}
-              dato={dni}
+              //dato={dni}
             />
             <Formulario
               form={form}
               nameLabel="TELEFONO:"
               parametros="telefono"
-              dato={telefono}
+              //dato={telefono}
             />
             <Formulario
               form={form}
               nameLabel="DIRECCIÓN:"
               parametros="direccion"
-              dato={direccion}
+              //dato={direccion}
             />
           </div>
           <div className="usario-datos_nombres">
@@ -215,7 +209,7 @@ export default function InputFormI(props) {
                     <div className="radio-label">
                       <RadioGroupForm
                         form={form}
-                        dato={sexo}
+                        //dato={sexo}
                         disabled={disabled}
                       />
                     </div>
@@ -245,14 +239,14 @@ export default function InputFormI(props) {
                 nameLabel="EDAD:"
                 parametros="edad"
                 disabled={disabled}
-                dato={edad}
+                //dato={edad}
               />
             </div>
             <Formulario
               form={form}
               nameLabel="CORREO:"
               parametros="correo"
-              dato={correo}
+              //dato={correo}
             />
           </div>
         </div>
@@ -264,7 +258,7 @@ export default function InputFormI(props) {
               nameLabel="USUARIO:"
               parametros="usuario"
               disabled={disabled}
-              dato={usuario}
+              //dato={usuario}
             />
             <Formulario
               form={form}
@@ -272,11 +266,11 @@ export default function InputFormI(props) {
               parametros="contraseña"
               type="password"
               disabled={disabled}
-              dato={contraseña}
+              //dato={contraseña}
             />
             <TipoUsarioSelect
               form={form}
-              dato={tipo_usuario}
+              //dato={tipo_usuario}
               disabled={disabled}
             />
           </div>

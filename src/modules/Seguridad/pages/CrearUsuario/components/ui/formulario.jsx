@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Form,
   FormControl,
@@ -12,10 +12,10 @@ import {
 import { Input } from "@/components/ui/input";
 export default function formulario(props) {
   const { nameLabel, form, parametros, type, disabled, dato } = props;
-  console.log(dato);
   function handleInputChange(event) {
     setInputValue(event.target.value.toUpperCase());
   }
+
   //Para convertir en mayuscula
   const [inputValue, setInputValue] = useState("");
   return (
@@ -28,12 +28,12 @@ export default function formulario(props) {
           <FormLabel>{nameLabel}</FormLabel>
           <FormControl>
             <Input
-              placeholder={dato}
+              //placeholder={dato}
               {...field}
               type={type}
-              // value={inputValue}
               // onChange={handleInputChange}
               disabled={disabled}
+              // value={dato}
             />
           </FormControl>
           <FormMessage />
