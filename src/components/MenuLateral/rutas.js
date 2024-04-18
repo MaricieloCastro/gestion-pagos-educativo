@@ -21,7 +21,7 @@ export const enlaces = [
     id: 4,
     name: undefined,
     path: "/",
-    alias: "MENU PRINCIPAL",
+    alias: "LISTA DE ALUMNOS",
   },
   {
     id: 5,
@@ -31,9 +31,9 @@ export const enlaces = [
   },
   {
     id: 6,
-    name: "panel-administrador",
-    path: "panel-administrador/",
-    alias: "PANEL DE ADMINISTRADOR",
+    name: "panel",
+    path: "panel/",
+    alias: "PANEL",
   },
   {
     id: 7,
