@@ -18,6 +18,7 @@ import AvantarCN from "@/components/AvatarCN";
 import EscuadoCiencias from "../../assets/img/escudoCiencias.png";
 
 import "./MenuLateral.scss";
+import BreadcrumbCN from "../BreadcrumbCN";
 
 function getItem(label, key, danger, icon, children, type) {
   return {
@@ -170,7 +171,9 @@ const MenuLateral = ({ children }) => {
         </div>
       </nav>
       <div className="w-screen">
-        <div className=" h-8">cabecera de cada pagina</div>
+        <div className="h-8 mx-4 flex items-center">
+          <BreadcrumbCN />
+        </div>
         <div>{children}</div>
       </div>
     </>

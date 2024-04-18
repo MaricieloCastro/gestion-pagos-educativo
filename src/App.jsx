@@ -14,6 +14,8 @@ import RestablecerContrasenia from "./modules/Seguridad/pages/RestablecerContras
 import ActualizarContrasenia from "./modules/Seguridad/pages/ActualizarContrasenia";
 import CrearUsuario from "./modules/Seguridad/pages/CrearUsuario";
 
+import { enlaces } from "./components/MenuLateral/rutas";
+
 //RutasPrivadas
 import PrivateRoutes from "./utils/PrivateRoutes";
 
@@ -24,24 +26,24 @@ const App = () => {
   return (
     <div className="bg-blue-claro h-screen">
       <Routes>
-        <Route element={<IniciarSesion />} path="/login" />
-        <Route element={<RestablecerContrasenia />} path="/login/restore" />
-        <Route element={<ActualizarContrasenia />} path="/login/update" />
+        <Route element={<IniciarSesion />} path={enlaces[3].path + enlaces[0].path} />
+        <Route element={<RestablecerContrasenia />} path={enlaces[3].path + enlaces[0].path + enlaces[1].path} />
+        <Route element={<ActualizarContrasenia />} path={enlaces[3].path + enlaces[0].path + enlaces[2].path} />
         {/* <Route element={<PrivateRoutes />}> */}
-        <Route element={<MenuPrincipal />} path="/" />
-        <Route element={<Perfil />} path="/perfil" />
-        <Route element={<PanelAdministrador />} path="/panel-administrador" />
+        <Route element={<MenuPrincipal />} path={enlaces[3].path} />
+        <Route element={<Perfil />} path={enlaces[3].path + enlaces[4].path} />
+        <Route element={<PanelAdministrador />} path={enlaces[3].path + enlaces[5].path} />
         <Route
           element={<ListaUsuarios />}
-          path="/panel-administrador/lista-usuarios"
+          path={enlaces[3].path + enlaces[5].path + enlaces[6].path}
         />
         <Route
           element={<CrearUsuario />}
-          path="/panel-administrador/lista-usuarios/create-user"
+          path={enlaces[3].path + enlaces[5].path + enlaces[6].path + enlaces[7].path}
         />
         <Route
           element={<InformacionUsuario />}
-          path="/panel-administrador/lista-usuarios/info-user/:id"
+          path={enlaces[3].path + enlaces[5].path + enlaces[6].path + enlaces[8].path}
         />
         {/* </Route> */}
       </Routes>
