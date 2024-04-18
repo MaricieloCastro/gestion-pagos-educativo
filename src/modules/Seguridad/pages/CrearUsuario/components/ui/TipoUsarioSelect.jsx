@@ -1,5 +1,11 @@
 import * as React from "react";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
+
 import {
   Select,
   SelectContent,
@@ -10,20 +16,43 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function TipoUsarioSelect() {
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
+export function TipoUsarioSelect(props) {
+  const { form, dato, disabled } = props;
   return (
-    <Select>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Tipo Usuario</SelectLabel>
-          <SelectItem value="null"> </SelectItem>
-          <SelectItem value="secretaria">SECRETARIA</SelectItem>
-          <SelectItem value="director">DIRECTOR</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <FormField
+      control={form.control}
+      name="tipo_usuario"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>TIPO USUARIO:</FormLabel>
+          <Select
+            onValueChange={field.onChange}
+            defaultValue={dato}
+            disabled={disabled}
+          >
+            <FormControl>
+              <SelectTrigger>
+                <SelectValue placeholder=" " />
+              </SelectTrigger>
+            </FormControl>
+            <SelectContent>
+              <SelectItem value="SECRETARIA">SECRETARIA</SelectItem>
+              <SelectItem value="DIRECTOR">DIRECTOR</SelectItem>
+              <SelectItem value="."></SelectItem>
+            </SelectContent>
+          </Select>
+        </FormItem>
+      )}
+    />
   );
 }

@@ -52,14 +52,21 @@
     padding-right: 8px;
     .space-y-2 {
       width: 49vh;
-      .checkbox-label {
+      .radio-label {
         padding-top: 0px;
-        .MuiFormGroup-root {
-          margin-left: 50px;
-        }
 
-        .MuiButtonBase-root {
-          color: #fff;
+        div {
+          justify-content: space-around;
+        }
+        button {
+          color: #004b82;
+          background-color: #ffffff;
+          border-radius: 100px;
+          width: 20px;
+          height: 20px;
+        }
+        label {
+          font-size: 16px;
         }
       }
     }
@@ -102,27 +109,12 @@
     height: 33px;
   }
 }
-.boton {
+.botones {
   display: flex;
   justify-content: flex-end;
   margin: 8px;
   padding: 0px;
-
-  button {
-    background-color: #1ec468;
-    width: 15%;
-    span {
-      margin-right: 5px;
-    }
-  }
-
-  button.inline-flex.items-center.justify-center.whitespace-nowrap.rounded-sm.text-sm.font-medium.ring-offset-background.transition-colors.focus-visible\:outline-none.focus-visible\:ring-2.focus-visible\:ring-ring.focus-visible\:ring-offset-2.disabled\:pointer-events-none.disabled\:opacity-50.bg-primary.text-primary-foreground.hover\:bg-primary\/90.h-10.px-4.py-2 {
-    background-color: #1ec468;
-    box-sizing: border-box;
-    padding: 20px;
-  }
 }
-
 .fotografia {
   display: flex;
   justify-content: center; /* Centrado horizontal */

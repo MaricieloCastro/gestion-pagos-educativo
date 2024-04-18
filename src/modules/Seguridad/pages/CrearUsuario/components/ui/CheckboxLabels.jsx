@@ -10,19 +10,19 @@ export default function CheckboxLabels() {
     <FormControl component="fieldset">
       <FormGroup aria-label="position" row>
         <FormControlLabel
-          value="top"
+          value="hombre"
           control={<Checkbox />}
           label="Hombre"
           labelPlacement="end"
         />
         <FormControlLabel
-          value="bottom"
+          value="mujer"
           control={<Checkbox />}
           label="Mujer"
           labelPlacement="end"
         />
         <FormControlLabel
-          value="end"
+          value="otros"
           control={<Checkbox />}
           label="Otros"
           labelPlacement="end"
