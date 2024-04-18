@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBan } from '@fortawesome/free-solid-svg-icons'
+import { faBan } from "@fortawesome/free-solid-svg-icons";
 
 import {
   Pagination,
@@ -10,10 +10,16 @@ import {
   PaginationPrevious,
 } from "./PaginationBase";
 
-
 function PaginationList(props) {
-
-  const { goLastPage, goFirstPage, currentPage, prevPage, nextPage, goNextPage, goPrevPage } = props;
+  const {
+    goLastPage,
+    goFirstPage,
+    currentPage,
+    prevPage,
+    nextPage,
+    goNextPage,
+    goPrevPage,
+  } = props;
 
   return (
     <Pagination className="absolute top-2.5">
@@ -27,15 +33,28 @@ function PaginationList(props) {
         </PaginationItem>
         <div className="flex mx-3">
           <PaginationItem>
-            <PaginationLink className="border-1 rounded-full h-10 w-10 bg-white hover:bg-blue-hover hover:text-white text-slate-600 cursor-pointer" onClick={goPrevPage}>{prevPage == 0 ? (<FontAwesomeIcon icon={faBan} />) : (prevPage)}</PaginationLink>
+            <PaginationLink
+              className="border-1 rounded-full h-10 w-10 bg-white hover:bg-blue-hover hover:text-white text-slate-600 cursor-pointer"
+              onClick={goPrevPage}
+            >
+              {prevPage == 0 ? <FontAwesomeIcon icon={faBan} /> : prevPage}
+            </PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink className="border-1 rounded-full h-10 w-10 hover:bg-blue-hover text-white cursor-pointer" isActive>
+            <PaginationLink
+              className="border-1 rounded-full h-10 w-10 hover:bg-blue-hover text-white cursor-pointer"
+              isActive
+            >
               {currentPage}
             </PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink className="border-1 rounded-full h-10 w-10 bg-white hover:bg-blue-hover text-slate-600 hover:text-white cursor-pointer" onClick={goNextPage}>{nextPage}</PaginationLink>
+            <PaginationLink
+              className="border-1 rounded-full h-10 w-10 bg-white hover:bg-blue-hover text-slate-600 hover:text-white cursor-pointer"
+              onClick={goNextPage}
+            >
+              {nextPage}
+            </PaginationLink>
           </PaginationItem>
         </div>
         <PaginationItem>

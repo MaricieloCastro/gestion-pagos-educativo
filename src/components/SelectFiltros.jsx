@@ -18,7 +18,7 @@ const SelectFiltros = (props) => {
   } = props;
 
   const handleChange = (value) => {
-    console.log(`selected ${value}`);
+    console.log(value);
   };
 
   return (
