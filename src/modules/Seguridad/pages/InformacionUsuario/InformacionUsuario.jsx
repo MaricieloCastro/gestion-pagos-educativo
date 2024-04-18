@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from "react";
 import MenuLateral from "@/components/MenuLateral";
 import PerfilUsario from "../CrearUsuario/compenetes/PerfilUsario";
@@ -31,15 +30,5 @@ const InformacionUsuario = () => {
     </div>
   );
 };
-=======
-import MenuLateral from '@/components/MenuLateral'
-import React from 'react'
-
-const InformacionUsuario = () => {
-    return (
-        <MenuLateral></MenuLateral>
-    )
-}
->>>>>>> master
 
 export default InformacionUsuario;
