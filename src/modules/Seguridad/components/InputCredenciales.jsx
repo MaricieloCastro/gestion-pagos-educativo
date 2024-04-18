@@ -10,15 +10,22 @@ import {
 import { Input } from "@/components/ui/input";
 
 const InputCredenciales = (props) => {
-  const { control, name, labelText, type, placeholder, icon, classNameInput } =
-    props;
+  const {
+    control,
+    name,
+    labelText,
+    type,
+    placeholder,
+    icon,
+    classNameFormItem,
+  } = props;
 
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className={classNameFormItem}>
           <FormLabel className="text-white-texto text-base cursor-pointer">
             {labelText}
           </FormLabel>
@@ -26,7 +33,7 @@ const InputCredenciales = (props) => {
             <Input
               type={type}
               placeholder={placeholder}
-              className={classNameInput}
+              className="pr-10 text-base"
               {...field}
               icon={icon}
             />
