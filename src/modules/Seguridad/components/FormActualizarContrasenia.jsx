@@ -24,7 +24,10 @@ const formSchema = z.object({
   repeat_new_password: z.string().min(8, {
     message: "La contraseña debe ser igual que a la anterior",
   }),
-});
+}).refine(data => data.password === data.repeat_new_password, 
+    { message: 'Las contraseñas no coinciden' , 
+  });;
+
 //CONFIGURACION CIERRE
 
 const FormActualizarContrasenia = () => {
