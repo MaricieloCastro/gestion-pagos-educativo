@@ -57,11 +57,6 @@ const FormRestablecerContrasenia = () => {
           icon={faEnvelope}
           classNameFormItem="pt-8"
         />
-        <div className="Regresar">
-          <Link to="/login" className="text-sm text-white text-opacity-40 hover:underline ">
-            Regresar para Iniciar Sesión
-          </Link>
-        </div>
 
         <div className="flex justify-center">
           <Button
@@ -75,6 +70,13 @@ const FormRestablecerContrasenia = () => {
             <p className="text-lg">ENVIAR</p>
           </Button>
         </div>
+
+        <div className="Regresar">
+          <Link to="/login" className="text-sm text-white text-opacity-40 hover:underline ">
+            Regresar para Iniciar Sesión
+          </Link>
+        </div>
+        
       </form>
     </Form>
   );
