@@ -18,6 +18,7 @@ import AvantarCN from "@/components/AvatarCN";
 import EscuadoCiencias from "../../assets/img/escudoCiencias.png";
 
 import "./MenuLateral.scss";
+import BreadcrumbCN from "../BreadcrumbCN";
 
 function getItem(label, key, danger, icon, children, type) {
   return {
@@ -38,10 +39,12 @@ const items = [
     "false",
     <FontAwesomeIcon icon={faCrosshairs} />,
     [
-      getItem("EDITAR ALUMNO", "21", "false", null, [
-        getItem("PAGAR INSCRIPCION", "211"),
+      getItem("LISTA DE ALUMNOS", "21"),
+      getItem("ALUMNO", "22", "false", null, [
+        getItem("EDITAR", "221"),
+        getItem("PAGAR INSCRIPCION", "222"),
       ]),
-      getItem("PAGOS", "22"),
+      getItem("PAGOS", "23"),
     ]
   ),
   getItem("INSCRIBIR ALUMNO", "3", false, <FontAwesomeIcon icon={faPlus} />),
@@ -70,11 +73,13 @@ const items = [
     undefined,
     <FontAwesomeIcon icon={faAddressCard} />,
     [
-      getItem("HISTORIAL REPORTES", "71"),
-      getItem("SOLICITUD DE ELIMINACION", "72"),
-      getItem("LISTA DE USUARIOS", "73", undefined, null, [
-        getItem("CREAR USUARIO", "731"),
-        getItem("EDITAR USUARIO", "732"),
+      getItem("PANEL", "71"),
+      getItem("HISTORIAL REPORTES", "72"),
+      getItem("SOLICITUD DE ELIMINACION", "73"),
+      getItem("USUARIOS", "74", undefined, null, [
+        getItem("LISTA DE USUARIOS", "741"),
+        getItem("CREAR USUARIO", "742"),
+        getItem("EDITAR USUARIO", "743"),
       ]),
     ]
   ),
@@ -170,7 +175,9 @@ const MenuLateral = ({ children }) => {
         </div>
       </nav>
       <div className="w-screen">
-        <div className=" h-8">cabecera de cada pagina</div>
+        <div className="h-8 mx-4 flex items-center">
+          <BreadcrumbCN />
+        </div>
         <div>{children}</div>
       </div>
     </>
