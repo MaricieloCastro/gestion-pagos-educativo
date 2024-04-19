@@ -11,7 +11,6 @@ const DateFiltros = () => {
   const dateFormatList = ["DD/MM/YYYY", "DD/MM/YY", "DD-MM-YYYY", "DD-MM-YY"];
 
   const currentDate = dayjs();
-  console.log(currentDate);
 
   return (
     <Space direction="vertical" size={0}>

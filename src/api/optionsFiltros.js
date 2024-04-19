@@ -11,4 +11,8 @@ export const optionsTipo = [
     value: "SECRETARIA",
     label: "SECRETARIA",
   },
+  {
+    value: "Regal",
+    label: "Regal",
+  },
 ];

@@ -13,7 +13,9 @@ import { Form } from "@/components/ui/form";
 import { Button, buttonVariants } from "@/components/ui/button";
 
 // CONFIGURACION INICIO
+
 // ACÁ SE HACEN LAS VALIDACIONES PRIMARIAS
+
 const formSchema = z.object({
   username: z.string().min(8, {
     message: "El usuario debe tener un minimo de 8 caracteres.",
@@ -25,12 +27,10 @@ const formSchema = z.object({
     message: "La contraseña debe ser igual que a la anterior",
   }),
 }).refine(data => data.password === data.repeat_new_password, 
-    { message: 'Las contraseñas no coinciden' , 
-  });;
+  { message: 'Las contraseñas no coinciden' , });;
 
 //CONFIGURACION CIERRE
-
-const FormActualizarContrasenia = () => {
+  const FormActualizarContrasenia = () => {
   // NO TOCAR INICIO
   // CONTENIDO DE LA LIBRERIA SHADCN
   const form = useForm({
@@ -43,11 +43,11 @@ const FormActualizarContrasenia = () => {
   });
 
   function onSubmit(values) {
-    const {username, password, repeat_new_password}=values;
-    if(password==repeat_new_password){
-      console.log({"username": username, "password": password})
-    }else{ 
-      alert("Las contraseñas no coinciden")
+    const { username, password, repeat_new_password } = values;
+    if (password == repeat_new_password) {
+      console.log({ username: username, password: password });
+    } else {
+      alert("Las contraseñas no coinciden");
     }
   }
   //NO TOCAR CIERRE
@@ -67,32 +67,31 @@ const FormActualizarContrasenia = () => {
         icon: EL ICONO DENTRO DEL INPUT
         */}
 
-        <InputCredenciales
-          control={form.control}
-          name="username"
-          type="text"
-          placeholder="Usuario"
-          icon={faUser}
-          classNameInput="pr-10 text-base mb-4"
-        />
+        <div className="flex flex-col gap-3">
+          <InputCredenciales
+            control={form.control}
+            name="username"
+            type="text"
+            placeholder="Usuario"
+            icon={faUser}
+          />
 
-        <InputCredenciales
-          control={form.control}
-          name="password"
-          type="password"
-          placeholder="Contraseña"
-          icon={faLock}
-          classNameInput="pr-10 text-base mb-4"
-        />
-        
-        <InputCredenciales
-          control={form.control}
-          name="repeat_new_password"
-          type="password"
-          placeholder="Confirmar contraseña"
-          icon={faLock}
-          classNameInput="pr-10 text-base"
-        />
+          <InputCredenciales
+            control={form.control}
+            name="password"
+            type="password"
+            placeholder="Contraseña"
+            icon={faLock}
+          />
+
+          <InputCredenciales
+            control={form.control}
+            name="repeat_new_password"
+            type="password"
+            placeholder="Confirmar contraseña"
+            icon={faLock}
+          />
+        </div>
 
         {/* BOTON DE OLVIDASTE TU CONTRASEÑA */}
 
@@ -103,16 +102,18 @@ const FormActualizarContrasenia = () => {
         {/* LOS PARAMETROS QUE LE PASO ESTÁN BASADOS EN LOS PARAMETROS DE TAILWIND */}
 
         <div className="flex justify-center">
-          <Button
+          {/* <Link className="w-full" to="/login"> */}
+          <Button 
             className={buttonVariants({
               variant: "default",
               className:
-                "w-full h-11 mt-4 text-xs bg-red-boton hover:bg-red-boton-hover rounded-none",
+                "w-full h-11 mt-4 text-base bg-red-boton hover:bg-red-boton-hover rounded-none",
             })}
             type="submit"
           >
             RESTABLECER CONTRASEÑA
           </Button>
+          {/* </Link> */}
         </div>
       </form>
     </Form>
