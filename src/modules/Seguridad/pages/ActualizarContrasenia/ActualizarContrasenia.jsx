@@ -14,7 +14,8 @@ const ActualizarContrasenia = () => {
       </p>
     </div>
     <FormActualizarContrasenia/>
-  </Box>)
+  </Box>
+  )
 };
 
 export default ActualizarContrasenia;

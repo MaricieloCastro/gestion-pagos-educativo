@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 // Personal imports
-import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import InputCredenciales from "./InputCredenciales";
 // Personal imports
@@ -15,23 +15,19 @@ import { Button, buttonVariants } from "@/components/ui/button";
 // CONFIGURACION INICIO
 // ACÁ SE HACEN LAS VALIDACIONES PRIMARIAS
 const formSchema = z.object({
-  username: z.string().min(8, {
-    message: "El usuario debe tener un minimo de 8 caracteres.",
-  }),
-  password: z.string().min(8, {
-    message: "La contraseña debe tener un minimo de 8 caracteres.",
+  email: z.string().email({
+    message: "Por favor ingrese una dirección de correo electrónico válida.",
   }),
 });
 //CONFIGURACION CIERRE
 
-const FormIniciarSesion = () => {
+const FormRestablecerContrasenia = () => {
   // NO TOCAR INICIO
   // CONTENIDO DE LA LIBRERIA SHADCN
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      password: "",
+      email: ""
     },
   });
 
@@ -43,61 +39,40 @@ const FormIniciarSesion = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        {/* INPUTS */}
+        <div className="pt-7">
+        <h1 className="text-white font-medium flex justify-center text-lg" >
+  RESTABLECER CONTRASEÑA
+</h1>
 
-        {/* ES EN DONDE SE INGRESA USUARIO Y CONTRASEÑA */}
-        {/* 
-        control: CONTROL DEL FORMULARIO (EN TODOS LOS INPUTS IRÁ form.control)
-        name: ESTE ES EL NOMBRE CON EL QUE SE ENVIARÁ EL PARAMETRO POR CONSOLA
-        labelText: LO QUE IRÁ EN EL ENCABEZADO DEL INPUT
-        type: ES EL TIPO DE INPUT
-        placeholder: ES ESE TEXTO QUE TE SALE DENTRO DEL INPUT
-        icon: EL ICONO DENTRO DEL INPUT
-        */}
-
-        <InputCredenciales
-          control={form.control}
-          name="username"
-          labelText="Usuario"
-          type="text"
-          placeholder="Ingrese su usuario"
-          icon={faUser}
-          classNameFormItem="pt-8"
-        />
-
-        <InputCredenciales
-          control={form.control}
-          name="password"
-          labelText="Contraseña"
-          type="password"
-          placeholder="Ingrese su contraseña"
-          icon={faLock}
-        />
-
-        {/* BOTON DE OLVIDASTE TU CONTRASEÑA */}
-
-        {/* ESTE BOTON TE ENVIARÁ A LA PANTALLA DE REESTABLECER CUANDO LO CONFIGUREMOS */}
-
-        <div>
-          <Link className="text-base text-white text-opacity-40" to="#">
-            ¿Olvidaste tu contraseña?
-          </Link>
+        <br />
+        <h2 className="text-white pt-5px" style={{ textAlign: "justify" }}>Introduzca su dirección de correo electronico registrado abajo para recibir el enlace de restablrecimiento de contraseña</h2>
         </div>
 
-        {/* BOTON */}
-
-        {/* LOS PARAMETROS QUE LE PASO ESTÁN BASADOS EN LOS PARAMETROS DE TAILWIND */}
+        <InputCredenciales
+          control={form.control}
+          name="email"
+          labelText="CORREO"
+          type="mail"
+          placeholder="Example@gmail.com"
+          icon={faEnvelope}
+          classNameFormItem="pt-8"
+        />
+        <div className="Regresar">
+          <Link to="/login" className="text-sm text-white text-opacity-40 hover:underline ">
+            Regresar para Iniciar Sesión
+          </Link>
+        </div>
 
         <div className="flex justify-center">
           <Button
             className={buttonVariants({
               variant: "default",
               className:
-                "w-32 h-11 mt-4 text-xs bg-red-boton hover:bg-red-boton-hover rounded-none",
+                "w-full h-11 mt-4 text-xs bg-red-boton hover:bg-red-boton-hover rounded-none",
             })}
             type="submit"
           >
-            INICIAR SESION
+            <p className="text-lg">ENVIAR</p>
           </Button>
         </div>
       </form>
