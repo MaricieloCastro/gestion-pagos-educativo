@@ -19,9 +19,6 @@ function BreadcrumbCN() {
         .split("/")
         .filter((x) => x && !/^\d+$/.test(x)); // Obtener los segmentos de la ruta
 
-    console.log(pathnames);
-    console.log(pathnames[pathnames.length - 1]);
-
     const handleNavigate = (actualPath) => {
         navigate(actualPath);
     };

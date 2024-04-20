@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import AuthContext from '../contexts/AuthContext'
 
 const AvatarCN = () => {
+    let { user } = useContext(AuthContext);
+    let { ruta_fotografica } = user;
     return (
         <Avatar>
-            <AvatarImage src="https://es.visafoto.com/img/ejemplo-de-foto-del-dni-peruano.webp" />
+            <AvatarImage src={ruta_fotografica} />
             <AvatarFallback>CN</AvatarFallback>
         </Avatar>
     );
