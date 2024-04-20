@@ -12,7 +12,7 @@ const TableListaUsuarios = (props) => {
   const { numItemsForPage, totalItems, table, loading } = props;
 
   return (
-    <div className="bg-white-texto overflow-y-scroll h-height-caja-listas mt-4">
+    <div className="bg-white-texto overflow-y-auto h-height-caja-listas mt-4">
       <div className="grid ">
         <div className="flex items-center bg-gray-listas h-10 border-b-2  border-b-white-cabecera">
           <h1 className="mx-5 text-white font-inter">
@@ -55,7 +55,7 @@ const TableListaUsuarios = (props) => {
                 <tr key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <td
-                      className="max-w-lista-maxWidth py-4 text-justify px-5 font-inter font-light text-base"
+                      className="max-w-lista-maxWidth py-4 text-justify px-5 font-inter font-light text-listas-size"
                       key={cell.id}
                     >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
