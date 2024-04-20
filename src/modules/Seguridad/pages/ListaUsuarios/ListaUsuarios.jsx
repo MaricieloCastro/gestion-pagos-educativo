@@ -16,7 +16,7 @@ import {
 import BotonesListaUsuarios from "@/components/Tables/TableListaUsuarios/BotonesListaUsuarios";
 import AuthContext from "@/contexts/AuthContext";
 import { getAxios } from "@/functions/methods";
-import { usuarioAPI } from "@/api/ApiRutas";
+import { usuariosActivosApi } from "@/api/ApiRutas";
 
 const ListaUsuarios = () => {
 
@@ -30,27 +30,24 @@ const ListaUsuarios = () => {
   };
 
   useEffect(() => {
-    getAxios(usuarioAPI, headers, setUsuarios, setLoading)
+    getAxios(usuariosActivosApi, headers, setUsuarios, setLoading)
   }, [])
 
-  console.log(loading ? "Carga lista" : "cargando...")
-
-  console.log("usuario", Object.values(usuarios))
   const data = usuarios
-
+  console.log("data", data)
 
   const columns = [
     {
       header: "CODIGO",
-      accessorKey: "dni",
+      accessorKey: "codigo",
     },
     {
       header: "USUARIO",
-      accessorKey: "nombres",
+      accessorKey: "usuario",
     },
     {
       header: "TIPO",
-      accessorKey: "tipo_usuario",
+      accessorKey: "tipo",
     },
     {
       header: "CORREO",
@@ -58,18 +55,18 @@ const ListaUsuarios = () => {
     },
     {
       header: "ULT. INGRESO",
-      accessorKey: "ultimo_ingreso_fecha",
+      accessorKey: "ult_ingreso",
     },
     {
       header: "ULT. CIERRE",
-      accessorKey: "ultimo_cierre_hora",
+      accessorKey: "ult_cierre",
     },
     {
       header: "OPCIONES",
       cell: (row) => {
         const id = row.cell.row.original.id;
-        const dni = row.cell.row.original.dni;
-        return <BotonesListaUsuarios id={id} dni={dni} />;
+        const codigo = row.cell.row.original.codigo;
+        return <BotonesListaUsuarios id={id} dni={codigo} />;
       }
     },
   ];
@@ -78,7 +75,7 @@ const ListaUsuarios = () => {
   const [filteringSearch, setFilteringSearch] = useState("");
   const [filteringTipo, setFilteringTipo] = useState([
     {
-      id: "tipo_usuario",
+      id: "tipo",
       value: "", // Valor inicial del filtro de la columna "tipo"
     },
   ]);

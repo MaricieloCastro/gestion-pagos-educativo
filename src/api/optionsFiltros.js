@@ -1,14 +1,14 @@
 export const optionsTipo = [
   {
-    value: "0",
+    value: "",
     label: "TODOS",
   },
   {
-    value: "1",
+    value: "DIRECTOR",
     label: "DIRECTOR",
   },
   {
-    value: "2",
+    value: "SECRETARIA",
     label: "SECRETARIA",
   },
   {

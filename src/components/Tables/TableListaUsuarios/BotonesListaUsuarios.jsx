@@ -8,8 +8,6 @@ const BotonesListaUsuarios = (props) => {
 
   const { id, dni } = props
 
-  console.log(id, dni)
-
   const navigate = useNavigate()
 
   const handleClickEditar = () => {

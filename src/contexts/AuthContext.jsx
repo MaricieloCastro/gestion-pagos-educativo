@@ -35,7 +35,6 @@ export const AuthProvider = ({ children }) => {
             })
             .then(function (response) {
                 console.log("data", response.data);
-
                 setAuthTokens(response.data);
                 setUser(jwtDecode(response.data.access));
                 localStorage.setItem("authTokens", JSON.stringify(response.data));
@@ -54,44 +53,43 @@ export const AuthProvider = ({ children }) => {
         navigate("/login");
     };
 
-    const updateToken = () => {
+    let updateToken = async () => {
         console.log("Update token called");
-        axios
-            .post(loginRefreshApi, {
-                // refresh: authTokens?.refresh,
-                refresh: authTokens.refresh,
-            })
-            .then(function (response) {
-                console.log("data", response.data);
+        let response = await fetch(loginRefreshApi, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ "refresh": authTokens?.refresh })
+        })
+        let data = await response.json()
 
-                setAuthTokens(response.data);
-                setUser(jwtDecode(response.data.access));
-                localStorage.setItem("authTokens", JSON.stringify(response.data));
-            })
-            .catch(function (error) {
-                console.log(error);
+        if (response.status === 200) {
+            setAuthTokens(data)
+            setUser(jwtDecode(data.access))
+            localStorage.setItem("authTokens", JSON.stringify(data))
+        } else {
+            logoutUser();
+        }
 
-                logoutUser();
-            });
-
-        // if (loading) {
-        //     setLoading(false);
-        // }
-    };
+        if (loading) {
+            setLoading(false)
+        }
+    }
 
     useEffect(() => {
-        // if (loading) {
-        //     updateToken();
-        // }
+        if (loading) {
+            updateToken();
+        }
 
         const fourMinutes = 1000 * 60 * 4;
         let interval = setInterval(() => {
             if (authTokens) {
-                updateToken();
+                updateToken()
             }
-        }, fourMinutes);
-        return () => clearInterval(interval);
-    }, [authTokens, loading]);
+        }, fourMinutes)
+        return () => clearInterval(interval)
+    }, [authTokens, loading])
 
     const contextValue = useMemo(() => {
         return { user, loginUser, logoutUser, authTokens };
@@ -99,7 +97,7 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={contextValue}>
-            {loading ? children : null}
+            {loading ? null : children}
             {/* {children} */}
         </AuthContext.Provider>
     );

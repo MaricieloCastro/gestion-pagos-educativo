@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 //MODULOS
 //Modulo de seguridad
@@ -34,6 +34,7 @@ const App = () => {
         <Route element={<RestablecerContrasenia />} path={enlaces[1].prevPath + enlaces[1].path} />
         <Route element={<ActualizarContrasenia />} path={enlaces[2].prevPath + enlaces[2].path} />
         <Route element={<PrivateRoutes />}>
+          <Route path="/" element={<Navigate to={enlaces[3].path} />} />
           <Route element={<MenuPrincipal />} path={enlaces[3].path} />
           <Route element={<Perfil />} path={enlaces[4].prevPath + enlaces[4].path} />
           {id_tipo_usuario === 1 && (
