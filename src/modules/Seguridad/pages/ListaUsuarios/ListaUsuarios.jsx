@@ -34,7 +34,6 @@ const ListaUsuarios = () => {
   }, [])
 
   const data = usuarios
-  console.log("data", data)
 
   const columns = [
     {
@@ -65,8 +64,7 @@ const ListaUsuarios = () => {
       header: "OPCIONES",
       cell: (row) => {
         const id = row.cell.row.original.id;
-        const codigo = row.cell.row.original.codigo;
-        return <BotonesListaUsuarios id={id} dni={codigo} />;
+        return <BotonesListaUsuarios id={id} />;
       }
     },
   ];

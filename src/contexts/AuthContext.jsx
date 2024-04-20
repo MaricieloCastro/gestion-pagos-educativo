@@ -34,7 +34,6 @@ export const AuthProvider = ({ children }) => {
                 password: values.password,
             })
             .then(function (response) {
-                console.log("data", response.data);
                 setAuthTokens(response.data);
                 setUser(jwtDecode(response.data.access));
                 localStorage.setItem("authTokens", JSON.stringify(response.data));
@@ -98,7 +97,6 @@ export const AuthProvider = ({ children }) => {
     return (
         <AuthContext.Provider value={contextValue}>
             {loading ? null : children}
-            {/* {children} */}
         </AuthContext.Provider>
     );
 };

@@ -1,21 +1,43 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import ButtonWithIcon from "@/components/ButtonWithIcon";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from 'react-router-dom'
+import { putAxios } from "@/functions/methods";
+import { usuarioAPI } from "@/api/ApiRutas";
+import AuthContext from "@/contexts/AuthContext";
 
 const BotonesListaUsuarios = (props) => {
 
-  const { id, dni } = props
+  let { authTokens } = useContext(AuthContext);
+
+  const { id } = props
+
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
 
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + String(authTokens.access),
+  };
+
   const handleClickEditar = () => {
-    navigate(`info-user/${dni}`)
+    navigate(`info-user/${id}`)
   }
 
   const handleClickEliminar = () => {
-    alert("ELIMINAR")
+
+    setUsuario({
+      ...usuario,
+      is_active: false,
+    })
+
+    console.log("data2", usuario)
+
+    const url = usuarioAPI + id
+
+    putAxios(url, usuario, headers, setLoading)
   }
 
   return (
