@@ -1,5 +1,5 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useContext } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 //MODULOS
 //Modulo de seguridad
@@ -22,11 +22,15 @@ import { enlaces } from "./components/MenuLateral/rutas";
 
 //RutasPrivadas
 import PrivateRoutes from "./utils/PrivateRoutes";
+import AuthContext from "./contexts/AuthContext";
 
 //Modulo de datos alumnos
 import MenuPrincipal from "./modules/DatosAlumno/MenuPrincipal";
 
 const App = () => {
+  let { user } = useContext(AuthContext);
+  let id_tipo_usuario = user ? user.id_tipo_usuario : null;
+
   return (
     <div className="bg-blue-claro h-screen">
       <Routes>
@@ -44,29 +48,34 @@ const App = () => {
           element={<ActualizarContrasenia />}
           path={enlaces[2].prevPath + enlaces[2].path}
         />
-        {/* <Route element={<PrivateRoutes />}> */}
-        <Route element={<MenuPrincipal />} path={enlaces[3].path} />
-        <Route
-          element={<Perfil />}
-          path={enlaces[4].prevPath + enlaces[4].path}
-        />
-        <Route
-          element={<PanelAdministrador />}
-          path={enlaces[5].prevPath + enlaces[5].path}
-        />
-        <Route
-          element={<ListaUsuarios />}
-          path={enlaces[6].prevPath + enlaces[6].path}
-        />
-        <Route
-          element={<CrearUsuario />}
-          path={enlaces[7].prevPath + enlaces[7].path}
-        />
-        <Route
-          element={<InformacionUsuario />}
-          path={enlaces[8].prevPath + enlaces[8].path}
-        />
-        {/* </Route> */}
+        <Route element={<PrivateRoutes />}>
+          <Route path="/" element={<Navigate to={enlaces[3].path} />} />
+          <Route element={<MenuPrincipal />} path={enlaces[3].path} />
+          <Route
+            element={<Perfil />}
+            path={enlaces[4].prevPath + enlaces[4].path}
+          />
+          {id_tipo_usuario === 1 && (
+            <>
+              <Route
+                element={<PanelAdministrador />}
+                path={enlaces[5].prevPath + enlaces[5].path}
+              />
+              <Route
+                element={<ListaUsuarios />}
+                path={enlaces[6].prevPath + enlaces[6].path}
+              />
+              <Route
+                element={<CrearUsuario />}
+                path={enlaces[7].prevPath + enlaces[7].path}
+              />
+              <Route
+                element={<InformacionUsuario />}
+                path={enlaces[8].prevPath + enlaces[8].path}
+              />
+            </>
+          )}
+        </Route>
       </Routes>
     </div>
   );

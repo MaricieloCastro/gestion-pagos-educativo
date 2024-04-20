@@ -98,6 +98,9 @@ module.exports = {
         "gray-listas": "#A29C9C",
         "gray-listas-header": "#514E4E",
       },
+      fontSize: {
+        "listas-size": "14px",
+      },
       fontFamily: {
         jost: ["Jost", "sans-serif"],
         inter: ["Inter", "sans-serif"],

@@ -3,7 +3,11 @@ import React from 'react'
 
 const InformacionUsuario = () => {
     return (
-        <MenuLateral></MenuLateral>
+        <div className="flex h-screen blue-oscuro overflow-hidden">
+            <MenuLateral>
+
+            </MenuLateral>
+        </div>
     )
 }
 

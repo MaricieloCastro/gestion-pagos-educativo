@@ -25,10 +25,10 @@ export const enlaces = [
   },
   {
     id: 4,
-    name: undefined,
-    path: "/",
-    prevPath: undefined,
-    actualPath: "/",
+    name: "lista-alumnos",
+    path: "lista-alumnos/",
+    prevPath: "/",
+    actualPath: "/lista-alumnos/",
     alias: "LISTA DE ALUMNOS",
   },
   {

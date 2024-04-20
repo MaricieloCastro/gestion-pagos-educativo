@@ -13,7 +13,9 @@ import { Form } from "@/components/ui/form";
 import { Button, buttonVariants } from "@/components/ui/button";
 
 // CONFIGURACION INICIO
+
 // ACÁ SE HACEN LAS VALIDACIONES PRIMARIAS
+
 const formSchema = z.object({
   username: z.string().min(8, {
     message: "El usuario debe tener un minimo de 8 caracteres.",
@@ -24,10 +26,11 @@ const formSchema = z.object({
   repeat_new_password: z.string().min(8, {
     message: "La contraseña debe ser igual que a la anterior",
   }),
-});
-//CONFIGURACION CIERRE
+}).refine(data => data.password === data.repeat_new_password, 
+  { message: 'Las contraseñas no coinciden' , });;
 
-const FormActualizarContrasenia = () => {
+//CONFIGURACION CIERRE
+  const FormActualizarContrasenia = () => {
   // NO TOCAR INICIO
   // CONTENIDO DE LA LIBRERIA SHADCN
   const form = useForm({
@@ -64,7 +67,7 @@ const FormActualizarContrasenia = () => {
         icon: EL ICONO DENTRO DEL INPUT
         */}
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-3">
           <InputCredenciales
             control={form.control}
             name="username"
@@ -99,16 +102,18 @@ const FormActualizarContrasenia = () => {
         {/* LOS PARAMETROS QUE LE PASO ESTÁN BASADOS EN LOS PARAMETROS DE TAILWIND */}
 
         <div className="flex justify-center">
-          <Button
+          {/* <Link className="w-full" to="/login"> */}
+          <Button 
             className={buttonVariants({
               variant: "default",
               className:
-                "w-full h-11 mt-4 text-xs bg-red-boton hover:bg-red-boton-hover rounded-none",
+                "w-full h-11 mt-4 text-base bg-red-boton hover:bg-red-boton-hover rounded-none",
             })}
             type="submit"
           >
             RESTABLECER CONTRASEÑA
           </Button>
+          {/* </Link> */}
         </div>
       </form>
     </Form>
