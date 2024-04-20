@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import MenuLateral from "@/components/MenuLateral";
 
 import FiltrosTableListaUsuarios from "@/components/Tables/TableListaUsuarios/FiltrosTableListaUsuarios";
@@ -14,9 +14,31 @@ import {
 } from "@tanstack/react-table";
 
 import BotonesListaUsuarios from "@/components/Tables/TableListaUsuarios/BotonesListaUsuarios";
-import data from "../ListaUsuarios/MOCK_DATA.json";
+import AuthContext from "@/contexts/AuthContext";
+import { getAxios } from "@/functions/methods";
+import { usuarioAPI } from "@/api/ApiRutas";
 
 const ListaUsuarios = () => {
+
+  let { authTokens } = useContext(AuthContext);
+  const [usuarios, setUsuarios] = useState({})
+  const [loading, setLoading] = useState(false)
+
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + String(authTokens.access),
+  };
+
+  useEffect(() => {
+    getAxios(usuarioAPI, headers, setUsuarios, setLoading)
+  }, [])
+
+  console.log(loading ? "Carga lista" : "cargando...")
+
+  console.log("usuario", Object.values(usuarios))
+  const data = usuarios
+
+
   const columns = [
     {
       header: "CODIGO",
@@ -24,11 +46,11 @@ const ListaUsuarios = () => {
     },
     {
       header: "USUARIO",
-      accessorKey: "name",
+      accessorKey: "nombres",
     },
     {
       header: "TIPO",
-      accessorKey: "tipo",
+      accessorKey: "tipo_usuario",
     },
     {
       header: "CORREO",
@@ -36,15 +58,19 @@ const ListaUsuarios = () => {
     },
     {
       header: "ULT. INGRESO",
-      accessorKey: "ultimo_ingreso",
+      accessorKey: "ultimo_ingreso_fecha",
     },
     {
       header: "ULT. CIERRE",
-      accessorKey: "ultimo_cierre",
+      accessorKey: "ultimo_cierre_hora",
     },
     {
       header: "OPCIONES",
-      cell: <BotonesListaUsuarios />,
+      cell: (row) => {
+        const id = row.cell.row.original.id;
+        const dni = row.cell.row.original.dni;
+        return <BotonesListaUsuarios id={id} dni={dni} />;
+      }
     },
   ];
 
@@ -52,13 +78,7 @@ const ListaUsuarios = () => {
   const [filteringSearch, setFilteringSearch] = useState("");
   const [filteringTipo, setFilteringTipo] = useState([
     {
-      id: "tipo",
-      value: "", // Valor inicial del filtro de la columna "tipo"
-    },
-  ]);
-  const [filteringHoraIngreso, setFilteringHoraIngreso] = useState([
-    {
-      id: "ultimo_ingreso",
+      id: "tipo_usuario",
       value: "", // Valor inicial del filtro de la columna "tipo"
     },
   ]);
@@ -96,6 +116,7 @@ const ListaUsuarios = () => {
             table={table}
             numItemsForPage={numItemsForPage}
             totalItems={totalItems}
+            loading={loading}
           />
 
           <Pagination table={table} />

@@ -20,11 +20,7 @@ const SelectFiltros = (props) => {
 
   const handleChange = (value) => {
     // Actualizar solo el valor de "value" en el estado del filtro de tipo
-    if (value === "TODOS") {
-      value = "";
-      console.log("efectivamente");
-    }
-    setFilteringTipo([{ id: "tipo", value }]);
+    setFilteringTipo([{ id: "tipo_usuario", value }]);
   };
 
   return (
