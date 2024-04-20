@@ -76,6 +76,6 @@
     @apply bg-background text-foreground;
     @apply font-jost;
     @apply min-w-login-minWidth-global;
-    background-color: blueviolet;
+    @apply bg-blue-claro
   }
 }

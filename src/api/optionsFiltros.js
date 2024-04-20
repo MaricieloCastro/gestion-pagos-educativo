@@ -1,6 +1,6 @@
 export const optionsTipo = [
   {
-    value: "TODOS",
+    value: "",
     label: "TODOS",
   },
   {
@@ -10,5 +10,9 @@ export const optionsTipo = [
   {
     value: "SECRETARIA",
     label: "SECRETARIA",
+  },
+  {
+    value: "Regal",
+    label: "Regal",
   },
 ];

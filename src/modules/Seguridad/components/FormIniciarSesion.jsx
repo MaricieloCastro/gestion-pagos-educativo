@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -11,6 +11,7 @@ import InputCredenciales from "./InputCredenciales";
 
 import { Form } from "@/components/ui/form";
 import { Button, buttonVariants } from "@/components/ui/button";
+import AuthContext from '@/contexts/AuthContext'
 
 // CONFIGURACION INICIO
 // ACÁ SE HACEN LAS VALIDACIONES PRIMARIAS
@@ -25,6 +26,7 @@ const formSchema = z.object({
 //CONFIGURACION CIERRE
 
 const FormIniciarSesion = () => {
+  let { loginUser } = useContext(AuthContext);
   // NO TOCAR INICIO
   // CONTENIDO DE LA LIBRERIA SHADCN
   const form = useForm({
@@ -35,14 +37,14 @@ const FormIniciarSesion = () => {
     },
   });
 
-  function onSubmit(values) {
-    console.log(values);
-  }
+  // function onSubmit(values) {
+  //   console.log(values);
+  // }
   //NO TOCAR CIERRE
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(loginUser)} className="space-y-4">
         {/* INPUTS */}
 
         {/* ES EN DONDE SE INGRESA USUARIO Y CONTRASEÑA */}
