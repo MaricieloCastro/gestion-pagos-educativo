@@ -1,17 +1,8 @@
 import * as React from "react";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-import { Button } from "@/components/ui/button";
-
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -28,6 +19,7 @@ import {
 
 export function TipoUsarioSelect(props) {
   const { form, dato, disabled } = props;
+  // console.log(typeof dato.nombre);
   return (
     <FormField
       control={form.control}
@@ -37,12 +29,12 @@ export function TipoUsarioSelect(props) {
           <FormLabel>TIPO USUARIO:</FormLabel>
           <Select
             onValueChange={field.onChange}
-            defaultValue={dato}
+            defaultValue={dato.nombre}
             disabled={disabled}
           >
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder=" " />
+                <SelectValue />
               </SelectTrigger>
             </FormControl>
             <SelectContent>

@@ -7,32 +7,25 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import "./formUsario.scss";
 
 import { PlusOutlined } from "@ant-design/icons";
-
+//Enlaces
+import { Link } from "react-router-dom";
 //Para la imagen
-import InputFile from "./importImage";
-import ImageProfile from "./ImageProfile";
-import SinPerfil from "../../../../../../assets/img/sin-perfil-350x400.jpg";
 //Radio
 import { RadioGroupForm } from "./RadioGroupForm";
 //Componenete tipo de usuario
 import { TipoUsarioSelect } from "./TipoUsarioSelect";
-import CheckboxLabels from "./CheckboxLabels";
 //Calendario
 import Calendario from "../../compenetes/reuse/Calendario";
-
-import { Usuarios } from "../../compenetes/reuse/ConstObj";
-
+//API
 // Lógica del componente
 const FormSchema = z.object({
   //Contra cuátos caracteres hay en el input
@@ -72,6 +65,9 @@ const FormSchema = z.object({
   tipo_usuario: z.string().min(0, {
     message: "Campo Obligatorio",
   }),
+  fecha_nacimiento: z.string().min(0, {
+    message: "Campo Obligatorio",
+  }),
 });
 
 //Lógica de programación
@@ -88,33 +84,39 @@ function onSubmit(data) {
 }
 
 export default function InputFormI(props) {
-  const { disabled, ButtonView, textButton } = props;
-
-  const [useUsuario, setUsuario] = useState([]);
-  useEffect(() => {
-    const allUsuario = Usuarios;
-    const allDateUser = JSON.stringify(allUsuario);
-    setUsuario(allDateUser);
-  }, []);
-  console.log(useUsuario);
-
-  const { nombre, apellido_materno, apellido_paterno, dni } = Usuarios[0];
-  console.log(nombre);
+  const { disabled, ButtonView, textButton, usuarios } = props;
+  const {
+    nombres,
+    apellido_materno,
+    apellido_paterno,
+    dni,
+    celular,
+    domicilio,
+    edad,
+    email,
+    sexo,
+    username,
+    password,
+    tipo_usuario,
+    ruta_fotografia,
+    fecha_nacimiento,
+  } = usuarios || {};
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      nombre: "",
-      apellido_paterno: "",
-      apellido_materno: "",
-      dni: "",
-      telefono: "",
-      direccion: "",
-      edad: "",
-      correo: "",
-      sexo: "",
-      usuario: "",
-      contraseña: "",
+      nombre: nombres || "",
+      apellido_paterno: apellido_paterno || "",
+      apellido_materno: apellido_materno || "",
+      dni: dni || "",
+      telefono: celular || "",
+      direccion: domicilio || "",
+      edad: "20" || "",
+      correo: email || "",
+      sexo: sexo || "",
+      usuario: username || "",
+      contraseña: password || "",
       tipo_usuario: "",
+      fecha_nacimiento: "",
     },
   });
   function onSubmit(values) {
@@ -134,7 +136,7 @@ export default function InputFormI(props) {
   return (
     <Form {...form}>
       <div className="fotografia">
-        <img src={SinPerfil} />
+        <img src={ruta_fotografia} />
         <div className="imp">
           Fotografia:
           {/* <InputFile /> */}
@@ -200,7 +202,7 @@ export default function InputFormI(props) {
           <div className="usario-datos_nombres">
             <FormField
               control={form.control}
-              name="sexo"
+              name=""
               render={({ field }) => (
                 //Dirección
                 <FormItem>
@@ -209,7 +211,7 @@ export default function InputFormI(props) {
                     <div className="radio-label">
                       <RadioGroupForm
                         form={form}
-                        //dato={sexo}
+                        dato={sexo}
                         disabled={disabled}
                       />
                     </div>
@@ -219,20 +221,11 @@ export default function InputFormI(props) {
               )}
             />
             <div className="usario-datos_nombres-edad">
-              <FormField
-                control={form.control}
-                name="Nacimiento"
-                render={({ field }) => (
-                  //Dirección
-                  <FormItem>
-                    <FormLabel>F.NACIMIENTO:</FormLabel>
-                    <FormControl>
-                      {/* <Input placeholder="" {...field} /> */}
-                      <Calendario />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+              <Calendario
+                form={form}
+                nameLabel="F.DE NACIMIENTO:"
+                dato={fecha_nacimiento}
+                disabled={disabled}
               />
               <Formulario
                 form={form}
@@ -270,7 +263,7 @@ export default function InputFormI(props) {
             />
             <TipoUsarioSelect
               form={form}
-              //dato={tipo_usuario}
+              dato={tipo_usuario}
               disabled={disabled}
             />
           </div>
@@ -278,14 +271,17 @@ export default function InputFormI(props) {
         <div className="botones">
           {mostrarBoton && ( // Renderiza el botón solo si mostrarBoton es true
             <div className="cambiar-contraseña">
-              <Button
-                className={buttonVariants({
-                  variant: "default",
-                  className: "rounded-sm bg-blue-claro mr-5",
-                })}
-              >
-                CAMBIAR CONTRASEÑA
-              </Button>
+              <Link to="/login/update/">
+                <Button
+                  className={buttonVariants({
+                    variant: "default",
+                    className: "rounded-sm bg-blue-claro mr-5",
+                  })}
+                  type="button"
+                >
+                  CAMBIAR CONTRASEÑA
+                </Button>
+              </Link>
             </div>
           )}
           <Button

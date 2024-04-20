@@ -22,7 +22,7 @@
       width: 100%; /* Hace que el input ocupe todo el ancho disponible */
       box-sizing: border-box; /* Ajusta el tamaño del box para incluir el padding */
       color: #000;
-      font-size: 20px;
+      font-size: 15px;
       height: 33px;
     }
 
@@ -52,6 +52,9 @@
     padding-right: 8px;
     .space-y-2 {
       width: 49vh;
+      label {
+        color: #fff;
+      }
       .radio-label {
         padding-top: 0px;
 
@@ -82,12 +85,14 @@
           overflow: hidden;
           padding-top: 0px;
         }
-        .MuiPickersInputBase-root {
-          color: #000;
-          background-color: #d9d9d9;
-          width: 25vh;
-          height: 32px;
+        :where(.css-dev-only-do-not-override-1kuana8).ant-picker-outlined {
           border-radius: 0;
+          background-color: #d9d9d9;
+          width: 22vh;
+          height: 33px;
+          span {
+            color: #000;
+          }
         }
       }
     }

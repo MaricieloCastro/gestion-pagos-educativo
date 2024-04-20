@@ -16,27 +16,15 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "@/components/ui/use-toast";
 
-const FormSchema = z.object({
-  type: z.enum(["all", "mentions", "none"], {
-    required_error: "You need to select a notification type.",
-  }),
-});
-
 export function RadioGroupForm(props) {
   // const form = useForm({
   //   resolver: zodResolver(FormSchema),
   // });
 
   const { form, dato, disabled } = props;
-  function onSubmit(data) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  let mf = "Femenino";
+  if (dato == "M") {
+    mf = "Masculino";
   }
 
   return (
@@ -50,7 +38,7 @@ export function RadioGroupForm(props) {
           <FormControl>
             <RadioGroup
               onValueChange={field.onChange}
-              defaultValue={dato}
+              defaultValue={mf}
               className="flex flex-row space-y-1"
               disabled={disabled}
             >
@@ -72,8 +60,5 @@ export function RadioGroupForm(props) {
         </FormItem>
       )}
     />
-    //     <Button type="submit">Submit</Button>
-    //   </form>
-    // </Form>
   );
 }
