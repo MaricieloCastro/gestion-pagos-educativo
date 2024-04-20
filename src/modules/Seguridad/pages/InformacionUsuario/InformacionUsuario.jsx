@@ -12,7 +12,7 @@ const InformacionUsuario = () => {
         <PerfilUsario
           disabled={false}
           indice={indice}
-          ButtonView={true}
+          ButtonView={false}
           textButton="GUARGAR"
         />
       </MenuLateral>

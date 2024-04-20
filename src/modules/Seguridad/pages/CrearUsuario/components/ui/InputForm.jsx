@@ -116,7 +116,7 @@ export default function InputFormI(props) {
       usuario: username || "",
       contraseña: password || "",
       tipo_usuario: "",
-      fecha_nacimiento: "",
+      fecha_nacimiento: fecha_nacimiento || "",
     },
   });
   function onSubmit(values) {

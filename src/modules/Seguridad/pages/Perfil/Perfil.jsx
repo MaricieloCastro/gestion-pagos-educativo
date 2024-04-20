@@ -9,7 +9,7 @@ const Perfil = () => {
         <PerfilUsario
           disabled={true}
           indice={indice}
-          ButtonView={false}
+          ButtonView={true}
           textButton="GUARGAR"
         />
       </MenuLateral>
