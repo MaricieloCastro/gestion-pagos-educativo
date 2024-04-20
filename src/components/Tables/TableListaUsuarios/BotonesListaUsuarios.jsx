@@ -6,12 +6,12 @@ import { useNavigate } from 'react-router-dom'
 
 const BotonesListaUsuarios = (props) => {
 
-  const { id, dni } = props
+  const { id } = props
 
   const navigate = useNavigate()
 
   const handleClickEditar = () => {
-    navigate(`info-user/${dni}`)
+    navigate(`info-user/${id}`)
   }
 
   const handleClickEliminar = () => {
