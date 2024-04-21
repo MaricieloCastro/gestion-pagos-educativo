@@ -2,18 +2,20 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Link, Navigate, useNavigate } from "react-router-dom"; //Agrego
 
 // Personal imports
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";---Quite
 import InputCredenciales from "./InputCredenciales";
 // Personal imports
-
 import { Form } from "@/components/ui/form";
 import { Button, buttonVariants } from "@/components/ui/button";
 
 // CONFIGURACION INICIO
+
 // ACÁ SE HACEN LAS VALIDACIONES PRIMARIAS
+
 const formSchema = z.object({
   username: z.string().min(8, {
     message: "El usuario debe tener un minimo de 8 caracteres.",
@@ -24,10 +26,12 @@ const formSchema = z.object({
   repeat_new_password: z.string().min(8, {
     message: "La contraseña debe ser igual que a la anterior",
   }),
-});
-//CONFIGURACION CIERRE
+}).refine(data => data.password === data.repeat_new_password, 
+  { message: 'Las contraseñas no coinciden' , });;
 
-const FormActualizarContrasenia = () => {
+//CONFIGURACION CIERRE
+  const FormActualizarContrasenia = () => {
+    const navigate = useNavigate(); // Agrego
   // NO TOCAR INICIO
   // CONTENIDO DE LA LIBRERIA SHADCN
   const form = useForm({
@@ -43,6 +47,7 @@ const FormActualizarContrasenia = () => {
     const { username, password, repeat_new_password } = values;
     if (password == repeat_new_password) {
       console.log({ username: username, password: password });
+      navigate("/login"); //Agrego
     } else {
       alert("Las contraseñas no coinciden");
     }
@@ -64,7 +69,7 @@ const FormActualizarContrasenia = () => {
         icon: EL ICONO DENTRO DEL INPUT
         */}
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-3">
           <InputCredenciales
             control={form.control}
             name="username"
@@ -99,16 +104,18 @@ const FormActualizarContrasenia = () => {
         {/* LOS PARAMETROS QUE LE PASO ESTÁN BASADOS EN LOS PARAMETROS DE TAILWIND */}
 
         <div className="flex justify-center">
-          <Button
+          {/* <Link className="w-full" to="/login"> */}
+          <Button 
             className={buttonVariants({
               variant: "default",
               className:
-                "w-full h-11 mt-4 text-xs bg-red-boton hover:bg-red-boton-hover rounded-none",
+                "w-full h-11 mt-4 text-base bg-red-boton hover:bg-red-boton-hover rounded-none",
             })}
             type="submit"
           >
             RESTABLECER CONTRASEÑA
           </Button>
+          {/* </Link> */}
         </div>
       </form>
     </Form>

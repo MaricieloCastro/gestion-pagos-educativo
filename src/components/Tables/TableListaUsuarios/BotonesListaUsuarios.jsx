@@ -24,6 +24,7 @@ const BotonesListaUsuarios = (props) => {
 
   const handleClickEditar = () => {
     navigate(`info-user/${id}`)
+    navigate(`info-user/${id}`)
   }
 
   const handleClickEliminar = () => {
