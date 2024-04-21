@@ -5,17 +5,16 @@ import FormActualizarContrasenia from "../../components/FormActualizarContraseni
 const ActualizarContrasenia = () => {
   return (
   <Box>
-    <div className="my-4 flex flex-col gap-4">
+    <div className="my-4 flex flex-col gap-3">
       <h1 className="text-center font-medium text-lg text-white-texto">
         ACTUALIZAR CONTRASEÑA 
       </h1>
-      <p className="text-white-texto font-medium">
+      <p className="text-white-texto font-light">
         Por favor llenar el siguiente formulario para restablecer su contraseña
       </p>
     </div>
     <FormActualizarContrasenia/>
-  </Box>
-  )
+  </Box>)
 };
 
 export default ActualizarContrasenia;

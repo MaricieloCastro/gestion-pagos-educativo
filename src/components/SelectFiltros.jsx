@@ -15,10 +15,12 @@ const SelectFiltros = (props) => {
     controlItemBgHover,
     width,
     height,
+    setFilteringTipo,
   } = props;
 
   const handleChange = (value) => {
-    console.log(`selected ${value}`);
+    // Actualizar solo el valor de "value" en el estado del filtro de tipo
+    setFilteringTipo([{ id: "tipo", value }]);
   };
 
   return (
