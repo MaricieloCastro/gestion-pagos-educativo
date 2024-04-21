@@ -2,13 +2,13 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Link, Navigate, useNavigate } from "react-router-dom"; //Agrego
 
 // Personal imports
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";---Quite
 import InputCredenciales from "./InputCredenciales";
 // Personal imports
-
 import { Form } from "@/components/ui/form";
 import { Button, buttonVariants } from "@/components/ui/button";
 
@@ -33,7 +33,8 @@ const formSchema = z
   });
 
 //CONFIGURACION CIERRE
-const FormActualizarContrasenia = () => {
+  const FormActualizarContrasenia = () => {
+    const navigate = useNavigate(); // Agrego
   // NO TOCAR INICIO
   // CONTENIDO DE LA LIBRERIA SHADCN
   const form = useForm({
@@ -49,6 +50,7 @@ const FormActualizarContrasenia = () => {
     const { username, password, repeat_new_password } = values;
     if (password == repeat_new_password) {
       console.log({ username: username, password: password });
+      navigate("/login"); //Agrego
     } else {
       alert("Las contraseñas no coinciden");
     }
