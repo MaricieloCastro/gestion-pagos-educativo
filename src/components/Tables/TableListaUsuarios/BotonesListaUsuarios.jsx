@@ -9,11 +9,15 @@ import AuthContext from "@/contexts/AuthContext";
 
 const BotonesListaUsuarios = (props) => {
 
-  let { authTokens } = useContext(AuthContext);
+  let { authTokens, logoutUser, user } = useContext(AuthContext);
 
-  const { id } = props
+  const user_id = user.user_id
 
-  const [loading, setLoading] = useState(false)
+  console.log(user_id)
+
+  const { id, username, password, id_tipo_usuario, setReload, reload } = props
+
+  const [error, setError] = useState(null)
 
   const navigate = useNavigate()
 
@@ -22,23 +26,28 @@ const BotonesListaUsuarios = (props) => {
     Authorization: "Bearer " + String(authTokens.access),
   };
 
+  const url = `${usuarioAPI}${id}/`
+
   const handleClickEditar = () => {
     navigate(`info-user/${id}`);
   };
 
   const handleClickEliminar = () => {
 
-    setUsuario({
-      ...usuario,
-      is_active: false,
-    })
+    if (user_id === id) {
+      alert("Estás tratando de eliminar tu propio usuario")
+    } else {
+      const data = {
+        username: username,
+        password: password,
+        id_tipo_usuario: id_tipo_usuario,
+        is_active: false,
+      }
 
-    console.log("data2", usuario)
+      putAxios(url, data, headers, setReload, reload, setError)
+    }
+  };
 
-    const url = usuarioAPI + id
-
-    putAxios(url, usuario, headers, setLoading)
-  }
 
   return (
     <div className="flex gap-2 justify-center items-center ">
@@ -49,6 +58,7 @@ const BotonesListaUsuarios = (props) => {
         classNameVariants="rounded-sm
                 p-4 bg-green-boton hover:bg-green-boton-hover"
         onClick={handleClickEditar}
+        disabled={false}
       />
       <ButtonWithIcon
         text=""
@@ -56,8 +66,9 @@ const BotonesListaUsuarios = (props) => {
         classNameIcon="w-4"
         classNameVariants="rounded-sm
                 bg-red-boton-listas hover:bg-red-boton-listas-hover
-                w-10 "
+                w-10"
         onClick={handleClickEliminar}
+        disabled={false}
       />
     </div>
   );
