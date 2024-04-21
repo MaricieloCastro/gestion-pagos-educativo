@@ -76,6 +76,6 @@
     @apply bg-background text-foreground;
     @apply font-jost;
     @apply min-w-login-minWidth-global;
-    @apply bg-blue-claro
+    @apply bg-blue-claro;
   }
 }

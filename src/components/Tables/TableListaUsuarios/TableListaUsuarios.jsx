@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpLong, faDownLong } from "@fortawesome/free-solid-svg-icons";
 import Spinner from "@/components/Spinner";
 
-import './TableListaUsuarios.scss'
+import "./TableListaUsuarios.scss";
 
 const TableListaUsuarios = (props) => {
   const { numItemsForPage, totalItems, table, loading } = props;
@@ -58,7 +58,10 @@ const TableListaUsuarios = (props) => {
                       className="max-w-lista-maxWidth py-4 text-justify px-5 font-inter font-light text-listas-size"
                       key={cell.id}
                     >
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </td>
                   ))}
                 </tr>

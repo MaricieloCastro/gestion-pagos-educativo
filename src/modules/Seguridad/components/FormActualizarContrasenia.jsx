@@ -16,18 +16,21 @@ import { Button, buttonVariants } from "@/components/ui/button";
 
 // ACÁ SE HACEN LAS VALIDACIONES PRIMARIAS
 
-const formSchema = z.object({
-  username: z.string().min(8, {
-    message: "El usuario debe tener un minimo de 8 caracteres.",
-  }),
-  password: z.string().min(8, {
-    message: "La contraseña debe tener un minimo de 8 caracteres.",
-  }),
-  repeat_new_password: z.string().min(8, {
-    message: "La contraseña debe ser igual que a la anterior",
-  }),
-}).refine(data => data.password === data.repeat_new_password, 
-  { message: 'Las contraseñas no coinciden' , });;
+const formSchema = z
+  .object({
+    username: z.string().min(8, {
+      message: "El usuario debe tener un minimo de 8 caracteres.",
+    }),
+    password: z.string().min(8, {
+      message: "La contraseña debe tener un minimo de 8 caracteres.",
+    }),
+    repeat_new_password: z.string().min(8, {
+      message: "La contraseña debe ser igual que a la anterior",
+    }),
+  })
+  .refine((data) => data.password === data.repeat_new_password, {
+    message: "Las contraseñas no coinciden",
+  });
 
 //CONFIGURACION CIERRE
   const FormActualizarContrasenia = () => {
@@ -69,7 +72,7 @@ const formSchema = z.object({
         icon: EL ICONO DENTRO DEL INPUT
         */}
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-6">
           <InputCredenciales
             control={form.control}
             name="username"
@@ -94,6 +97,21 @@ const formSchema = z.object({
             icon={faLock}
           />
         </div>
+        <InputCredenciales
+          control={form.control}
+          name="password"
+          type="password"
+          placeholder="Contraseña"
+          icon={faLock}
+        />
+
+        <InputCredenciales
+          control={form.control}
+          name="repeat_new_password"
+          type="password"
+          placeholder="Confirmar contraseña"
+          icon={faLock}
+        />
 
         {/* BOTON DE OLVIDASTE TU CONTRASEÑA */}
 
@@ -105,7 +123,7 @@ const formSchema = z.object({
 
         <div className="flex justify-center">
           {/* <Link className="w-full" to="/login"> */}
-          <Button 
+          <Button
             className={buttonVariants({
               variant: "default",
               className:
