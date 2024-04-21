@@ -1,5 +1,4 @@
 import React from "react";
-
 import "./IniciarSesion.scss";
 import Box from "../../components/Box";
 import FormIniciarSesion from "../../components/FormIniciarSesion";
