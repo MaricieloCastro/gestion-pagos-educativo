@@ -17,10 +17,10 @@ const Input = React.forwardRef(({ className, type, icon, ...props }, ref) => {
         ref={ref}
         {...props}
       />
-      <FontAwesomeIcon
+      {/* <FontAwesomeIcon
         icon={icon}
         className="absolute top-3.5 right-4 text-lg text-blue-950"
-      />
+      /> */}
     </div>
   );
 });

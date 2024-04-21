@@ -13,7 +13,7 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 import { Menu, ConfigProvider } from "antd";
 import AvantarCN from "@/components/AvatarCN";
@@ -32,7 +32,7 @@ function getItem(label, key, danger, icon, children, type, disabled) {
     icon,
     children,
     type,
-    disabled
+    disabled,
   };
 }
 
@@ -78,34 +78,32 @@ const MenuLateral = ({ children }) => {
       "PAPELERA DE ESTUDIANTES",
       "6",
       false,
-      <FontAwesomeIcon icon={faTrashCan} />,
+      <FontAwesomeIcon icon={faTrashCan} />
     ),
-    id_tipo_usuario === 1 ? (
-      getItem(
-        "PANEL DE ADMINISTRADOR",
-        "7",
-        undefined,
-        <FontAwesomeIcon icon={faAddressCard} />,
-        [
-          getItem("PANEL", "71"),
-          getItem("HISTORIAL REPORTES", "72"),
-          getItem("SOLICITUD DE ELIMINACION", "73"),
-          getItem("USUARIOS", "74", undefined, null, [
-            getItem("LISTA DE USUARIOS", "741"),
-            getItem("CREAR USUARIO", "742"),
-            getItem("EDITAR USUARIO", "743", false, null, null, null, true),
-            // getItem(label, key, danger, icon, children, type, disabled)
-          ]),
-        ]
-      )
-    ) : (
-      null
-    ),
+    id_tipo_usuario === 1
+      ? getItem(
+          "PANEL DE ADMINISTRADOR",
+          "7",
+          undefined,
+          <FontAwesomeIcon icon={faAddressCard} />,
+          [
+            getItem("PANEL", "71"),
+            getItem("HISTORIAL REPORTES", "72"),
+            getItem("SOLICITUD DE ELIMINACION", "73"),
+            getItem("USUARIOS", "74", undefined, null, [
+              getItem("LISTA DE USUARIOS", "741"),
+              getItem("CREAR USUARIO", "742"),
+              getItem("EDITAR USUARIO", "743", false, null, null, null, true),
+              // getItem(label, key, danger, icon, children, type, disabled)
+            ]),
+          ]
+        )
+      : null,
     getItem(
       "CERRAR SESION",
       "8",
       true,
-      <FontAwesomeIcon icon={faArrowRightFromBracket} />,
+      <FontAwesomeIcon icon={faArrowRightFromBracket} />
     ),
   ];
 
@@ -116,7 +114,8 @@ const MenuLateral = ({ children }) => {
       navigate(enlaces[4].actualPath);
     }
 
-    if (key === "21") { // PENDIENTE DE REVISION
+    if (key === "21") {
+      // PENDIENTE DE REVISION
       navigate(enlaces[3].actualPath);
     }
 
@@ -135,16 +134,18 @@ const MenuLateral = ({ children }) => {
     if (key === "8") {
       logoutUser();
     }
-  }
+  };
 
   const getLevelKeys = (items1) => {
     const key = {};
     const func = (items2, level = 1) => {
       items2.forEach((item) => {
-        if (item && item.key) { // Verificar si item no es null y tiene la propiedad 'key'
+        if (item && item.key) {
+          // Verificar si item no es null y tiene la propiedad 'key'
           key[item.key] = level;
         }
-        if (item && item.children) { // Verificar si item no es null y tiene la propiedad 'children'
+        if (item && item.children) {
+          // Verificar si item no es null y tiene la propiedad 'children'
           return func(item.children, level + 1);
         }
       });

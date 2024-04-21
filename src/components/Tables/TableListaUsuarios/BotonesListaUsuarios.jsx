@@ -2,21 +2,20 @@ import React from "react";
 
 import ButtonWithIcon from "@/components/ButtonWithIcon";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 const BotonesListaUsuarios = (props) => {
+  const { id } = props;
 
-  const { id } = props
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleClickEditar = () => {
-    navigate(`info-user/${id}`)
-  }
+    navigate(`info-user/${id}`);
+  };
 
   const handleClickEliminar = () => {
-    alert("ELIMINAR")
-  }
+    alert("ELIMINAR");
+  };
 
   return (
     <div className="flex gap-2 justify-center items-center ">

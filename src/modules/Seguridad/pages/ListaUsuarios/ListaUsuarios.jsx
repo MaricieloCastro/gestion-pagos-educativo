@@ -19,10 +19,9 @@ import { getAxios } from "@/functions/methods";
 import { usuariosActivosApi } from "@/api/ApiRutas";
 
 const ListaUsuarios = () => {
-
   let { authTokens } = useContext(AuthContext);
-  const [usuarios, setUsuarios] = useState({})
-  const [loading, setLoading] = useState(false)
+  const [usuarios, setUsuarios] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const headers = {
     "Content-Type": "application/json",
@@ -30,11 +29,11 @@ const ListaUsuarios = () => {
   };
 
   useEffect(() => {
-    getAxios(usuariosActivosApi, headers, setUsuarios, setLoading)
-  }, [])
+    getAxios(usuariosActivosApi, headers, setUsuarios, setLoading);
+  }, []);
 
-  const data = usuarios
-  console.log("data", data)
+  const data = usuarios;
+  console.log("data", data);
 
   const columns = [
     {
@@ -66,7 +65,7 @@ const ListaUsuarios = () => {
       cell: (row) => {
         const id = row.cell.row.original.id;
         return <BotonesListaUsuarios id={id} />;
-      }
+      },
     },
   ];
 

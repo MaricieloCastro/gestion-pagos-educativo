@@ -34,8 +34,6 @@ const App = () => {
   return (
     <div className="bg-blue-claro h-screen">
       <Routes>
-        <Route element={<PruebasModales />} path="/Pruebas/Modal" />
-        <Route element={<PruebasToast />} path="/Pruebas/toast" />
         <Route
           element={<IniciarSesion />}
           path={enlaces[0].prevPath + enlaces[0].path}
