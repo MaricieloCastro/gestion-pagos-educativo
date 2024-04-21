@@ -4,7 +4,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function ButtonWithIcon(props) {
-  const { text, icon, classNameVariants, classNameIcon } = props;
+  const { text, icon, classNameVariants, classNameIcon, onClick } = props;
   return (
     <Button
       onClick={onClick}
