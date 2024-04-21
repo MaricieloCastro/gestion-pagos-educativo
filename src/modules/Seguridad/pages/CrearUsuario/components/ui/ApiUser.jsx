@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { URLAPIUSUARIO } from "../../compenetes/reuse/ConstObj";
 import InputFormI from "./InputForm";
+import Spinner from "../../../../../../components/Spinner"
 export default function ApiUser(props) {
   const { disabled, indice, ButtonView, textButton } = props;
   const [usuarios, setUsuarios] = useState([]);
@@ -21,7 +22,7 @@ export default function ApiUser(props) {
     fetchUsuarios();
   }, []);
   if (loading) {
-    return <div>Cargando datos...</div>;
+    return <Spinner></Spinner>;
   }
   return (
     <InputFormI
