@@ -1,5 +1,4 @@
 import React from "react";
-import { Toaster, toast } from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -35,6 +34,7 @@ const FormRestablecerContrasenia = () => {
   function onSubmit(values) {
     console.log(values);
   }
+  //NO TOCAR CIERRE
 
   return (
     <Form {...form}>
@@ -60,14 +60,6 @@ const FormRestablecerContrasenia = () => {
           icon={faEnvelope}
           classNameFormItem="pt-8"
         />
-        <div className="Regresar">
-          <Link
-            to="/login"
-            className="text-sm text-white text-opacity-40 hover:underline "
-          >
-            Regresar para Iniciar Sesión
-          </Link>
-        </div>
 
         <div className="flex justify-center">
           <Button
@@ -78,14 +70,17 @@ const FormRestablecerContrasenia = () => {
             })}
             type="submit"
           >
-            <p
-              className="text-lg"
-              onClick={() => toast.success("La operacion fue exitosa!")}
-            >
-              <Toaster />
-              ENVIAR
-            </p>
+            <p className="text-lg">ENVIAR</p>
           </Button>
+        </div>
+
+        <div className="Regresar">
+          <Link
+            to="/login"
+            className="text-sm text-white text-opacity-40 hover:underline "
+          >
+            Regresar para Iniciar Sesión
+          </Link>
         </div>
       </form>
     </Form>

@@ -1,13 +1,19 @@
 .login {
-    &__img {
-      background-image: url(../../../../assets/img/background_login_2.jpg);
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      filter: brightness(50%);
+  &__img {
+    background-image: url(../../../../assets/img/background_login_2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: brightness(50%);
+  }
+
+  .underline-hover {
+    &:hover {
+      text-decoration: underline;
     }
   }
-  
+}
+
   // @media screen and (max-width: 910px) {
   //   .login {
   //     display: grid;
@@ -18,3 +24,4 @@
   //     }
   //   }
   // }
+  
