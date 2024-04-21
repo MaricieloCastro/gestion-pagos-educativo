@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import MenuLateral from "@/components/MenuLateral";
 
 import FiltrosTableListaUsuarios from "@/components/Tables/TableListaUsuarios/FiltrosTableListaUsuarios";
@@ -14,17 +14,36 @@ import {
 } from "@tanstack/react-table";
 
 import BotonesListaUsuarios from "@/components/Tables/TableListaUsuarios/BotonesListaUsuarios";
-import data from "../ListaUsuarios/MOCK_DATA.json";
+import AuthContext from "@/contexts/AuthContext";
+import { getAxios } from "@/functions/methods";
+import { usuariosActivosApi } from "@/api/ApiRutas";
 
 const ListaUsuarios = () => {
+
+  let { authTokens } = useContext(AuthContext);
+  const [usuarios, setUsuarios] = useState({})
+  const [loading, setLoading] = useState(false)
+
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + String(authTokens.access),
+  };
+
+  useEffect(() => {
+    getAxios(usuariosActivosApi, headers, setUsuarios, setLoading)
+  }, [])
+
+  const data = usuarios
+  console.log("data", data)
+
   const columns = [
     {
       header: "CODIGO",
-      accessorKey: "dni",
+      accessorKey: "codigo",
     },
     {
       header: "USUARIO",
-      accessorKey: "name",
+      accessorKey: "usuario",
     },
     {
       header: "TIPO",
@@ -36,15 +55,18 @@ const ListaUsuarios = () => {
     },
     {
       header: "ULT. INGRESO",
-      accessorKey: "ultimo_ingreso",
+      accessorKey: "ult_ingreso",
     },
     {
       header: "ULT. CIERRE",
-      accessorKey: "ultimo_cierre",
+      accessorKey: "ult_cierre",
     },
     {
       header: "OPCIONES",
-      cell: <BotonesListaUsuarios />,
+      cell: (row) => {
+        const id = row.cell.row.original.id;
+        return <BotonesListaUsuarios id={id} />;
+      }
     },
   ];
 
@@ -53,12 +75,6 @@ const ListaUsuarios = () => {
   const [filteringTipo, setFilteringTipo] = useState([
     {
       id: "tipo",
-      value: "", // Valor inicial del filtro de la columna "tipo"
-    },
-  ]);
-  const [filteringHoraIngreso, setFilteringHoraIngreso] = useState([
-    {
-      id: "ultimo_ingreso",
       value: "", // Valor inicial del filtro de la columna "tipo"
     },
   ]);
@@ -96,6 +112,7 @@ const ListaUsuarios = () => {
             table={table}
             numItemsForPage={numItemsForPage}
             totalItems={totalItems}
+            loading={loading}
           />
 
           <Pagination table={table} />

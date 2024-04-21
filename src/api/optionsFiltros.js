@@ -1,6 +1,6 @@
 export const optionsTipo = [
   {
-    value: "TODOS",
+    value: "",
     label: "TODOS",
   },
   {
