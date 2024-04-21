@@ -33,8 +33,8 @@ const formSchema = z
   });
 
 //CONFIGURACION CIERRE
-  const FormActualizarContrasenia = () => {
-    const navigate = useNavigate(); // Agrego
+const FormActualizarContrasenia = () => {
+  const navigate = useNavigate(); // Agrego
   // NO TOCAR INICIO
   // CONTENIDO DE LA LIBRERIA SHADCN
   const form = useForm({
@@ -97,25 +97,6 @@ const formSchema = z
             icon={faLock}
           />
         </div>
-        <InputCredenciales
-          control={form.control}
-          name="password"
-          type="password"
-          placeholder="Contraseña"
-          icon={faLock}
-        />
-
-        <InputCredenciales
-          control={form.control}
-          name="repeat_new_password"
-          type="password"
-          placeholder="Confirmar contraseña"
-          icon={faLock}
-        />
-
-        {/* BOTON DE OLVIDASTE TU CONTRASEÑA */}
-
-        {/* ESTE BOTON TE ENVIARÁ A LA PANTALLA DE REESTABLECER CUANDO LO CONFIGUREMOS */}
 
         {/* BOTON */}
 
