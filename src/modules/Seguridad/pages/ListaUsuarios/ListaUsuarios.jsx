@@ -55,10 +55,8 @@ const ListaUsuarios = () => {
       id: "tipo",
       value: "", // Valor inicial del filtro de la columna "tipo"
     },
-  ]);
-  const [filteringHoraIngreso, setFilteringHoraIngreso] = useState([
     {
-      id: "ultimo_ingreso",
+      id: "ultimo_cierre",
       value: "", // Valor inicial del filtro de la columna "tipo"
     },
   ]);
@@ -82,6 +80,7 @@ const ListaUsuarios = () => {
 
   const numItemsForPage = table.getRowModel().rows.length;
   const totalItems = data.length;
+
   return (
     <div className="flex h-screen blue-oscuro overflow-hidden">
       <MenuLateral>

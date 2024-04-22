@@ -4,10 +4,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 const HourFiltros = (props) => {
-  const { label, placeholder, minuteStep, secondStep, hourStep } = props;
+  const {
+    label,
+    placeholder,
+    minuteStep,
+    secondStep,
+    hourStep,
+    setFilteringTipo,
+  } = props;
 
   const onChange = (time, timeString) => {
     console.log(timeString);
+    setFilteringTipo([{ id: "ultimo_cierre", timeString }]);
   };
 
   return (
