@@ -117,7 +117,7 @@ const ListaUsuarios = () => {
   return (
     <div className="flex h-screen blue-oscuro overflow-hidden">
       <MenuLateral>
-        <div className="h-screen px-caja-contenido grid grid-rows-caja-contenido">
+        <div className="h-screen px-caja-contenido grid grid-rows-caja-contenido max-h-[calc(100vh-30px)]">
           <FiltrosTableListaUsuarios
             setFilteringTipo={setFilteringTipo}
             setFilteringSearch={setFilteringSearch}

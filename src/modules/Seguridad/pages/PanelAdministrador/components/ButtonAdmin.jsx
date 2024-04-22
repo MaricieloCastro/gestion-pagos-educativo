@@ -17,7 +17,7 @@ const ButtonAdmin = (props) => {
         <div className="h-full flex justify-center items-center">
           <FontAwesomeIcon icon={icon} className="text-white-texto" />
         </div>
-        <div className="flex justify-center items-center mx-2">
+        <div className="flex justify-center items-center">
           <p className="text-white-texto mb-2">{title}</p>
         </div>
       </button>

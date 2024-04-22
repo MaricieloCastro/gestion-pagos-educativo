@@ -46,8 +46,8 @@
           overflow: auto;
 
           &-childrens {
-            min-height: 24vh;
-            min-width: 180px;
+            min-height: 150px;
+            min-width: 150px;
             border-style: solid;
             border-width: 0.5px;
             border-color: rgb(186, 186, 186);
@@ -59,10 +59,15 @@
 
               svg {
                 font-size: 7vh;
+                min-height: 40px;
               }
 
               p {
                 font-size: 1rem;
+              }
+
+              div:nth-last-child(1) {
+                padding: 0 10%;
               }
             }
 

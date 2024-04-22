@@ -22,7 +22,7 @@ function PaginationList(props) {
   } = props;
 
   return (
-    <Pagination className="absolute top-2.5">
+    <Pagination>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
