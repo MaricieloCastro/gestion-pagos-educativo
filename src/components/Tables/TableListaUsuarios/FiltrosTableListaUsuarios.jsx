@@ -10,7 +10,7 @@ import { Input } from "@/components/InputListas";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { enlaces } from "@/components/MenuLateral/rutas";
+import { enlaces } from "@/utils/rutas";
 
 const FiltrosTableListaUsuarios = (props) => {
   const { setFilteringTipo, setFilteringSearch, filteringSearch } = props;

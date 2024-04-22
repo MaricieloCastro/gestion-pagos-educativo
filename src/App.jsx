@@ -14,7 +14,7 @@ import RestablecerContrasenia from "./modules/Seguridad/pages/RestablecerContras
 import ActualizarContrasenia from "./modules/Seguridad/pages/ActualizarContrasenia";
 import CrearUsuario from "./modules/Seguridad/pages/CrearUsuario";
 
-import { enlaces } from "./components/MenuLateral/rutas";
+import { enlaces } from "./utils/rutas";
 
 //RutasPrivadas
 import PrivateRoutes from "./utils/PrivateRoutes";

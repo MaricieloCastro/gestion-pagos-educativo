@@ -13,11 +13,10 @@ const BotonesListaUsuarios = (props) => {
 
   const user_id = user.user_id
 
-  console.log(user_id)
-
   const { id, username, password, id_tipo_usuario, setReload, reload } = props
 
   const [error, setError] = useState(null)
+  const [disabled, setDisabled] = useState(false)
 
   const navigate = useNavigate()
 
@@ -36,6 +35,7 @@ const BotonesListaUsuarios = (props) => {
 
     if (user_id === id) {
       alert("Estás tratando de eliminar tu propio usuario")
+      // logoutUser()
     } else {
       const data = {
         username: username,
@@ -45,9 +45,9 @@ const BotonesListaUsuarios = (props) => {
       }
 
       putAxios(url, data, headers, setReload, reload, setError)
+      setDisabled(true)
     }
   };
-
 
   return (
     <div className="flex gap-2 justify-center items-center ">
@@ -68,7 +68,7 @@ const BotonesListaUsuarios = (props) => {
                 bg-red-boton-listas hover:bg-red-boton-listas-hover
                 w-10"
         onClick={handleClickEliminar}
-        disabled={false}
+        disabled={disabled}
       />
     </div>
   );

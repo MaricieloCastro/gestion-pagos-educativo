@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/breadcrumb";
 
 import { useLocation, useNavigate } from "react-router-dom";
-import { enlaces } from "./MenuLateral/rutas";
+import { enlaces } from "../utils/rutas";
 
 function BreadcrumbCN() {
   const navigate = useNavigate();

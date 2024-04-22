@@ -68,8 +68,9 @@ const ListaUsuarios = () => {
         const id_tipo_usuario = row.cell.row.original.id_tipo_usuario;
         const username = row.cell.row.original.username;
         const password = row.cell.row.original.password;
+        const is_active = row.cell.row.original.is_active;
 
-        return <BotonesListaUsuarios id={id} setReload={setReload} reload={reload} username={username} password={password} id_tipo_usuario={id_tipo_usuario} />;
+        return <BotonesListaUsuarios id={id} setReload={setReload} reload={reload} username={username} password={password} id_tipo_usuario={id_tipo_usuario} is_active={is_active} />;
       },
     },
   ];
