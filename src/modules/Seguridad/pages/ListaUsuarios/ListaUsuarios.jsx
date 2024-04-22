@@ -16,12 +16,14 @@ import {
 import BotonesListaUsuarios from "@/components/Tables/TableListaUsuarios/BotonesListaUsuarios";
 import AuthContext from "@/contexts/AuthContext";
 import { getAxios } from "@/functions/methods";
-import { usuariosActivosApi } from "@/api/ApiRutas";
+import { usuariosActivosApi, usuarioAPI } from "@/api/ApiRutas";
 
 const ListaUsuarios = () => {
   let { authTokens } = useContext(AuthContext);
-  const [usuarios, setUsuarios] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [reload, setReload] = useState(true)
+  const [usuarios, setUsuarios] = useState({})
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   const headers = {
     "Content-Type": "application/json",
@@ -29,11 +31,10 @@ const ListaUsuarios = () => {
   };
 
   useEffect(() => {
-    getAxios(usuariosActivosApi, headers, setUsuarios, setLoading);
-  }, []);
+    getAxios(usuariosActivosApi, headers, setUsuarios, setLoading, setError);
+  }, [reload]);
 
   const data = usuarios;
-  console.log("data", data);
 
   const columns = [
     {
@@ -54,17 +55,22 @@ const ListaUsuarios = () => {
     },
     {
       header: "ULT. INGRESO",
-      accessorKey: "ult_ingreso",
+      accessorKey: "ultimo_ingreso_fecha",
     },
     {
       header: "ULT. CIERRE",
-      accessorKey: "ult_cierre",
+      accessorKey: "ultimo_cierre_fecha",
     },
     {
       header: "OPCIONES",
       cell: (row) => {
         const id = row.cell.row.original.id;
-        return <BotonesListaUsuarios id={id} />;
+        const id_tipo_usuario = row.cell.row.original.id_tipo_usuario;
+        const username = row.cell.row.original.username;
+        const password = row.cell.row.original.password;
+        const is_active = row.cell.row.original.is_active;
+
+        return <BotonesListaUsuarios id={id} setReload={setReload} reload={reload} username={username} password={password} id_tipo_usuario={id_tipo_usuario} is_active={is_active} />;
       },
     },
   ];

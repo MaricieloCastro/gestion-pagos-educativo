@@ -1,0 +1,81 @@
+.panel-administrador {
+  display: grid;
+  grid-template-rows: 1fr 2.3fr;
+
+  &__seccion-2 {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+
+    &-1 {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+
+      // LISTA - start
+
+      &-1 {
+        display: grid;
+        grid-template-columns: 7fr 1fr;
+        max-height: 225px;
+
+        &-botonLista {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          background-color: #0f6bae;
+
+          p {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            white-space: nowrap;
+            font-size: 9px;
+          }
+        }
+      }
+
+      // LISTA - end
+
+      &-2 {
+        display: grid;
+        grid-template-rows: 1fr 5fr;
+        max-height: 232px;
+
+        // BOTONES - start
+
+        &-botones {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          overflow: auto;
+
+          &-childrens {
+            min-height: 160px;
+            min-width: 180px;
+            border-style: solid;
+            border-width: 0.5px;
+            border-color: rgb(186, 186, 186);
+            position: relative;
+
+            &-notification {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              color: #d8d4d4;
+              font-size: 12px;
+
+              background-color: red;
+              position: absolute;
+              top: -12px;
+              right: -12px;
+
+              height: 25px;
+              width: 25px;
+              border-radius: 100%;
+              border-style: solid;
+              border-width: 0.5px;
+            }
+          }
+        }
+
+        // BOTONES - end
+      }
+    }
+  }
+}

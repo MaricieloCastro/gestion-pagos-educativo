@@ -6,7 +6,7 @@ const CrearUsuario = () => {
   return (
     <div className="flex overflow-hidden h-screen blue-oscuro">
       <MenuLateral>
-        <PerfilUsario textButton="CREAR" indice={1} />
+        <PerfilUsario textButton="CREAR" indice={1} load={true} />
       </MenuLateral>
     </div>
   );

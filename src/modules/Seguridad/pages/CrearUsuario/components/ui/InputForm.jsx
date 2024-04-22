@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -26,10 +26,12 @@ import { TipoUsarioSelect } from "./TipoUsarioSelect";
 //Calendario
 import Calendario from "../../compenetes/reuse/Calendario";
 //API
+import { postAxios } from "@/functions/methods";
+import AuthContext from "@/contexts/AuthContext";
 // Lógica del componente
 const FormSchema = z.object({
   //Contra cuátos caracteres hay en el input
-  nombre: z.string().min(1, {
+  nombres: z.string().min(1, {
     message: "Campo Obligatorio",
   }),
   // APpaterno: z.string().min(1, {
@@ -41,31 +43,37 @@ const FormSchema = z.object({
   dni: z.string().min(8, {
     message: "Campo Obligatorio",
   }),
-  telefono: z.string().min(9, {
+  celular: z.string().min(9, {
     message: "Campo Obligatorio",
   }),
-  direccion: z.string().min(10, {
+  domicilio: z.string().min(10, {
     message: "Campo Obligatorio",
   }),
   edad: z.string().min(2, {
     message: "Campo Obligatorio",
   }),
-  correo: z.string().min(10, {
+  email: z.string().min(10, {
     message: "Campo Obligatorio",
   }),
   sexo: z.string().min(0, {
     message: "Campo Obligatorio",
   }),
-  usuario: z.string().min(0, {
+  username: z.string().min(0, {
     message: "Campo Obligatorio",
   }),
-  contraseña: z.string().min(0, {
+  password: z.string().min(0, {
     message: "Campo Obligatorio",
   }),
-  tipo_usuario: z.string().min(0, {
+  id_tipo_usuario: z.string().min(0, {
     message: "Campo Obligatorio",
   }),
   fecha_nacimiento: z.string().min(0, {
+    message: "Campo Obligatorio",
+  }),
+  apellido_paterno: z.string().min(0, {
+    message: "Campo Obligatorio",
+  }),
+  apellido_materno: z.string().min(0, {
     message: "Campo Obligatorio",
   }),
 });
@@ -84,6 +92,16 @@ function onSubmit(data) {
 }
 
 export default function InputFormI(props) {
+  let { authTokens } = useContext(AuthContext);
+  const [reload, setReload] = useState(true);
+  const [usuario, setUsuarios] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + String(authTokens.access),
+  };
+
   const { disabled, ButtonView, textButton, usuarios } = props;
   const {
     nombres,
@@ -104,24 +122,28 @@ export default function InputFormI(props) {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      nombre: nombres || "",
+      nombres: nombres || "",
       apellido_paterno: apellido_paterno || "",
       apellido_materno: apellido_materno || "",
       dni: dni || "",
-      telefono: celular || "",
-      direccion: domicilio || "",
+      celular: celular || "",
+      domicilio: domicilio || "",
       edad: "20" || "",
-      correo: email || "",
+      email: email || "",
       sexo: sexo || "",
-      usuario: username || "",
-      contraseña: password || "",
-      tipo_usuario: "",
+      username: username || "",
+      password: password || "",
+      id_tipo_usuario: "",
       fecha_nacimiento: fecha_nacimiento || "",
     },
   });
+  const url = "http://127.0.0.1:8000/api/usuario/";
   function onSubmit(values) {
-    console.log(values);
+    const data = values;
+    postAxios(url, data, headers, setReload, reload, setError);
+    console.log(data);
   }
+
   //Para mostrar o no el boton según la página
   const [mostrarBoton, setMostrarBoton] = useState(true);
   useEffect(() => {
@@ -160,7 +182,7 @@ export default function InputFormI(props) {
             <Formulario
               form={form}
               nameLabel="Nombres:"
-              parametros="nombre"
+              parametros="nombres"
               disabled={disabled}
               //dato={nombre}
             />
@@ -190,13 +212,13 @@ export default function InputFormI(props) {
             <Formulario
               form={form}
               nameLabel="Telefono:"
-              parametros="telefono"
+              parametros="celular"
               //dato={telefono}
             />
             <Formulario
               form={form}
               nameLabel="Dirección:"
-              parametros="direccion"
+              parametros="domicilio"
               //dato={direccion}
             />
           </div>
@@ -239,7 +261,7 @@ export default function InputFormI(props) {
             <Formulario
               form={form}
               nameLabel="Correo:"
-              parametros="correo"
+              parametros="email"
               //dato={correo}
             />
           </div>
@@ -250,14 +272,14 @@ export default function InputFormI(props) {
             <Formulario
               form={form}
               nameLabel="Usuario:"
-              parametros="usuario"
+              parametros="username"
               disabled={disabled}
               //dato={usuario}
             />
             <Formulario
               form={form}
               nameLabel="Contraseña:"
-              parametros="contraseña"
+              parametros="password"
               type="password"
               disabled={disabled}
               //dato={contraseña}

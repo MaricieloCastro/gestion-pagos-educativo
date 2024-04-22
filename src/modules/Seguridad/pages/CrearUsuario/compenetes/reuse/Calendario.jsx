@@ -32,7 +32,7 @@ export default function Calendario(props) {
                 onChange={(date, dateString) => {
                   field.onChange(dateString);
                 }}
-                format="DD/MM/YYYY"
+                format="YYYY-MM-DD"
                 defaultValue={moment(dato)}
                 placeholder=""
                 disabled={disabled}

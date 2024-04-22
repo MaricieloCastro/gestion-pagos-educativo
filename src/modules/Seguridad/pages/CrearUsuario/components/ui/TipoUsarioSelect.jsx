@@ -23,7 +23,7 @@ export function TipoUsarioSelect(props) {
   return (
     <FormField
       control={form.control}
-      name="tipo_usuario"
+      name="id_tipo_usuario"
       render={({ field }) => (
         <FormItem>
           <FormLabel>Tipo Usuario:</FormLabel>
@@ -38,8 +38,8 @@ export function TipoUsarioSelect(props) {
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              <SelectItem value="SECRETARIA">SECRETARIA</SelectItem>
-              <SelectItem value="DIRECTOR">DIRECTOR</SelectItem>
+              <SelectItem value={2}>SECRETARIA</SelectItem>
+              <SelectItem value={1}>DIRECTOR</SelectItem>
               <SelectItem value="."></SelectItem>
             </SelectContent>
           </Select>
