@@ -15,18 +15,66 @@
       &-1 {
         display: grid;
         grid-template-columns: 7fr 1fr;
-        max-height: 225px;
+        max-height: 32vh;
+
+        .lista-usuarios-admin {
+          th {
+            border-width: 0.5px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+
+            &:nth-child(1) {
+              text-align: left;
+            }
+          }
+
+          td {
+            &:nth-child(1) {
+              min-width: 30vh;
+            }
+
+            &:nth-child(3) {
+              text-align: center;
+              max-width: 120px;
+            }
+
+            &:nth-child(2) {
+              min-width: 15vh;
+              text-align: center;
+            }
+
+            &:nth-child(4) {
+              text-align: center;
+              max-width: 30vh;
+              font-size: 1.3vh;
+            }
+
+            &:nth-child(5) {
+              text-align: center;
+            }
+
+            &:nth-child(6) {
+              text-align: center;
+            }
+
+            &:nth-child(7) {
+              min-width: 211.3px;
+            }
+          }
+        }
 
         &-botonLista {
           display: grid;
           grid-template-columns: 1fr 1fr;
           background-color: #0f6bae;
+          min-width: 10vh;
 
           p {
             writing-mode: vertical-rl;
             text-orientation: upright;
             white-space: nowrap;
-            font-size: 9px;
+            font-size: 1.1vh;
           }
         }
       }
@@ -36,7 +84,7 @@
       &-2 {
         display: grid;
         grid-template-rows: 1fr 5fr;
-        max-height: 232px;
+        max-height: 33vh;
 
         // BOTONES - start
 
@@ -46,12 +94,30 @@
           overflow: auto;
 
           &-childrens {
-            min-height: 160px;
-            min-width: 180px;
+            min-height: 150px;
+            min-width: 150px;
             border-style: solid;
             border-width: 0.5px;
             border-color: rgb(186, 186, 186);
             position: relative;
+
+            button {
+              display: grid;
+              grid-template-rows: 5fr 1fr;
+
+              svg {
+                font-size: 7vh;
+                min-height: 40px;
+              }
+
+              p {
+                font-size: 1rem;
+              }
+
+              div:nth-last-child(1) {
+                padding: 0 10%;
+              }
+            }
 
             &-notification {
               display: flex;

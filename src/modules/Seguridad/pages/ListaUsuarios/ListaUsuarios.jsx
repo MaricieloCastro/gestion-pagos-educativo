@@ -16,14 +16,15 @@ import {
 import BotonesListaUsuarios from "@/components/Tables/TableListaUsuarios/BotonesListaUsuarios";
 import AuthContext from "@/contexts/AuthContext";
 import { getAxios } from "@/functions/methods";
-import { usuariosActivosApi, usuarioAPI } from "@/api/ApiRutas";
+import { usuariosActivosApi } from "@/api/ApiRutas";
 
 const ListaUsuarios = () => {
   let { authTokens } = useContext(AuthContext);
-  const [reload, setReload] = useState(true)
-  const [usuarios, setUsuarios] = useState({})
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+
+  const [reload, setReload] = useState(true);
+  const [usuarios, setUsuarios] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const headers = {
     "Content-Type": "application/json",
@@ -70,7 +71,17 @@ const ListaUsuarios = () => {
         const password = row.cell.row.original.password;
         const is_active = row.cell.row.original.is_active;
 
-        return <BotonesListaUsuarios id={id} setReload={setReload} reload={reload} username={username} password={password} id_tipo_usuario={id_tipo_usuario} is_active={is_active} />;
+        return (
+          <BotonesListaUsuarios
+            id={id}
+            setReload={setReload}
+            reload={reload}
+            username={username}
+            password={password}
+            id_tipo_usuario={id_tipo_usuario}
+            is_active={is_active}
+          />
+        );
       },
     },
   ];
@@ -103,10 +114,11 @@ const ListaUsuarios = () => {
 
   const numItemsForPage = table.getRowModel().rows.length;
   const totalItems = data.length;
+
   return (
     <div className="flex h-screen blue-oscuro overflow-hidden">
       <MenuLateral>
-        <div className="h-screen px-caja-contenido grid grid-rows-caja-contenido">
+        <div className="h-screen px-caja-contenido grid grid-rows-caja-contenido max-h-[calc(100vh-30px)]">
           <FiltrosTableListaUsuarios
             setFilteringTipo={setFilteringTipo}
             setFilteringSearch={setFilteringSearch}
