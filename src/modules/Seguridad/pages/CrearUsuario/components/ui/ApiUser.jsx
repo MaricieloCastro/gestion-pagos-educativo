@@ -16,6 +16,7 @@ export default function ApiUser(props) {
         indice={indice}
         ButtonView={ButtonView}
         textButton={textButton}
+        load={load}
       ></InputFormI>
     );
   }
@@ -43,6 +44,7 @@ export default function ApiUser(props) {
       indice={indice}
       ButtonView={ButtonView}
       textButton={textButton}
+      load={load}
     ></InputFormI>
   );
 }

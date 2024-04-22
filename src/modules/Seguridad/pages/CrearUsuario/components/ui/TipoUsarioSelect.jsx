@@ -19,7 +19,7 @@ import {
 
 export function TipoUsarioSelect(props) {
   const { form, dato, disabled } = props;
-  // console.log(typeof dato.nombre);
+  //console.log(dato.nombre);
   return (
     <FormField
       control={form.control}
@@ -38,8 +38,8 @@ export function TipoUsarioSelect(props) {
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              <SelectItem value={2}>SECRETARIA</SelectItem>
-              <SelectItem value={1}>DIRECTOR</SelectItem>
+              <SelectItem value="SECRETARIA">SECRETARIA</SelectItem>
+              <SelectItem value="DIRECTOR">DIRECTOR</SelectItem>
               <SelectItem value="."></SelectItem>
             </SelectContent>
           </Select>

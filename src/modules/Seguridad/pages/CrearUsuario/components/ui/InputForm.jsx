@@ -55,29 +55,29 @@ const FormSchema = z.object({
   email: z.string().min(10, {
     message: "Campo Obligatorio",
   }),
-  sexo: z.string().min(0, {
+  sexo: z.string().min(1, {
     message: "Campo Obligatorio",
   }),
-  username: z.string().min(0, {
+  username: z.string().min(8, {
     message: "Campo Obligatorio",
   }),
-  password: z.string().min(0, {
+  password: z.string().min(8, {
     message: "Campo Obligatorio",
   }),
-  id_tipo_usuario: z.string().min(0, {
+  // id_tipo_usuario: z.string().min(1, {
+  //   message: "Campo Obligatorio",
+  // }),
+  fecha_nacimiento: z.string().min(1, {
     message: "Campo Obligatorio",
   }),
-  fecha_nacimiento: z.string().min(0, {
+  apellido_paterno: z.string().min(1, {
     message: "Campo Obligatorio",
   }),
-  apellido_paterno: z.string().min(0, {
-    message: "Campo Obligatorio",
-  }),
-  apellido_materno: z.string().min(0, {
+  apellido_materno: z.string().min(1, {
     message: "Campo Obligatorio",
   }),
 });
-
+import { putAxios } from "@/functions/methods";
 //Lógica de programación
 function onSubmit(data) {
   toast({
@@ -102,8 +102,9 @@ export default function InputFormI(props) {
     Authorization: "Bearer " + String(authTokens.access),
   };
 
-  const { disabled, ButtonView, textButton, usuarios } = props;
+  const { disabled, ButtonView, textButton, usuarios, load } = props;
   const {
+    id,
     nombres,
     apellido_materno,
     apellido_paterno,
@@ -119,6 +120,7 @@ export default function InputFormI(props) {
     ruta_fotografia,
     fecha_nacimiento,
   } = usuarios || {};
+  console.log(usuarios);
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -138,10 +140,21 @@ export default function InputFormI(props) {
     },
   });
   const url = "http://127.0.0.1:8000/api/usuario/";
-  function onSubmit(values) {
+
+  function Methods(values) {
     const data = values;
-    postAxios(url, data, headers, setReload, reload, setError);
-    console.log(data);
+    if (data.id_tipo_usuario == "SECRETARIA") {
+      data.id_tipo_usuario = "2";
+    } else {
+      data.id_tipo_usuario = "1";
+    }
+    if (load == true) {
+      postAxios(url, data, headers, setReload, reload, setError);
+      console.log(data);
+    }
+    const Nurl = `http://127.0.0.1:8000/api/usuario/${id}/`;
+    putAxios(Nurl, data, headers, setReload, reload, setError);
+    console.log(values);
   }
 
   //Para mostrar o no el boton según la página
@@ -155,6 +168,7 @@ export default function InputFormI(props) {
       setMostrarBoton(false);
     }
   }, []);
+
   return (
     <Form {...form}>
       <div className="fotografia">
@@ -173,7 +187,7 @@ export default function InputFormI(props) {
           </Button>
         </div>
       </div>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(Methods)}>
         {/* Este es la sección del contenedor */}
         <div className="usario-datos">
           <h2>DATOS PERSONALES: </h2>

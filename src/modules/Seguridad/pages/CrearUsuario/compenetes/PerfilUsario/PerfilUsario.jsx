@@ -14,6 +14,7 @@ export default function PerfilUsario(props) {
           indice={indice}
           ButtonView={ButtonView}
           textButton={textButton}
+          //Esto es para reconocer a la pantalla de creación
           load={load}
         />
       </div>

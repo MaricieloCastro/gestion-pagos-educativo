@@ -22,10 +22,6 @@ export function RadioGroupForm(props) {
   // });
 
   const { form, dato, disabled } = props;
-  // let mf = "Femenino";
-  // if (dato == "M") {
-  //   mf = "Masculino";
-  // }
 
   return (
     // <Form {...form}>
@@ -38,7 +34,7 @@ export function RadioGroupForm(props) {
           <FormControl>
             <RadioGroup
               onValueChange={field.onChange}
-              //defaultValue={dato}
+              defaultValue={dato}
               className="flex flex-row space-y-1"
               disabled={disabled}
             >
