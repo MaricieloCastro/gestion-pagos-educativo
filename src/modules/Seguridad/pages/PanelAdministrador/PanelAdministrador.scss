@@ -2,6 +2,16 @@
   display: grid;
   grid-template-rows: 1fr 2.3fr;
 
+  &__seccion-1 {
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+
+    &-1 {
+      display: grid;
+      grid-template-rows: 1.5fr 4fr 1fr;
+    }
+  }
+
   &__seccion-2 {
     display: grid;
     grid-template-columns: 3fr 1fr;
