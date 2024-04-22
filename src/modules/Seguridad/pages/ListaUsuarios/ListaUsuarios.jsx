@@ -16,7 +16,7 @@ import {
 import BotonesListaUsuarios from "@/components/Tables/TableListaUsuarios/BotonesListaUsuarios";
 import AuthContext from "@/contexts/AuthContext";
 import { getAxios } from "@/functions/methods";
-import { usuariosActivosApi, usuarioAPI } from "@/api/ApiRutas";
+import { usuariosActivosApi } from "@/api/ApiRutas";
 
 const ListaUsuarios = () => {
   let { authTokens } = useContext(AuthContext);

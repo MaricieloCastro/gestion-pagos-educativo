@@ -15,7 +15,52 @@
       &-1 {
         display: grid;
         grid-template-columns: 7fr 1fr;
-        max-height: 35vh;
+        max-height: 32vh;
+
+        .lista-usuarios-admin {
+          th {
+            border-width: 0.5px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+
+            &:nth-child(1) {
+              text-align: left;
+            }
+          }
+
+          td {
+            &:nth-child(1) {
+              min-width: 220px;
+            }
+
+            &:nth-child(3) {
+              text-align: center;
+              max-width: 120px;
+            }
+
+            &:nth-child(2) {
+              max-width: 300px;
+              text-align: center;
+            }
+
+            &:nth-child(4) {
+              text-align: center;
+            }
+
+            &:nth-child(5) {
+              text-align: center;
+            }
+
+            &:nth-child(6) {
+              text-align: center;
+            }
+
+            &:nth-child(7) {
+              min-width: 211.3px;
+            }
+          }
+        }
 
         &-botonLista {
           display: grid;
@@ -27,7 +72,7 @@
             writing-mode: vertical-rl;
             text-orientation: upright;
             white-space: nowrap;
-            font-size: 1.2vh;
+            font-size: 1.1vh;
           }
         }
       }
