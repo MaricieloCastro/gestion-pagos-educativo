@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 const InformacionUsuario = () => {
   const params = useParams();
   let indice = params.id;
+
   return (
     <div className="flex overflow-hidden h-screen blue-oscuro">
       <MenuLateral>

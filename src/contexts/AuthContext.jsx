@@ -1,16 +1,21 @@
-import { createContext, useState, useEffect, useMemo, useCallback } from "react";
+import {
+    createContext,
+    useState,
+    useEffect,
+    useMemo,
+    useCallback,
+} from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
-import { loginTokenApi, loginRefreshApi } from '../api/ApiRutas'
+import { loginTokenApi, loginRefreshApi } from "../api/ApiRutas";
 
 const AuthContext = createContext();
 
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
-
     const [loading, setLoading] = useState(true);
 
     const [authTokens, setAuthTokens] = useState(() =>
@@ -27,7 +32,6 @@ export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
 
     const loginUser = (values) => {
-
         axios
             .post(loginTokenApi, {
                 username: values.username,
@@ -54,27 +58,29 @@ export const AuthProvider = ({ children }) => {
 
     let updateToken = async () => {
         console.log("Update token called");
+
+        console.log(authTokens)
+
         let response = await fetch(loginRefreshApi, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify({ "refresh": authTokens?.refresh })
-        })
-        let data = await response.json()
+            body: JSON.stringify({ refresh: authTokens?.refresh }),
+        });
+
+        let data = await response.json();
 
         if (response.status === 200) {
-            setAuthTokens(data)
-            setUser(jwtDecode(data.access))
-            localStorage.setItem("authTokens", JSON.stringify(data))
-        } else {
-            logoutUser();
+            setAuthTokens(data);
+            setUser(jwtDecode(data.access));
+            localStorage.setItem("authTokens", JSON.stringify(data));
         }
 
         if (loading) {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
 
     useEffect(() => {
         if (loading) {
@@ -84,11 +90,12 @@ export const AuthProvider = ({ children }) => {
         const fourMinutes = 1000 * 60 * 4;
         let interval = setInterval(() => {
             if (authTokens) {
-                updateToken()
+                updateToken();
             }
-        }, fourMinutes)
-        return () => clearInterval(interval)
-    }, [authTokens, loading])
+        }, fourMinutes);
+
+        return () => clearInterval(interval);
+    }, [authTokens, loading]);
 
     const contextValue = useMemo(() => {
         return { user, loginUser, logoutUser, authTokens };
