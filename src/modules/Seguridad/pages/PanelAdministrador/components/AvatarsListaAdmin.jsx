@@ -15,7 +15,7 @@ const AvatarsListaAdmin = (props) => {
         </AvatarFallback>
       </Avatar>
       <div className="w-full flex items-center ml-3">
-        <p>{usuario}</p>
+        <p className="text-left">{usuario}</p>
       </div>
     </div>
   );

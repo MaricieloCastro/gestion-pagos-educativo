@@ -31,7 +31,7 @@
 
           td {
             &:nth-child(1) {
-              min-width: 220px;
+              min-width: 30vh;
             }
 
             &:nth-child(3) {
@@ -40,12 +40,14 @@
             }
 
             &:nth-child(2) {
-              max-width: 300px;
+              min-width: 15vh;
               text-align: center;
             }
 
             &:nth-child(4) {
               text-align: center;
+              max-width: 30vh;
+              font-size: 2vh;
             }
 
             &:nth-child(5) {
