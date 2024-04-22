@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -7,10 +7,13 @@ import { z } from "zod";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import InputCredenciales from "./InputCredenciales";
+import { enlaces } from "@/utils/rutas";
 // Personal imports
 
 import { Form } from "@/components/ui/form";
 import { Button, buttonVariants } from "@/components/ui/button";
+import AuthContext from '@/contexts/AuthContext'
+
 
 // CONFIGURACION INICIO
 // ACÁ SE HACEN LAS VALIDACIONES PRIMARIAS
@@ -25,6 +28,7 @@ const formSchema = z.object({
 //CONFIGURACION CIERRE
 
 const FormIniciarSesion = () => {
+  let { loginUser } = useContext(AuthContext);
   // NO TOCAR INICIO
   // CONTENIDO DE LA LIBRERIA SHADCN
   const form = useForm({
@@ -35,14 +39,14 @@ const FormIniciarSesion = () => {
     },
   });
 
-  function onSubmit(values) {
-    console.log(values);
-  }
+  // function onSubmit(values) {
+  //   console.log(values);
+  // }
   //NO TOCAR CIERRE
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(loginUser)} className="space-y-4">
         {/* INPUTS */}
 
         {/* ES EN DONDE SE INGRESA USUARIO Y CONTRASEÑA */}
@@ -79,7 +83,7 @@ const FormIniciarSesion = () => {
         {/* ESTE BOTON TE ENVIARÁ A LA PANTALLA DE REESTABLECER CUANDO LO CONFIGUREMOS */}
 
         <div>
-          <Link className="text-base text-white text-opacity-40" to="#">
+          <Link className="text-base text-white text-opacity-40" to={enlaces[1].path}>
             ¿Olvidaste tu contraseña?
           </Link>
         </div>
