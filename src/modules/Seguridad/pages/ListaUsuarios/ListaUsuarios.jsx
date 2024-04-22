@@ -20,6 +20,7 @@ import { usuariosActivosApi } from "@/api/ApiRutas";
 
 const ListaUsuarios = () => {
   let { authTokens } = useContext(AuthContext);
+
   const [reload, setReload] = useState(true);
   const [usuarios, setUsuarios] = useState({});
   const [loading, setLoading] = useState(false);

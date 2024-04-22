@@ -69,7 +69,7 @@ const TableListaUsuarios = (props) => {
             </tbody>
           </table>
         ) : (
-          <div className="h-full flex flex-col justify-center items-center p-48">
+          <div className="h-[65vh] flex flex-col justify-center items-center p-48">
             <Spinner />
           </div>
         )}
