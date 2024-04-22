@@ -15,18 +15,19 @@
       &-1 {
         display: grid;
         grid-template-columns: 7fr 1fr;
-        max-height: 32vh;
+        max-height: 35vh;
 
         &-botonLista {
           display: grid;
           grid-template-columns: 1fr 1fr;
           background-color: #0f6bae;
+          min-width: 10vh;
 
           p {
             writing-mode: vertical-rl;
             text-orientation: upright;
             white-space: nowrap;
-            font-size: 9px;
+            font-size: 1.2vh;
           }
         }
       }
