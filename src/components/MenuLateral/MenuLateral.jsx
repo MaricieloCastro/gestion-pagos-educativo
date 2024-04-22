@@ -181,10 +181,11 @@ const MenuLateral = ({ children }) => {
   return (
     <>
       <nav className="menu h-full overflow-y-auto w-96 bg-blue-oscuro">
-        <div className="flex py-2 justify-center items-center bg-white-cabecera text-blue-oscuro text-2xl font-bold  tracking-wide text-blue-2">
+        <div className="flex py-2 justify-center items-center bg-blue-claro text-white-texto text-xl font-bold  tracking-wide text-blue-2">
           <img className="w-14 h-12 mr-3" src={EscuadoCiencias} alt="escudo" />
           <h1>I.E.P "CIENCIAS"</h1>
         </div>
+        <hr className="bg-white-linea" />
         <div className="h-48 flex justify-center items-center my-4">
           <AvantarCN />
         </div>

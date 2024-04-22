@@ -26,7 +26,7 @@ export function TipoUsarioSelect(props) {
       name="tipo_usuario"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>TIPO USUARIO:</FormLabel>
+          <FormLabel>Tipo Usuario:</FormLabel>
           <Select
             onValueChange={field.onChange}
             defaultValue={dato.nombre}

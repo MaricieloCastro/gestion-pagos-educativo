@@ -138,7 +138,8 @@ export default function InputFormI(props) {
       <div className="fotografia">
         <img src={ruta_fotografia} />
         <div className="imp">
-          Fotografia:
+          <h2>Adjuntar Fotografia</h2>
+
           {/* <InputFile /> */}
           <Button
             className={buttonVariants({
@@ -146,7 +147,7 @@ export default function InputFormI(props) {
               className: "rounded-none",
             })}
           >
-            Cargar Foto
+            <PlusOutlined />
           </Button>
         </div>
       </div>
@@ -158,21 +159,21 @@ export default function InputFormI(props) {
             {/* Inp Nombres */}
             <Formulario
               form={form}
-              nameLabel="NOMBRES:"
+              nameLabel="Nombres:"
               parametros="nombre"
               disabled={disabled}
               //dato={nombre}
             />
             <Formulario
               form={form}
-              nameLabel="AP.PATERNO:"
+              nameLabel="Apellido Paterno:"
               parametros="apellido_paterno"
               disabled={disabled}
               //dato={apellido_paterno}
             />
             <Formulario
               form={form}
-              nameLabel="AP.MATERNO:"
+              nameLabel="Apellido Materno:"
               parametros="apellido_materno"
               disabled={disabled}
               //dato={apellido_materno}
@@ -188,13 +189,13 @@ export default function InputFormI(props) {
             />
             <Formulario
               form={form}
-              nameLabel="TELEFONO:"
+              nameLabel="Telefono:"
               parametros="telefono"
               //dato={telefono}
             />
             <Formulario
               form={form}
-              nameLabel="DIRECCIÓN:"
+              nameLabel="Dirección:"
               parametros="direccion"
               //dato={direccion}
             />
@@ -206,7 +207,7 @@ export default function InputFormI(props) {
               render={({ field }) => (
                 //Dirección
                 <FormItem>
-                  <FormLabel>SEXO:</FormLabel>
+                  <FormLabel>Sexo:</FormLabel>
                   <FormControl>
                     <div className="radio-label">
                       <RadioGroupForm
@@ -223,13 +224,13 @@ export default function InputFormI(props) {
             <div className="usario-datos_nombres-edad">
               <Calendario
                 form={form}
-                nameLabel="F.DE NACIMIENTO:"
+                nameLabel="F.de Nacimiento:"
                 dato={fecha_nacimiento}
                 disabled={disabled}
               />
               <Formulario
                 form={form}
-                nameLabel="EDAD:"
+                nameLabel="Edad:"
                 parametros="edad"
                 disabled={disabled}
                 //dato={edad}
@@ -237,7 +238,7 @@ export default function InputFormI(props) {
             </div>
             <Formulario
               form={form}
-              nameLabel="CORREO:"
+              nameLabel="Correo:"
               parametros="correo"
               //dato={correo}
             />
@@ -248,14 +249,14 @@ export default function InputFormI(props) {
           <div className="usario-datos_nombres">
             <Formulario
               form={form}
-              nameLabel="USUARIO:"
+              nameLabel="Usuario:"
               parametros="usuario"
               disabled={disabled}
               //dato={usuario}
             />
             <Formulario
               form={form}
-              nameLabel="CONTRASEÑA:"
+              nameLabel="Contraseña:"
               parametros="contraseña"
               type="password"
               disabled={disabled}
