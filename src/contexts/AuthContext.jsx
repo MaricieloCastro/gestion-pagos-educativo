@@ -58,6 +58,9 @@ export const AuthProvider = ({ children }) => {
 
   let updateToken = async () => {
     console.log("Update token called");
+
+    console.log(authTokens)
+
     let response = await fetch(loginRefreshApi, {
       method: "POST",
       headers: {
@@ -65,6 +68,7 @@ export const AuthProvider = ({ children }) => {
       },
       body: JSON.stringify({ refresh: authTokens?.refresh }),
     });
+
     let data = await response.json();
 
     if (response.status === 200) {
@@ -89,6 +93,7 @@ export const AuthProvider = ({ children }) => {
         updateToken();
       }
     }, fourMinutes);
+
     return () => clearInterval(interval);
   }, [authTokens, loading]);
 

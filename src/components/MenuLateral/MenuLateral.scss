@@ -59,3 +59,9 @@
     background-color: #f1f1f14f;
   }
 }
+
+@media screen and (max-width: 770px) {
+  .menu {
+    display: none;
+  }
+}

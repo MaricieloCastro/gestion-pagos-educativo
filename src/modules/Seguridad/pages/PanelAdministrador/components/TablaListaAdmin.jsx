@@ -56,7 +56,7 @@ const TablaListaAdmin = (props) => {
       </tbody>
     </table>
   ) : (
-    <div className="h-full flex flex-col justify-center items-center p-32">
+    <div className="h-full flex flex-col justify-center items-center p-[11vh]">
       <Spinner />
     </div>
   );
