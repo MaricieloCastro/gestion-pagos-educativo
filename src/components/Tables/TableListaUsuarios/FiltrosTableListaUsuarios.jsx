@@ -14,6 +14,7 @@ import { enlaces } from "@/utils/rutas";
 
 const FiltrosTableListaUsuarios = (props) => {
   const { setFilteringTipo, setFilteringSearch, filteringSearch } = props;
+  // const { value, onChange } = props;
 
   return (
     <div className="bg-white-texto flex justify-between h-36">
@@ -51,6 +52,7 @@ const FiltrosTableListaUsuarios = (props) => {
             minuteStep={60}
             secondStep={60}
             hourStep={1}
+            setFilteringTipo={setFilteringTipo}
           />
         </div>
 
@@ -68,8 +70,11 @@ const FiltrosTableListaUsuarios = (props) => {
         </div>
       </div>
       <div className="w-1/3 flex justify-center relative items-center">
-        <Link to={enlaces[7].path} className="
-                absolute right-4">
+        <Link
+          to={enlaces[7].path}
+          className="
+                absolute right-4"
+        >
           <ButtonWithIcon
             text="CREAR USUARIO"
             icon={faPlus}
