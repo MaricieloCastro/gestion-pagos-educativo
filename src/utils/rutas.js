@@ -18,9 +18,9 @@ export const enlaces = [
   {
     id: 3,
     name: "update",
-    path: "update/",
+    path: "update/:uuid",
     prevPath: "login/",
-    actualPath: "/login/update/",
+    actualPath: "/login/update/:uuid",
     alias: "ACTUALIZAR CONTRASEÑA",
   },
   {

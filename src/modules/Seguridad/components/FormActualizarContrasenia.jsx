@@ -12,7 +12,7 @@ import InputCredenciales from "./InputCredenciales";
 // Personal imports
 import { Form } from "@/components/ui/form";
 import { Button, buttonVariants } from "@/components/ui/button";
-
+import { useParams } from "react-router-dom";
 // CONFIGURACION INICIO
 
 // ACÁ SE HACEN LAS VALIDACIONES PRIMARIAS
@@ -27,6 +27,7 @@ const formSchema = z.object({
   repeat_new_password: z.string().min(8, {
     message: "La contraseña debe ser igual que a la anterior",
   }),
+  uuid: z.string()
 });
 // .refine((data) => data.password === data.repeat_new_password, {
 //   message: "Las contraseñas no coinciden",
@@ -37,20 +38,26 @@ const FormActualizarContrasenia = () => {
   const navigate = useNavigate(); // Agrego
   // NO TOCAR INICIO
   // CONTENIDO DE LA LIBRERIA SHADCN
+  const params = useParams()
+
+  console.log(params)
+  let uuid = params.uuid;
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
       password: "",
+      uuid: uuid,
       repeat_new_password: "",
     },
   });
   const url = "http://localhost:8000/api/reset-password";
   function onSubmit(values) {
-    const { username, password, repeat_new_password } = values;
+    const { username, password, repeat_new_password, uuid } = values;
     if (password == repeat_new_password) {
-      console.log({ username: username, password: password });
+      console.log({ username: username, password: password, uuid: uuid });
       navigate("/login"); //Agrego
+
       postAxios(url, values);
     } else {
       console.log("hola");
