@@ -12,8 +12,7 @@ import { enlaces } from "@/utils/rutas";
 
 import { Form } from "@/components/ui/form";
 import { Button, buttonVariants } from "@/components/ui/button";
-import AuthContext from '@/contexts/AuthContext'
-
+import AuthContext from "@/contexts/AuthContext";
 
 // CONFIGURACION INICIO
 // ACÁ SE HACEN LAS VALIDACIONES PRIMARIAS
@@ -83,7 +82,10 @@ const FormIniciarSesion = () => {
         {/* ESTE BOTON TE ENVIARÁ A LA PANTALLA DE REESTABLECER CUANDO LO CONFIGUREMOS */}
 
         <div>
-          <Link className="text-base text-white text-opacity-40" to={enlaces[1].path}>
+          <Link
+            className="text-base text-white text-opacity-40"
+            to={enlaces[1].path}
+          >
             ¿Olvidaste tu contraseña?
           </Link>
         </div>

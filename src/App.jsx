@@ -31,16 +31,16 @@ const App = () => {
     <div className="bg-blue-claro h-screen">
       <Routes>
         <Route
-          element={<IniciarSesion />}
-          path={enlaces[0].prevPath + enlaces[0].path}
-        />
-        <Route
           element={<RestablecerContrasenia />}
           path={enlaces[1].prevPath + enlaces[1].path}
         />
         <Route
           element={<ActualizarContrasenia />}
           path={enlaces[2].prevPath + enlaces[2].path}
+        />
+        <Route
+          element={<IniciarSesion />}
+          path={enlaces[0].prevPath + enlaces[0].path}
         />
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<Navigate to={enlaces[3].path} />} />

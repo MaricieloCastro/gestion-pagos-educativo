@@ -19,7 +19,8 @@ import {
 
 export function TipoUsarioSelect(props) {
   const { form, dato, disabled } = props;
-  //console.log(dato.nombre);
+  //console.log(dato);
+  let valor = dato.nombre;
   return (
     <FormField
       control={form.control}
@@ -28,8 +29,8 @@ export function TipoUsarioSelect(props) {
         <FormItem>
           <FormLabel>Tipo Usuario:</FormLabel>
           <Select
+            defaultValue={valor}
             onValueChange={field.onChange}
-            defaultValue={dato.nombre}
             disabled={disabled}
           >
             <FormControl>

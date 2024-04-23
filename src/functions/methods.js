@@ -50,7 +50,6 @@ export const postAxios = async (
   try {
     const response = await axios.post(url, data, { headers });
     console.log("Operación exsitosa", response);
-    setReload(!reload);
   } catch (error) {
     console.error("Error al hacer la solicitud:", error);
     setError(error.message);

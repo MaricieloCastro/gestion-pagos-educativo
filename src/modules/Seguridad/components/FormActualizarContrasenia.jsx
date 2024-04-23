@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Link, Navigate, useNavigate } from "react-router-dom"; //Agrego
+import { postAxios } from "@/functions/methods";
 
 // Personal imports
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
@@ -16,21 +17,20 @@ import { Button, buttonVariants } from "@/components/ui/button";
 
 // ACÁ SE HACEN LAS VALIDACIONES PRIMARIAS
 
-const formSchema = z
-  .object({
-    username: z.string().min(8, {
-      message: "El usuario debe tener un minimo de 8 caracteres.",
-    }),
-    password: z.string().min(8, {
-      message: "La contraseña debe tener un minimo de 8 caracteres.",
-    }),
-    repeat_new_password: z.string().min(8, {
-      message: "La contraseña debe ser igual que a la anterior",
-    }),
-  })
-  .refine((data) => data.password === data.repeat_new_password, {
-    message: "Las contraseñas no coinciden",
-  });
+const formSchema = z.object({
+  username: z.string().min(8, {
+    message: "El usuario debe tener un minimo de 8 caracteres.",
+  }),
+  password: z.string().min(8, {
+    message: "La contraseña debe tener un minimo de 8 caracteres.",
+  }),
+  repeat_new_password: z.string().min(8, {
+    message: "La contraseña debe ser igual que a la anterior",
+  }),
+});
+// .refine((data) => data.password === data.repeat_new_password, {
+//   message: "Las contraseñas no coinciden",
+// });
 
 //CONFIGURACION CIERRE
 const FormActualizarContrasenia = () => {
@@ -45,13 +45,15 @@ const FormActualizarContrasenia = () => {
       repeat_new_password: "",
     },
   });
-
+  const url = "http://localhost:8000/api/reset-password";
   function onSubmit(values) {
     const { username, password, repeat_new_password } = values;
     if (password == repeat_new_password) {
       console.log({ username: username, password: password });
       navigate("/login"); //Agrego
+      postAxios(url, values);
     } else {
+      console.log("hola");
       alert("Las contraseñas no coinciden");
     }
   }
