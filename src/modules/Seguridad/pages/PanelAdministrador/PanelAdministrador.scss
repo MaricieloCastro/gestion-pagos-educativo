@@ -2,19 +2,37 @@
   display: grid;
   grid-template-rows: 1fr 2.3fr;
 
+  // &::-webkit-scrollbar {
+  //   width: 7px;
+  // }
+
+  // &::-webkit-scrollbar-thumb {
+  //   background-color: #c3c3c398;
+  //   border-radius: 5px;
+  // }
+
+  // &::-webkit-scrollbar-track {
+  //   background-color: #f1f1f14f;
+  // }
+
   &__seccion-1 {
     display: grid;
     grid-template-columns: 1fr 2.5fr;
 
     &-1 {
       display: grid;
-      grid-template-rows: 1.5fr 4fr 1fr;
+      grid-template-rows: 0.3fr 1fr 0.1fr;
+
+      &-pasteles {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
   }
 
   &__seccion-2 {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 3.5fr 1fr;
 
     &-1 {
       display: grid;
@@ -25,7 +43,7 @@
       &-1 {
         display: grid;
         grid-template-columns: 7fr 1fr;
-        max-height: 33vh;
+        max-height: 34vh;
 
         .lista-usuarios-admin {
           th {
@@ -84,7 +102,7 @@
             writing-mode: vertical-rl;
             text-orientation: upright;
             white-space: nowrap;
-            font-size: 1.1vh;
+            font-size: 1.2vh;
           }
         }
       }
@@ -94,7 +112,7 @@
       &-2 {
         display: grid;
         grid-template-rows: 1fr 5fr;
-        max-height: 33vh;
+        max-height: 34vh;
 
         // BOTONES - start
 
@@ -151,6 +169,16 @@
         }
 
         // BOTONES - end
+      }
+    }
+
+    &-2 {
+      display: grid;
+      grid-template-rows: 1fr 0.7fr;
+
+      .metodos-pago {
+        display: grid;
+        grid-template-rows: 0.5fr 3fr 0.5fr;
       }
     }
   }

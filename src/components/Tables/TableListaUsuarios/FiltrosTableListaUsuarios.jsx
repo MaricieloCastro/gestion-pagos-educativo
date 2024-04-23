@@ -12,14 +12,16 @@ import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { enlaces } from "@/utils/rutas";
 
+import './FiltrosTableListaUsuarios.scss'
+
 const FiltrosTableListaUsuarios = (props) => {
   const { setFilteringTipo, setFilteringSearch, filteringSearch } = props;
   // const { value, onChange } = props;
 
   return (
-    <div className="bg-white-texto flex justify-between h-36">
-      <div className="w-2/3 grid grid-rows-2">
-        <div className="flex gap-4 items-center px-4 py-2">
+    <div className="filtros-table bg-white-texto h-[20vh]">
+      <div className="filtros-table__search">
+        <div className="flex gap-4 items-center px-4">
           <SelectFiltros
             title="TIPO"
             classNameTitle="text-blue-claro font-normal"
@@ -69,10 +71,11 @@ const FiltrosTableListaUsuarios = (props) => {
           />
         </div>
       </div>
-      <div className="w-1/3 flex justify-center relative items-center">
+
+      <div className=" flex justify-center relative items-center">
         <Link
           to={enlaces[7].path}
-          className="
+          className="filtros-table__button
                 absolute right-4"
         >
           <ButtonWithIcon
