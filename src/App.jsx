@@ -6,8 +6,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import InformacionUsuario from "./modules/Seguridad/pages/InformacionUsuario";
 
 //Pruebas
-import PruebasModales from "../src/modules/Seguridad/pages/PruebasModales";
-import PruebasToast from "../src/modules/Seguridad/pages/PruebasToast";
+import PruebasModales from "./modules/Seguridad/pages/PruebasModales";
+import PruebasToast from "./modules/Seguridad/pages/PruebasToast";
 
 import IniciarSesion from "./modules/Seguridad/pages/IniciarSesion";
 import ListaUsuarios from "./modules/Seguridad/pages/ListaUsuarios";
@@ -34,6 +34,8 @@ const App = () => {
   return (
     <div className="bg-blue-claro h-screen">
       <Routes>
+        <Route element={<PruebasModales />} path="/prueba/modal" />
+        <Route element={<PruebasToast />} path="/prueba/toast" />
         <Route
           element={<IniciarSesion />}
           path={enlaces[0].prevPath + enlaces[0].path}
