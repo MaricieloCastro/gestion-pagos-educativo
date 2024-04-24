@@ -1,4 +1,5 @@
-import React from "react";
+import { useContext, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -11,7 +12,8 @@ import InputCredenciales from "./InputCredenciales";
 
 import { Form } from "@/components/ui/form";
 import { Button, buttonVariants } from "@/components/ui/button";
-
+import { postAxios } from "@/functions/methods";
+import AuthContext from "@/contexts/AuthContext";
 // CONFIGURACION INICIO
 // ACÁ SE HACEN LAS VALIDACIONES PRIMARIAS
 const formSchema = z.object({
@@ -30,8 +32,19 @@ const FormRestablecerContrasenia = () => {
       email: "",
     },
   });
-
+  let { authTokens } = useContext(AuthContext);
+  const [reload, setReload] = useState(true);
+  const [usuario, setUsuarios] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  //const headers = {
+  // "Content-Type": "application/json",
+  //Authorization: "Bearer " + String(authTokens.access),
+  // };
+  const navegate = useNavigate();
+  const url = "http://127.0.0.1:8000/api/send-reset-password";
   function onSubmit(values) {
+    postAxios(url, values, setReload, reload);
     console.log(values);
   }
   //NO TOCAR CIERRE

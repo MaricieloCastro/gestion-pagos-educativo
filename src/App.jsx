@@ -18,7 +18,7 @@ import RestablecerContrasenia from "./modules/Seguridad/pages/RestablecerContras
 import ActualizarContrasenia from "./modules/Seguridad/pages/ActualizarContrasenia";
 import CrearUsuario from "./modules/Seguridad/pages/CrearUsuario";
 
-import { enlaces } from "./components/MenuLateral/rutas";
+import { enlaces } from "./utils/rutas";
 
 //RutasPrivadas
 import PrivateRoutes from "./utils/PrivateRoutes";
@@ -37,16 +37,16 @@ const App = () => {
         <Route element={<PruebasModales />} path="/prueba/modal" />
         <Route element={<PruebasToast />} path="/prueba/toast" />
         <Route
-          element={<IniciarSesion />}
-          path={enlaces[0].prevPath + enlaces[0].path}
-        />
-        <Route
           element={<RestablecerContrasenia />}
           path={enlaces[1].prevPath + enlaces[1].path}
         />
         <Route
           element={<ActualizarContrasenia />}
           path={enlaces[2].prevPath + enlaces[2].path}
+        />
+        <Route
+          element={<IniciarSesion />}
+          path={enlaces[0].prevPath + enlaces[0].path}
         />
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<Navigate to={enlaces[3].path} />} />

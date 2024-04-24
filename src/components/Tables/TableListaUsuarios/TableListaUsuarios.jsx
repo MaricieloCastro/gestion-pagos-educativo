@@ -20,8 +20,8 @@ const TableListaUsuarios = (props) => {
           </h1>
         </div>
         {loading ? (
-          <table className="max-w-full">
-            <thead className="bg-gray-listas sticky top-0">
+          <table className="lista-usuarios-principal max-w-full">
+            <thead className=" bg-gray-listas sticky top-0">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id} className="w-full">
                   {headerGroup.headers.map((header) => (
@@ -69,7 +69,9 @@ const TableListaUsuarios = (props) => {
             </tbody>
           </table>
         ) : (
-          <Spinner />
+          <div className="h-[65vh] flex flex-col justify-center items-center p-48">
+            <Spinner />
+          </div>
         )}
       </div>
     </div>

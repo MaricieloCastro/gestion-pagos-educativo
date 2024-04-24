@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/breadcrumb";
 
 import { useLocation, useNavigate } from "react-router-dom";
-import { enlaces } from "./MenuLateral/rutas";
+import { enlaces } from "../utils/rutas";
 
 function BreadcrumbCN() {
   const navigate = useNavigate();
@@ -18,9 +18,6 @@ function BreadcrumbCN() {
   const pathnames = location.pathname
     .split("/")
     .filter((x) => x && !/^\d+$/.test(x)); // Obtener los segmentos de la ruta
-
-  console.log(pathnames);
-  console.log(pathnames[pathnames.length - 1]);
 
   const handleNavigate = (actualPath) => {
     navigate(actualPath);

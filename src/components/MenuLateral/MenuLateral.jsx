@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFile,
@@ -22,7 +22,8 @@ import EscuadoCiencias from "../../assets/img/escudoCiencias.png";
 import "./MenuLateral.scss";
 import BreadcrumbCN from "../BreadcrumbCN";
 import AuthContext from "@/contexts/AuthContext";
-import { enlaces } from "./rutas";
+import { enlaces } from "../../utils/rutas";
+import { permisosAPI } from "@/api/ApiRutas";
 
 function getItem(label, key, danger, icon, children, type, disabled) {
   return {
@@ -37,12 +38,24 @@ function getItem(label, key, danger, icon, children, type, disabled) {
 }
 
 const MenuLateral = ({ children }) => {
-  let { user, logoutUser } = useContext(AuthContext);
+  let { user, logoutUser, authTokens } = useContext(AuthContext);
   let { id_tipo_usuario } = user;
 
   const navigate = useNavigate();
 
   const [selectedKeys, setSelectedKeys] = useState([]);
+  // const [permisos, setPermisos] = useState({})
+  // const [loading, setLoading] = useState(false)
+  // const [error, setError] = useState(null)
+
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + String(authTokens.access),
+  };
+
+  // useEffect(() => {
+  //   getAxios(permisosAPI, headers, setPermisos, setLoading, setError);
+  // }, [reload]);
 
   const items = [
     getItem("PERFIL", "1", false, <FontAwesomeIcon icon={faUser} />),
@@ -82,22 +95,22 @@ const MenuLateral = ({ children }) => {
     ),
     id_tipo_usuario === 1
       ? getItem(
-          "PANEL DE ADMINISTRADOR",
-          "7",
-          undefined,
-          <FontAwesomeIcon icon={faAddressCard} />,
-          [
-            getItem("PANEL", "71"),
-            getItem("HISTORIAL REPORTES", "72"),
-            getItem("SOLICITUD DE ELIMINACION", "73"),
-            getItem("USUARIOS", "74", undefined, null, [
-              getItem("LISTA DE USUARIOS", "741"),
-              getItem("CREAR USUARIO", "742"),
-              getItem("EDITAR USUARIO", "743", false, null, null, null, true),
-              // getItem(label, key, danger, icon, children, type, disabled)
-            ]),
-          ]
-        )
+        "PANEL DE ADMINISTRADOR",
+        "7",
+        undefined,
+        <FontAwesomeIcon icon={faAddressCard} />,
+        [
+          getItem("PANEL", "71"),
+          getItem("HISTORIAL REPORTES", "72"),
+          getItem("SOLICITUD DE ELIMINACION", "73"),
+          getItem("USUARIOS", "74", undefined, null, [
+            getItem("LISTA DE USUARIOS", "741"),
+            getItem("CREAR USUARIO", "742"),
+            getItem("EDITAR USUARIO", "743", false, null, null, null, true),
+            // getItem(label, key, danger, icon, children, type, disabled)
+          ]),
+        ]
+      )
       : null,
     getItem(
       "CERRAR SESION",
@@ -181,10 +194,11 @@ const MenuLateral = ({ children }) => {
   return (
     <>
       <nav className="menu h-full overflow-y-auto w-96 bg-blue-oscuro">
-        <div className="flex py-2 justify-center items-center bg-white-cabecera text-blue-oscuro text-2xl font-bold  tracking-wide text-blue-2">
+        <div className="flex py-2 justify-center items-center bg-blue-claro text-white-texto text-xl font-bold  tracking-wide text-blue-2">
           <img className="w-14 h-12 mr-3" src={EscuadoCiencias} alt="escudo" />
           <h1>I.E.P "CIENCIAS"</h1>
         </div>
+        <hr className="bg-white-linea" />
         <div className="h-48 flex justify-center items-center my-4">
           <AvantarCN />
         </div>

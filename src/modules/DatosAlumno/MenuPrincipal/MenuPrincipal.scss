@@ -1,0 +1,9 @@
+.menu-principal {
+  display: grid;
+  grid-template-rows: 2fr 7fr 1fr;
+
+  &__filtros {
+    display: grid;
+    grid-template-rows: 1.3fr 1fr;
+  }
+}

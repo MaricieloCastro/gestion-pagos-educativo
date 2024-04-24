@@ -7,11 +7,12 @@ import { z } from "zod";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import InputCredenciales from "./InputCredenciales";
+import { enlaces } from "@/utils/rutas";
 // Personal imports
 
 import { Form } from "@/components/ui/form";
 import { Button, buttonVariants } from "@/components/ui/button";
-import AuthContext from '@/contexts/AuthContext'
+import AuthContext from "@/contexts/AuthContext";
 
 // CONFIGURACION INICIO
 // ACÁ SE HACEN LAS VALIDACIONES PRIMARIAS
@@ -81,7 +82,10 @@ const FormIniciarSesion = () => {
         {/* ESTE BOTON TE ENVIARÁ A LA PANTALLA DE REESTABLECER CUANDO LO CONFIGUREMOS */}
 
         <div>
-          <Link className="text-base text-white text-opacity-40" to="#">
+          <Link
+            className="text-base text-white text-opacity-40"
+            to={enlaces[1].path}
+          >
             ¿Olvidaste tu contraseña?
           </Link>
         </div>
