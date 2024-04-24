@@ -5,11 +5,10 @@ import FormRestablecerContrasenia from "../../components/FormRestablecerContrase
 
 const RestablecerContrasenia = () => {
   return (
-
     <Box>
-      <FormRestablecerContrasenia/>
+      <FormRestablecerContrasenia />
     </Box>
-  )
+  );
 };
 
 export default RestablecerContrasenia;

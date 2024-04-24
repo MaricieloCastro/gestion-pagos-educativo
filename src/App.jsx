@@ -1,9 +1,14 @@
 import React, { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import '@/components/ToastStyle.scss'
 
 //MODULOS
 //Modulo de seguridad
 import InformacionUsuario from "./modules/Seguridad/pages/InformacionUsuario";
+
+//Pruebas
+import PruebasModales from "./modules/Seguridad/pages/PruebasModales";
+import PruebasToast from "./modules/Seguridad/pages/PruebasToast";
 
 import IniciarSesion from "./modules/Seguridad/pages/IniciarSesion";
 import ListaUsuarios from "./modules/Seguridad/pages/ListaUsuarios";
@@ -30,6 +35,8 @@ const App = () => {
   return (
     <div className="bg-blue-claro h-screen">
       <Routes>
+        <Route element={<PruebasModales />} path="/prueba/modal" />
+        <Route element={<PruebasToast />} path="/prueba/toast" />
         <Route
           element={<RestablecerContrasenia />}
           path={enlaces[1].prevPath + enlaces[1].path}

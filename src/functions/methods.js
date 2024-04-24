@@ -1,6 +1,5 @@
 import axios from "axios";
-//import { error } from "console";
-import exp from "constants";
+import { toast } from "react-toastify";
 
 export const getAxios = async (
   url,
@@ -9,7 +8,6 @@ export const getAxios = async (
   setLoading,
   setError
 ) => {
-  setLoading(false);
   try {
     const response = await axios.get(url, { headers });
     setGeneral(response.data);
@@ -45,13 +43,21 @@ export const postAxios = async (
   headers,
   setReload,
   reload,
-  setError
+  setError,
+  allowToast,
+  funcGeneral
 ) => {
   try {
     const response = await axios.post(url, data, { headers });
-    console.log("Operación exsitosa", response);
+    console.log("Proceso exitoso:", response.data);
+    if (allowToast) {
+      toast.success(response.data.message);
+    }
+    funcGeneral();
   } catch (error) {
     console.error("Error al hacer la solicitud:", error);
-    setError(error.message);
+    if (allowToast) {
+      toast.error(error.response.data.message);
+    }
   }
 };

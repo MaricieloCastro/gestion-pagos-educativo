@@ -50,6 +50,7 @@ const BotonesListaUsuarios = (props) => {
       // logoutUser()
     } else {
       putAxios(url, data, headers, setReload, reload, setError)
+      // url, data, headers, setReload, reload, setError
       console.log(reload)
     }
   };
