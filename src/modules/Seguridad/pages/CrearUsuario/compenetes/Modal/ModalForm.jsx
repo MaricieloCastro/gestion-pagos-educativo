@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
 import "./Modal.scss";
-
+import Spinner from "@/components/Spinner";
+import { Spin, Flex } from "antd";
 const ModalForm = (props) => {
   const { setOpen, open, confirmLoading, setConfirmLoading, handleGeneral } =
     props;
@@ -21,17 +22,20 @@ const ModalForm = (props) => {
   return (
     <>
       <Modal
+        className="modal-simple"
         title="GUARDANDO"
         centered
         open={open}
         //onOk={false}
         //confirmLoading={confirmLoading}
-        //onCancel={handleCancel}
+        onCancel={handleCancel}
         okText="Aceptar"
         //cancelText={false}
         width={360}
         closeIcon={false}
-      ></Modal>
+      >
+        <Spin />
+      </Modal>
     </>
   );
 };

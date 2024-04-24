@@ -67,3 +67,29 @@
     }
   }
 }
+.modal-simple {
+  p {
+    font-weight: lighter;
+    padding: 0 3vh;
+    font-size: medium;
+  }
+
+  .ant-btn {
+    &:nth-child(1) {
+      display: none;
+    }
+  }
+  .ant-btn {
+    &:nth-child(2) {
+      display: none;
+    }
+  }
+}
+
+:where(.css-dev-only-do-not-override-1paxfrs).ant-spin .ant-spin-dot {
+  margin-top: 35px;
+  font-size: 30px;
+}
+:where(.css-dev-only-do-not-override-1paxfrs).ant-spin .ant-spin-dot-item {
+  color: #fff;
+}
