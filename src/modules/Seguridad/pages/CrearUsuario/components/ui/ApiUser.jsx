@@ -36,7 +36,11 @@ export default function ApiUser(props) {
     fetchUsuarios();
   }, []);
   if (loading) {
-    return <Spin style={{ display: "block", margin: "auto" }} />;
+    return (
+      <div className="h-full flex justify-center items-center">
+        <Spin />
+      </div>
+    );
   }
   return (
     <InputFormI
