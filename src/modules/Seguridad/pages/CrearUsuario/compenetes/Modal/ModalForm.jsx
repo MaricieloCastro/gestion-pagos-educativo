@@ -22,7 +22,7 @@ const ModalForm = (props) => {
   return (
     <>
       <Modal
-        className="modal-simple"
+        className="modal-simplex"
         title="GUARDANDO"
         centered
         open={open}

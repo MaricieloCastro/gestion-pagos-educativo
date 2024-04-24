@@ -3,6 +3,7 @@ import axios from "axios";
 import { URLAPIUSUARIO } from "../../compenetes/reuse/ConstObj";
 import InputFormI from "./InputForm";
 import Spinner from "../../../../../../components/Spinner";
+import { Spin } from "antd";
 import { Usuario } from "../../compenetes/reuse/ConstObj";
 export default function ApiUser(props) {
   const { disabled, indice, ButtonView, textButton, load } = props;
@@ -35,7 +36,7 @@ export default function ApiUser(props) {
     fetchUsuarios();
   }, []);
   if (loading) {
-    return <Spinner></Spinner>;
+    return <Spin style={{ display: "block", margin: "auto" }} />;
   }
   return (
     <InputFormI

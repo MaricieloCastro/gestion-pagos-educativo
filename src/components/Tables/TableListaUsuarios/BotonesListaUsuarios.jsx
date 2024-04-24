@@ -87,7 +87,12 @@ const BotonesListaUsuarios = (props) => {
         confirmLoading={confirmLoading}
         setConfirmLoading={setConfirmLoading}
       />
-      <ModalSimple isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <ModalSimple
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        titulo="No puedes borrar tu propio Usuario"
+        subtitulo="Medidas de seguridad"
+      />
     </div>
   );
 };
