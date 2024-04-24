@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { putAxios } from "@/functions/methods";
 import { usuarioAPI } from "@/api/ApiRutas";
 import AuthContext from "@/contexts/AuthContext";
+import ModalAnt from "@/components/Modal/Modal";
 
 const BotonesListaUsuarios = (props) => {
 
@@ -17,6 +18,8 @@ const BotonesListaUsuarios = (props) => {
 
   const [error, setError] = useState(null)
   const [disabled, setDisabled] = useState(false)
+
+  const [open, setOpen] = useState(false);
 
   const navigate = useNavigate()
 
@@ -49,6 +52,10 @@ const BotonesListaUsuarios = (props) => {
     }
   };
 
+  const showModal = () => {
+    setOpen(true);
+  };
+
   return (
     <div className="flex gap-2 justify-center items-center ">
       <ButtonWithIcon
@@ -67,9 +74,10 @@ const BotonesListaUsuarios = (props) => {
         classNameVariants="rounded-sm
                 bg-red-boton-listas hover:bg-red-boton-listas-hover
                 w-10"
-        onClick={handleClickEliminar}
+        onClick={showModal}
         disabled={disabled}
       />
+      <ModalAnt setOpen={setOpen} open={open} />
     </div>
   );
 };
