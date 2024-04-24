@@ -82,7 +82,7 @@ const BotonesListaUsuarios = (props) => {
         disabled={disabled}
       />
       <ModalConfirmacion setOpen={setOpen} open={open} handleGeneral={handleClickEliminar} confirmLoading={confirmLoading} setConfirmLoading={setConfirmLoading} />
-      <ModalSimple isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <ModalSimple titulo="Acción denegada" subtitulo="No puede eliminar su usuario con la sesión activa" isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </div>
   );
 };
