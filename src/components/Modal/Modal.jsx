@@ -3,20 +3,16 @@ import { Button, Modal } from 'antd';
 
 const ModalAnt = (props) => {
 
-    const { setOpen, open } = props
+    const { setOpen, open, confirmLoading, setConfirmLoading, handleGeneral } = props
 
-    const [confirmLoading, setConfirmLoading] = useState(false);
-    const [modalText, setModalText] = useState('SAJDASJDJASDJASDJSDMASJCZJXC ZJXC ZXJC ZJXCZXCMASJCAMJSCASMCAJSCMAJSCMASJCASJ CJ CJ SACJSDMFASJDMASJDASJDMASDA CJZXC ZJCZJXC ZJ DJASJDAASDASDASDASDASDADADASDASDASD');
+    const [modalText, setModalText] = useState('Este es el texto');
+
     const handleOk = () => {
-        setModalText('The modal will be closed after two seconds');
+        setModalText('Eliminando usuario');
         setConfirmLoading(true);
-        setTimeout(() => {
-            setOpen(false);
-            setConfirmLoading(false);
-        }, 2000);
+        handleGeneral();
     };
     const handleCancel = () => {
-        console.log('Clicked cancel button');
         setOpen(false);
     };
     return (
