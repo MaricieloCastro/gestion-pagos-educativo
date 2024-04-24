@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
 import "./Modal.scss"
+import ModalError from "./ModalError";
 
 const ModalConfirmacion = (props) => {
 
-  const { setOpen, open, confirmLoading, setConfirmLoading, handleGeneral } = props
+  const { setOpen, open, confirmLoading, setConfirmLoading, handleGeneral, error } = props
 
   const [modalText, setModalText] = useState("Esta acción podría generar cambios dentro del sistema");
 
@@ -16,22 +17,27 @@ const ModalConfirmacion = (props) => {
   const handleCancel = () => {
     setOpen(false);
   };
+
   return (
     <>
-      <Modal
-        title="¿Estás seguro de realizar esta acción?"
-        centered
-        open={open}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
-        onCancel={handleCancel}
-        okText="Aceptar"
-        cancelText="Cancelar"
-        width={360}
-        closeIcon={false}
-      >
-        <p>{modalText}</p>
-      </Modal>
+      {error == 400 ? (
+        <ModalError titulo="Error" subtitulo="Soy un subtitulo" isModalOpen={open} setIsModalOpen={setOpen} />
+      ) : (
+        <Modal
+          title="¿Estás seguro de realizar esta acción?"
+          centered
+          open={open}
+          onOk={handleOk}
+          confirmLoading={confirmLoading}
+          onCancel={handleCancel}
+          okText="Aceptar"
+          cancelText="Cancelar"
+          width={360}
+          closeIcon={false}
+        >
+          <p>{modalText}</p>
+        </Modal>
+      )}
     </>
   );
 };

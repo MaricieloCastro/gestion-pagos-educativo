@@ -82,3 +82,17 @@
     }
   }
 }
+
+.modal-error {
+  p {
+    font-weight: lighter;
+    padding: 0 3vh;
+    font-size: medium;
+  }
+
+  .ant-btn {
+    &:nth-child(2) {
+      display: none;
+    }
+  }
+}

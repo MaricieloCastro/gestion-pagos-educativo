@@ -8,6 +8,7 @@ import { usuarioAPI } from "@/api/ApiRutas";
 import AuthContext from "@/contexts/AuthContext";
 import ModalConfirmacion from "@/components/Modal/ModalConfirmacion";
 import ModalSimple from "@/components/Modal/ModalSimple";
+import ModalError from "@/components/Modal/ModalError";
 
 const BotonesListaUsuarios = (props) => {
   let { authTokens, logoutUser, user } = useContext(AuthContext);
@@ -78,7 +79,7 @@ const BotonesListaUsuarios = (props) => {
                 bg-red-boton-listas hover:bg-red-boton-listas-hover
                 w-10"
         onClick={handleClickModal}
-        disabled={disabled}
+        disabled={false}
       />
       <ModalConfirmacion
         setOpen={setOpen}

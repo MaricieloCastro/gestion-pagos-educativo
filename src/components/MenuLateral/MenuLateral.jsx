@@ -23,7 +23,6 @@ import "./MenuLateral.scss";
 import BreadcrumbCN from "../BreadcrumbCN";
 import AuthContext from "@/contexts/AuthContext";
 import { enlaces } from "../../utils/rutas";
-import { permisosAPI } from "@/api/ApiRutas";
 
 function getItem(label, key, danger, icon, children, type, disabled) {
   return {
@@ -50,7 +49,7 @@ const MenuLateral = ({ children }) => {
 
   const headers = {
     "Content-Type": "application/json",
-    Authorization: "Bearer " + String(authTokens.access),
+    Authorization: "Bearer " + String(authTokens?.access),
   };
 
   // useEffect(() => {
