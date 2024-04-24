@@ -4,6 +4,7 @@
     opacity: 0.85;
     border-radius: 0px !important;
     padding: 2.3vh !important;
+    height: 25vh;
   }
 
   &-title {
@@ -64,6 +65,20 @@
         background-color: #50cb88;
         color: rgb(248, 245, 240);
       }
+    }
+  }
+}
+
+.modal-simple {
+  p {
+    font-weight: lighter;
+    padding: 0 3vh;
+    font-size: medium;
+  }
+
+  .ant-btn {
+    &:nth-child(1) {
+      display: none;
     }
   }
 }

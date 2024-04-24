@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import { putAxios } from "@/functions/methods";
 import { usuarioAPI } from "@/api/ApiRutas";
 import AuthContext from "@/contexts/AuthContext";
-import ModalAnt from "@/components/Modal/Modal";
+import ModalConfirmacion from "@/components/Modal/ModalConfirmacion";
+import ModalSimple from "@/components/Modal/ModalSimple";
 
 const BotonesListaUsuarios = (props) => {
 
@@ -16,12 +17,15 @@ const BotonesListaUsuarios = (props) => {
 
   const { id, username, password, id_tipo_usuario, setReload, reload } = props
 
-  // const [error, setError] = useState(null)
-  // const [disabled, setDisabled] = useState(false)
-
+  // MODAL DE CONFIRMACIÓN
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
+
+  // MODAL SIMPLE
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [error, setError] = useState(null)
+  const [disabled, setDisabled] = useState(false)
 
   const navigate = useNavigate()
 
@@ -44,20 +48,17 @@ const BotonesListaUsuarios = (props) => {
   }
 
   const handleClickEliminar = () => {
+    putAxios(url, data, headers, setReload, reload, setError)
+    setDisabled(true)
+  };
 
+  const handleClickModal = () => {
     if (user_id === id) {
-      alert("Estás tratando de eliminar tu propio usuario")
-      // logoutUser()
+      setIsModalOpen(true);
     } else {
-      putAxios(url, data, headers, setReload, reload, setError)
-      // url, data, headers, setReload, reload, setError
-      console.log(reload)
+      setOpen(true);
     }
-  };
-
-  const showModal = () => {
-    setOpen(true);
-  };
+  }
 
   return (
     <div className="flex gap-2 justify-center items-center ">
@@ -77,10 +78,11 @@ const BotonesListaUsuarios = (props) => {
         classNameVariants="rounded-sm
                 bg-red-boton-listas hover:bg-red-boton-listas-hover
                 w-10"
-        onClick={showModal}
-        disabled={false}
+        onClick={handleClickModal}
+        disabled={disabled}
       />
-      <ModalAnt setOpen={setOpen} open={open} handleGeneral={handleClickEliminar} confirmLoading={confirmLoading} setConfirmLoading={setConfirmLoading} />
+      <ModalConfirmacion setOpen={setOpen} open={open} handleGeneral={handleClickEliminar} confirmLoading={confirmLoading} setConfirmLoading={setConfirmLoading} />
+      <ModalSimple isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </div>
   );
 };

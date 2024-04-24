@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { Button, Modal } from "antd";
 import "./Modal.scss"
 
-const ModalAnt = (props) => {
+const ModalConfirmacion = (props) => {
 
   const { setOpen, open, confirmLoading, setConfirmLoading, handleGeneral } = props
 
   const [modalText, setModalText] = useState("Esta acción podría generar cambios dentro del sistema");
 
   const handleOk = () => {
+    setConfirmLoading(true)
     setModalText('Eliminando usuario');
-    setConfirmLoading(true);
     handleGeneral();
   };
   const handleCancel = () => {
@@ -35,4 +35,4 @@ const ModalAnt = (props) => {
     </>
   );
 };
-export default ModalAnt;
+export default ModalConfirmacion;
