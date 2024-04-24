@@ -33,8 +33,7 @@ export const putAxios = async (
     console.log("operacion exitosa:", response);
     setReload(!reload);
   } catch (error) {
-    console.error("Error al hacer la solicitud:", error);
-    setError(error.message);
+    setError(error.response.status);
   }
 };
 

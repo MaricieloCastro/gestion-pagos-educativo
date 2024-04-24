@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 const ButtonAdmin = (props) => {
   const { icon, title, notification, goTo } = props;
 
-  const navigate = useNavigate();
-
   const handleClick = () => {
     console.log(goTo);
   };

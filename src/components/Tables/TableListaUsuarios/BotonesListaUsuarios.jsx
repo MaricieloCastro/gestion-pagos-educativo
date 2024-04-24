@@ -8,6 +8,7 @@ import { usuarioAPI } from "@/api/ApiRutas";
 import AuthContext from "@/contexts/AuthContext";
 import ModalConfirmacion from "@/components/Modal/ModalConfirmacion";
 import ModalSimple from "@/components/Modal/ModalSimple";
+import ModalError from "@/components/Modal/ModalError";
 
 const BotonesListaUsuarios = (props) => {
 
@@ -24,7 +25,7 @@ const BotonesListaUsuarios = (props) => {
   // MODAL SIMPLE
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [error, setError] = useState(null)
+  const [error, setError] = useState("")
   const [disabled, setDisabled] = useState(false)
 
   const navigate = useNavigate()
@@ -49,7 +50,6 @@ const BotonesListaUsuarios = (props) => {
 
   const handleClickEliminar = () => {
     putAxios(url, data, headers, setReload, reload, setError)
-    setDisabled(true)
   };
 
   const handleClickModal = () => {
@@ -79,9 +79,9 @@ const BotonesListaUsuarios = (props) => {
                 bg-red-boton-listas hover:bg-red-boton-listas-hover
                 w-10"
         onClick={handleClickModal}
-        disabled={disabled}
+        disabled={false}
       />
-      <ModalConfirmacion setOpen={setOpen} open={open} handleGeneral={handleClickEliminar} confirmLoading={confirmLoading} setConfirmLoading={setConfirmLoading} />
+      <ModalConfirmacion setOpen={setOpen} open={open} handleGeneral={handleClickEliminar} confirmLoading={confirmLoading} setConfirmLoading={setConfirmLoading} error={error} />
       <ModalSimple titulo="Acción denegada" subtitulo="No puede eliminar su usuario con la sesión activa" isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </div>
   );

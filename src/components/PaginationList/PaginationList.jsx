@@ -19,7 +19,10 @@ function PaginationList(props) {
     nextPage,
     goNextPage,
     goPrevPage,
+    lastPage
   } = props;
+
+  console.log("pagina final:", lastPage)
 
   return (
     <Pagination>
@@ -28,7 +31,6 @@ function PaginationList(props) {
           <PaginationPrevious
             onClick={goFirstPage}
             className="border-1 rounded-full h-10 w-10 bg-blue-oscuro hover:bg-blue-hover cursor-pointer"
-            disabled
           />
         </PaginationItem>
         <div className="flex mx-3">
@@ -51,9 +53,9 @@ function PaginationList(props) {
           <PaginationItem>
             <PaginationLink
               className="border-1 rounded-full h-10 w-10 bg-white hover:bg-blue-hover text-slate-600 hover:text-white cursor-pointer"
-              onClick={goNextPage}
+              onClick={currentPage == lastPage ? goLastPage : goNextPage}
             >
-              {nextPage}
+              {currentPage == lastPage ? <FontAwesomeIcon icon={faBan} /> : nextPage}
             </PaginationLink>
           </PaginationItem>
         </div>
