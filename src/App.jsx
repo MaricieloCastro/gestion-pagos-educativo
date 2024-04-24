@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import '@/components/ToastStyle.scss'
+import "@/components/ToastStyle.scss";
 
 //MODULOS
 //Modulo de seguridad
@@ -50,7 +50,7 @@ const App = () => {
           path={enlaces[0].prevPath + enlaces[0].path}
         />
         <Route element={<PrivateRoutes />}>
-          <Route path="/" element={<Navigate to={enlaces[3].path} />} />
+          <Route path="/" element={<Navigate to="perfil/" />} />
           <Route element={<MenuPrincipal />} path={enlaces[3].path} />
           <Route
             element={<Perfil />}

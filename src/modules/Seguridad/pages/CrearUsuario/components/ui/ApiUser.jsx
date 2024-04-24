@@ -36,7 +36,11 @@ export default function ApiUser(props) {
     fetchUsuarios();
   }, []);
   if (loading) {
-    return <Spin />;
+    return (
+      <div className="h-full flex justify-center items-center">
+        <Spin />
+      </div>
+    );
   }
 
   return (
