@@ -26,14 +26,18 @@ export const putAxios = async (
   headers,
   setReload,
   reload,
-  setError
+  setError,
+  setOpen
 ) => {
+  setOpen(true);
   try {
     const response = await axios.put(url, data, { headers });
     console.log("operacion exitosa:", response);
     setReload(!reload);
+    setOpen(false);
   } catch (error) {
     setError(error.response.status);
+    setOpen(false);
   }
 };
 

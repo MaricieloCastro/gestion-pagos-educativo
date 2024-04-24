@@ -170,7 +170,7 @@ export default function InputFormI(props) {
       postAxios(url, data, headers, setReload, reload, setError);
     }
     const Nurl = `http://127.0.0.1:8000/api/usuario/${id}/`;
-    putAxios(Nurl, data, headers, setReload, reload, setError);
+    putAxios(Nurl, data, headers, setReload, reload, setError, setOpen);
   }
   //Para mostrar o no el boton según la página
   const [mostrarBoton, setMostrarBoton] = useState(true);
