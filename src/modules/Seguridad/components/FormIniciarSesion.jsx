@@ -13,6 +13,7 @@ import { enlaces } from "@/utils/rutas";
 import { Form } from "@/components/ui/form";
 import { Button, buttonVariants } from "@/components/ui/button";
 import AuthContext from "@/contexts/AuthContext";
+import { ToastContainer } from "react-toastify";
 
 // CONFIGURACION INICIO
 // ACÁ SE HACEN LAS VALIDACIONES PRIMARIAS
@@ -37,11 +38,6 @@ const FormIniciarSesion = () => {
       password: "",
     },
   });
-
-  // function onSubmit(values) {
-  //   console.log(values);
-  // }
-  //NO TOCAR CIERRE
 
   return (
     <Form {...form}>
@@ -107,6 +103,7 @@ const FormIniciarSesion = () => {
           </Button>
         </div>
       </form>
+      <ToastContainer position="bottom-left" limit={1} stacked closeOnClick theme="colored" />
     </Form>
   );
 };

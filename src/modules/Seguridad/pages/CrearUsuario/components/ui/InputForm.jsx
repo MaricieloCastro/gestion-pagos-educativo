@@ -28,6 +28,9 @@ import Calendario from "../../compenetes/reuse/Calendario";
 //API
 import { postAxios } from "@/functions/methods";
 import AuthContext from "@/contexts/AuthContext";
+
+//Modals
+import ModaForm from "../../compenetes/Modal/ModalForm";
 // Lógica del componente
 const FormSchema = z.object({
   //Contra cuátos caracteres hay en el input
@@ -120,6 +123,7 @@ export default function InputFormI(props) {
     tipo_usuario,
     ruta_fotografia,
     fecha_nacimiento,
+    uuid,
   } = usuarios || {};
   //console.log(tipo_usuario.nombre);
   const form = useForm({
@@ -141,7 +145,7 @@ export default function InputFormI(props) {
     },
   });
   const url = "http://127.0.0.1:8000/api/usuario/";
-
+  const urlUp = `/login/update/${uuid}`;
   function Methods(values) {
     const data = values;
     console.log(values.id_tipo_usuario);
@@ -308,7 +312,7 @@ export default function InputFormI(props) {
         <div className="botones">
           {mostrarBoton && ( // Renderiza el botón solo si mostrarBoton es true
             <div className="cambiar-contraseña">
-              <Link to="/login/update/">
+              <Link to={urlUp}>
                 <Button
                   className={buttonVariants({
                     variant: "default",

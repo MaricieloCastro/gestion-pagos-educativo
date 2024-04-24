@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -13,6 +13,7 @@ import InputCredenciales from "./InputCredenciales";
 import { Form } from "@/components/ui/form";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useParams } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 // CONFIGURACION INICIO
 
 // ACÁ SE HACEN LAS VALIDACIONES PRIMARIAS
@@ -51,17 +52,21 @@ const FormActualizarContrasenia = () => {
       repeat_new_password: "",
     },
   });
+
+  const headers = ""
+
+  const [reload, setReload] = useState(true);
+  const [error, setError] = useState(null);
+
+  const navigateTo = () => {
+    navigate("/login/")
+  }
+
   const url = "http://localhost:8000/api/reset-password";
   function onSubmit(values) {
-    const { username, password, repeat_new_password, uuid } = values;
+    const { password, repeat_new_password } = values;
     if (password == repeat_new_password) {
-      console.log({ username: username, password: password, uuid: uuid });
-      navigate("/login"); //Agrego
-
-      postAxios(url, values);
-    } else {
-      console.log("hola");
-      alert("Las contraseñas no coinciden");
+      postAxios(url, values, headers, setReload, reload, setError, true, navigateTo);
     }
   }
   //NO TOCAR CIERRE
@@ -126,6 +131,7 @@ const FormActualizarContrasenia = () => {
           {/* </Link> */}
         </div>
       </form>
+      <ToastContainer position="bottom-left" limit={1} stacked closeOnClick theme="colored" />
     </Form>
   );
 };

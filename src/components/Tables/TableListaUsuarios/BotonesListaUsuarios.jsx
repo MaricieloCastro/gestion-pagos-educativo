@@ -16,10 +16,12 @@ const BotonesListaUsuarios = (props) => {
 
   const { id, username, password, id_tipo_usuario, setReload, reload } = props
 
-  const [error, setError] = useState(null)
-  const [disabled, setDisabled] = useState(false)
+  // const [error, setError] = useState(null)
+  // const [disabled, setDisabled] = useState(false)
 
   const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [error, setError] = useState(null)
 
   const navigate = useNavigate()
 
@@ -34,21 +36,22 @@ const BotonesListaUsuarios = (props) => {
     navigate(`info-user/${id}`);
   };
 
+  const data = {
+    username: username,
+    password: password,
+    id_tipo_usuario: id_tipo_usuario,
+    is_active: false,
+  }
+
   const handleClickEliminar = () => {
 
     if (user_id === id) {
       alert("Estás tratando de eliminar tu propio usuario")
       // logoutUser()
     } else {
-      const data = {
-        username: username,
-        password: password,
-        id_tipo_usuario: id_tipo_usuario,
-        is_active: false,
-      }
-
       putAxios(url, data, headers, setReload, reload, setError)
-      setDisabled(true)
+      // url, data, headers, setReload, reload, setError
+      console.log(reload)
     }
   };
 
@@ -75,9 +78,9 @@ const BotonesListaUsuarios = (props) => {
                 bg-red-boton-listas hover:bg-red-boton-listas-hover
                 w-10"
         onClick={showModal}
-        disabled={disabled}
+        disabled={false}
       />
-      <ModalAnt setOpen={setOpen} open={open} />
+      <ModalAnt setOpen={setOpen} open={open} handleGeneral={handleClickEliminar} confirmLoading={confirmLoading} setConfirmLoading={setConfirmLoading} />
     </div>
   );
 };

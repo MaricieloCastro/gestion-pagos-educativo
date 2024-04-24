@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
-import "./Modal.scss"
+import "./Modal.scss";
 
-const ModalAnt = (props) => {
+const ModalForm = (props) => {
+  const { setOpen, open, confirmLoading, setConfirmLoading, handleGeneral } =
+    props;
 
-  const { setOpen, open, confirmLoading, setConfirmLoading, handleGeneral } = props
-
-  const [modalText, setModalText] = useState("Esta acción podría generar cambios dentro del sistema");
+  const [modalText, setModalText] = useState(
+    "Esta acción podría generar cambios dentro del sistema"
+  );
 
   const handleOk = () => {
-    setModalText('Eliminando usuario');
+    setModalText("Eliminando usuario");
     setConfirmLoading(true);
     handleGeneral();
   };
