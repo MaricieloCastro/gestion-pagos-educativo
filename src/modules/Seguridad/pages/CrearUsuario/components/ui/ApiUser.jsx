@@ -36,8 +36,9 @@ export default function ApiUser(props) {
     fetchUsuarios();
   }, []);
   if (loading) {
-    return <Spin style={{ display: "block", margin: "auto" }} />;
+    return <Spin />;
   }
+
   return (
     <InputFormI
       usuarios={usuarios}

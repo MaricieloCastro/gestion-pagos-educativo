@@ -148,8 +148,19 @@ export default function InputFormI(props) {
   const urlUp = `/login/update/${uuid}`;
   const [open, setOpen] = useState(false);
   function Methods(values) {
+    const contraseña = values.password;
+    const usuario = values.username;
+    for (let clave in values) {
+      // Verificar si el valor es una cadena
+      if (typeof values[clave] === "string") {
+        // Convertir a mayúsculas y actualizar el valor en el objeto
+        values[clave] = values[clave].toUpperCase();
+      }
+    }
     const data = values;
-    console.log(values.id_tipo_usuario);
+    values.password = contraseña;
+    values.username = usuario;
+    console.log(values);
     if (data.id_tipo_usuario == "SECRETARIA") {
       data.id_tipo_usuario = "2";
     } else {
@@ -299,7 +310,7 @@ export default function InputFormI(props) {
               nameLabel="Contraseña:"
               parametros="password"
               type="password"
-              disabled={disabled}
+              disabled={true}
               dato={password}
             />
             <TipoUsarioSelect
