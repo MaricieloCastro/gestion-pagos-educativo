@@ -146,6 +146,7 @@ export default function InputFormI(props) {
   });
   const url = "http://127.0.0.1:8000/api/usuario/";
   const urlUp = `/login/update/${uuid}`;
+  const [open, setOpen] = useState(false);
   function Methods(values) {
     const data = values;
     console.log(values.id_tipo_usuario);
@@ -156,8 +157,10 @@ export default function InputFormI(props) {
     }
     if (load == true) {
       postAxios(url, data, headers, setReload, reload, setError);
+      <ModaForm />;
     }
     const Nurl = `http://127.0.0.1:8000/api/usuario/${id}/`;
+    setOpen(true);
     putAxios(Nurl, data, headers, setReload, reload, setError);
   }
 
@@ -335,6 +338,7 @@ export default function InputFormI(props) {
             <PlusOutlined />
             {textButton}
           </Button>
+          <ModaForm open={open} />
         </div>
       </form>
     </Form>

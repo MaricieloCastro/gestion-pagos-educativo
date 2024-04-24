@@ -21,20 +21,18 @@ const ModalForm = (props) => {
   return (
     <>
       <Modal
-        title="¿Estás seguro de realizar esta acción?"
+        title="GUARDANDO"
         centered
         open={open}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
-        onCancel={handleCancel}
+        //onOk={false}
+        //confirmLoading={confirmLoading}
+        //onCancel={handleCancel}
         okText="Aceptar"
-        cancelText="Cancelar"
+        //cancelText={false}
         width={360}
         closeIcon={false}
-      >
-        <p>{modalText}</p>
-      </Modal>
+      ></Modal>
     </>
   );
 };
-export default ModalAnt;
+export default ModalForm;

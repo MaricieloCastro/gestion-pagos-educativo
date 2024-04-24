@@ -8,6 +8,7 @@ export const getAxios = async (
   setLoading,
   setError
 ) => {
+  setLoading(false);
   try {
     const response = await axios.get(url, { headers });
     setGeneral(response.data);
