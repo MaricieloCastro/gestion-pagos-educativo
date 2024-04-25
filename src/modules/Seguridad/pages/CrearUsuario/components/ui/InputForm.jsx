@@ -106,7 +106,7 @@ export default function InputFormI(props) {
     Authorization: "Bearer " + String(authTokens.access),
   };
 
-  const { disabled, ButtonView, textButton, usuarios, load } = props;
+  const { disabled, ButtonView, textButton, usuarios, load, edad } = props;
   const {
     id,
     nombres,
@@ -115,7 +115,6 @@ export default function InputFormI(props) {
     dni,
     celular,
     domicilio,
-    edad,
     email,
     sexo,
     username,
@@ -135,7 +134,7 @@ export default function InputFormI(props) {
       dni: dni || "",
       celular: celular || "",
       domicilio: domicilio || "",
-      edad: "20" || "",
+      edad: edad || "",
       email: email || "",
       sexo: sexo || "",
       username: username || "",

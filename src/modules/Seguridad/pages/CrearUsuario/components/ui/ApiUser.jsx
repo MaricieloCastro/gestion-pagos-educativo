@@ -18,6 +18,7 @@ export default function ApiUser(props) {
         ButtonView={ButtonView}
         textButton={textButton}
         load={load}
+        edad=""
       ></InputFormI>
     );
   }
@@ -51,6 +52,7 @@ export default function ApiUser(props) {
       ButtonView={ButtonView}
       textButton={textButton}
       load={load}
+      edad="20"
     ></InputFormI>
   );
 }
