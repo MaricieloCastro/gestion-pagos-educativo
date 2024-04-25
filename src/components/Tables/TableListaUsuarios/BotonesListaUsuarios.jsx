@@ -26,6 +26,7 @@ const BotonesListaUsuarios = (props) => {
 
   const [error, setError] = useState(null);
   const [disabled, setDisabled] = useState(false);
+  const [hola, setHola] = useState("");
 
   const navigate = useNavigate();
 
@@ -48,7 +49,7 @@ const BotonesListaUsuarios = (props) => {
   };
 
   const handleClickEliminar = () => {
-    putAxios(url, data, headers, setReload, reload, setError);
+    putAxios(url, data, headers, setReload, reload, setError, setHola);
     setDisabled(true);
   };
 
