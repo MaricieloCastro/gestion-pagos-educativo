@@ -1,0 +1,29 @@
+.ant-modal-footer {
+    text-align: center !important;
+    background-color: rgb(12, 67, 157) !important;
+  }
+  
+  .ant-modal-title {
+    color: white !important;
+    text-align: center;
+    background-color: rgb(12, 67, 157) !important;
+  }  
+  .ant-modal-body {
+    background-color: rgb(12, 67, 157) !important;
+    height: 50px;
+    color: white !important;
+    justify-items: center !important;
+    justify-content: center !important;
+    text-align: center;
+  }
+  .ant-modal-content{
+    background-color: rgb(12, 67, 157) !important;
+  }
+ .ant-btn:nth-child(1){
+    color: white;
+    background-color: red;
+ }
+ .ant-btn:nth-child(2){
+    color: white;
+    background-color: green;
+ }

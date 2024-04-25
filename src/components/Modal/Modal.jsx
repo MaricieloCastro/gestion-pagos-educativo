@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
+import "./Modal.css"; //archivo CSS 
 
 const ModalAnt = (props) => {
   const { setOpen, open } = props;
 
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState(
-    "SAJDASJDJASDJASDJSDMASJCZJXC ZJXC ZXJC ZJXCZXCMASJCAMJSCASMCAJSCMAJSCMASJCASJ CJ CJ SACJSDMFASJDMASJDASJDMASDA CJZXC ZJCZJXC ZJ DJASJDAASDASDASDASDASDADADASDASDASD"
+    "SAJDASJDJASDJASDJSDMASJCZJXC ZJXC ZXJC ZJXCZXCMASJCAMJSCASMCAJSCMAJSCMASJC"
   );
   const handleOk = () => {
     setModalText("The modal will be closed after two seconds");
@@ -31,7 +32,7 @@ const ModalAnt = (props) => {
         onCancel={handleCancel}
         okText="ACEPTAR"
         cancelText="CANCELAR"
-        // width={450}
+        width={400}
       >
         <p>{modalText}</p>
       </Modal>
