@@ -301,7 +301,7 @@ export default function InputFormI(props) {
               form={form}
               nameLabel="Usuario:"
               parametros="username"
-              disabled={disabled}
+              disabled={true}
               dato={username}
             />
             <Formulario
