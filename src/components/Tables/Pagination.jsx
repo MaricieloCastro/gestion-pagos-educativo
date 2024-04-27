@@ -18,6 +18,7 @@ const Pagination = (props) => {
         currentPage={table.getState().pagination.pageIndex + 1}
         prevPage={table.getState().pagination.pageIndex}
         nextPage={table.getState().pagination.pageIndex + 2}
+        lastPage={table.getPageCount()}
       />
     </div>
   );

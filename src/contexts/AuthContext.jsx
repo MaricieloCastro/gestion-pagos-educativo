@@ -3,13 +3,13 @@ import {
   useState,
   useEffect,
   useMemo,
-  useCallback,
 } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 import { loginTokenApi, loginRefreshApi } from "../api/ApiRutas";
+import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
       })
       .catch(function (error) {
         console.log(error);
-        alert("Something went wrong!");
+        toast.error("ALGO SALIÓ MAL");
       });
   };
 
@@ -58,8 +58,6 @@ export const AuthProvider = ({ children }) => {
 
   let updateToken = async () => {
     console.log("Update token called");
-
-    console.log(authTokens)
 
     let response = await fetch(loginRefreshApi, {
       method: "POST",

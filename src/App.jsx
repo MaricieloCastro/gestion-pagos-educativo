@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import "@/components/ToastStyle.scss";
 
 //MODULOS
 //Modulo de seguridad
@@ -17,6 +18,9 @@ import Perfil from "./modules/Seguridad/pages/Perfil";
 import RestablecerContrasenia from "./modules/Seguridad/pages/RestablecerContrasenia";
 import ActualizarContrasenia from "./modules/Seguridad/pages/ActualizarContrasenia";
 import CrearUsuario from "./modules/Seguridad/pages/CrearUsuario";
+
+import PagosGeneral from "./modules/Pagos/pages/PagosGeneral";
+import PagoInscripcion from "./modules/Pagos/pages/PagoInscripcion";
 
 import { enlaces } from "./utils/rutas";
 
@@ -49,12 +53,17 @@ const App = () => {
           path={enlaces[0].prevPath + enlaces[0].path}
         />
         <Route element={<PrivateRoutes />}>
-          <Route path="/" element={<Navigate to={enlaces[3].path} />} />
+          <Route path="/" element={<Navigate to="perfil/" />} />
           <Route element={<MenuPrincipal />} path={enlaces[3].path} />
           <Route
             element={<Perfil />}
             path={enlaces[4].prevPath + enlaces[4].path}
           />
+          <Route
+            element={<PagosGeneral />}
+            path={enlaces[9].prevPath + enlaces[9].path}
+          />
+
           {id_tipo_usuario === 1 && (
             <>
               <Route

@@ -3,6 +3,7 @@ import axios from "axios";
 import { URLAPIUSUARIO } from "../../compenetes/reuse/ConstObj";
 import InputFormI from "./InputForm";
 import Spinner from "../../../../../../components/Spinner";
+import { Spin } from "antd";
 import { Usuario } from "../../compenetes/reuse/ConstObj";
 export default function ApiUser(props) {
   const { disabled, indice, ButtonView, textButton, load } = props;
@@ -17,6 +18,7 @@ export default function ApiUser(props) {
         ButtonView={ButtonView}
         textButton={textButton}
         load={load}
+        edad=""
       ></InputFormI>
     );
   }
@@ -35,8 +37,13 @@ export default function ApiUser(props) {
     fetchUsuarios();
   }, []);
   if (loading) {
-    return <Spinner></Spinner>;
+    return (
+      <div className="h-full flex justify-center items-center">
+        <Spin />
+      </div>
+    );
   }
+
   return (
     <InputFormI
       usuarios={usuarios}
@@ -45,6 +52,7 @@ export default function ApiUser(props) {
       ButtonView={ButtonView}
       textButton={textButton}
       load={load}
+      edad="20"
     ></InputFormI>
   );
 }

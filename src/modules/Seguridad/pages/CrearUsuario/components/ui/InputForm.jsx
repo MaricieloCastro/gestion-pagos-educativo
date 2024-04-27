@@ -28,6 +28,9 @@ import Calendario from "../../compenetes/reuse/Calendario";
 //API
 import { postAxios } from "@/functions/methods";
 import AuthContext from "@/contexts/AuthContext";
+
+//Modals
+import ModaForm from "../../compenetes/Modal/ModalForm";
 // Lógica del componente
 const FormSchema = z.object({
   //Contra cuátos caracteres hay en el input
@@ -103,7 +106,7 @@ export default function InputFormI(props) {
     Authorization: "Bearer " + String(authTokens.access),
   };
 
-  const { disabled, ButtonView, textButton, usuarios, load } = props;
+  const { disabled, ButtonView, textButton, usuarios, load, edad } = props;
   const {
     id,
     nombres,
@@ -112,7 +115,6 @@ export default function InputFormI(props) {
     dni,
     celular,
     domicilio,
-    edad,
     email,
     sexo,
     username,
@@ -120,6 +122,7 @@ export default function InputFormI(props) {
     tipo_usuario,
     ruta_fotografia,
     fecha_nacimiento,
+    uuid,
   } = usuarios || {};
   //console.log(tipo_usuario.nombre);
   const form = useForm({
@@ -131,7 +134,7 @@ export default function InputFormI(props) {
       dni: dni || "",
       celular: celular || "",
       domicilio: domicilio || "",
-      edad: "20" || "",
+      edad: edad || "",
       email: email || "",
       sexo: sexo || "",
       username: username || "",
@@ -141,10 +144,22 @@ export default function InputFormI(props) {
     },
   });
   const url = "http://127.0.0.1:8000/api/usuario/";
-
+  const urlUp = `/login/update/${uuid}`;
+  const [open, setOpen] = useState(false);
   function Methods(values) {
+    const contraseña = values.password;
+    const usuario = values.username;
+    for (let clave in values) {
+      // Verificar si el valor es una cadena
+      if (typeof values[clave] === "string") {
+        // Convertir a mayúsculas y actualizar el valor en el objeto
+        values[clave] = values[clave].toUpperCase();
+      }
+    }
     const data = values;
-    console.log(values.id_tipo_usuario);
+    values.password = contraseña;
+    values.username = usuario;
+    console.log(values);
     if (data.id_tipo_usuario == "SECRETARIA") {
       data.id_tipo_usuario = "2";
     } else {
@@ -154,9 +169,8 @@ export default function InputFormI(props) {
       postAxios(url, data, headers, setReload, reload, setError);
     }
     const Nurl = `http://127.0.0.1:8000/api/usuario/${id}/`;
-    putAxios(Nurl, data, headers, setReload, reload, setError);
+    putAxios(Nurl, data, headers, setReload, reload, setError, setOpen);
   }
-
   //Para mostrar o no el boton según la página
   const [mostrarBoton, setMostrarBoton] = useState(true);
   useEffect(() => {
@@ -287,7 +301,7 @@ export default function InputFormI(props) {
               form={form}
               nameLabel="Usuario:"
               parametros="username"
-              disabled={disabled}
+              disabled={true}
               dato={username}
             />
             <Formulario
@@ -295,7 +309,7 @@ export default function InputFormI(props) {
               nameLabel="Contraseña:"
               parametros="password"
               type="password"
-              disabled={disabled}
+              disabled={true}
               dato={password}
             />
             <TipoUsarioSelect
@@ -308,7 +322,7 @@ export default function InputFormI(props) {
         <div className="botones">
           {mostrarBoton && ( // Renderiza el botón solo si mostrarBoton es true
             <div className="cambiar-contraseña">
-              <Link to="/login/update/">
+              <Link to={urlUp}>
                 <Button
                   className={buttonVariants({
                     variant: "default",
@@ -331,6 +345,7 @@ export default function InputFormI(props) {
             <PlusOutlined />
             {textButton}
           </Button>
+          <ModaForm open={open} setOpen={setOpen} />
         </div>
       </form>
     </Form>

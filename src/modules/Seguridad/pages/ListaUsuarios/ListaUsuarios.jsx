@@ -28,7 +28,7 @@ const ListaUsuarios = () => {
 
   const headers = {
     "Content-Type": "application/json",
-    Authorization: "Bearer " + String(authTokens.access),
+    Authorization: "Bearer " + String(authTokens?.access),
   };
 
   useEffect(() => {
