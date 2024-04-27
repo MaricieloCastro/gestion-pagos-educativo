@@ -19,6 +19,9 @@ import RestablecerContrasenia from "./modules/Seguridad/pages/RestablecerContras
 import ActualizarContrasenia from "./modules/Seguridad/pages/ActualizarContrasenia";
 import CrearUsuario from "./modules/Seguridad/pages/CrearUsuario";
 
+import PagosGeneral from "./modules/Pagos/pages/PagosGeneral";
+import PagoInscripcion from "./modules/Pagos/pages/PagoInscripcion";
+
 import { enlaces } from "./utils/rutas";
 
 //RutasPrivadas
@@ -56,6 +59,11 @@ const App = () => {
             element={<Perfil />}
             path={enlaces[4].prevPath + enlaces[4].path}
           />
+          <Route
+            element={<PagosGeneral />}
+            path={enlaces[9].prevPath + enlaces[9].path}
+          />
+
           {id_tipo_usuario === 1 && (
             <>
               <Route
