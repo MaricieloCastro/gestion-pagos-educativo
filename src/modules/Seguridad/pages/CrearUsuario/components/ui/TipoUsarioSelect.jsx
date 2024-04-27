@@ -19,17 +19,18 @@ import {
 
 export function TipoUsarioSelect(props) {
   const { form, dato, disabled } = props;
-  // console.log(typeof dato.nombre);
+  //console.log(dato);
+  let valor = dato.nombre;
   return (
     <FormField
       control={form.control}
-      name="tipo_usuario"
+      name="id_tipo_usuario"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>TIPO USUARIO:</FormLabel>
+          <FormLabel>Tipo Usuario:</FormLabel>
           <Select
+            defaultValue={valor}
             onValueChange={field.onChange}
-            defaultValue={dato.nombre}
             disabled={disabled}
           >
             <FormControl>

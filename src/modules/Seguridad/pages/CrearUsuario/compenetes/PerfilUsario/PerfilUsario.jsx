@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import InputFormI from "../../components/ui/InputForm";
 import ApiUser from "../../components/ui/ApiUser";
 export default function PerfilUsario(props) {
-  const { disabled, indice, ButtonView, textButton } = props;
+  const { disabled, indice, ButtonView, textButton, load } = props;
   return (
     <div className="perfil-usario">
       <div className="perfil-usario_datos">
@@ -14,6 +14,8 @@ export default function PerfilUsario(props) {
           indice={indice}
           ButtonView={ButtonView}
           textButton={textButton}
+          //Esto es para reconocer a la pantalla de creación
+          load={load}
         />
       </div>
     </div>

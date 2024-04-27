@@ -1,0 +1,20 @@
+.Toastify__toast {
+  font-size: 65%;
+  opacity: 0.8;
+  width: 23vh !important;
+  height: 3vh !important;
+  min-height: 6vh !important;
+  position: relative;
+
+  &-body {
+    gap: 4px;
+    .Toastify__toast-icon {
+      // position: absolute;
+      margin: 0 !important;
+
+      svg {
+        width: 2.3vh !important;
+      }
+    }
+  }
+}

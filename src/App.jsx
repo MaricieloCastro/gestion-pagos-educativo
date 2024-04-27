@@ -1,9 +1,14 @@
 import React, { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import "@/components/ToastStyle.scss";
 
 //MODULOS
 //Modulo de seguridad
 import InformacionUsuario from "./modules/Seguridad/pages/InformacionUsuario";
+
+//Pruebas
+import PruebasModales from "./modules/Seguridad/pages/PruebasModales";
+import PruebasToast from "./modules/Seguridad/pages/PruebasToast";
 
 import IniciarSesion from "./modules/Seguridad/pages/IniciarSesion";
 import ListaUsuarios from "./modules/Seguridad/pages/ListaUsuarios";
@@ -14,7 +19,10 @@ import RestablecerContrasenia from "./modules/Seguridad/pages/RestablecerContras
 import ActualizarContrasenia from "./modules/Seguridad/pages/ActualizarContrasenia";
 import CrearUsuario from "./modules/Seguridad/pages/CrearUsuario";
 
-import { enlaces } from "./components/MenuLateral/rutas";
+import PagosGeneral from "./modules/Pagos/pages/PagosGeneral";
+import PagoInscripcion from "./modules/Pagos/pages/PagoInscripcion";
+
+import { enlaces } from "./utils/rutas";
 
 //RutasPrivadas
 import PrivateRoutes from "./utils/PrivateRoutes";
@@ -30,10 +38,8 @@ const App = () => {
   return (
     <div className="bg-blue-claro h-screen">
       <Routes>
-        <Route
-          element={<IniciarSesion />}
-          path={enlaces[0].prevPath + enlaces[0].path}
-        />
+        <Route element={<PruebasModales />} path="/prueba/modal" />
+        <Route element={<PruebasToast />} path="/prueba/toast" />
         <Route
           element={<RestablecerContrasenia />}
           path={enlaces[1].prevPath + enlaces[1].path}
@@ -42,13 +48,22 @@ const App = () => {
           element={<ActualizarContrasenia />}
           path={enlaces[2].prevPath + enlaces[2].path}
         />
+        <Route
+          element={<IniciarSesion />}
+          path={enlaces[0].prevPath + enlaces[0].path}
+        />
         <Route element={<PrivateRoutes />}>
-          <Route path="/" element={<Navigate to={enlaces[3].path} />} />
+          <Route path="/" element={<Navigate to="perfil/" />} />
           <Route element={<MenuPrincipal />} path={enlaces[3].path} />
           <Route
             element={<Perfil />}
             path={enlaces[4].prevPath + enlaces[4].path}
           />
+          <Route
+            element={<PagosGeneral />}
+            path={enlaces[9].prevPath + enlaces[9].path}
+          />
+
           {id_tipo_usuario === 1 && (
             <>
               <Route
