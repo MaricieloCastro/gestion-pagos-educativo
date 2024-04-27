@@ -1,0 +1,10 @@
+.datos-view {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  &_dato {
+    font-style: normal;
+  }
+  &_celda {
+    font-weight: bold;
+  }
+}
