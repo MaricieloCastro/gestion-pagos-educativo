@@ -11,6 +11,7 @@ export const getAxios = async (
   setLoading(false);
   try {
     const response = await axios.get(url, { headers });
+    console.log("operacion exitosa:", response);
     setGeneral(response.data);
     setLoading(true);
   } catch (error) {
