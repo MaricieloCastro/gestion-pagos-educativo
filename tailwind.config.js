@@ -22,7 +22,7 @@ module.exports = {
         "login-grid": "1fr 2fr",
       },
       gridTemplateRows: {
-        "caja-contenido": "1fr 5.5fr 1fr",
+        "caja-contenido": "1fr 11fr 1fr",
       },
       width: {
         "login-caja": "350px",

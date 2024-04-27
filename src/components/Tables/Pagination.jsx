@@ -5,7 +5,7 @@ const Pagination = (props) => {
   const { table } = props;
 
   return (
-    <div className="relative">
+    <div className="flex justify-center items-center py-4">
       <PaginationList
         goLastPage={() => table.setPageIndex(table.getPageCount() - 1)}
         goFirstPage={() => table.setPageIndex(0)}
@@ -18,6 +18,7 @@ const Pagination = (props) => {
         currentPage={table.getState().pagination.pageIndex + 1}
         prevPage={table.getState().pagination.pageIndex}
         nextPage={table.getState().pagination.pageIndex + 2}
+        lastPage={table.getPageCount()}
       />
     </div>
   );

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Link, Navigate, useNavigate } from "react-router-dom"; //Agrego
+import { postAxios } from "@/functions/methods";
 
 // Personal imports
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
@@ -11,48 +12,61 @@ import InputCredenciales from "./InputCredenciales";
 // Personal imports
 import { Form } from "@/components/ui/form";
 import { Button, buttonVariants } from "@/components/ui/button";
-
+import { useParams } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 // CONFIGURACION INICIO
 
 // ACÁ SE HACEN LAS VALIDACIONES PRIMARIAS
 
-const formSchema = z
-  .object({
-    username: z.string().min(8, {
-      message: "El usuario debe tener un minimo de 8 caracteres.",
-    }),
-    password: z.string().min(8, {
-      message: "La contraseña debe tener un minimo de 8 caracteres.",
-    }),
-    repeat_new_password: z.string().min(8, {
-      message: "La contraseña debe ser igual que a la anterior",
-    }),
-  })
-  .refine((data) => data.password === data.repeat_new_password, {
-    message: "Las contraseñas no coinciden",
-  });
+const formSchema = z.object({
+  username: z.string().min(8, {
+    message: "El usuario debe tener un minimo de 8 caracteres.",
+  }),
+  password: z.string().min(8, {
+    message: "La contraseña debe tener un minimo de 8 caracteres.",
+  }),
+  repeat_new_password: z.string().min(8, {
+    message: "La contraseña debe ser igual que a la anterior",
+  }),
+  uuid: z.string()
+});
+// .refine((data) => data.password === data.repeat_new_password, {
+//   message: "Las contraseñas no coinciden",
+// });
 
 //CONFIGURACION CIERRE
-  const FormActualizarContrasenia = () => {
-    const navigate = useNavigate(); // Agrego
+const FormActualizarContrasenia = () => {
+  const navigate = useNavigate(); // Agrego
   // NO TOCAR INICIO
   // CONTENIDO DE LA LIBRERIA SHADCN
+  const params = useParams()
+
+  console.log(params)
+  let uuid = params.uuid;
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
       password: "",
+      uuid: uuid,
       repeat_new_password: "",
     },
   });
 
+  const headers = ""
+
+  const [reload, setReload] = useState(true);
+  const [error, setError] = useState(null);
+
+  const navigateTo = () => {
+    navigate("/login/")
+  }
+
+  const url = "http://localhost:8000/api/reset-password";
   function onSubmit(values) {
-    const { username, password, repeat_new_password } = values;
+    const { password, repeat_new_password } = values;
     if (password == repeat_new_password) {
-      console.log({ username: username, password: password });
-      navigate("/login"); //Agrego
-    } else {
-      alert("Las contraseñas no coinciden");
+      postAxios(url, values, headers, setReload, reload, setError, true, navigateTo);
     }
   }
   //NO TOCAR CIERRE
@@ -97,25 +111,6 @@ const formSchema = z
             icon={faLock}
           />
         </div>
-        <InputCredenciales
-          control={form.control}
-          name="password"
-          type="password"
-          placeholder="Contraseña"
-          icon={faLock}
-        />
-
-        <InputCredenciales
-          control={form.control}
-          name="repeat_new_password"
-          type="password"
-          placeholder="Confirmar contraseña"
-          icon={faLock}
-        />
-
-        {/* BOTON DE OLVIDASTE TU CONTRASEÑA */}
-
-        {/* ESTE BOTON TE ENVIARÁ A LA PANTALLA DE REESTABLECER CUANDO LO CONFIGUREMOS */}
 
         {/* BOTON */}
 
@@ -136,6 +131,7 @@ const formSchema = z
           {/* </Link> */}
         </div>
       </form>
+      <ToastContainer position="bottom-left" limit={1} stacked closeOnClick theme="colored" />
     </Form>
   );
 };

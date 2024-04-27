@@ -1,0 +1,185 @@
+.panel-administrador {
+  display: grid;
+  grid-template-rows: 1fr 2.3fr;
+
+  // &::-webkit-scrollbar {
+  //   width: 7px;
+  // }
+
+  // &::-webkit-scrollbar-thumb {
+  //   background-color: #c3c3c398;
+  //   border-radius: 5px;
+  // }
+
+  // &::-webkit-scrollbar-track {
+  //   background-color: #f1f1f14f;
+  // }
+
+  &__seccion-1 {
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+
+    &-1 {
+      display: grid;
+      grid-template-rows: 0.3fr 1fr 0.1fr;
+
+      &-pasteles {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  }
+
+  &__seccion-2 {
+    display: grid;
+    grid-template-columns: 3.5fr 1fr;
+
+    &-1 {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+
+      // LISTA - start
+
+      &-1 {
+        display: grid;
+        grid-template-columns: 7fr 1fr;
+        max-height: 34vh;
+
+        .lista-usuarios-admin {
+          th {
+            border-width: 0.5px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+
+            &:nth-child(1) {
+              text-align: left;
+            }
+          }
+
+          td {
+            &:nth-child(1) {
+              min-width: 30vh;
+            }
+
+            &:nth-child(3) {
+              text-align: center;
+              max-width: 120px;
+            }
+
+            &:nth-child(2) {
+              min-width: 15vh;
+              text-align: center;
+            }
+
+            &:nth-child(4) {
+              text-align: center;
+              max-width: 30vh;
+              font-size: 1.3vh;
+            }
+
+            &:nth-child(5) {
+              text-align: center;
+            }
+
+            &:nth-child(6) {
+              text-align: center;
+            }
+
+            &:nth-child(7) {
+              min-width: 211.3px;
+            }
+          }
+        }
+
+        &-botonLista {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          background-color: #0f6bae;
+          min-width: 10vh;
+
+          p {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            white-space: nowrap;
+            font-size: 1.2vh;
+          }
+        }
+      }
+
+      // LISTA - end
+
+      &-2 {
+        display: grid;
+        grid-template-rows: 1fr 5fr;
+        max-height: 34vh;
+
+        // BOTONES - start
+
+        &-botones {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          overflow: auto;
+
+          &-childrens {
+            min-height: 150px;
+            min-width: 150px;
+            border-style: solid;
+            border-width: 0.5px;
+            border-color: rgb(186, 186, 186);
+            position: relative;
+
+            button {
+              display: grid;
+              grid-template-rows: 5fr 1fr;
+
+              svg {
+                font-size: 7vh;
+                min-height: 40px;
+              }
+
+              p {
+                font-size: 1rem;
+              }
+
+              div:nth-last-child(1) {
+                padding: 0 10%;
+              }
+            }
+
+            &-notification {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              color: #d8d4d4;
+              font-size: 12px;
+
+              background-color: red;
+              position: absolute;
+              top: -12px;
+              right: -12px;
+
+              height: 25px;
+              width: 25px;
+              border-radius: 100%;
+              border-style: solid;
+              border-width: 0.5px;
+            }
+          }
+        }
+
+        // BOTONES - end
+      }
+    }
+
+    &-2 {
+      display: grid;
+      grid-template-rows: 1fr 0.7fr;
+
+      .metodos-pago {
+        display: grid;
+        grid-template-rows: 0.5fr 3fr 0.5fr;
+      }
+    }
+  }
+}

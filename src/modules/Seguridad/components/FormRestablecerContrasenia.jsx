@@ -1,4 +1,5 @@
-import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -11,6 +12,8 @@ import InputCredenciales from "./InputCredenciales";
 
 import { Form } from "@/components/ui/form";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { postAxios } from "@/functions/methods";
+import { ToastContainer } from "react-toastify";
 
 // CONFIGURACION INICIO
 // ACÁ SE HACEN LAS VALIDACIONES PRIMARIAS
@@ -27,25 +30,41 @@ const FormRestablecerContrasenia = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: ""
+      email: "",
     },
   });
 
-  function onSubmit(values) {
-    console.log(values);
+  const headers = ""
+
+  const [reload, setReload] = useState(true);
+  const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
+  const url = "http://127.0.0.1:8000/api/send-reset-password";
+
+  const navigateTo = () => {
+    navigate("/login/")
   }
+
+  function onSubmit(values) {
+    postAxios(url, values, headers, setReload, reload, setError, true, () => { });
+  }
+
   //NO TOCAR CIERRE
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div className="pt-7">
-        <h1 className="text-white font-medium flex justify-center text-lg" >
-  RESTABLECER CONTRASEÑA
-</h1>
+          <h1 className="text-white font-medium flex justify-center text-lg">
+            RESTABLECER CONTRASEÑA
+          </h1>
 
-        <br />
-        <h2 className="text-white pt-5px" style={{ textAlign: "justify" }}>Introduzca su dirección de correo electronico registrado abajo para recibir el enlace de restablrecimiento de contraseña</h2>
+          <br />
+          <h2 className="text-white pt-5px" style={{ textAlign: "justify" }}>
+            Introduzca su dirección de correo electronico registrado abajo para
+            recibir el enlace de restablrecimiento de contraseña
+          </h2>
         </div>
 
         <InputCredenciales
@@ -63,7 +82,7 @@ const FormRestablecerContrasenia = () => {
             className={buttonVariants({
               variant: "default",
               className:
-                "w-full h-11 mt-4 text-xs bg-red-boton hover:bg-red-boton-hover rounded-none",
+                "w-full h-11 mt-2 text-xs bg-red-boton hover:bg-red-boton-hover rounded-none",
             })}
             type="submit"
           >
@@ -72,12 +91,15 @@ const FormRestablecerContrasenia = () => {
         </div>
 
         <div className="Regresar">
-          <Link to="/login" className="text-sm text-white text-opacity-40 hover:underline ">
+          <Link
+            to="/login"
+            className="text-sm text-white text-opacity-40 hover:underline "
+          >
             Regresar para Iniciar Sesión
           </Link>
         </div>
-        
       </form>
+      <ToastContainer position="bottom-left" limit={1} stacked closeOnClick theme="colored" />
     </Form>
   );
 };

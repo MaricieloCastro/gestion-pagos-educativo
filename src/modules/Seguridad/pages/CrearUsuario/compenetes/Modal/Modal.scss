@@ -1,0 +1,95 @@
+.ant-modal {
+  &-content {
+    background-color: #003862 !important;
+    opacity: 0.85;
+    border-radius: 0px !important;
+    padding: 2.3vh !important;
+  }
+
+  &-title {
+    color: white !important;
+    text-align: center;
+    background-color: #003862 !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px;
+  }
+
+  &-body {
+    display: flex !important;
+    height: 8vh;
+    max-height: 8vh;
+    color: white !important;
+    justify-items: center !important;
+    justify-content: center !important;
+    text-align: center;
+
+    p {
+      font-weight: lighter;
+      padding: 0 3vh;
+      font-size: small;
+    }
+  }
+
+  &-footer {
+    margin-top: 1vh !important;
+    text-align: center !important;
+    margin-bottom: 1vh;
+  }
+
+  .ant-btn {
+    width: 12vh;
+    height: 5vh;
+    font-size: 1.8vh;
+    border: none !important;
+    font-weight: 500;
+    border-radius: 3px !important;
+
+    &:nth-child(1) {
+      color: white;
+      background-color: #f53151;
+      margin-right: 10px !important;
+
+      &:hover {
+        background-color: #f64d69;
+        color: rgb(237, 227, 213);
+      }
+    }
+
+    &:nth-child(2) {
+      color: white;
+      background-color: #1ec468;
+      margin-left: 10px !important;
+
+      &:hover {
+        background-color: #50cb88;
+        color: rgb(248, 245, 240);
+      }
+    }
+  }
+}
+.modal-simplex {
+  p {
+    font-weight: lighter;
+    padding: 0 3vh;
+    font-size: medium;
+  }
+
+  .ant-btn {
+    &:nth-child(1) {
+      display: none;
+    }
+  }
+  .ant-btn {
+    &:nth-child(2) {
+      display: none;
+    }
+  }
+}
+
+:where(.css-dev-only-do-not-override-1paxfrs).ant-spin .ant-spin-dot {
+  margin-top: 35px;
+  font-size: 30px;
+}
+:where(.css-dev-only-do-not-override-1paxfrs).ant-spin .ant-spin-dot-item {
+  color: #fff;
+}

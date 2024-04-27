@@ -7,11 +7,13 @@ import { z } from "zod";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import InputCredenciales from "./InputCredenciales";
+import { enlaces } from "@/utils/rutas";
 // Personal imports
 
 import { Form } from "@/components/ui/form";
 import { Button, buttonVariants } from "@/components/ui/button";
-import AuthContext from '@/contexts/AuthContext'
+import AuthContext from "@/contexts/AuthContext";
+import { ToastContainer } from "react-toastify";
 
 // CONFIGURACION INICIO
 // ACÁ SE HACEN LAS VALIDACIONES PRIMARIAS
@@ -36,11 +38,6 @@ const FormIniciarSesion = () => {
       password: "",
     },
   });
-
-  // function onSubmit(values) {
-  //   console.log(values);
-  // }
-  //NO TOCAR CIERRE
 
   return (
     <Form {...form}>
@@ -81,7 +78,10 @@ const FormIniciarSesion = () => {
         {/* ESTE BOTON TE ENVIARÁ A LA PANTALLA DE REESTABLECER CUANDO LO CONFIGUREMOS */}
 
         <div>
-          <Link className="text-base text-white text-opacity-40" to="#">
+          <Link
+            className="text-base text-white text-opacity-40"
+            to={enlaces[1].path}
+          >
             ¿Olvidaste tu contraseña?
           </Link>
         </div>
@@ -103,6 +103,7 @@ const FormIniciarSesion = () => {
           </Button>
         </div>
       </form>
+      <ToastContainer position="bottom-left" limit={1} stacked closeOnClick theme="colored" />
     </Form>
   );
 };

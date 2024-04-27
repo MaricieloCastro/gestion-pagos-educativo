@@ -1,0 +1,41 @@
+.filtros-table {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+
+  &__search {
+    display: grid;
+  }
+}
+
+// .filtros-table {
+//   display: grid;
+//   grid-template-columns: 1fr 1fr 1fr 1fr 3fr;
+//   grid-template-rows: 1fr 1fr;
+//   min-width: 90vh;
+
+//   &__selects {
+//     display: grid;
+//     grid-template-columns: repeat(4, 1fr);
+
+//     gap: 5vh;
+//   }
+
+//   &__input {
+//     grid-area: 2 / 1 / 2 / 5;
+//   }
+
+//   &__button {
+//     grid-area: 1 / 5 / 3 / 6;
+//   }
+// }
+
+@media screen and (max-width: 1200px) {
+  .filtros-table {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    &__button {
+      display: none;
+    }
+  }
+}

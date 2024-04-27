@@ -7,6 +7,9 @@
   margin: 9px;
   align-self: flex-end;
   height: 35vh;
+  border-width: 3px;
+  border-color: #001f36;
+
   &_perfil {
     background-color: #001f36;
     color: #fff;
@@ -15,6 +18,7 @@
     margin: 9px;
     align-self: flex-end;
     height: 16vh;
+    overflow-y: auto;
 
     input {
       background-color: #d9d9d9;
@@ -24,6 +28,8 @@
       color: #000;
       font-size: 15px;
       height: 33px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      border-radius: 2px;
     }
 
     button {
@@ -34,12 +40,12 @@
       height: 33px;
     }
     h2 {
-      text-decoration: underline;
+      //text-decoration: underline;
       margin-left: 8px;
     }
   }
   h2 {
-    text-decoration: underline;
+    //text-decoration: underline;
     margin-left: 8px;
   }
 
@@ -54,6 +60,8 @@
       width: 49vh;
       label {
         color: #fff;
+        font-size: 15px;
+        font-weight: normal;
       }
       .radio-label {
         padding-top: 0px;
@@ -85,7 +93,7 @@
           overflow: hidden;
           padding-top: 0px;
         }
-        :where(.css-dev-only-do-not-override-1kuana8).ant-picker-outlined {
+        :where(.css-dev-only-do-not-override-usln0u).ant-picker {
           border-radius: 0;
           background-color: #d9d9d9;
           width: 22vh;
@@ -105,6 +113,7 @@
     color: #000;
     font-size: 16px;
     height: 33px;
+    border-radius: 2px;
   }
   button {
     color: #000;
@@ -129,10 +138,11 @@
 
   img {
     height: 175px;
-    width: 15%;
+    width: 16%;
     border-style: solid;
-    border-width: 6px;
-    border-color: #001f36;
+    border-width: 0px;
+    //border-color: #001f36;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 10);
   }
   .imp {
     display: flex;
@@ -140,13 +150,28 @@
     align-items: center;
     width: 20%;
     margin-top: 5px;
+    font-size: 15px;
+
+    h2 {
+      margin-top: 10px;
+      background-color: #c1c1c1;
+      width: 60%;
+      height: 25px;
+      padding-left: 10px;
+      padding-top: 3px;
+      border-radius: 3px;
+      font-size: 14px;
+    }
     button {
-      background-color: #a4a4a4;
-      height: 20px;
-      width: 40%;
-      color: #000;
+      background-color: #003862;
+      height: 25px;
+      width: 5%;
+      color: #fff;
       font-size: 10px;
       font-weight: normal;
+      border-radius: 3px;
+      margin-left: 12px;
+      margin-top: 10px;
     }
   }
 }

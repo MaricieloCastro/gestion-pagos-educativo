@@ -17,7 +17,7 @@ export default function formulario(props) {
   }
 
   //Para convertir en mayuscula
-  const [inputValue, setInputValue] = useState("");
+  //const [inputValue, setInputValue] = useState("");
   return (
     <FormField
       control={form.control}
@@ -31,9 +31,9 @@ export default function formulario(props) {
               //placeholder={dato}
               {...field}
               type={type}
-              // onChange={handleInputChange}
+              //onChange={handleInputChange}
               disabled={disabled}
-              // value={dato}
+              //value={inputValue}
             />
           </FormControl>
           <FormMessage />
