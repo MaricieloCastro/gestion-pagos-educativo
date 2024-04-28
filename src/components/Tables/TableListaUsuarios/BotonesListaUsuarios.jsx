@@ -23,8 +23,8 @@ const BotonesListaUsuarios = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // CARGAS
-  const [modalLoading, setModalLoading] = useState(false)
-  const [modalSucessfull, setModalSucessfull] = useState(false)
+  const [modalLoading, setModalLoading] = useState(false);
+  const [modalSucessfull, setModalSucessfull] = useState(false);
   const [modalFailed, setModalFailed] = useState(false);
 
   const navigate = useNavigate();
@@ -48,12 +48,19 @@ const BotonesListaUsuarios = (props) => {
   };
 
   const handleConfirmacion = () => {
-    setIsModalOpen(true)
+    setIsModalOpen(true);
   };
 
   const handleEliminar = () => {
-    putAxiosPrueba(url, data, headers, setModalLoading, setModalSucessfull, setModalFailed);
-  }
+    putAxiosPrueba(
+      url,
+      data,
+      headers,
+      setModalLoading,
+      setModalSucessfull,
+      setModalFailed
+    );
+  };
 
   return (
     <div className="flex gap-2 justify-center items-center ">
@@ -77,10 +84,28 @@ const BotonesListaUsuarios = (props) => {
         disabled={false}
       />
 
-      <ModalConfirmacion titulo="¿Estás seguro de realizar esta acción?" subtitulo="Esta acción podria generar cambios en el sistema" isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} func={handleEliminar} />
+      <ModalConfirmacion
+        titulo="¿Estás seguro de realizar esta acción?"
+        subtitulo="Esta acción podria generar cambios en el sistema"
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        func={handleEliminar}
+      />
       <ModalCarga modalLoading={modalLoading} titulo="Cargando" />
-      <ModalSucess titulo="¡Usuario eliminado exitosamente!" subtitulo="" modalSucessfull={modalSucessfull} setModalSucessfull={setModalSucessfull} reload={reload} setReload={setReload} />
-      <ModalError titulo="Ups ¡Ha ocurrido un error inesperado!" subtitulo="Verifique su conexión a internet y vuelva a intentar la acción en unos minutos" modalFailed={modalFailed} setModalFailed={setModalFailed} />
+      <ModalSucess
+        titulo="¡Usuario eliminado exitosamente!"
+        subtitulo=""
+        modalSucessfull={modalSucessfull}
+        setModalSucessfull={setModalSucessfull}
+        reload={reload}
+        setReload={setReload}
+      />
+      <ModalError
+        titulo="Ups ¡Ha ocurrido un error inesperado!"
+        subtitulo="Verifique su conexión a internet y vuelva a intentar la acción en unos minutos"
+        modalFailed={modalFailed}
+        setModalFailed={setModalFailed}
+      />
     </div>
   );
 };
