@@ -11,6 +11,7 @@ export const getAxios = async (
   setLoading(false);
   try {
     const response = await axios.get(url, { headers });
+    console.log("operacion exitosa:", response);
     setGeneral(response.data);
     setLoading(true);
   } catch (error) {
@@ -63,5 +64,49 @@ export const postAxios = async (
     if (allowToast) {
       toast.error(error.response.data.message);
     }
+  }
+};
+
+// PRUEBAS
+
+export const putAxiosPrueba = async (
+  url,
+  data,
+  headers,
+  setLoading,
+  setSucess,
+  setError
+) => {
+  setLoading(true);
+  try {
+    const response = await axios.put(url, data, { headers });
+    console.log("operacion exitosa:", response);
+    setLoading(false);
+    setSucess(true);
+  } catch (error) {
+    setLoading(false);
+    setError(true);
+  }
+};
+
+export const postAxiosPrueba = async (
+  url,
+  data,
+  headers,
+  setLoading,
+  setSucess,
+  setError,
+  allowToast,
+  funcGeneral
+) => {
+  setLoading(true);
+  try {
+    const response = await axios.put(url, data, { headers });
+    console.log("operacion exitosa:", response);
+    setLoading(false);
+    setSucess(true);
+  } catch (error) {
+    setLoading(false);
+    setError(true);
   }
 };

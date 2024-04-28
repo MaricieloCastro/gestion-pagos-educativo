@@ -1,44 +1,33 @@
 import React, { useState } from "react";
-import { Button, Modal } from "antd";
-import "./Modal.scss"
-import ModalError from "./ModalError";
+import { Modal } from "antd";
+import "./Modal.scss";
 
 const ModalConfirmacion = (props) => {
-
-  const { setOpen, open, confirmLoading, setConfirmLoading, handleGeneral, error } = props
-
-  const [modalText, setModalText] = useState("Esta acción podría generar cambios dentro del sistema");
+  const { isModalOpen, setIsModalOpen, titulo, subtitulo, func } = props;
 
   const handleOk = () => {
-    setConfirmLoading(true)
-    setModalText('Eliminando usuario');
-    handleGeneral();
+    setIsModalOpen(false);
+    func();
   };
   const handleCancel = () => {
-    setOpen(false);
+    setIsModalOpen(false);
   };
-
   return (
-    <>
-      {error == 400 ? (
-        <ModalError titulo="Error" subtitulo="Soy un subtitulo" isModalOpen={open} setIsModalOpen={setOpen} />
-      ) : (
-        <Modal
-          title="¿Estás seguro de realizar esta acción?"
-          centered
-          open={open}
-          onOk={handleOk}
-          confirmLoading={confirmLoading}
-          onCancel={handleCancel}
-          okText="Aceptar"
-          cancelText="Cancelar"
-          width={360}
-          closeIcon={false}
-        >
-          <p>{modalText}</p>
-        </Modal>
-      )}
-    </>
+    <Modal
+      className="modal-confirmacion"
+      title={titulo}
+      centered
+      width={360}
+      closeIcon={false}
+      open={isModalOpen}
+      okText="Aceptar"
+      onOk={handleOk}
+      cancelText="Cancelar"
+      onCancel={handleCancel}
+    >
+      <p>{subtitulo}</p>
+    </Modal>
   );
 };
+
 export default ModalConfirmacion;
