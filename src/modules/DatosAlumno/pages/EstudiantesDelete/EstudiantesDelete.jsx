@@ -18,7 +18,7 @@ import AuthContext from "@/contexts/AuthContext";
 import { getAxios } from "@/functions/methods";
 import { usuariosActivosApi } from "@/api/ApiRutas";
 
-const ListaUsuarios = () => {
+const EstudiantesDelete = () => {
   let { authTokens } = useContext(AuthContext);
 
   const [reload, setReload] = useState(true);
@@ -139,4 +139,4 @@ const ListaUsuarios = () => {
   );
 };
 
-export default ListaUsuarios;
+export default EstudiantesDelete;
