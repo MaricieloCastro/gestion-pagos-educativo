@@ -3,17 +3,15 @@ import { Modal } from 'antd';
 import "./Modal.scss"
 
 const ModalError = (props) => {
-    const { isModalOpen, setIsModalOpen, titulo, subtitulo } = props
+    const { modalFailed, setModalFailed, titulo, subtitulo } = props
 
-    const handleOk = () => {
-        setIsModalOpen(false);
-    };
     const handleCancel = () => {
-        setIsModalOpen(false);
+        setModalFailed(false);
     };
+
     return (
         <>
-            <Modal className='modal-error' title={titulo} centered width={360} closeIcon={false} open={isModalOpen} cancelText="Aceptar" onOk={handleOk} onCancel={handleCancel}>
+            <Modal className='modal-error' title={titulo} centered width={360} closeIcon={false} open={modalFailed} cancelText="Aceptar" onCancel={handleCancel}>
                 <p>{subtitulo}</p>
             </Modal>
         </>

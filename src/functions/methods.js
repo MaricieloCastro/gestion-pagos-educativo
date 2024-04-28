@@ -66,3 +66,26 @@ export const postAxios = async (
     }
   }
 };
+
+// PRUEBAS
+
+export const putAxiosPrueba = async (
+  url,
+  data,
+  headers,
+  setLoading,
+  setSucess,
+  setError
+) => {
+  setLoading(true);
+  try {
+    const response = await axios.put(url, data, { headers });
+    console.log("operacion exitosa:", response);
+    setLoading(false);
+    setSucess(true);
+  } catch (error) {
+    setError(error.response.status);
+    setLoading(false);
+    setError(true);
+  }
+};

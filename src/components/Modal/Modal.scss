@@ -83,6 +83,46 @@
   }
 }
 
+.modal-carga {
+  p {
+    font-weight: lighter;
+    padding: 0 3vh;
+    font-size: medium;
+    position: relative;
+  }
+
+  .ant-modal-body {
+    display: flex;
+    height: 16vh;
+    max-height: 16vh;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.modal-sucess {
+  p {
+    font-weight: lighter;
+    padding: 0 3vh;
+    font-size: medium;
+  }
+
+  .ant-modal-body {
+    display: none !important;
+  }
+
+  .ant-modal-footer {
+    padding: 5vh 0;
+    max-height: 20vh;
+  }
+
+  .ant-btn {
+    &:nth-child(1) {
+      display: none;
+    }
+  }
+}
+
 .modal-error {
   p {
     font-weight: lighter;

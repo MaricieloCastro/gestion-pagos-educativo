@@ -3,12 +3,14 @@ import React, { useContext, useEffect, useState } from "react";
 import ButtonWithIcon from "@/components/ButtonWithIcon";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { putAxios } from "@/functions/methods";
+import { putAxios, putAxiosPrueba } from "@/functions/methods";
 import { usuarioAPI } from "@/api/ApiRutas";
 import AuthContext from "@/contexts/AuthContext";
+
 import ModalConfirmacion from "@/components/Modal/ModalConfirmacion";
-import ModalSimple from "@/components/Modal/ModalSimple";
+import ModalCarga from "@/components/Modal/ModalCarga";
 import ModalError from "@/components/Modal/ModalError";
+import ModalSucess from "@/components/Modal/ModalSucess";
 
 const BotonesListaUsuarios = (props) => {
   let { authTokens, logoutUser, user } = useContext(AuthContext);
@@ -17,16 +19,13 @@ const BotonesListaUsuarios = (props) => {
 
   const { id, username, password, id_tipo_usuario, setReload, reload } = props;
 
-  // MODAL DE CONFIRMACIÓN
-  const [open, setOpen] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
-
   // MODAL SIMPLE
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [error, setError] = useState(null);
-  const [disabled, setDisabled] = useState(false);
-  const [hola, setHola] = useState("");
+  // CARGAS
+  const [modalLoading, setModalLoading] = useState(false)
+  const [modalSucessfull, setModalSucessfull] = useState(false)
+  const [modalFailed, setModalFailed] = useState(false);
 
   const navigate = useNavigate();
 
@@ -48,18 +47,13 @@ const BotonesListaUsuarios = (props) => {
     is_active: false,
   };
 
-  const handleClickEliminar = () => {
-    putAxios(url, data, headers, setReload, reload, setError, setHola);
-    setDisabled(true);
+  const handleConfirmacion = () => {
+    setIsModalOpen(true)
   };
 
-  const handleClickModal = () => {
-    if (user_id === id) {
-      setIsModalOpen(true);
-    } else {
-      setOpen(true);
-    }
-  };
+  const handleEliminar = () => {
+    putAxiosPrueba(url, data, headers, setModalLoading, setModalSucessfull, setModalFailed);
+  }
 
   return (
     <div className="flex gap-2 justify-center items-center ">
@@ -79,22 +73,14 @@ const BotonesListaUsuarios = (props) => {
         classNameVariants="rounded-sm
                 bg-red-boton-listas hover:bg-red-boton-listas-hover
                 w-10"
-        onClick={handleClickModal}
+        onClick={handleConfirmacion}
         disabled={false}
       />
-      <ModalConfirmacion
-        setOpen={setOpen}
-        open={open}
-        handleGeneral={handleClickEliminar}
-        confirmLoading={confirmLoading}
-        setConfirmLoading={setConfirmLoading}
-      />
-      <ModalSimple
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        titulo="No puedes borrar tu propio Usuario"
-        subtitulo="Medidas de seguridad"
-      />
+
+      <ModalConfirmacion titulo="¿Estás seguro de realizar esta acción?" subtitulo="Esta acción podria generar cambios en el sistema" isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} func={handleEliminar} />
+      <ModalCarga modalLoading={modalLoading} titulo="Cargando" />
+      <ModalSucess titulo="¡Usuario eliminado exitosamente!" subtitulo="" modalSucessfull={modalSucessfull} setModalSucessfull={setModalSucessfull} reload={reload} setReload={setReload} />
+      <ModalError titulo="Ups ¡Ha ocurrido un error inesperado!" subtitulo="Verifique su conexión a internet y vuelva a intentar la acción en unos minutos" modalFailed={modalFailed} setModalFailed={setModalFailed} />
     </div>
   );
 };
