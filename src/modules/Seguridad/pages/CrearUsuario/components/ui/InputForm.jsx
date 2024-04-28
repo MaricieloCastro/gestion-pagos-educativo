@@ -105,8 +105,9 @@ export default function InputFormI(props) {
     "Content-Type": "application/json",
     Authorization: "Bearer " + String(authTokens.access),
   };
-
+  //PROPS
   const { disabled, ButtonView, textButton, usuarios, load, edad } = props;
+  //DESILACHADO("NO SÉ ESCRIBIR DECONSTRUCTURING")
   const {
     id,
     nombres,
@@ -124,7 +125,8 @@ export default function InputFormI(props) {
     fecha_nacimiento,
     uuid,
   } = usuarios || {};
-  //console.log(tipo_usuario.nombre);
+
+  //HOOK DE FORMULARIO
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -143,6 +145,8 @@ export default function InputFormI(props) {
       fecha_nacimiento: fecha_nacimiento || "",
     },
   });
+
+  //PARA LOS MÉTODOS
   const url = "http://127.0.0.1:8000/api/usuario/";
   const urlUp = `/login/update/${uuid}`;
   const [open, setOpen] = useState(false);
@@ -277,6 +281,7 @@ export default function InputFormI(props) {
                 nameLabel="F.de Nacimiento:"
                 dato={fecha_nacimiento}
                 disabled={disabled}
+                name={fecha_nacimiento}
               />
               <Formulario
                 form={form}
@@ -301,7 +306,7 @@ export default function InputFormI(props) {
               form={form}
               nameLabel="Usuario:"
               parametros="username"
-              disabled={true}
+              disabled={false}
               dato={username}
             />
             <Formulario
@@ -309,7 +314,7 @@ export default function InputFormI(props) {
               nameLabel="Contraseña:"
               parametros="password"
               type="password"
-              disabled={true}
+              disabled={false}
               dato={password}
             />
             <TipoUsarioSelect
