@@ -22,6 +22,9 @@ import CrearUsuario from "./modules/Seguridad/pages/CrearUsuario";
 import PagosGeneral from "./modules/Pagos/pages/PagosGeneral";
 import PagoInscripcion from "./modules/Pagos/pages/PagoInscripcion";
 
+//inscribir alumno
+import InscribirAlumno from "./modules/DatosAlumno/InscriberAlumno/InscribirAlumno";
+
 import { enlaces } from "./utils/rutas";
 
 //RutasPrivadas
@@ -30,6 +33,7 @@ import AuthContext from "./contexts/AuthContext";
 
 //Modulo de datos alumnos
 import MenuPrincipal from "./modules/DatosAlumno/MenuPrincipal";
+import InscriberAlumno from "./modules/DatosAlumno/InscriberAlumno";
 
 const App = () => {
   let { user } = useContext(AuthContext);
@@ -40,6 +44,7 @@ const App = () => {
       <Routes>
         <Route element={<PruebasModales />} path="/prueba/modal" />
         <Route element={<PruebasToast />} path="/prueba/toast" />
+
         <Route
           element={<RestablecerContrasenia />}
           path={enlaces[1].prevPath + enlaces[1].path}
@@ -84,6 +89,10 @@ const App = () => {
               />
             </>
           )}
+          <Route
+            element={<InscriberAlumno />}
+            path={enlaces[10].prevPath + enlaces[10].path}
+          />
         </Route>
       </Routes>
     </div>
