@@ -39,6 +39,7 @@ export const AuthProvider = ({ children }) => {
       })
       .then(function (response) {
         setAuthTokens(response.data);
+        console.log(response.data)
         setUser(jwtDecode(response.data.access));
         localStorage.setItem("authTokens", JSON.stringify(response.data));
         navigate("/");
@@ -58,6 +59,7 @@ export const AuthProvider = ({ children }) => {
 
   let updateToken = async () => {
     console.log("Update token called");
+    console.log(authTokens)
 
     let response = await fetch(loginRefreshApi, {
       method: "POST",

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, Link } from "react-router-dom";
 import "@/components/ToastStyle.scss";
 
 //MODULOS
@@ -85,6 +85,13 @@ const App = () => {
             </>
           )}
         </Route>
+        <Route element={<>
+          <div className="h-screen flex justify-center items-center flex-col gap-4">
+            <h1 className="text-6xl">ERROR 404</h1>
+            <p>PAGE NOT FOUND</p>
+            <p className="text-slate-400"><Link to="/">Regresar a inicio de sesión</Link></p>
+          </div>
+        </>} path="*" />
       </Routes>
     </div>
   );
