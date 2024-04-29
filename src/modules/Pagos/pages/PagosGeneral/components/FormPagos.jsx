@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./FormPagos.scss";
 import DatosView from "./DatosView";
 import { Button } from "@/components/ui/button";
@@ -24,9 +24,45 @@ import { AreaDesaprobadaSelect } from "./AreaDesaprobadaSelect";
 import { MetodoPagoSelect } from "./MetodoPagoSelect";
 import { CondicionVentaSelect } from "./CondicionVentaSelect";
 import Calendario from "@/modules/Seguridad/pages/CrearUsuario/compenetes/reuse/Calendario";
+//Parametro ZOD
+const FormSchema = z.object({
+  año_lectivo: z.string().min(1, {
+    message: "El campo tiene que ser llenado",
+  }),
+  mes_cancelado: z.string().min(1, {
+    message: "campo obligatorio",
+  }),
+  area_desaprobada: z.string().min(1, {
+    message: "campo obligatorio",
+  }),
+  fecha_pago: z.string().min(1, {
+    message: "campo obligatorio",
+  }),
+  condicion_venta: z.string().min(1, {
+    message: "campo obligatorio",
+  }),
+  metodo_pago: z.string().min(1, {
+    message: "campo obligatorio",
+  }),
+  descripcion: z.string().min(1, {
+    message: "campo obligatorio",
+  }),
+  monto: z.string().min(1, {
+    message: "campo obligatorio",
+  }),
+  monto_previo: z.string().min(1, {
+    message: "campo obligatorio",
+  }),
+  descuento_aplicado: z.string().min(1, {
+    message: "campo obligatorio",
+  }),
+  total_pagar: z.string().min(1, {
+    message: "campo obligatorio",
+  }),
+});
 export default function FormPagos() {
   const form = useForm({
-    resolver: zodResolver(),
+    resolver: zodResolver(FormSchema),
     defaultValues: {
       año_lectivo: "",
       mes_cancelado: "",
@@ -62,6 +98,18 @@ export default function FormPagos() {
   function onSubmit(values) {
     console.log(values);
   }
+  const ButtonView = false;
+  //Lógica para no rendirizar los botones de pagos
+  const [mostrarBotones, setMostrarBotones] = useState(true);
+  useEffect(() => {
+    // Lógica para determinar si mostrar o no el botón
+    const usuarioEnInicio = ButtonView; // Cambia esto a tu lógica real
+    if (usuarioEnInicio) {
+      setMostrarBotones(true);
+    } else {
+      setMostrarBotones(false);
+    }
+  }, []);
   const name = "SHANDE ANDRES ALVAN RIOS";
   return (
     <Form {...form}>
@@ -87,16 +135,20 @@ export default function FormPagos() {
                   <ModeEditIcon /> INFORMACIÓN
                 </Button>
               </div>
-              <Button>HISTORIAL DE PAGOS</Button>
-              <Button onClick={mensualidad} type="button">
-                MENSUALIDAD
-              </Button>
-              <Button type="button" onClick={matricula}>
-                MATRICULA
-              </Button>
-              <Button type="button" onClick={cursoD}>
-                CURSO DESAPROBADO
-              </Button>
+              {mostrarBotones && (
+                <>
+                  <Button>HISTORIAL DE PAGOS</Button>
+                  <Button onClick={mensualidad} type="button">
+                    MENSUALIDAD
+                  </Button>
+                  <Button type="button" onClick={matricula}>
+                    MATRICULA
+                  </Button>
+                  <Button type="button" onClick={cursoD}>
+                    CURSO DESAPROBADO
+                  </Button>
+                </>
+              )}
             </div>
           </div>
           <div className="pagos-dato">

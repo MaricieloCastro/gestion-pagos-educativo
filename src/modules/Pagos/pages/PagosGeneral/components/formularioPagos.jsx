@@ -29,7 +29,7 @@ export default function formularioPagos(props) {
           <FormLabel>{nameLabel}</FormLabel>
           <FormControl>
             <div className="flex">
-              <Button>PE S/</Button>
+              <Button type="button">PE S/</Button>
               <Input
                 //placeholder={dato}
                 {...field}
