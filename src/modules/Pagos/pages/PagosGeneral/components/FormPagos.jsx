@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import "./FormPagos.scss";
 import DatosView from "./DatosView";
 import { Button } from "@/components/ui/button";
@@ -42,6 +42,23 @@ export default function FormPagos() {
     },
   });
 
+  //tipos de pagos
+  const [buttonCD, setButtonCD] = useState();
+  const [buttonM, setButtonM] = useState();
+
+  function mensualidad() {
+    setButtonCD(true);
+    setButtonM(false);
+  }
+  function matricula() {
+    setButtonCD(true);
+    setButtonM(true);
+  }
+  function cursoD() {
+    setButtonCD(false);
+    setButtonM(true);
+  }
+  console.log(buttonCD, buttonM);
   function onSubmit(values) {
     console.log(values);
   }
@@ -71,9 +88,15 @@ export default function FormPagos() {
                 </Button>
               </div>
               <Button>HISTORIAL DE PAGOS</Button>
-              <Button>MENSUALIDAD </Button>
-              <Button>MATRICULA</Button>
-              <Button>CURSO DESAPROBADO</Button>
+              <Button onClick={mensualidad} type="button">
+                MENSUALIDAD
+              </Button>
+              <Button type="button" onClick={matricula}>
+                MATRICULA
+              </Button>
+              <Button type="button" onClick={cursoD}>
+                CURSO DESAPROBADO
+              </Button>
             </div>
           </div>
           <div className="pagos-dato">
@@ -84,8 +107,8 @@ export default function FormPagos() {
                   nameLabel="Año Lectivo:"
                   parametros="año_lectivo"
                 />
-                <MesCanceladoSelect form={form} />
-                <AreaDesaprobadaSelect form={form} />
+                <MesCanceladoSelect form={form} disabled={buttonM} />
+                <AreaDesaprobadaSelect form={form} disabled={buttonCD} />
               </div>
               <div className="pagos-dato_uno-dos">
                 <Calendario
