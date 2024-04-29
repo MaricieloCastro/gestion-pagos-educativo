@@ -23,7 +23,7 @@ import PagosGeneral from "./modules/Pagos/pages/PagosGeneral";
 import PagoInscripcion from "./modules/Pagos/pages/PagoInscripcion";
 
 //inscribir alumno
-import InscribirAlumno from "./modules/DatosAlumno/InscriberAlumno/InscribirAlumno";
+import InscribirAlumno from "./modules/DatosAlumno/InscribirAlumno";
 
 import { enlaces } from "./utils/rutas";
 
@@ -33,7 +33,6 @@ import AuthContext from "./contexts/AuthContext";
 
 //Modulo de datos alumnos
 import MenuPrincipal from "./modules/DatosAlumno/MenuPrincipal";
-import InscriberAlumno from "./modules/DatosAlumno/InscriberAlumno";
 
 const App = () => {
   let { user } = useContext(AuthContext);
@@ -90,17 +89,24 @@ const App = () => {
             </>
           )}
           <Route
-            element={<InscriberAlumno />}
+            element={<InscribirAlumno />}
             path={enlaces[10].prevPath + enlaces[10].path}
           />
         </Route>
-        <Route element={<>
-          <div className="h-screen flex justify-center items-center flex-col gap-4">
-            <h1 className="text-6xl">ERROR 404</h1>
-            <p>PAGE NOT FOUND</p>
-            <p className="text-slate-400"><Link to="/">Regresar a inicio de sesión</Link></p>
-          </div>
-        </>} path="*" />
+        <Route
+          element={
+            <>
+              <div className="h-screen flex justify-center items-center flex-col gap-4">
+                <h1 className="text-6xl">ERROR 404</h1>
+                <p>PAGE NOT FOUND</p>
+                <p className="text-slate-400">
+                  <Link to="/">Regresar a inicio de sesión</Link>
+                </p>
+              </div>
+            </>
+          }
+          path="*"
+        />
       </Routes>
     </div>
   );
