@@ -232,7 +232,7 @@ export default function InscribirAlumno() {
                       </div>
                     </div>
                     <div>
-                      <div className="columns pt-6 grid grid-flow-row-dense">
+                      <div className="columns pt-6 ">
                         <div className="grid grid-flow-col-dense">
                           <div className="columns">
                             <Formulario
@@ -256,15 +256,15 @@ export default function InscribirAlumno() {
                               <Calendario
                                 form={form}
                                 parametros="fecha_nacimiento"
-                                nameLabel="FECHA NACIMIENTO:"
+                                nameLabel="FECHA NACIMIENTO: "
                               />
                             </div>
                             <div className="columns">
-                              <h3 className="pb-4">Sexo:</h3>
+                              <h3 className="pb-4">VIVE:</h3>
                               <RadiusSexo form={form} />
                             </div>
                             <div className="columns">
-                              <h3 className="pb-4">Sexo:</h3>
+                              <h3 className="pb-4">VIVE CON ESTUDIANTE:</h3>
                               <RadiusSexo form={form} />
                             </div>
                           </div>
@@ -272,17 +272,211 @@ export default function InscribirAlumno() {
                       </div>
                     </div>
                   </div>
+                  {/* PADRE */}
+                  {/* PADRE */}
+                  {/* PADRE */}
                   <div>
                     {" "}
                     <h3 className="text-center text-gray-500">
                       LUGAR DE NACIMIENTO DEL PADRE
                     </h3>
+                    <div className="d-familiar">
+                      <div className="columns">
+                        {" "}
+                        <Formulario
+                          form={form}
+                          parametros="centro-trabajo"
+                          nameLabel="CENTRO DE TRABAJO:"
+                        />
+                        <Formulario
+                          form={form}
+                          parametros="ocupacion"
+                          nameLabel="OCUPACION:"
+                        />
+                        <Formulario
+                          form={form}
+                          parametros="grado-instruccion"
+                          nameLabel="GRADO DE INSTRUCCION:"
+                        />
+                        <Formulario
+                          form={form}
+                          parametros="parentesco"
+                          nameLabel="PARENTESCO:"
+                        />
+                        <Formulario
+                          form={form}
+                          parametros="domicilio"
+                          nameLabel="DOMICILIO:"
+                        />
+                      </div>
+                      <div grid grid-flow-row-dense className="columns pt-4">
+                        <div className="grid grid-flow-col-dense">
+                          <div className="pr-3">
+                            <DistritosSelect form={form} />
+                          </div>
+                          <div className="pr-3">
+                            <DistritosSelect form={form} />
+                          </div>
+                          <div>
+                            <DistritosSelect form={form} />
+                          </div>
+                        </div>
+                        <div className="grid grid-flow-col-dense ">
+                          <div className="pr-3">
+                            <Formulario
+                              form={form}
+                              parametros="parentesco"
+                              nameLabel="PARENTESCO:"
+                            />
+                          </div>
+                          <div>
+                            <Formulario
+                              form={form}
+                              parametros="parentesco"
+                              nameLabel="PARENTESCO:"
+                            />
+                          </div>
+                        </div>
+                        <div className="grid grid-flow-col-dense">
+                          <div className="pr-3">
+                            {" "}
+                            <DistritosSelect form={form} />
+                          </div>
+                          <div className=" pt-4">
+                            <h3 className="pb-4">APODERADO:</h3>
+                            <RadiusSexo form={form} />
+                          </div>
+                          <div>
+                            <Formulario
+                              form={form}
+                              parametros="e-mail"
+                              nameLabel="E-MAIL:"
+                            />
+                          </div>
+                        </div>
+                        <div className="grid grid-flow-col-dense">
+                          <div className="pr-3">
+                            <Formulario
+                              form={form}
+                              parametros="nombres"
+                              nameLabel="NOMBRES:"
+                            />
+                          </div>
+                          <div>
+                            <Formulario
+                              form={form}
+                              parametros="apellidos"
+                              nameLabel="APELLIDOS:"
+                            />
+                          </div>
+                        </div>
+                        <div className="grid grid-flow-col-dense">
+                          <div>
+                            <div className="pr-10">
+                              <Formulario
+                                form={form}
+                                parametros="fecha-nacimiento"
+                                nameLabel="FECHA DE NACIMIENTO:"
+                              />
+                            </div>
+                          </div>
+                          <div className="pt-4">
+                            <h3 className="pb-4">VIVE:</h3>
+                            <RadiusSexo form={form} />
+                          </div>
+                          <div className=" pt-4">
+                            <h3 className="pb-4">VIVE CON ESTUDIANTE:</h3>
+                            <RadiusSexo form={form} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+                  {/* MADRE */}
+                  {/* MADRE */}
+                  {/* MADRE */}
                   <div>
                     {" "}
                     <h3 className="text-center text-gray-500">
-                      LUGAR DE NACIMIENTO DELA MADRE
+                      LUGAR DE NACIMIENTO DE LA MADRE
                     </h3>
+                    <div className="d-familiar">
+                      <div className="columns">
+                        {" "}
+                        <Formulario
+                          form={form}
+                          parametros="centro-trabajo"
+                          nameLabel="CENTRO DE TRABAJO:"
+                        />
+                        <Formulario
+                          form={form}
+                          parametros="ocupacion"
+                          nameLabel="OCUPACION:"
+                        />
+                        <Formulario
+                          form={form}
+                          parametros="grado-instruccion"
+                          nameLabel="GRADO DE INSTRUCCION:"
+                        />
+                      </div>
+                      <div className="columns grid grid-flow-row-dense">
+                        <div className="grid grid-flow-col-dense">
+                          <div className="pr-3">
+                            <Formulario
+                              form={form}
+                              parametros="grado-instruccion"
+                              nameLabel="GRADO DE INSTRUCCION:"
+                            />
+                          </div>
+                          <div className="pr-3">
+                            <DistritosSelect form={form} />
+                          </div>
+                          <div>
+                            <Formulario
+                              form={form}
+                              parametros="grado-instruccion"
+                              nameLabel="GRADO DE INSTRUCCION:"
+                            />
+                          </div>
+                        </div>
+                        <div className="grid grid-flow-col-dense">
+                          <div className="pr-3">
+                            <Formulario
+                              form={form}
+                              parametros="grado-instruccion"
+                              nameLabel="GRADO DE INSTRUCCION:"
+                            />
+                          </div>
+                          <div>
+                            <Formulario
+                              form={form}
+                              parametros="grado-instruccion"
+                              nameLabel="GRADO DE INSTRUCCION:"
+                            />
+                          </div>
+                        </div>
+                        <div className="grid grid-flow-col-dense">
+                          <div className="pr-3">
+                            <Formulario
+                              form={form}
+                              parametros="grado-instruccion"
+                              nameLabel="GRADO DE INSTRUCCION:"
+                            />
+                          </div>
+                          <div>
+                            <h3 className="pb-4">VIVE:</h3>
+                            <RadiusSexo form={form} />
+                          </div>
+                          <div>
+                            <Formulario
+                              form={form}
+                              parametros="grado-instruccion"
+                              nameLabel="GRADO DE INSTRUCCION:"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
