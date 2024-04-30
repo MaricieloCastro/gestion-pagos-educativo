@@ -44,6 +44,7 @@ export function RadiusSexo(props) {
                 </FormControl>
                 <FormLabel className="font-normal">Masculino</FormLabel>
               </FormItem>
+
               <FormItem className="flex items-center space-x-3 space-y-0">
                 <FormControl>
                   <RadioGroupItem value="F" />

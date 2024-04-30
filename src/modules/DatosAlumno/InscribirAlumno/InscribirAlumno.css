@@ -1,24 +1,31 @@
 /* Composite de panel */
-.Panel{
+.conteiner{
+    position: relative;
     display: grid;
-    grid-template-columns: 2fr 2fr;
+    grid-template-rows: repeat(3,1fr);
+    height:100vh;
+    overflow: auto;
     background-color: #D9D9D9;
-    height: 400vh;
-    overflow-y: scroll;
-
+    padding-bottom: 40px;
 }
 /* Composite panel superior */
 .Panel-superior{
     display: grid;
     grid-template-columns: 0.5fr 2fr;
-    margin-top: 15px;
-    background-color: #D9D9D9;
 }
-.datos-estudiantes{
+.contenido{
+    padding: 10px;
+    height: 100%;
+}
+.d{
     display: grid;
-    grid-template-columns: 2fr 2fr;
+    grid-template-columns: repeat(2,1fr);
 }
 
+.datos-estudiantes{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
 /*fotografia */
 .foto{  
     width: 32vh !important;
@@ -46,7 +53,33 @@
 
 
 /* Composite panel inferior */
-.Panel-inferior{
-    /* background-color: #D9D9D9; */
-    height: 100vh;
+
+.pgi{
+    padding: 10px;
+    height: 100%;
+}
+.columns{
+    padding: 10px;
+    
+}
+.g-s{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+.datos-se{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+.matricula-e{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+
+
+
+
+/* DATOS FAMILIAR */
+
+.intro{
+    width: 11vw;
 }

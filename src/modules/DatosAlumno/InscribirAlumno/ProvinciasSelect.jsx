@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-export function DepartamentosSelect(props) {
+export function ProvinciasSelect(props) {
   const { form, dato, disabled } = props;
   //console.log(dato);
   // let valor = dato.nombre;
@@ -27,7 +27,7 @@ export function DepartamentosSelect(props) {
       name="departamento"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>DEPARTAMENTO:</FormLabel>
+          <FormLabel>PROVINCIA: </FormLabel>
           <Select
             // defaultValue={valor}
             onValueChange={field.onChange}
