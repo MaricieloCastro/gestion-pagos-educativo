@@ -80,6 +80,7 @@
 
 /* DATOS FAMILIAR */
 
-.intro{
-    width: 11vw;
+.d-familiar{
+    display: grid;
+    grid-template-columns:  1fr 2fr;
 }

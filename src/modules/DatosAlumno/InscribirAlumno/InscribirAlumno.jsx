@@ -208,69 +208,82 @@ export default function InscribirAlumno() {
               {/* DATOS FAMILIAR */}
               {/* DATOS FAMILIAR */}
               <div className=" p-3">
-                <div className="pgi bg-blue-claro text-white ">
-                  <div className="grid grid-flow-col-dense ">
-                    <div className="columns grid grid-flow-row-dense">
-                      <div>
-                        <h2>DATOS DEL FAMILIAR:</h2>
-                        <Formulario
-                          form={form}
-                          parametros="parentesco"
-                          nameLabel="PARENTESCO:"
-                        />
-                      </div>
-                      <div>
-                        <Formulario
-                          form={form}
-                          parametros="domicilio"
-                          nameLabel="DOMICILIO:"
-                        />
-                      </div>
-                    </div>
-                    <div className="columns pt-8 grid grid-flow-row-dense">
-                      <div>
-                        <Formulario
-                          form={form}
-                          parametros="apellidos"
-                          nameLabel="APELLIDOS:"
-                        />
-                      </div>
+                <div className=" bg-blue-claro text-white  grid grid-flow-row-dense">
+                  <div className="d-familiar">
+                    <div>
                       <div className="grid grid-flow-col-dense ">
-                        <div className="intro">
-                          <Calendario
-                            form={form}
-                            parametros="fecha_nacimiento"
-                            nameLabel="FECHA NACIMIENTO:"
-                          />
-                        </div>
-                        <div>
+                        <div className="columns grid grid-flow-row-dense">
                           <div>
-                            <h3 className="pb-4">Sexo:</h3>
-                            <RadiusSexo form={form} />
+                            <h2>DATOS DEL FAMILIAR:</h2>
+                            <Formulario
+                              form={form}
+                              parametros="parentesco"
+                              nameLabel="PARENTESCO:"
+                            />
+                          </div>
+                          <div>
+                            <Formulario
+                              form={form}
+                              parametros="domicilio"
+                              nameLabel="DOMICILIO:"
+                            />
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className="columns pt-8 grid grid-flow-row-dense">
-                      <div>
-                        <Formulario
-                          form={form}
-                          parametros="nombres"
-                          nameLabel="NOMBRES:"
-                        />
-                      </div>
-                      <div>
-                        <h3 className="pb-4">Sexo:</h3>
-                        <RadiusSexo form={form} />
+                    <div>
+                      <div className="columns pt-6 grid grid-flow-row-dense">
+                        <div className="grid grid-flow-col-dense">
+                          <div className="columns">
+                            <Formulario
+                              form={form}
+                              parametros="nombres"
+                              nameLabel="NOMBRES:"
+                            />
+                          </div>
+                          <div className="columns">
+                            <Formulario
+                              form={form}
+                              parametros="apellidos"
+                              nameLabel="APELLIDOS:"
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          {" "}
+                          <div className="grid grid-flow-col-dense ">
+                            <div className="columns">
+                              <Calendario
+                                form={form}
+                                parametros="fecha_nacimiento"
+                                nameLabel="FECHA NACIMIENTO:"
+                              />
+                            </div>
+                            <div className="columns">
+                              <h3 className="pb-4">Sexo:</h3>
+                              <RadiusSexo form={form} />
+                            </div>
+                            <div className="columns">
+                              <h3 className="pb-4">Sexo:</h3>
+                              <RadiusSexo form={form} />
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <h3 className="text-center text-gray-500">
-                    LUGAR DE NACIMIENTO DEL PADRE
-                  </h3>
-                  <h3 className="text-center text-gray-500">
-                    LUGAR DE NACIMIENTO DELA MADRE
-                  </h3>
+                  <div>
+                    {" "}
+                    <h3 className="text-center text-gray-500">
+                      LUGAR DE NACIMIENTO DEL PADRE
+                    </h3>
+                  </div>
+                  <div>
+                    {" "}
+                    <h3 className="text-center text-gray-500">
+                      LUGAR DE NACIMIENTO DELA MADRE
+                    </h3>
+                  </div>
                 </div>
               </div>
             </div>
