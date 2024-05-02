@@ -3,7 +3,7 @@ import "./FormPagos.scss";
 import DatosView from "./DatosView";
 import { Button } from "@/components/ui/button";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import AvatarCN from "@/components/AvatarCN";
+import AvatarPagos from "./AvatarPagos";
 
 //Importaciones para el formularioI
 import { useForm } from "react-hook-form";
@@ -94,7 +94,9 @@ export default function FormPagos() {
     setButtonCD(false);
     setButtonM(true);
   }
-  console.log(buttonCD, buttonM);
+  //console.log(buttonCD, buttonM);
+  //Se actualiza el token
+  //Cambia de color el label
   function onSubmit(values) {
     console.log(values);
   }
@@ -117,7 +119,7 @@ export default function FormPagos() {
         <div className="pagos">
           <div className="pagos-alumno">
             <div className="pagos-alumno_foto">
-              <AvatarCN />
+              <AvatarPagos />
             </div>
             <div className="pagos-alumno_datos">
               <div className="pagos-alumno_datos-nombres">{name}</div>
@@ -131,7 +133,7 @@ export default function FormPagos() {
             </div>
             <div className="pagos-alumno_botones">
               <div className="pagos-alumno_botones-informacion">
-                <Button>
+                <Button type="button">
                   <ModeEditIcon /> INFORMACIÓN
                 </Button>
               </div>
