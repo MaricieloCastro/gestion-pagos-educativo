@@ -10,7 +10,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import "../TableListaUsuarios/FiltrosTableListaUsuarios.scss";
 
-const FiltrosTableSolicitudEstudiantesDelete = (props) => {
+const FiltrosTableMenuPrincipal = (props) => {
   const { setFilteringTipo, setFilteringSearch, filteringSearch } = props;
   // const { value, onChange } = props;
 
@@ -112,4 +112,4 @@ const FiltrosTableSolicitudEstudiantesDelete = (props) => {
   );
 };
 
-export default FiltrosTableSolicitudEstudiantesDelete;
+export default FiltrosTableMenuPrincipal;

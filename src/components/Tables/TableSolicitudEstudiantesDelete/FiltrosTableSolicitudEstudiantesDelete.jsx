@@ -17,9 +17,9 @@ const FiltrosTableSolicitudEstudiantesDelete = (props) => {
   return (
     <div className="filtros-table bg-white-texto h-[20vh] max-h-[15vh] min-h-[130px]">
       <div className="filtros-table__search">
-        <div className="flex gap-4 items-center px-4">
+        <div className="flex gap-x-12 items-center px-4">
           <SelectFiltros
-            title="TIPO"
+            title="TURNO"
             classNameTitle="text-blue-claro font-normal"
             options={optionsTipo}
             defaultValue="TODOS"
@@ -29,7 +29,67 @@ const FiltrosTableSolicitudEstudiantesDelete = (props) => {
             colorText="#D9D9D9"
             controlItemBgActive="#004988"
             controlItemBgHover="#002A50"
-            width={140}
+            width={160}
+            height={40}
+            setFilteringTipo={setFilteringTipo}
+          />
+          <SelectFiltros
+            title="GRADO"
+            classNameTitle="text-blue-claro font-normal"
+            options={optionsTipo}
+            defaultValue="TODOS"
+            bgSelect="#003862"
+            colorFlecha="#D9D9D9"
+            bgElevated="#003768"
+            colorText="#D9D9D9"
+            controlItemBgActive="#004988"
+            controlItemBgHover="#002A50"
+            width={160}
+            height={40}
+            setFilteringTipo={setFilteringTipo}
+          />
+          <SelectFiltros
+            title="SECCIÓN"
+            classNameTitle="text-blue-claro font-normal"
+            options={optionsTipo}
+            defaultValue="TODOS"
+            bgSelect="#003862"
+            colorFlecha="#D9D9D9"
+            bgElevated="#003768"
+            colorText="#D9D9D9"
+            controlItemBgActive="#004988"
+            controlItemBgHover="#002A50"
+            width={160}
+            height={40}
+            setFilteringTipo={setFilteringTipo}
+          />
+          <SelectFiltros
+            title="BENEFICIO"
+            classNameTitle="text-blue-claro font-normal"
+            options={optionsTipo}
+            defaultValue="TODOS"
+            bgSelect="#003862"
+            colorFlecha="#D9D9D9"
+            bgElevated="#003768"
+            colorText="#D9D9D9"
+            controlItemBgActive="#004988"
+            controlItemBgHover="#002A50"
+            width={160}
+            height={40}
+            setFilteringTipo={setFilteringTipo}
+          />
+          <SelectFiltros
+            title="DEUDA"
+            classNameTitle="text-blue-claro font-normal"
+            options={optionsTipo}
+            defaultValue="TODOS"
+            bgSelect="#003862"
+            colorFlecha="#D9D9D9"
+            bgElevated="#003768"
+            colorText="#D9D9D9"
+            controlItemBgActive="#004988"
+            controlItemBgHover="#002A50"
+            width={160}
             height={40}
             setFilteringTipo={setFilteringTipo}
           />
