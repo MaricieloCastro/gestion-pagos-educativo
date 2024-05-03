@@ -16,7 +16,8 @@ import {
 import BotonesMenuPrincipal from "@/components/Tables/TableMenuPrincipal/BotonesMenuPrincipal";
 import AuthContext from "@/contexts/AuthContext";
 import { getAxios } from "@/functions/methods";
-import { alumnosInactivosApi } from "@/api/ApiRutas";
+import { alumnosApi } from "@/api/ApiRutas";
+import ColorEstadoDeuda from "@/components/Tables/TableSolicitudEstudiantesDelete/ColorEstadoDeuda";
 
 const MenuPrincipal = () => {
   let { authTokens } = useContext(AuthContext);
@@ -32,7 +33,7 @@ const MenuPrincipal = () => {
   };
 
   useEffect(() => {
-    getAxios(alumnosInactivosApi, headers, setUsuarios, setLoading, setError);
+    getAxios(alumnosApi, headers, setUsuarios, setLoading, setError);
   }, [reload]);
 
   const data = usuarios;
@@ -44,7 +45,15 @@ const MenuPrincipal = () => {
     },
     {
       header: "ESTADO",
-      accessorKey: "estado",
+      cell: (row) => {
+        const estado = row.cell.row.original.estado;
+
+        return (
+          <ColorEstadoDeuda
+            estado={estado}
+          />
+        );
+      },
     },
     {
       header: "ALUMNO",

@@ -16,7 +16,8 @@ import {
 import BotonesSolicitudEstudiantesDelete from "@/components/Tables/TableSolicitudEstudiantesDelete/BotonesSolicitudEstudiantesDelete";
 import AuthContext from "@/contexts/AuthContext";
 import { getAxios } from "@/functions/methods";
-import { alumnosInactivosApi } from "@/api/ApiRutas";
+import { alumnosInactivosApi, alumnosSolicitudDeleteApi } from "@/api/ApiRutas";
+import ColorEstadoDeuda from "@/components/Tables/TableSolicitudEstudiantesDelete/ColorEstadoDeuda";
 
 const SolicitudEstudiantesDelete = () => {
   let { authTokens } = useContext(AuthContext);
@@ -32,7 +33,7 @@ const SolicitudEstudiantesDelete = () => {
   };
 
   useEffect(() => {
-    getAxios(alumnosInactivosApi, headers, setUsuarios, setLoading, setError);
+    getAxios(alumnosSolicitudDeleteApi, headers, setUsuarios, setLoading, setError);
   }, [reload]);
 
   const data = usuarios;
@@ -44,7 +45,15 @@ const SolicitudEstudiantesDelete = () => {
     },
     {
       header: "ESTADO",
-      accessorKey: "estado",
+      cell: (row) => {
+        const estado = row.cell.row.original.estado;
+
+        return (
+          <ColorEstadoDeuda
+            estado={estado}
+          />
+        );
+      },
     },
     {
       header: "ALUMNO",
