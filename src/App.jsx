@@ -32,7 +32,7 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import AuthContext from "./contexts/AuthContext";
 
 //Modulo de datos alumnos
-import MenuPrincipal from "./modules/DatosAlumno/MenuPrincipal";
+import MenuPrincipal from "./modules/DatosAlumno/pages/MenuPrincipal";
 import InscriberAlumno from "./modules/DatosAlumno/InscriberAlumno";
 import EstudiantesDelete from "./modules/DatosAlumno/pages/EstudiantesDelete";
 import SolicitudEstudiantesDelete from "./modules/DatosAlumno/pages/SolicitudEstudiantesDelete";
