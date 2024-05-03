@@ -100,7 +100,7 @@ export default function FormPagos() {
   function onSubmit(values) {
     console.log(values);
   }
-  const ButtonView = false;
+  const ButtonView = true;
   //Lógica para no rendirizar los botones de pagos
   const [mostrarBotones, setMostrarBotones] = useState(true);
   useEffect(() => {
@@ -133,7 +133,7 @@ export default function FormPagos() {
             </div>
             <div className="pagos-alumno_botones">
               <div className="pagos-alumno_botones-informacion">
-                <Button type="button">
+                <Button type="button  ">
                   <ModeEditIcon /> INFORMACIÓN
                 </Button>
               </div>
