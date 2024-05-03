@@ -90,4 +90,20 @@ export const enlaces = [
     actualPath: "/inscribir-alumno/",
     alias: "INSCRIBIR ALUMNOS",
   },
+  {
+    id: 12,
+    name: "estudiantes-delete",
+    path: "estudiantes-delete/",
+    prevPath: "/",
+    actualPath: "/estudiantes-delete/",
+    alias: "PAPELERA DE ESTUDIANTES",
+  },
+  {
+    id: 13,
+    name: "solicitud-estudiantes-delete",
+    path: "solicitud-estudiantes-delete/",
+    prevPath: "panel/",
+    actualPath: "/panel/solicitud-estudiantes-delete/",
+    alias: "SOLICITUD DE ELIMINACIÓN",
+  },
 ];

@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import MenuLateral from "@/components/MenuLateral";
 
-import FiltrosTableListaUsuarios from "@/components/Tables/TableListaUsuarios/FiltrosTableListaUsuarios";
-import TableListaUsuarios from "@/components/Tables/TableListaUsuarios/TableListaUsuarios";
+import FiltrosTableEstudiantesDelete from "@/components/Tables/TableEstudiantesDelete/FiltrosTableEstudiantesDelete";
+import TableEstudiantesDelete from "@/components/Tables/TableEstudiantesDelete/TableEstudiantesDelete";
 import Pagination from "@/components/Tables/Pagination";
 
 import {
@@ -13,10 +13,10 @@ import {
   getFilteredRowModel,
 } from "@tanstack/react-table";
 
-import BotonesListaUsuarios from "@/components/Tables/TableListaUsuarios/BotonesListaUsuarios";
+import BotonesEstudiantesDelete from "@/components/Tables/TableEstudiantesDelete/BotonesEstudiantesDelete";
 import AuthContext from "@/contexts/AuthContext";
 import { getAxios } from "@/functions/methods";
-import { usuariosActivosApi } from "@/api/ApiRutas";
+import { alumnosInactivosApi } from "@/api/ApiRutas";
 
 const EstudiantesDelete = () => {
   let { authTokens } = useContext(AuthContext);
@@ -32,7 +32,7 @@ const EstudiantesDelete = () => {
   };
 
   useEffect(() => {
-    getAxios(usuariosActivosApi, headers, setUsuarios, setLoading, setError);
+    getAxios(alumnosInactivosApi, headers, setUsuarios, setLoading, setError);
   }, [reload]);
 
   const data = usuarios;
@@ -43,43 +43,43 @@ const EstudiantesDelete = () => {
       accessorKey: "codigo",
     },
     {
-      header: "USUARIO",
-      accessorKey: "usuario",
+      header: "ESTADO",
+      accessorKey: "estado",
     },
     {
-      header: "TIPO",
-      accessorKey: "tipo",
+      header: "ALUMNO",
+      accessorKey: "alumno",
     },
     {
-      header: "CORREO",
-      accessorKey: "email",
+      header: "BENEFICIO",
+      accessorKey: "beneficio",
     },
     {
-      header: "ULT. INGRESO",
-      accessorKey: "ultimo_ingreso_fecha",
+      header: "TURNO",
+      accessorKey: "turno",
     },
     {
-      header: "ULT. CIERRE",
-      accessorKey: "ultimo_cierre_fecha",
+      header: "GRADO",
+      accessorKey: "grado",
     },
+    {
+      header: "SECCIÓN",
+      accessorKey: "seccion",
+      },
     {
       header: "OPCIONES",
       cell: (row) => {
         const id = row.cell.row.original.id;
-        const id_tipo_usuario = row.cell.row.original.id_tipo_usuario;
-        const username = row.cell.row.original.username;
-        const password = row.cell.row.original.password;
-        const is_active = row.cell.row.original.is_active;
+        const id_beneficio = row.cell.row.original.id_beneficio;
+        const estado = row.cell.row.original.estado;
 
         return (
-          <BotonesListaUsuarios
+          <BotonesEstudiantesDelete
             id={id}
             setReload={setReload}
             reload={reload}
-            username={username}
-            password={password}
-            id_tipo_usuario={id_tipo_usuario}
-            is_active={is_active}
+            id_beneficio={id_beneficio}
+            estado={estado}
           />
         );
       },
@@ -119,13 +119,13 @@ const EstudiantesDelete = () => {
     <div className="flex h-screen blue-oscuro overflow-hidden">
       <MenuLateral>
         <div className="h-screen px-caja-contenido grid grid-rows-caja-contenido max-h-[calc(100vh-30px)]">
-          <FiltrosTableListaUsuarios
+          <FiltrosTableEstudiantesDelete
             setFilteringTipo={setFilteringTipo}
             setFilteringSearch={setFilteringSearch}
             filteringSearch={filteringSearch}
           />
 
-          <TableListaUsuarios
+          <TableEstudiantesDelete
             table={table}
             numItemsForPage={numItemsForPage}
             totalItems={totalItems}

@@ -1,18 +1,14 @@
 import React from "react";
-import ButtonWithIcon from "../../ButtonWithIcon";
 
 import SelectFiltros from "@/components/SelectFiltros";
 import { optionsTipo } from "@/api/optionsFiltros";
-import DateFiltros from "@/components/DateFiltros";
-import HourFiltros from "@/components/HourFiltros";
 import { Input } from "@/components/InputListas";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import { enlaces } from "@/utils/rutas";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-import "./FiltrosTableListaUsuarios.scss";
+
+import "../TableListaUsuarios/FiltrosTableListaUsuarios.scss";
 
 const FiltrosTableListaUsuarios = (props) => {
   const { setFilteringTipo, setFilteringSearch, filteringSearch } = props;
@@ -37,25 +33,6 @@ const FiltrosTableListaUsuarios = (props) => {
             height={40}
             setFilteringTipo={setFilteringTipo}
           />
-
-          <DateFiltros />
-
-          <HourFiltros
-            label="HORA INGRESO"
-            placeholder="H. INGRESO"
-            minuteStep={60}
-            secondStep={60}
-            hourStep={1}
-          />
-
-          <HourFiltros
-            label="HORA CIERRE"
-            placeholder="H. CIERRE"
-            minuteStep={60}
-            secondStep={60}
-            hourStep={1}
-            setFilteringTipo={setFilteringTipo}
-          />
         </div>
 
         <div className="flex items-center px-4 relative">
@@ -70,22 +47,6 @@ const FiltrosTableListaUsuarios = (props) => {
             onChange={(e) => setFilteringSearch(e.target.value)}
           />
         </div>
-      </div>
-
-      <div className=" flex justify-center relative items-center">
-        <Link
-          to={enlaces[7].path}
-          className="filtros-table__button
-                absolute right-4"
-        >
-          <ButtonWithIcon
-            text="CREAR USUARIO"
-            icon={faPlus}
-            classNameIcon="pr-3"
-            classNameVariants="rounded-sm
-                p-4 bg-green-boton hover:bg-green-boton-hover"
-          />
-        </Link>
       </div>
     </div>
   );
