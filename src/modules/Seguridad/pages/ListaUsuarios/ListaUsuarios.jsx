@@ -52,15 +52,15 @@ const ListaUsuarios = () => {
     },
     {
       header: "CORREO",
-      accessorKey: "email",
+      accessorKey: "correo",
     },
     {
       header: "ULT. INGRESO",
-      accessorKey: "ultimo_ingreso_fecha",
+      accessorKey: "fecha_inicio",
     },
     {
       header: "ULT. CIERRE",
-      accessorKey: "ultimo_cierre_fecha",
+      accessorKey: "fecha_cierre",
     },
     {
       header: "OPCIONES",
@@ -69,7 +69,6 @@ const ListaUsuarios = () => {
         const id_tipo_usuario = row.cell.row.original.id_tipo_usuario;
         const username = row.cell.row.original.username;
         const password = row.cell.row.original.password;
-        const is_active = row.cell.row.original.is_active;
 
         return (
           <BotonesListaUsuarios
@@ -79,7 +78,6 @@ const ListaUsuarios = () => {
             username={username}
             password={password}
             id_tipo_usuario={id_tipo_usuario}
-            is_active={is_active}
           />
         );
       },
