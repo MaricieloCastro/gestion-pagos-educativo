@@ -23,7 +23,7 @@ import PagosGeneral from "./modules/Pagos/pages/PagosGeneral";
 import PagoInscripcion from "./modules/Pagos/pages/PagoInscripcion";
 
 //inscribir alumno
-import InscribirAlumno from "./modules/DatosAlumno/InscribirAlumno";
+import InscribirAlumno from "./modules/Seguridad/pages/InscribirAlumno/InscribirAlumno";
 
 import { enlaces } from "./utils/rutas";
 
