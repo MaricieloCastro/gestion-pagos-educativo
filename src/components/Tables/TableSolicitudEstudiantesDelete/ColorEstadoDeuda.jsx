@@ -1,17 +1,19 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSquareFull } from '@fortawesome/free-solid-svg-icons'
 
 const ColorEstadoDeuda = (props) => {
-    const {estado} = props
+  const { estado } = props
   return (
-  <>
-    {
+    <>
+      {
         estado ? (
-            <div className='w-3 h-4 bg-green-500' />
-        ):(
-            <div className='w-3 h-4 bg-orange-500' />
+          <FontAwesomeIcon icon={faSquareFull} className='text-green-500' />
+        ) : (
+          <FontAwesomeIcon icon={faSquareFull} className='text-orange-500' />
         )
-    }
-  </>
+      }
+    </>
   )
 }
 

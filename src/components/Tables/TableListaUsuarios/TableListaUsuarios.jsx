@@ -20,7 +20,7 @@ const TableListaUsuarios = (props) => {
           </h1>
         </div>
         {loading ? (
-          <table className="lista-usuarios-principal max-w-full">
+          <table className="lista-usuarios max-w-full">
             <thead className=" bg-gray-listas sticky top-0">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id} className="w-full">

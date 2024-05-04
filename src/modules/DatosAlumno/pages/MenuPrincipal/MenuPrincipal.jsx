@@ -74,7 +74,7 @@ const MenuPrincipal = () => {
     {
       header: "SECCIÓN",
       accessorKey: "seccion",
-      },
+    },
     {
       header: "OPCIONES",
       cell: (row) => {
@@ -98,10 +98,10 @@ const MenuPrincipal = () => {
   const [sorting, setSorting] = useState([]);
   const [filteringSearch, setFilteringSearch] = useState("");
   const [filteringTipo, setFilteringTipo] = useState([
-    {
-      id: "tipo",
-      value: "", // Valor inicial del filtro de la columna "tipo"
-    },
+    // {
+    //   id: "tipo",
+    //   value: "", // Valor inicial del filtro de la columna "tipo"
+    // },
   ]);
 
   const table = useReactTable({
