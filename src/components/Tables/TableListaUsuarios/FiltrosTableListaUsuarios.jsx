@@ -19,7 +19,7 @@ const FiltrosTableListaUsuarios = (props) => {
   // const { value, onChange } = props;
 
   return (
-    <div className="filtros-table bg-white-texto h-[20vh] max-h-[16vh]">
+    <div className="filtros-table bg-white-texto h-[20vh] max-h-[15vh] min-h-[130px]">
       <div className="filtros-table__search">
         <div className="flex gap-4 items-center px-4">
           <SelectFiltros
