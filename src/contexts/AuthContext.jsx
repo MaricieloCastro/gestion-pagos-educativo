@@ -8,7 +8,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
-import { loginTokenApi, loginRefreshApi } from "../api/ApiRutas";
+import { loginTokenApi, loginRefreshApi, lastLogoutApi } from "../api/ApiRutas";
 import { toast } from "react-toastify";
 
 const AuthContext = createContext();
@@ -39,6 +39,7 @@ export const AuthProvider = ({ children }) => {
       })
       .then(function (response) {
         setAuthTokens(response.data);
+        console.log(response)
         setUser(jwtDecode(response.data.access));
         localStorage.setItem("authTokens", JSON.stringify(response.data));
         navigate("/");
@@ -49,15 +50,27 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  const logoutUser = () => {
-    setAuthTokens(null);
-    setUser(null);
-    localStorage.removeItem("authTokens");
-    navigate("/login");
+  const logoutUser = async () => {
+    await axios
+      .post(lastLogoutApi, {
+        username: user.username,
+      })
+      .then(function (response) {
+        setAuthTokens(null);
+        setUser(null);
+        localStorage.removeItem("authTokens");
+        navigate("/login");
+        console.log(response)
+      })
+      .catch(function (error) {
+        console.log(error);
+        navigate("/login");
+      });
   };
 
   let updateToken = async () => {
     console.log("Update token called");
+    console.log(authTokens)
 
     let response = await fetch(loginRefreshApi, {
       method: "POST",

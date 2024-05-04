@@ -4,7 +4,12 @@ import DatosView from "./DatosView";
 import { Button } from "@/components/ui/button";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import AvatarPagos from "./AvatarPagos";
-
+//URL
+import {
+  AREAURL,
+  MESESURL,
+} from "@/modules/Seguridad/pages/CrearUsuario/compenetes/reuse/ConstObj";
+import { SelectForm } from "@/modules/Seguridad/pages/CrearUsuario/components/ui/SelectForm";
 //Importaciones para el formularioI
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -24,6 +29,7 @@ import { AreaDesaprobadaSelect } from "./AreaDesaprobadaSelect";
 import { MetodoPagoSelect } from "./MetodoPagoSelect";
 import { CondicionVentaSelect } from "./CondicionVentaSelect";
 import Calendario from "@/modules/Seguridad/pages/CrearUsuario/compenetes/reuse/Calendario";
+import { Import } from "lucide-react";
 //Parametro ZOD
 const FormSchema = z.object({
   año_lectivo: z.string().min(1, {
@@ -161,8 +167,23 @@ export default function FormPagos() {
                   nameLabel="Año Lectivo:"
                   parametros="año_lectivo"
                 />
-                <MesCanceladoSelect form={form} disabled={buttonM} />
-                <AreaDesaprobadaSelect form={form} disabled={buttonCD} />
+                {/* <MesCanceladoSelect form={form} disabled={buttonM} /> */}
+                <SelectForm
+                  form={form}
+                  disabled={buttonM}
+                  url={MESESURL}
+                  dato=""
+                  nameLabel="Mes Cancelado:"
+                  parametros="mes_cancelado"
+                />
+                <SelectForm
+                  form={form}
+                  disabled={buttonM}
+                  url={AREAURL}
+                  dato=""
+                  nameLabel="Area Desaprobada:"
+                  parametros="area_desaprobada"
+                />
               </div>
               <div className="pagos-dato_uno-dos">
                 <Calendario

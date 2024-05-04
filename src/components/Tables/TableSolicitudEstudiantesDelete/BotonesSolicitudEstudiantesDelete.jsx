@@ -1,23 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 
 import ButtonWithIcon from "@/components/ButtonWithIcon";
-import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import { useNavigate } from "react-router-dom";
 import { putAxios, putAxiosPrueba } from "@/functions/methods";
-import { usuarioAPI } from "@/api/ApiRutas";
+import { alumnosApi } from "@/api/ApiRutas";
 import AuthContext from "@/contexts/AuthContext";
 
 import ModalConfirmacion from "@/components/Modal/ModalConfirmacion";
 import ModalCarga from "@/components/Modal/ModalCarga";
 import ModalError from "@/components/Modal/ModalError";
 import ModalSucess from "@/components/Modal/ModalSucess";
+import { faArrowsRotate, faCheck, faX } from "@fortawesome/free-solid-svg-icons";
 
 const BotonesListaUsuarios = (props) => {
-  let { authTokens, logoutUser, user } = useContext(AuthContext);
+  let { authTokens, logoutUser} = useContext(AuthContext);
 
-  const user_id = user.user_id;
-
-  const { id, username, password, id_tipo_usuario, setReload, reload } = props;
+  const { id, id_beneficio, setReload, reload } = props;
 
   // MODAL SIMPLE
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,24 +24,17 @@ const BotonesListaUsuarios = (props) => {
   const [modalSucessfull, setModalSucessfull] = useState(false);
   const [modalFailed, setModalFailed] = useState(false);
 
-  const navigate = useNavigate();
-
   const headers = {
     "Content-Type": "application/json",
     Authorization: "Bearer " + String(authTokens.access),
   };
 
-  const url = `${usuarioAPI}${id}/`;
+  const url = `${alumnosApi}${id}/`;
 
-  const handleClickEditar = () => {
-    navigate(`info-user/${id}`);
-  };
 
   const data = {
-    username: username,
-    password: password,
-    id_tipo_usuario: id_tipo_usuario,
-    is_active: false,
+    id_beneficio: id_beneficio,
+    estado: true,
   };
 
   const handleConfirmacion = () => {
@@ -65,20 +55,21 @@ const BotonesListaUsuarios = (props) => {
   return (
     <div className="flex gap-2 justify-center items-center ">
       <ButtonWithIcon
-        text="EDITAR"
-        icon={faPenToSquare}
-        classNameIcon="w-4 pr-1"
-        classNameVariants="rounded-sm
-                p-4 bg-green-boton hover:bg-green-boton-hover"
-        onClick={handleClickEditar}
-        disabled={false}
-      />
-      <ButtonWithIcon
         text=""
-        icon={faTrashCan}
+        icon={faCheck}
         classNameIcon="w-4"
         classNameVariants="rounded-sm
-                bg-red-boton-listas hover:bg-red-boton-listas-hover
+                bg-green-boton hover:bg-green-boton-hover
+                w-10"
+        onClick={handleConfirmacion}
+        disabled={false}
+      />
+     <ButtonWithIcon
+        text=""
+        icon={faX}
+        classNameIcon="w-4"
+        classNameVariants="rounded-sm
+                bg-red-boton hover:bg-red-boton-hover
                 w-10"
         onClick={handleConfirmacion}
         disabled={false}

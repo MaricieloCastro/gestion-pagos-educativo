@@ -1,3 +1,5 @@
+import path from "path";
+
 export const enlaces = [
   {
     id: 1,
@@ -78,5 +80,30 @@ export const enlaces = [
     prevPath: "/",
     actualPath: "/pagos/:id",
     alias: "PAGOS",
+  },
+  //inscribir alumno
+  {
+    id: 11,
+    name: "inscribir-alumno",
+    path: "inscribir-alumno/",
+    prevPath: "/",
+    actualPath: "/inscribir-alumno/",
+    alias: "INSCRIBIR ALUMNOS",
+  },
+  {
+    id: 12,
+    name: "estudiantes-delete",
+    path: "estudiantes-delete/",
+    prevPath: "/",
+    actualPath: "/estudiantes-delete/",
+    alias: "PAPELERA DE ESTUDIANTES",
+  },
+  {
+    id: 13,
+    name: "solicitud-estudiantes-delete",
+    path: "solicitud-estudiantes-delete/",
+    prevPath: "panel/",
+    actualPath: "/panel/solicitud-estudiantes-delete/",
+    alias: "SOLICITUD DE ELIMINACIÓN",
   },
 ];

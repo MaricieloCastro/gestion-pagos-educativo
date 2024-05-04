@@ -61,11 +61,11 @@ const ListaAdmin = () => {
     },
     {
       header: "CORREO",
-      accessorKey: "email",
+      accessorKey: "correo",
     },
     {
       header: "ULT. INGRESO",
-      accessorKey: "ultimo_ingreso_fecha",
+      accessorKey: "fecha_inicio",
     },
   ];
 

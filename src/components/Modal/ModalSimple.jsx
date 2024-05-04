@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal } from 'antd';
+
 import "./Modal.scss"
 
 const ModalSimple = (props) => {

@@ -22,13 +22,13 @@ import { Link } from "react-router-dom";
 //Radio
 import { RadioGroupForm } from "./RadioGroupForm";
 //Componenete tipo de usuario
-import { TipoUsarioSelect } from "./TipoUsarioSelect";
+import { SelectForm } from "./SelectForm";
 //Calendario
 import Calendario from "../../compenetes/reuse/Calendario";
 //API
 import { postAxios } from "@/functions/methods";
 import AuthContext from "@/contexts/AuthContext";
-
+import { TIPOUSUARIOURL } from "../../compenetes/reuse/ConstObj";
 //Modals
 import ModaForm from "../../compenetes/Modal/ModalForm";
 // Lógica del componente
@@ -106,7 +106,15 @@ export default function InputFormI(props) {
     Authorization: "Bearer " + String(authTokens.access),
   };
   //PROPS
-  const { disabled, ButtonView, textButton, usuarios, load, edad } = props;
+  const {
+    disabled,
+    ButtonView,
+    textButton,
+    usuarios,
+    load,
+    edad,
+    tipoUsuario,
+  } = props;
   //DESILACHADO("NO SÉ ESCRIBIR DECONSTRUCTURING")
   const {
     id,
@@ -317,10 +325,14 @@ export default function InputFormI(props) {
               disabled={false}
               dato={password}
             />
-            <TipoUsarioSelect
+            <SelectForm
               form={form}
               dato={tipo_usuario}
               disabled={disabled}
+              tipoUsuario={tipoUsuario}
+              url={TIPOUSUARIOURL}
+              nameLabel="Tipo de Usuario:"
+              parametros="id_tipo_usuario"
             />
           </div>
         </div>
