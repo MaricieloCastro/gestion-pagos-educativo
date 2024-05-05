@@ -3,8 +3,12 @@
   grid-template-columns: 2fr 2fr;
   &_dato {
     font-style: normal;
+    font-size: 80%;
+    margin-top: 10px;
   }
   &_celda {
     font-weight: bold;
+    font-size: 90%;
+    margin-top: 8px;
   }
 }

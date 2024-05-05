@@ -22,28 +22,39 @@ export default function InscribirAlumno(props) {
     defaultValues: { codigo_estudiante: "", apellido: "", nombres: "" },
   });
   return (
-    <div className="flex overflow-hidden h-screen blue-oscuro ">
-      <MenuLateral>
-        <div className="Panel-superior bg-white-texto ">
-          <div className="fotografias pt-3">
-            <img className="foto" />
-            <div className="imp">
-              <h2>Fotografia: </h2>
-              <Button className=" text-black bg-gray-400">Cargar Foto</Button>
+    <Form {...form}>
+      <form>
+        <div className="flex overflow-hidden h-screen blue-oscuro ">
+          <MenuLateral>
+            <div className="Panel-superior bg-white-texto ">
+              <div className="fotografias pt-3">
+                <img className="foto" />
+                <div className="imp">
+                  <h2>Fotografia: </h2>
+                  <Button className=" text-black bg-gray-400">
+                    Cargar Foto
+                  </Button>
+                </div>
+              </div>
+              <div className="datos-estudiantes bg-white-texto pt-3">
+                <div className="datos-estudiantes_uno bg-blue-claro text-white">
+                  DATOS ESTUDIANTES:
+                  <Formulario
+                    form={form}
+                    nameLabel="Codigo:"
+                    parametros="descripcion"
+                  />
+                </div>
+                <div className="bg-blue-claro text-white"></div>
+              </div>
             </div>
-          </div>
-          <div className="datos-estudiantes bg-white-texto pt-3">
-            <div className="bg-blue-claro text-white">
-              <Formulario />
+            <div className="Panel-inferior bg-white-texto ">
+              <div>hola</div>
             </div>
-            <div className="bg-blue-claro text-white">DATOS ESTUDIANTES</div>
-          </div>
+            <div className="Panel-2 bg-blue-claro "></div>
+          </MenuLateral>
         </div>
-        <div className="Panel-inferior bg-white-texto ">
-          <div>hola</div>
-        </div>
-        <div className="Panel-2 bg-blue-claro "></div>
-      </MenuLateral>
-    </div>
+      </form>
+    </Form>
   );
 }

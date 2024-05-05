@@ -28,7 +28,7 @@ export function MetodoPagoSelect(props) {
         <FormItem>
           <FormLabel>Metodo de Pago:</FormLabel>
           <Select
-            //defaultValue={valor}
+            defaultValue="EFECTIVO"
             onValueChange={field.onChange}
             disabled={disabled}
           >

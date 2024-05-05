@@ -6,11 +6,16 @@ import { Badge } from "antd";
 import "./AvatarPagos.scss";
 import Foto from "../../../../../assets/img/sin-perfil-350x400.jpg";
 
-const AvatarPagos = () => {
+const AvatarPagos = (props) => {
   // let { user } = useContext(AuthContext);
   //let { ruta_fotografica } = user;
-  //const { colorBad } = props;
-  const colorBad = "#27C200";
+  const { estado } = props;
+  let colorBad = "";
+  if (!estado) {
+    colorBad = "#f97316";
+  } else {
+    colorBad = "#27C200";
+  }
   return (
     <div className="avatar">
       <Badge

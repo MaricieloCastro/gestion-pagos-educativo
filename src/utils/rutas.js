@@ -76,9 +76,9 @@ export const enlaces = [
   {
     id: 10,
     name: "pagos",
-    path: "pagos/:id",
+    path: "pagos/:id/:pagos",
     prevPath: "/",
-    actualPath: "/pagos/:id",
+    actualPath: "/pagos/:id/:pagos",
     alias: "PAGOS",
   },
   //inscribir alumno

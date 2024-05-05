@@ -28,7 +28,7 @@ export function CondicionVentaSelect(props) {
         <FormItem>
           <FormLabel>Condicion de Venta:</FormLabel>
           <Select
-            //defaultValue={valor}
+            defaultValue={dato}
             onValueChange={field.onChange}
             disabled={disabled}
           >

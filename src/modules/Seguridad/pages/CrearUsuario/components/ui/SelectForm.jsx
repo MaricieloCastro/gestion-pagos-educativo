@@ -24,6 +24,9 @@ export function SelectForm(props) {
   const { form, dato, disabled, url, nameLabel, parametros } = props;
   //console.log(dato);
   let valor = dato.nombre;
+  if (valor == undefined) {
+    valor = "";
+  }
   const [item, setItem] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {

@@ -4,6 +4,7 @@ import DatosView from "./DatosView";
 import { Button } from "@/components/ui/button";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import AvatarPagos from "./AvatarPagos";
+import moment from "moment";
 //URL
 import {
   AREAURL,
@@ -30,15 +31,16 @@ import { MetodoPagoSelect } from "./MetodoPagoSelect";
 import { CondicionVentaSelect } from "./CondicionVentaSelect";
 import Calendario from "@/modules/Seguridad/pages/CrearUsuario/compenetes/reuse/Calendario";
 import { Import } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
 //Parametro ZOD
 const FormSchema = z.object({
   año_lectivo: z.string().min(1, {
     message: "El campo tiene que ser llenado",
   }),
-  mes_cancelado: z.string().min(1, {
+  mes_cancelado: z.string().min(0, {
     message: "campo obligatorio",
   }),
-  area_desaprobada: z.string().min(1, {
+  area_desaprobada: z.string().min(0, {
     message: "campo obligatorio",
   }),
   fecha_pago: z.string().min(1, {
@@ -66,16 +68,19 @@ const FormSchema = z.object({
     message: "campo obligatorio",
   }),
 });
-export default function FormPagos() {
+export default function FormPagos(props) {
+  const fechaDefault = moment();
+  const fecha = fechaDefault.format("YYYY-MM-DD");
+  const año = fechaDefault.format("YYYY");
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      año_lectivo: "",
+      año_lectivo: año || "",
       mes_cancelado: "",
       area_desaprobada: "",
-      fecha_pago: "",
-      condicion_venta: "",
-      metodo_pago: "",
+      fecha_pago: fecha || "",
+      condicion_venta: "ALCONTADO",
+      metodo_pago: "EFECTIVO",
       descripcion: "",
       monto: "",
       monto_previo: "",
@@ -83,10 +88,23 @@ export default function FormPagos() {
       total_pagar: "",
     },
   });
-
+  const { general } = props;
   //tipos de pagos
   const [buttonCD, setButtonCD] = useState();
   const [buttonM, setButtonM] = useState();
+  const { alumno, codigo, beneficio, turno, grado, seccion, estado } = general;
+  const param = useParams();
+  const { pagos, id } = param;
+
+  useEffect(() => {
+    if (pagos == 3) {
+      matricula();
+    } else if (pagos == 1) {
+      mensualidad();
+    } else {
+      cursoD();
+    }
+  }, [pagos]);
 
   function mensualidad() {
     setButtonCD(true);
@@ -118,34 +136,33 @@ export default function FormPagos() {
       setMostrarBotones(false);
     }
   }, []);
-  const name = "SHANDE ANDRES ALVAN RIOS";
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="pagos">
           <div className="pagos-alumno">
             <div className="pagos-alumno_foto">
-              <AvatarPagos />
+              <AvatarPagos estado={estado} />
             </div>
             <div className="pagos-alumno_datos">
-              <div className="pagos-alumno_datos-nombres">{name}</div>
-              <DatosView celda="DNI:" dato="71456922" />
-              <DatosView celda="BENEFIO:" dato="DEPORTISTA"></DatosView>
-              <DatosView celda="TURNO:" dato="TARDE"></DatosView>
+              <div className="pagos-alumno_datos-nombres">{alumno}</div>
+              <DatosView celda="DNI:" dato={codigo} />
+              <DatosView celda="BENEFIO:" dato={beneficio}></DatosView>
+              <DatosView celda="TURNO:" dato={turno}></DatosView>
               <div className="pagos-alumno_datos-año">
-                <DatosView celda="GRADO:" dato="5" />
-                <DatosView celda="SECCIÓN:" dato="C" />
+                <DatosView celda="GRADO:" dato={grado} />
+                <DatosView celda="SECCIÓN:" dato={seccion} />
               </div>
             </div>
             <div className="pagos-alumno_botones">
               <div className="pagos-alumno_botones-informacion">
-                <Button type="button  ">
+                <Button type="button">
                   <ModeEditIcon /> INFORMACIÓN
                 </Button>
               </div>
               {mostrarBotones && (
                 <>
-                  <Button>HISTORIAL DE PAGOS</Button>
+                  <Button type="button">HISTORIAL DE PAGOS</Button>
                   <Button onClick={mensualidad} type="button">
                     MENSUALIDAD
                   </Button>
@@ -178,10 +195,10 @@ export default function FormPagos() {
                 />
                 <SelectForm
                   form={form}
-                  disabled={buttonM}
+                  disabled={buttonCD}
                   url={AREAURL}
                   dato=""
-                  nameLabel="Area Desaprobada:"
+                  nameLabel="Curso Desaprobada:"
                   parametros="area_desaprobada"
                 />
               </div>
@@ -191,7 +208,7 @@ export default function FormPagos() {
                   form={form}
                   name="fecha_pago"
                 />
-                <CondicionVentaSelect form={form} />
+                <CondicionVentaSelect form={form} dato="ALCONTADO" />
                 <MetodoPagoSelect form={form} />
                 <Formulario
                   form={form}
