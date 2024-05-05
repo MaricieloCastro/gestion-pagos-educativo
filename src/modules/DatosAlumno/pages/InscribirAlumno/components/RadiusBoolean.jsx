@@ -16,7 +16,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "@/components/ui/use-toast";
 
-export function RadiusSexo(props) {
+export function RadiusBoolean(props) {
   // const form = useForm({
   //   resolver: zodResolver(FormSchema),
   // });
@@ -38,18 +38,17 @@ export function RadiusSexo(props) {
               className="flex flex-row space-y-1"
               disabled={disabled}
             >
+              <FormItem className="flex items-center space-x-3 space-y-0 pt-1">
+                <FormControl>
+                  <RadioGroupItem value="SI" />
+                </FormControl>
+                <FormLabel className="font-normal">SI</FormLabel>
+              </FormItem>{" "}
               <FormItem className="flex items-center space-x-3 space-y-0">
                 <FormControl>
-                  <RadioGroupItem value="M" />
+                  <RadioGroupItem value="NO" />
                 </FormControl>
-                <FormLabel className="font-normal">Masculino</FormLabel>
-              </FormItem>
-
-              <FormItem className="flex items-center space-x-3 space-y-0">
-                <FormControl>
-                  <RadioGroupItem value="F" />
-                </FormControl>
-                <FormLabel className="font-normal">Femenino</FormLabel>
+                <FormLabel className="font-normal">No</FormLabel>
               </FormItem>
             </RadioGroup>
           </FormControl>

@@ -22,9 +22,6 @@ import CrearUsuario from "./modules/Seguridad/pages/CrearUsuario";
 import PagosGeneral from "./modules/Pagos/pages/PagosGeneral";
 import PagoInscripcion from "./modules/Pagos/pages/PagoInscripcion";
 
-//inscribir alumno
-import InscribirAlumno from "./modules/Seguridad/pages/InscribirAlumno/InscribirAlumno";
-
 import { enlaces } from "./utils/rutas";
 
 //RutasPrivadas
@@ -32,14 +29,11 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import AuthContext from "./contexts/AuthContext";
 
 //Modulo de datos alumnos
-<<<<<<< HEAD
-import MenuPrincipal from "./modules/DatosAlumno/MenuPrincipal";
-=======
+
 import MenuPrincipal from "./modules/DatosAlumno/pages/MenuPrincipal";
-import InscriberAlumno from "./modules/DatosAlumno/InscriberAlumno";
+import InscribirAlumno from "./modules/DatosAlumno/pages/InscribirAlumno/InscribirAlumno";
 import EstudiantesDelete from "./modules/DatosAlumno/pages/EstudiantesDelete";
 import SolicitudEstudiantesDelete from "./modules/DatosAlumno/pages/SolicitudEstudiantesDelete";
->>>>>>> 0aed0af03e176c1f177d7eab62e13cf1299888da
 
 const App = () => {
   let { user } = useContext(AuthContext);
@@ -82,9 +76,9 @@ const App = () => {
                 path={enlaces[5].prevPath + enlaces[5].path}
               />
               <Route
-            element={<SolicitudEstudiantesDelete />}
-            path={enlaces[12].prevPath + enlaces[12].path}
-          />
+                element={<SolicitudEstudiantesDelete />}
+                path={enlaces[12].prevPath + enlaces[12].path}
+              />
               <Route
                 element={<ListaUsuarios />}
                 path={enlaces[6].prevPath + enlaces[6].path}
