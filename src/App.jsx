@@ -31,11 +31,7 @@ import AuthContext from "./contexts/AuthContext";
 //Modulo de datos alumnos
 
 import MenuPrincipal from "./modules/DatosAlumno/pages/MenuPrincipal";
-<<<<<<< HEAD
-import InscribirAlumno from "./modules/Seguridad/pages/InscribirAlumno/InscribirAlumno";
-=======
 import InscribirAlumno from "./modules/DatosAlumno/pages/InscribirAlumno/InscribirAlumno";
->>>>>>> wilmar
 import EstudiantesDelete from "./modules/DatosAlumno/pages/EstudiantesDelete";
 import SolicitudEstudiantesDelete from "./modules/DatosAlumno/pages/SolicitudEstudiantesDelete";
 
