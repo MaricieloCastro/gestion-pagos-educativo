@@ -22,9 +22,6 @@ import CrearUsuario from "./modules/Seguridad/pages/CrearUsuario";
 import PagosGeneral from "./modules/Pagos/pages/PagosGeneral";
 import PagoInscripcion from "./modules/Pagos/pages/PagoInscripcion";
 
-//inscribir alumno
-import InscribirAlumno from "./modules/Seguridad/pages/InscribirAlumno/InscribirAlumno";
-
 import { enlaces } from "./utils/rutas";
 
 //RutasPrivadas
@@ -34,7 +31,11 @@ import AuthContext from "./contexts/AuthContext";
 //Modulo de datos alumnos
 
 import MenuPrincipal from "./modules/DatosAlumno/pages/MenuPrincipal";
+<<<<<<< HEAD
 import InscribirAlumno from "./modules/Seguridad/pages/InscribirAlumno/InscribirAlumno";
+=======
+import InscribirAlumno from "./modules/DatosAlumno/pages/InscribirAlumno/InscribirAlumno";
+>>>>>>> wilmar
 import EstudiantesDelete from "./modules/DatosAlumno/pages/EstudiantesDelete";
 import SolicitudEstudiantesDelete from "./modules/DatosAlumno/pages/SolicitudEstudiantesDelete";
 

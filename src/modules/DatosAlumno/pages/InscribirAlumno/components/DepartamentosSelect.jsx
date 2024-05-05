@@ -28,6 +28,7 @@ export function DepartamentosSelect(props) {
       render={({ field }) => (
         <FormItem>
           <FormLabel>DEPARTAMENTO:</FormLabel>
+
           <Select
             // defaultValue={valor}
             onValueChange={field.onChange}

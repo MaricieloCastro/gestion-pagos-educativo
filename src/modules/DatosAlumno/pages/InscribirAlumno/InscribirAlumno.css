@@ -22,6 +22,7 @@
     grid-template-columns: repeat(2,1fr);
 }
 
+
 .datos-estudiantes{
     display: grid;
     grid-template-columns: repeat(2,1fr);
@@ -83,4 +84,38 @@
 .d-familiar{
     display: grid;
     grid-template-columns:  1fr 2fr;
+}
+
+.input{
+    border-radius: 4px !important;
+    height: 4vh !important;
+    color: black;
+}
+.conteiner-general button{
+    border-radius: 2px;
+    color:black;
+}
+.aspect-square {
+    border-radius: 10px !important    ;
+    background-color: white;
+}
+
+:where(.css-dev-only-do-not-override-1paxfrs).ant-picker .ant-picker-input >input{
+    display: flex ;
+    height: 4.8vh;
+    width: 10.4vw;
+}
+
+.fn{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+
+.BR{
+    position: relative;
+    left: 55vw;
+}
+.ButtonBR{
+    width: 15vw;
+    height: 7vh;
 }
