@@ -114,12 +114,4 @@ export const enlaces = [
     actualPath: "/panel/historial-reporte/",
     alias: "HISTORIAL DE REPORTES",
   },
-  {
-    id: 6,
-    name: "panel",
-    path: "panel/",
-    prevPath: "/",
-    actualPath: "/panel/",
-    alias: "PANEL DE ADMINISTRADOR",
-  },
 ];
