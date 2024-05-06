@@ -9,6 +9,8 @@ import moment from "moment";
 import {
   AREAURL,
   MESESURL,
+  METODOPAGOURL,
+  TIPOPAGOURL,
 } from "@/modules/Seguridad/pages/CrearUsuario/compenetes/reuse/ConstObj";
 import { SelectForm } from "@/modules/Seguridad/pages/CrearUsuario/components/ui/SelectForm";
 //Importaciones para el formularioI
@@ -25,13 +27,10 @@ import {
 } from "@/components/ui/form";
 import FormularioPagos from "./formularioPagos";
 import Formulario from "@/modules/Seguridad/pages/CrearUsuario/components/ui/formulario";
-import { MesCanceladoSelect } from "./MesCanceladoSelect";
-import { AreaDesaprobadaSelect } from "./AreaDesaprobadaSelect";
-import { MetodoPagoSelect } from "./MetodoPagoSelect";
 import { CondicionVentaSelect } from "./CondicionVentaSelect";
 import Calendario from "@/modules/Seguridad/pages/CrearUsuario/compenetes/reuse/Calendario";
-import { Import } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
+import { set } from "date-fns";
 //Parametro ZOD
 const FormSchema = z.object({
   año_lectivo: z.string().min(1, {
@@ -67,11 +66,44 @@ const FormSchema = z.object({
   total_pagar: z.string().min(1, {
     message: "campo obligatorio",
   }),
+  tipo_pago: z.string().min(0, {
+    message: "campo obligatorio",
+  }),
 });
 export default function FormPagos(props) {
+  const { general, tipo_pago } = props;
   const fechaDefault = moment();
   const fecha = fechaDefault.format("YYYY-MM-DD");
   const año = fechaDefault.format("YYYY");
+  const param = useParams();
+  const { pagos, id } = param;
+  const { descripcion } = tipo_pago[pagos];
+  const [tipoPago, setTipoPago] = useState();
+  useEffect(() => {
+    if (pagos == 1) {
+      matricula();
+      setTipoPago("1");
+    } else if (pagos == 2) {
+      mensualidad();
+      setTipoPago("2");
+    } else {
+      cursoD();
+      setTipoPago("3");
+    }
+  }, [pagos]);
+  //Lógica para recargar la página cada que cambiamos el tipo de pago
+  const [reload, setReload] = useState();
+  //Funcion de recargar
+  function recargar() {
+    window.location.reload();
+    setReload(false);
+  }
+  //Esa función solo se ejecutará si el valor de reload es True, y para
+  //no crear un loop infinito entonces cambiamos de valor en la función a reload a false
+  //no olvidemos que es un hook
+  if (reload) {
+    recargar();
+  }
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -81,30 +113,19 @@ export default function FormPagos(props) {
       fecha_pago: fecha || "",
       condicion_venta: "ALCONTADO",
       metodo_pago: "EFECTIVO",
-      descripcion: "",
+      descripcion: descripcion || "",
       monto: "",
       monto_previo: "",
       descuento_aplicado: "",
       total_pagar: "",
+      tipo_pago: tipoPago || "",
     },
   });
-  const { general } = props;
+
   //tipos de pagos
   const [buttonCD, setButtonCD] = useState();
   const [buttonM, setButtonM] = useState();
   const { alumno, codigo, beneficio, turno, grado, seccion, estado } = general;
-  const param = useParams();
-  const { pagos, id } = param;
-
-  useEffect(() => {
-    if (pagos == 3) {
-      matricula();
-    } else if (pagos == 1) {
-      mensualidad();
-    } else {
-      cursoD();
-    }
-  }, [pagos]);
 
   function mensualidad() {
     setButtonCD(true);
@@ -163,15 +184,39 @@ export default function FormPagos(props) {
               {mostrarBotones && (
                 <>
                   <Button type="button">HISTORIAL DE PAGOS</Button>
-                  <Button onClick={mensualidad} type="button">
-                    MENSUALIDAD
-                  </Button>
-                  <Button type="button" onClick={matricula}>
-                    MATRICULA
-                  </Button>
-                  <Button type="button" onClick={cursoD}>
-                    CURSO DESAPROBADO
-                  </Button>
+                  <Link to={`http://localhost:5173/pagos/43/${2}`}>
+                    <Button
+                      onClick={() => {
+                        setReload(true);
+                        mensualidad();
+                      }}
+                      type="button"
+                    >
+                      MENSUALIDAD
+                    </Button>
+                  </Link>
+                  <Link to={`http://localhost:5173/pagos/43/${1}`}>
+                    <Button
+                      type="button"
+                      onClick={() => {
+                        setReload(true);
+                        matricula();
+                      }}
+                    >
+                      MATRICULA
+                    </Button>
+                  </Link>
+                  <Link to={`http://localhost:5173/pagos/43/${3}`}>
+                    <Button
+                      type="button"
+                      onClick={() => {
+                        setReload(true);
+                        cursoD();
+                      }}
+                    >
+                      CURSO DESAPROBADO
+                    </Button>
+                  </Link>
                 </>
               )}
             </div>
@@ -209,7 +254,13 @@ export default function FormPagos(props) {
                   name="fecha_pago"
                 />
                 <CondicionVentaSelect form={form} dato="ALCONTADO" />
-                <MetodoPagoSelect form={form} />
+                <SelectForm
+                  form={form}
+                  url={METODOPAGOURL}
+                  dato="EFECTIVO"
+                  nameLabel="Metodo de Pago:"
+                  parametros="metodo_pago"
+                />
                 <Formulario
                   form={form}
                   nameLabel="Descripción:"

@@ -28,7 +28,11 @@ import Calendario from "../../compenetes/reuse/Calendario";
 //API
 import { postAxios } from "@/functions/methods";
 import AuthContext from "@/contexts/AuthContext";
-import { TIPOUSUARIOURL } from "../../compenetes/reuse/ConstObj";
+import {
+  TIPOUSUARIOURL,
+  SEXOURL,
+  CONFIRMACIONURL,
+} from "../../compenetes/reuse/ConstObj";
 //Modals
 import ModaForm from "../../compenetes/Modal/ModalForm";
 // Lógica del componente
@@ -276,6 +280,7 @@ export default function InputFormI(props) {
                         form={form}
                         dato={sexo}
                         disabled={disabled}
+                        url={SEXOURL}
                       />
                     </div>
                   </FormControl>

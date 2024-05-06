@@ -1,10 +1,5 @@
 "use client";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
 import {
   Form,
   FormControl,
@@ -14,15 +9,53 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { toast } from "@/components/ui/use-toast";
-
+import axios from "axios";
 export function RadioGroupForm(props) {
   // const form = useForm({
   //   resolver: zodResolver(FormSchema),
   // });
 
-  const { form, dato, disabled } = props;
+  const { form, dato, disabled, url } = props;
 
+  const [item, setItem] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchUsuarios = async () => {
+      try {
+        const select = await axios.get(`${url}`);
+        setItem(select.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error al obtener los usuarios:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchUsuarios();
+  }, []);
+
+  if (loading) {
+    return (
+      <FormItem className="space-y-3">
+        <FormControl>
+          <RadioGroup className="flex flex-row space-y-1">
+            <FormItem className="flex items-center space-x-3 space-y-0">
+              <FormControl>
+                <RadioGroupItem value="" />
+              </FormControl>
+              <FormLabel className="font-normal">Opciones1</FormLabel>
+              <FormItem className="flex items-center space-x-3 space-y-0">
+                <FormControl>
+                  <RadioGroupItem value="" />
+                </FormControl>
+                <FormLabel className="font-normal">Opciones2</FormLabel>
+              </FormItem>
+            </FormItem>
+          </RadioGroup>
+        </FormControl>
+      </FormItem>
+    );
+  }
   return (
     // <Form {...form}>
     //   <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
@@ -38,18 +71,17 @@ export function RadioGroupForm(props) {
               className="flex flex-row space-y-1"
               disabled={disabled}
             >
-              <FormItem className="flex items-center space-x-3 space-y-0">
-                <FormControl>
-                  <RadioGroupItem value="M" />
-                </FormControl>
-                <FormLabel className="font-normal">Masculino</FormLabel>
-              </FormItem>
-              <FormItem className="flex items-center space-x-3 space-y-0">
-                <FormControl>
-                  <RadioGroupItem value="F" />
-                </FormControl>
-                <FormLabel className="font-normal">Femenino</FormLabel>
-              </FormItem>
+              {item.map((opcion) => (
+                <FormItem className="flex items-center space-x-3 space-y-0">
+                  <FormControl>
+                    <RadioGroupItem value={opcion.nombre.charAt(0)} />
+                  </FormControl>
+                  <FormLabel className="font-normal">
+                    {opcion.nombre.charAt(0).toUpperCase() +
+                      opcion.nombre.slice(1).toLowerCase()}
+                  </FormLabel>
+                </FormItem>
+              ))}
             </RadioGroup>
           </FormControl>
           <FormMessage />

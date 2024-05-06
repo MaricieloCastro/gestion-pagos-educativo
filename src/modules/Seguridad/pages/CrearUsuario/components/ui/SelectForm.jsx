@@ -19,13 +19,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { object } from "zod";
 
 export function SelectForm(props) {
   const { form, dato, disabled, url, nameLabel, parametros } = props;
-  //console.log(dato);
   let valor = dato.nombre;
-  if (valor == undefined) {
-    valor = "";
+  if (valor === undefined) {
+    valor = dato;
   }
   const [item, setItem] = useState([]);
   const [loading, setLoading] = useState(true);

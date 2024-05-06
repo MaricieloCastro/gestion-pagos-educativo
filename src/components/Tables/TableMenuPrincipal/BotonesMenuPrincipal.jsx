@@ -61,9 +61,9 @@ const BotonesMenuPrincipal = (props) => {
       setModalFailed
     );
   };
-  const mensualidad = 1;
-  const curso = 2;
-  const matricula = 3;
+  const mensualidad = 2;
+  const curso = 3;
+  const matricula = 1;
 
   return (
     <div className="flex gap-2 justify-center items-center ">
