@@ -36,6 +36,7 @@ import MenuPrincipal from "./modules/DatosAlumno/pages/MenuPrincipal";
 import InscriberAlumno from "./modules/DatosAlumno/InscriberAlumno";
 import EstudiantesDelete from "./modules/DatosAlumno/pages/EstudiantesDelete";
 import SolicitudEstudiantesDelete from "./modules/DatosAlumno/pages/SolicitudEstudiantesDelete";
+import HistorialReporte from "./modules/Reportes/pages/HistorialReporte";
 
 const App = () => {
   let { user } = useContext(AuthContext);
@@ -103,6 +104,11 @@ const App = () => {
             element={<EstudiantesDelete />}
             path={enlaces[11].prevPath + enlaces[11].path}
           />
+          <Route
+            element={<HistorialReporte />}
+            path={enlaces[13].prevPath + enlaces[13].path}
+          />
+          
         </Route>
         <Route element={<>
           <div className="h-screen flex justify-center items-center flex-col gap-4">
