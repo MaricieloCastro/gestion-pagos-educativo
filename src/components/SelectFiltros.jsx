@@ -15,7 +15,10 @@ const SelectFiltros = (props) => {
     controlItemBgHover,
     width,
     height,
-    setFilteringTipo,
+    setFilteringColumn,
+    columnValue,
+    columnSelect,
+    setColumnSelect,
   } = props;
 
   const handleChange = (value) => {
@@ -24,7 +27,7 @@ const SelectFiltros = (props) => {
       value = "";
       console.log("efectivamente");
     }
-    setFilteringTipo([{ id: "tipo", value }]);
+    setFilteringColumn([{ id: columnSelect, value }]);
   };
 
   return (
@@ -54,9 +57,13 @@ const SelectFiltros = (props) => {
           defaultValue={defaultValue}
           style={{
             width: width,
+            // width: 200,
             height: height,
           }}
           onChange={handleChange}
+          onClick={() => {
+            setColumnSelect(columnValue);
+          }}
           options={options}
         />
       </ConfigProvider>

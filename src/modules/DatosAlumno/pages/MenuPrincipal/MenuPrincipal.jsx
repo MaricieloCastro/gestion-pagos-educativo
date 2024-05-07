@@ -48,11 +48,7 @@ const MenuPrincipal = () => {
       cell: (row) => {
         const estado = row.cell.row.original.estado;
 
-        return (
-          <ColorEstadoDeuda
-            estado={estado}
-          />
-        );
+        return <ColorEstadoDeuda estado={estado} />;
       },
     },
     {
@@ -97,11 +93,12 @@ const MenuPrincipal = () => {
 
   const [sorting, setSorting] = useState([]);
   const [filteringSearch, setFilteringSearch] = useState("");
-  const [filteringTipo, setFilteringTipo] = useState([
-    // {
-    //   id: "tipo",
-    //   value: "", // Valor inicial del filtro de la columna "tipo"
-    // },
+  const [columnSelect, setColumnSelect] = useState("grado");
+  const [filteringColumn, setFilteringColumn] = useState([
+    {
+      id: columnSelect,
+      value: "", // Valor inicial del filtro de la columna "tipo"
+    },
   ]);
 
   const table = useReactTable({
@@ -114,10 +111,10 @@ const MenuPrincipal = () => {
     state: {
       sorting,
       globalFilter: filteringSearch,
-      columnFilters: filteringTipo,
+      columnFilters: filteringColumn,
     },
     onSortingChange: setSorting,
-    onColumnFiltersChange: setFilteringTipo,
+    onColumnFiltersChange: setFilteringColumn,
     onGlobalFilterChange: setFilteringSearch,
   });
 
@@ -129,9 +126,11 @@ const MenuPrincipal = () => {
       <MenuLateral>
         <div className="h-screen px-caja-contenido grid grid-rows-caja-contenido max-h-[calc(100vh-30px)]">
           <FiltrosTableMenuPrincipal
-            setFilteringTipo={setFilteringTipo}
+            setFilteringColumn={setFilteringColumn}
             setFilteringSearch={setFilteringSearch}
             filteringSearch={filteringSearch}
+            columnSelect={columnSelect}
+            setColumnSelect={setColumnSelect}
           />
 
           <TableMenuPrincipal

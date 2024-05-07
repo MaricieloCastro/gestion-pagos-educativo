@@ -13,7 +13,7 @@ const TableMenuPrincipal = (props) => {
 
   return (
     <div className="bg-white-texto overflow-y-auto h-height-caja-listas mt-4">
-      <div className="grid ">
+      <div className="grid">
         <div className="flex items-center bg-gray-listas h-10 border-b-2  border-b-white-cabecera">
           <h1 className="mx-5 text-white font-inter">
             MOSTRANDO {numItemsForPage} DE {totalItems}° REGISTROS

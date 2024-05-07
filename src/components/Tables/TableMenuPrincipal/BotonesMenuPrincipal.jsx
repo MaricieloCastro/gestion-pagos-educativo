@@ -9,10 +9,16 @@ import ModalConfirmacion from "@/components/Modal/ModalConfirmacion";
 import ModalCarga from "@/components/Modal/ModalCarga";
 import ModalError from "@/components/Modal/ModalError";
 import ModalSucess from "@/components/Modal/ModalSucess";
-import { faArrowsRotate, faCheck, faPenToSquare, faTrashCan, faX } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowsRotate,
+  faCheck,
+  faPenToSquare,
+  faTrashCan,
+  faX,
+} from "@fortawesome/free-solid-svg-icons";
 
 const BotonesMenuPrincipal = (props) => {
-  let { authTokens, logoutUser} = useContext(AuthContext);
+  let { authTokens, logoutUser } = useContext(AuthContext);
 
   const { id, id_beneficio, setReload, reload } = props;
 
@@ -57,7 +63,7 @@ const BotonesMenuPrincipal = (props) => {
 
   return (
     <div className="flex gap-2 justify-center items-center ">
-        <ButtonWithIcon
+      <ButtonWithIcon
         text="EDITAR"
         icon={faPenToSquare}
         classNameIcon="w-4 pr-1"
@@ -102,7 +108,7 @@ const BotonesMenuPrincipal = (props) => {
         onClick={handleConfirmacion}
         disabled={false}
       />
-     <ButtonWithIcon
+      <ButtonWithIcon
         text=""
         icon={faTrashCan}
         classNameIcon="w-4"
