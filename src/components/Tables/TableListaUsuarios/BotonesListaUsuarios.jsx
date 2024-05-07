@@ -52,14 +52,18 @@ const BotonesListaUsuarios = (props) => {
   };
 
   const handleEliminar = () => {
-    putAxiosPrueba(
-      url,
-      data,
-      headers,
-      setModalLoading,
-      setModalSucessfull,
-      setModalFailed
-    );
+    if (id_tipo_usuario != 1) {
+      putAxiosPrueba(
+        url,
+        data,
+        headers,
+        setModalLoading,
+        setModalSucessfull,
+        setModalFailed
+      );
+    } else {
+      setModalFailed(true)
+    }
   };
 
   return (
@@ -106,6 +110,15 @@ const BotonesListaUsuarios = (props) => {
         modalFailed={modalFailed}
         setModalFailed={setModalFailed}
       />
+
+      {id_tipo_usuario === 1 && (
+        <ModalError
+          titulo="No puedes eliminar a un administrador"
+          subtitulo="Esta acción está restringida por motivos de seguridad"
+          modalFailed={modalFailed}
+          setModalFailed={setModalFailed}
+        />
+      )}
     </div>
   );
 };

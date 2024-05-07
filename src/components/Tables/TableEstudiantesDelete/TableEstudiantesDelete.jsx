@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpLong, faDownLong } from "@fortawesome/free-solid-svg-icons";
 import Spinner from "@/components/Spinner";
 
-import "../TableListaUsuarios/TableListaUsuarios.scss";
+import "./TableEstudiantesDelete.scss";
 
 const TablaEstudiantesDelete = (props) => {
   const { numItemsForPage, totalItems, table, loading } = props;
@@ -20,13 +20,13 @@ const TablaEstudiantesDelete = (props) => {
           </h1>
         </div>
         {loading ? (
-          <table className="lista-usuarios-principal max-w-full">
+          <table className="estudiantes-delete max-w-full">
             <thead className=" bg-gray-listas sticky top-0">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id} className="w-full">
                   {headerGroup.headers.map((header) => (
                     <th
-                      className="text-center px-5 font-inter text-gray-listas-header h-10 cursor-pointer"
+                      className="text-center px-[10px] font-inter text-gray-listas-header h-10 cursor-pointer"
                       key={header.id}
                       onClick={header.column.getToggleSortingHandler()}
                     >

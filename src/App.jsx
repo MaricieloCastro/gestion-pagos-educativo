@@ -59,7 +59,7 @@ const App = () => {
           path={enlaces[0].prevPath + enlaces[0].path}
         />
         <Route element={<PrivateRoutes />}>
-          <Route path="/" element={<Navigate to="perfil/" />} />
+          <Route path="/" element={<Navigate to={enlaces[3].path} />} />
           <Route element={<MenuPrincipal />} path={enlaces[3].path} />
           <Route
             element={<Perfil />}
