@@ -131,8 +131,20 @@ const MenuLateral = ({ children }) => {
       navigate(enlaces[3].actualPath);
     }
 
+    if (key === "3") {
+      navigate(enlaces[10].actualPath);
+    }
+
+    if (key === "6") {
+      navigate(enlaces[11].actualPath);
+    }
+
     if (key === "71") {
       navigate(enlaces[5].actualPath);
+    }
+
+    if (key === "73") {
+      navigate(enlaces[12].actualPath);
     }
 
     if (key === "741") {
@@ -235,7 +247,7 @@ const MenuLateral = ({ children }) => {
           </ConfigProvider>
         </div>
       </nav>
-      <div className="w-screen min-w-[20vh]">
+      <div className="w-screen min-w-[600px]">
         <div className="h-8 mx-4 flex items-center">
           <BreadcrumbCN />
         </div>

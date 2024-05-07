@@ -13,8 +13,8 @@ const SelectFiltros = (props) => {
     colorText,
     controlItemBgActive,
     controlItemBgHover,
-    width,
-    height,
+    // width,
+    // height,
     setFilteringColumn,
     columnValue,
     columnSelect,
@@ -55,11 +55,7 @@ const SelectFiltros = (props) => {
       >
         <Select
           defaultValue={defaultValue}
-          style={{
-            width: width,
-            // width: 200,
-            height: height,
-          }}
+          className="w-full h-11"
           onChange={handleChange}
           onClick={() => {
             setColumnSelect(columnValue);
