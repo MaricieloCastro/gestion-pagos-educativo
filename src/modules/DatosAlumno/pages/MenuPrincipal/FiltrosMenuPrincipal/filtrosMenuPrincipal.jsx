@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { optionsGrado, optionsTurno } from "@/api/optionsFiltros";
 
-export const filtrosListaUsuarios = (
+export const filtrosMenuPrincipal = (
   setFilteringTipo,
   setFilteringSearch,
   filteringSearch
