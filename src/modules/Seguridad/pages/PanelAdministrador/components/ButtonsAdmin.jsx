@@ -4,6 +4,7 @@ import {
   faTrashArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 import ButtonAdmin from "./ButtonAdmin";
+import { enlaces } from "@/utils/rutas";
 
 const ButtonsAdmin = () => {
   return (
@@ -16,13 +17,13 @@ const ButtonsAdmin = () => {
           title="HISTORIAL DE REPORTES"
           icon={faFileInvoice}
           notification={false}
-          goTo="historial-reportes/"
+          goTo={enlaces[13].path}
         />
         <ButtonAdmin
           title="SOL. DE ELIMINACIÓN"
           icon={faTrashArrowUp}
           notification={true}
-          goTo="sol-eliminacion/"
+          goTo={enlaces[12].path}
         />
       </div>
     </>
