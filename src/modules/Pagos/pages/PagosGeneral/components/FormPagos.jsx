@@ -30,7 +30,7 @@ import Formulario from "@/modules/Seguridad/pages/CrearUsuario/components/ui/for
 import { CondicionVentaSelect } from "./CondicionVentaSelect";
 import Calendario from "@/modules/Seguridad/pages/CrearUsuario/compenetes/reuse/Calendario";
 import { Link, useParams } from "react-router-dom";
-import { set } from "date-fns";
+
 //Parametro ZOD
 const FormSchema = z.object({
   año_lectivo: z.string().min(1, {
@@ -66,7 +66,7 @@ const FormSchema = z.object({
   total_pagar: z.string().min(1, {
     message: "campo obligatorio",
   }),
-  tipo_pago: z.string().min(0, {
+  tipo_pago: z.string().min(1, {
     message: "campo obligatorio",
   }),
 });
@@ -78,19 +78,18 @@ export default function FormPagos(props) {
   const param = useParams();
   const { pagos, id } = param;
   const { descripcion } = tipo_pago[pagos];
-  const [tipoPago, setTipoPago] = useState();
+  //const [tipoPago, setTipoPago] = useState();
+  //Lógica para designar los inpust que estarán disponibless
+  const tipoPago = pagos;
   useEffect(() => {
     if (pagos == 1) {
       matricula();
-      setTipoPago("1");
     } else if (pagos == 2) {
       mensualidad();
-      setTipoPago("2");
     } else {
       cursoD();
-      setTipoPago("3");
     }
-  }, [pagos]);
+  }, []);
   //Lógica para recargar la página cada que cambiamos el tipo de pago
   const [reload, setReload] = useState();
   //Funcion de recargar
@@ -118,10 +117,9 @@ export default function FormPagos(props) {
       monto_previo: "",
       descuento_aplicado: "",
       total_pagar: "",
-      tipo_pago: tipoPago || "",
+      tipo_pago: tipoPago,
     },
   });
-
   //tipos de pagos
   const [buttonCD, setButtonCD] = useState();
   const [buttonM, setButtonM] = useState();
@@ -145,7 +143,7 @@ export default function FormPagos(props) {
   function onSubmit(values) {
     console.log(values);
   }
-  const ButtonView = true;
+  const ButtonView = false;
   //Lógica para no rendirizar los botones de pagos
   const [mostrarBotones, setMostrarBotones] = useState(true);
   useEffect(() => {
@@ -249,6 +247,7 @@ export default function FormPagos(props) {
               </div>
               <div className="pagos-dato_uno-dos">
                 <Calendario
+                  className="flex-container"
                   nameLabel="Fecha de Pago:"
                   form={form}
                   name="fecha_pago"
