@@ -8,7 +8,7 @@ import Spinner from "@/components/Spinner";
 
 import "../TableListaUsuarios/TableListaUsuarios.scss";
 
-const TableMenuPrincipal= (props) => {
+const TableHistorialReporte= (props) => {
   const { numItemsForPage, totalItems, table, loading } = props;
 
   return (
@@ -78,4 +78,4 @@ const TableMenuPrincipal= (props) => {
   );
 };
 
-export default TableMenuPrincipal;
+export default TableHistorialReporte;

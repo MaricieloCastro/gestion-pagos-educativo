@@ -6,10 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpLong, faDownLong } from "@fortawesome/free-solid-svg-icons";
 import Spinner from "@/components/Spinner";
 
-import "../TableListaUsuarios/TableListaUsuarios.scss";
-
-const TablaEstudiantesDelete = (props) => {
-  const { numItemsForPage, totalItems, table, loading } = props;
+const ListasTable = (props) => {
+  const { numItemsForPage, totalItems, table, loading, classNameTable } = props;
 
   return (
     <div className="bg-white-texto overflow-y-auto h-height-caja-listas mt-4">
@@ -20,7 +18,7 @@ const TablaEstudiantesDelete = (props) => {
           </h1>
         </div>
         {loading ? (
-          <table className="lista-usuarios-principal max-w-full">
+          <table className={`${classNameTable} max-w-full`}>
             <thead className=" bg-gray-listas sticky top-0">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id} className="w-full">
@@ -78,4 +76,4 @@ const TablaEstudiantesDelete = (props) => {
   );
 };
 
-export default TablaEstudiantesDelete;
+export default ListasTable;

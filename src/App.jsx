@@ -22,9 +22,6 @@ import CrearUsuario from "./modules/Seguridad/pages/CrearUsuario";
 import PagosGeneral from "./modules/Pagos/pages/PagosGeneral";
 import PagoInscripcion from "./modules/Pagos/pages/PagoInscripcion";
 
-//inscribir alumno
-import InscribirAlumno from "./modules/DatosAlumno/InscriberAlumno/InscribirAlumno";
-
 import { enlaces } from "./utils/rutas";
 
 //RutasPrivadas
@@ -32,10 +29,12 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import AuthContext from "./contexts/AuthContext";
 
 //Modulo de datos alumnos
+
 import MenuPrincipal from "./modules/DatosAlumno/pages/MenuPrincipal";
-import InscriberAlumno from "./modules/DatosAlumno/InscriberAlumno";
+import InscribirAlumno from "./modules/DatosAlumno/pages/InscribirAlumno/InscribirAlumno";
 import EstudiantesDelete from "./modules/DatosAlumno/pages/EstudiantesDelete";
 import SolicitudEstudiantesDelete from "./modules/DatosAlumno/pages/SolicitudEstudiantesDelete";
+import HistorialReporte from "./modules/Reportes/pages/HistorialReporte";
 
 const App = () => {
   let { user } = useContext(AuthContext);
@@ -60,7 +59,7 @@ const App = () => {
           path={enlaces[0].prevPath + enlaces[0].path}
         />
         <Route element={<PrivateRoutes />}>
-          <Route path="/" element={<Navigate to="perfil/" />} />
+          <Route path="/" element={<Navigate to={enlaces[3].path} />} />
           <Route element={<MenuPrincipal />} path={enlaces[3].path} />
           <Route
             element={<Perfil />}
@@ -78,9 +77,9 @@ const App = () => {
                 path={enlaces[5].prevPath + enlaces[5].path}
               />
               <Route
-            element={<SolicitudEstudiantesDelete />}
-            path={enlaces[12].prevPath + enlaces[12].path}
-          />
+                element={<SolicitudEstudiantesDelete />}
+                path={enlaces[12].prevPath + enlaces[12].path}
+              />
               <Route
                 element={<ListaUsuarios />}
                 path={enlaces[6].prevPath + enlaces[6].path}
@@ -96,21 +95,33 @@ const App = () => {
             </>
           )}
           <Route
-            element={<InscriberAlumno />}
+            element={<InscribirAlumno />}
             path={enlaces[10].prevPath + enlaces[10].path}
           />
           <Route
             element={<EstudiantesDelete />}
             path={enlaces[11].prevPath + enlaces[11].path}
           />
+          <Route
+            element={<HistorialReporte />}
+            path={enlaces[13].prevPath + enlaces[13].path}
+          />
+          
         </Route>
-        <Route element={<>
-          <div className="h-screen flex justify-center items-center flex-col gap-4">
-            <h1 className="text-6xl">ERROR 404</h1>
-            <p>PAGE NOT FOUND</p>
-            <p className="text-slate-400"><Link to="/">Regresar a inicio de sesión</Link></p>
-          </div>
-        </>} path="*" />
+        <Route
+          element={
+            <>
+              <div className="h-screen flex justify-center items-center flex-col gap-4">
+                <h1 className="text-6xl">ERROR 404</h1>
+                <p>PAGE NOT FOUND</p>
+                <p className="text-slate-400">
+                  <Link to="/">Regresar a inicio de sesión</Link>
+                </p>
+              </div>
+            </>
+          }
+          path="*"
+        />
       </Routes>
     </div>
   );

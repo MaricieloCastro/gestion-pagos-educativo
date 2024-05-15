@@ -3,10 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 
 const ButtonAdmin = (props) => {
+  const navigate = useNavigate();
+
   const { icon, title, notification, goTo } = props;
 
   const handleClick = () => {
-    console.log(goTo);
+    navigate(goTo);
   };
 
   return (
