@@ -13,6 +13,8 @@ import {
 import AuthContext from "@/contexts/AuthContext";
 import { getAxios } from "@/functions/methods";
 
+import './Listas.scss'
+
 const ListaUsuarios = (props) => {
   let { authTokens } = useContext(AuthContext);
 
@@ -78,15 +80,15 @@ const ListaUsuarios = (props) => {
   const totalItems = data.length;
 
   return (
-    <div className="h-screen px-caja-contenido grid grid-rows-caja-contenido max-h-[calc(100vh-30px)]">
+    <>
       <div
-        className={`${classNameFiltros} bg-white-texto h-[20vh] max-h-[15vh] min-h-[140px]`}
+        className={`${classNameFiltros} border-[1px] bg-white px-3 gap-2 py-2`}
       >
         {filtros}
       </div>
 
       <div className="listas">
-        <div className="border-[1px] overflow-y-auto bg-white">
+        <div className=" overflow-y-auto bg-white">
           <ListasTable
             classNameTable={classNameTable}
             table={table}
@@ -98,10 +100,10 @@ const ListaUsuarios = (props) => {
         </div>
       </div>
 
-      <div className="flex pb-2 items-start justify-end">
+      <div className="flex items-start justify-center">
         <ListasPagination table={table} />
       </div>
-    </div>
+    </>
   );
 };
 

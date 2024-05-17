@@ -1,67 +1,34 @@
-.menu__li {
-  li {
-    margin: 0 !important;
-    width: 100% !important;
+.menu-lateral {
+  display: grid;
+  grid-template-columns: 1fr 100fr;
 
-    div {
-      margin: 0 !important;
-      width: 100% !important;
-    }
+  &__boton {
+    display: grid;
+    grid-template-columns: auto 1fr;
   }
-}
-.ant-menu {
-  &-item {
+
+  .ant-menu-inline {
+    width: 27vh;
+    min-width: 220px;
+  }
+
+  .ant-menu-vertical {
+    width: 81px;
+  }
+
+  .ant-menu-item-danger {
     border-style: solid !important;
-    border-top-width: 1px;
-    border-color: #c1c1c1 !important;
-  }
+    border-top: 1px;
+    border-bottom: 1px;
+    border-color: rgba(255, 108, 108, 0.431) !important;
 
-  &-submenu {
-    border-style: solid !important;
-    border-top-width: 1px;
-    border-color: #c1c1c1 !important;
-
-    &-open {
-      background-color: #003154 !important;
+    &:hover {
+      background-color: rgb(254, 240, 240) !important;
     }
   }
 
-  &-sub {
-    .ant-menu-submenu-inline {
-      border-style: none !important;
-    }
-
-    .ant-menu-item-only-child {
-      border-style: none !important;
-    }
-  }
-
-  &-item-danger {
-    background-color: #940303 !important;
-    color: #c9c9c9 !important;
-    border-style: solid !important;
-    border-bottom-width: 1px;
-    border-color: #c1c1c1 !important;
-  }
-}
-
-.menu {
-  &::-webkit-scrollbar {
-    width: 7px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #c3c3c398;
-    border-radius: 5px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: #f1f1f14f;
-  }
-}
-
-@media screen and (max-width: 110vh) {
-  .menu {
-    display: none;
+  &__content {
+    display: grid;
+    grid-template-rows: auto 25fr;
   }
 }

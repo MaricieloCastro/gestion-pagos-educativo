@@ -1,0 +1,9 @@
+.listas {
+  display: grid;
+
+  tr {
+    &:nth-child(even) {
+      background: #eaeaea;
+    }
+  }
+}
