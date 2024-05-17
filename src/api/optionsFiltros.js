@@ -13,6 +13,21 @@ export const optionsTipo = [
   },
 ];
 
+export const tipo = [
+  {
+    value: "",
+    label: "TODOS",
+  },
+  {
+    value: "DIRECTOR",
+    label: "DIRECTOR",
+  },
+  {
+    value: "SECRETARIA",
+    label: "SECRETARIA",
+  },
+];
+
 export const optionsTurno = [
   {
     value: "",
