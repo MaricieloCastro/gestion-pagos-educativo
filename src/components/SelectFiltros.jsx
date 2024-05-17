@@ -55,7 +55,7 @@ const SelectFiltros = (props) => {
       >
         <Select
           defaultValue={defaultValue}
-          className="w-full h-11"
+          className="w-full min-w-36 h-11"
           onChange={handleChange}
           onClick={() => {
             setColumnSelect(columnValue);

@@ -18,9 +18,9 @@ export const filtrosListaUsuarios = (
   filteringSearch
 ) => {
   return (
-    <>
-      <div className="lista-usuarios-filtros__search">
-        <div className="flex gap-4 items-center px-4">
+    <div className="lista-usuarios-filtros__box h-full">
+      <div className="lista-usuarios-filtros__box-search">
+        <div className="lista-usuarios-filtros__box-search-elements gap-4 items-center px-4">
           <SelectFiltros
             title="TIPO"
             classNameTitle="text-blue-claro font-normal"
@@ -37,7 +37,8 @@ export const filtrosListaUsuarios = (
             setFilteringTipo={setFilteringTipo}
           />
 
-          <DateFiltros />
+          <DateFiltros label="FECHA INGRESO"
+            placeholder="F. INGRESO" />
 
           <HourFiltros
             label="HORA INGRESO"
@@ -57,17 +58,19 @@ export const filtrosListaUsuarios = (
           />
         </div>
 
-        <div className="flex items-center px-4 relative">
-          <FontAwesomeIcon
-            icon={faSearch}
-            className="absolute left-7 z-10 text-blue-claro"
-          />
-          <Input
-            placeholder="BUSCAR..."
-            className="w-input-listas h-10 border-1 border-blue-claro px-10 text-md"
-            value={filteringSearch}
-            onChange={(e) => setFilteringSearch(e.target.value)}
-          />
+        <div className="lista-usuarios-filtros__box-search-input items-center px-4 gap-4">
+          <div className="lista-usuarios-filtros__box-search-input__element relative">
+            <FontAwesomeIcon
+              icon={faSearch}
+              className="absolute left-3 top-5 z-10 text-blue-claro"
+            />
+            <Input
+              placeholder="BUSCAR..."
+              className="w-full py-5 my-2 min-w-36 h-10 border-1 border-blue-claro px-10 text-md"
+              value={filteringSearch}
+              onChange={(e) => setFilteringSearch(e.target.value)}
+            />
+          </div>
         </div>
       </div>
 
@@ -86,6 +89,6 @@ export const filtrosListaUsuarios = (
           />
         </Link>
       </div>
-    </>
+    </div>
   );
 };

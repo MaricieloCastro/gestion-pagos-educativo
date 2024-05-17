@@ -39,16 +39,14 @@ export const columnsValue = (reload, setReload) => {
       header: "OPCIONES",
       cell: (row) => {
         const id = row.cell.row.original.id;
-        const id_beneficio = row.cell.row.original.id_beneficio;
-        const estado = row.cell.row.original.estado;
+        const estado_deuda = row.cell.row.original.estado;
 
         return (
           <BotonesMenuPrincipal
             id={id}
             setReload={setReload}
             reload={reload}
-            id_beneficio={id_beneficio}
-            estado={estado}
+            estado_deuda={estado_deuda}
           />
         );
       },

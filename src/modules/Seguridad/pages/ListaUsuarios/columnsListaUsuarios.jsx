@@ -31,17 +31,13 @@ export const columnsValue = (reload, setReload) => {
       cell: (row) => {
         const id = row.cell.row.original.id;
         const id_tipo_usuario = row.cell.row.original.id_tipo_usuario;
-        const username = row.cell.row.original.username;
-        const password = row.cell.row.original.password;
 
         return (
           <BotonesListaUsuarios
             id={id}
+            id_tipo_usuario={id_tipo_usuario}
             setReload={setReload}
             reload={reload}
-            username={username}
-            password={password}
-            id_tipo_usuario={id_tipo_usuario}
           />
         );
       },

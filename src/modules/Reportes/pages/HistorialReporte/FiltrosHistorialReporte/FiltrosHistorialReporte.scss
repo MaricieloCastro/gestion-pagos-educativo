@@ -1,19 +1,19 @@
-.lista-usuarios-filtros__box {
+.filtros-historial-reporte {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr;
 
-  &-search {
+  &__search {
     display: grid;
     // min-width: 80vh;
 
     &-elements {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
     }
 
     &-input {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
     }
 
     // &::-webkit-scrollbar {
@@ -27,16 +27,5 @@
     // &::-webkit-scrollbar-track {
     //   background-color: #f1f1f14f;
     // }
-  }
-}
-
-@media screen and (max-width: 1200px) {
-  .lista-usuarios-filtros__box {
-    display: grid;
-    grid-template-columns: 1fr;
-
-    &__button {
-      display: none;
-    }
   }
 }

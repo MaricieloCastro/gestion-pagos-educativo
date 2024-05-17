@@ -89,6 +89,26 @@ export const putAxiosPrueba = async (
   }
 };
 
+export const patchModal = async (
+  url,
+  data,
+  headers,
+  setLoading,
+  setSucess,
+  setError
+) => {
+  setLoading(true);
+  try {
+    const response = await axios.patch(url, data, { headers });
+    console.log("operacion exitosa:", response);
+    setLoading(false);
+    setSucess(true);
+  } catch (error) {
+    setLoading(false);
+    setError(true);
+  }
+};
+
 export const postAxiosPrueba = async (
   url,
   data,

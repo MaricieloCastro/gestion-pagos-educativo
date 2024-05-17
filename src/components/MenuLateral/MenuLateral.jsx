@@ -23,6 +23,8 @@ import "./MenuLateral.scss";
 import BreadcrumbCN from "../BreadcrumbCN";
 import AuthContext from "@/contexts/AuthContext";
 import { enlaces } from "../../utils/rutas";
+import { getAxios } from "@/functions/methods";
+import { alumnosSolicitudDeleteApi } from "@/api/ApiRutas";
 
 function getItem(label, key, danger, icon, children, type, disabled) {
   return {
@@ -44,8 +46,9 @@ const MenuLateral = ({ children }) => {
 
   const [selectedKeys, setSelectedKeys] = useState([]);
   // const [permisos, setPermisos] = useState({})
-  // const [loading, setLoading] = useState(false)
-  // const [error, setError] = useState(null)
+  const [solicitudDelete, setSolicitudDelete] = useState({})
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   const headers = {
     "Content-Type": "application/json",
@@ -55,6 +58,14 @@ const MenuLateral = ({ children }) => {
   // useEffect(() => {
   //   getAxios(permisosAPI, headers, setPermisos, setLoading, setError);
   // }, [reload]);
+
+  useEffect(() => {
+    getAxios(alumnosSolicitudDeleteApi, headers, setSolicitudDelete, setLoading, setError)
+  }, [])
+
+  const num_solicitud = solicitudDelete.length;
+
+  console.log(num_solicitud)
 
   const items = [
     getItem("PERFIL", "1", false, <FontAwesomeIcon icon={faUser} />),
@@ -66,10 +77,12 @@ const MenuLateral = ({ children }) => {
       [
         getItem("LISTA DE ALUMNOS", "21"),
         getItem("ALUMNO", "22", "false", null, [
-          getItem("EDITAR", "221"),
-          getItem("PAGAR INSCRIPCION", "222"),
+          getItem("EDITAR", "221", false, null, null, null, true),
+          // getItem(label, key, danger, icon, children, type, disabled)
+          getItem("PAGAR INSCRIPCION", "222", false, null, null, null, true),
         ]),
-        getItem("PAGOS", "23"),
+        getItem("PAGOS", "23", false, null, null, null, true),
+        // getItem(label, key, danger, icon, children, type, disabled)
       ]
     ),
     getItem("INSCRIBIR ALUMNO", "3", false, <FontAwesomeIcon icon={faPlus} />),
@@ -101,7 +114,8 @@ const MenuLateral = ({ children }) => {
         [
           getItem("PANEL", "71"),
           getItem("HISTORIAL REPORTES", "72"),
-          getItem("SOLICITUD DE ELIMINACION", "73"),
+          getItem(`${num_solicitud == 0 ? ("SOLICITUD DE ELIMINACION") : ("SOLICITUD DE ELIMINACION 🔴")}`, "73", undefined),
+          // getItem(`SOLICITUD DE ELIMINACION ${solicitudesEliminacion}`, "73"),
           getItem("USUARIOS", "74", undefined, null, [
             getItem("LISTA DE USUARIOS", "741"),
             getItem("CREAR USUARIO", "742"),
@@ -139,8 +153,16 @@ const MenuLateral = ({ children }) => {
       navigate(enlaces[11].actualPath);
     }
 
+    if (key === "23") {
+      navigate(enlaces[9].actualPath);
+    }
+
     if (key === "71") {
       navigate(enlaces[5].actualPath);
+    }
+
+    if (key === "72") {
+      navigate(enlaces[13].actualPath);
     }
 
     if (key === "73") {
