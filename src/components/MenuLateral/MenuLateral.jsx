@@ -94,22 +94,22 @@ const MenuLateral = ({ children }) => {
     ),
     id_tipo_usuario === 1
       ? getItem(
-          "PANEL DE ADMINISTRADOR",
-          "7",
-          undefined,
-          <FontAwesomeIcon icon={faAddressCard} />,
-          [
-            getItem("PANEL", "71"),
-            getItem("HISTORIAL REPORTES", "72"),
-            getItem("SOLICITUD DE ELIMINACION", "73"),
-            getItem("USUARIOS", "74", undefined, null, [
-              getItem("LISTA DE USUARIOS", "741"),
-              getItem("CREAR USUARIO", "742"),
-              getItem("EDITAR USUARIO", "743", false, null, null, null, true),
-              // getItem(label, key, danger, icon, children, type, disabled)
-            ]),
-          ]
-        )
+        "PANEL DE ADMINISTRADOR",
+        "7",
+        undefined,
+        <FontAwesomeIcon icon={faAddressCard} />,
+        [
+          getItem("PANEL", "71"),
+          getItem("HISTORIAL REPORTES", "72"),
+          getItem("SOLICITUD DE ELIMINACION", "73"),
+          getItem("USUARIOS", "74", undefined, null, [
+            getItem("LISTA DE USUARIOS", "741"),
+            getItem("CREAR USUARIO", "742"),
+            getItem("EDITAR USUARIO", "743", false, null, null, null, true),
+            // getItem(label, key, danger, icon, children, type, disabled)
+          ]),
+        ]
+      )
       : null,
     getItem(
       "CERRAR SESION",

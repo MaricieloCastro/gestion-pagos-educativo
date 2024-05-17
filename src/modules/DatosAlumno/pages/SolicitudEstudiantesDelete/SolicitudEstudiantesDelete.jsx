@@ -1,151 +1,30 @@
-import React, { useState, useContext, useEffect } from "react";
+
+import React from "react";
+
 import MenuLateral from "@/components/MenuLateral";
+import Listas from "@/components/Listas";
 
-import FiltrosTableSolicitudEstudiantesDelete from "@/components/Tables/TableSolicitudEstudiantesDelete/FiltrosTableSolicitudEstudiantesDelete";
-import TableSolicitudEstudiantesDelete from "@/components/Tables/TableSolicitudEstudiantesDelete/TableSolicitudEstudiantesDelete";
-import Pagination from "@/components/Tables/Pagination";
+import { filtrosSolicitudEstudiantesDelete } from "./FiltrosSolicitudEstudiantesDelete/filtrosSolicitudEstudiantesDelete";
+import { alumnosSolicitudDeleteApi } from "@/api/ApiRutas";
+import { columnsValue } from "./columnsSolicitudEstudiantesDelete";
 
-import {
-  useReactTable,
-  getCoreRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  getFilteredRowModel,
-} from "@tanstack/react-table";
-
-import BotonesSolicitudEstudiantesDelete from "@/components/Tables/TableSolicitudEstudiantesDelete/BotonesSolicitudEstudiantesDelete";
-import AuthContext from "@/contexts/AuthContext";
-import { getAxios } from "@/functions/methods";
-import { alumnosInactivosApi, alumnosSolicitudDeleteApi } from "@/api/ApiRutas";
-import ColorEstadoDeuda from "@/components/Tables/TableSolicitudEstudiantesDelete/ColorEstadoDeuda";
+import "./SolicitudEstudiantesDelete.scss";
+import "./FiltrosSolicitudEstudiantesDelete/FiltrosSolicitudEstudiantesDelete.scss";
 
 const SolicitudEstudiantesDelete = () => {
-  let { authTokens } = useContext(AuthContext);
-
-  const [reload, setReload] = useState(true);
-  const [usuarios, setUsuarios] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + String(authTokens?.access),
-  };
-
-  useEffect(() => {
-    getAxios(alumnosSolicitudDeleteApi, headers, setUsuarios, setLoading, setError);
-  }, [reload]);
-
-  const data = usuarios;
-
-  const columns = [
-    {
-      header: "CODIGO",
-      accessorKey: "codigo",
-    },
-    {
-      header: "ESTADO",
-      cell: (row) => {
-        const estado = row.cell.row.original.estado;
-
-        return (
-          <ColorEstadoDeuda
-            estado={estado}
-          />
-        );
-      },
-    },
-    {
-      header: "ALUMNO",
-      accessorKey: "alumno",
-    },
-    {
-      header: "BENEFICIO",
-      accessorKey: "beneficio",
-    },
-    {
-      header: "TURNO",
-      accessorKey: "turno",
-    },
-    {
-      header: "GRADO",
-      accessorKey: "grado",
-    },
-    {
-      header: "SECCIÓN",
-      accessorKey: "seccion",
-      },
-    {
-      header: "OPCIONES",
-      cell: (row) => {
-        const id = row.cell.row.original.id;
-        const id_beneficio = row.cell.row.original.id_beneficio;
-        const estado = row.cell.row.original.estado;
-
-        return (
-          <BotonesSolicitudEstudiantesDelete
-            id={id}
-            setReload={setReload}
-            reload={reload}
-            id_beneficio={id_beneficio}
-            estado={estado}
-          />
-        );
-      },
-    },
-  ];
-
-  const [sorting, setSorting] = useState([]);
-  const [filteringSearch, setFilteringSearch] = useState("");
-  const [filteringTipo, setFilteringTipo] = useState([
-    {
-      id: "tipo",
-      value: "", // Valor inicial del filtro de la columna "tipo"
-    },
-  ]);
-
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    state: {
-      sorting,
-      globalFilter: filteringSearch,
-      columnFilters: filteringTipo,
-    },
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setFilteringTipo,
-    onGlobalFilterChange: setFilteringSearch,
-  });
-
-  const numItemsForPage = table.getRowModel().rows.length;
-  const totalItems = data.length;
-
   return (
     <div className="flex h-screen blue-oscuro overflow-hidden">
       <MenuLateral>
-        <div className="h-screen px-caja-contenido grid grid-rows-caja-contenido max-h-[calc(100vh-30px)]">
-          <FiltrosTableSolicitudEstudiantesDelete
-            setFilteringTipo={setFilteringTipo}
-            setFilteringSearch={setFilteringSearch}
-            filteringSearch={filteringSearch}
-          />
-
-          <TableSolicitudEstudiantesDelete
-            table={table}
-            numItemsForPage={numItemsForPage}
-            totalItems={totalItems}
-            loading={loading}
-          />
-
-          <Pagination table={table} />
-        </div>
+        <Listas
+          api={alumnosSolicitudDeleteApi}
+          columnsValue={columnsValue}
+          classNameTable="solicitud-estudiantes-delete"
+          classNameFiltros="filtros-solicitud-estudiantes-delete"
+          filtrosLista={filtrosSolicitudEstudiantesDelete}
+        />
       </MenuLateral>
     </div>
-  );
-};
+  )
+}
 
-export default SolicitudEstudiantesDelete;
+export default SolicitudEstudiantesDelete

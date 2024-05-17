@@ -3,7 +3,7 @@ import React from "react";
 import MenuLateral from "@/components/MenuLateral";
 import Listas from "@/components/Listas";
 
-import { filtrosListaUsuarios } from "./FiltrosMenuPrincipal/filtrosMenuPrincipal";
+import { filtrosMenuPrincipal } from "./FiltrosMenuPrincipal/filtrosMenuPrincipal";
 import { alumnosApi } from "@/api/ApiRutas";
 import { columnsValue } from "./columnsMenuPrincipal";
 
@@ -19,7 +19,7 @@ const MenuPrincipal = () => {
           columnsValue={columnsValue}
           classNameTable="menu-principal"
           classNameFiltros="filtros-menu-principal"
-          filtrosLista={filtrosListaUsuarios}
+          filtrosLista={filtrosMenuPrincipal}
         />
       </MenuLateral>
     </div>
