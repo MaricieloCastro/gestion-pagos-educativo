@@ -20,7 +20,7 @@ const AvatarPagos = (props) => {
     <div className="avatar">
       <Badge
         className="avatar-estado"
-        count={2}
+        count={5}
         style={{ backgroundColor: colorBad }}
       >
         <Avatar>

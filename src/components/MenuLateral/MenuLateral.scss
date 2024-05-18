@@ -48,11 +48,17 @@
 .menu {
   &::-webkit-scrollbar {
     width: 7px;
+    &:hover {
+      width: 10px;
+    }
   }
 
   &::-webkit-scrollbar-thumb {
     background-color: #c3c3c398;
     border-radius: 5px;
+    &:hover {
+      background-color: #c9c9c9;
+    }
   }
 
   &::-webkit-scrollbar-track {

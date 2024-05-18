@@ -10,6 +10,7 @@ import AuthContext from "@/contexts/AuthContext";
 import { Spin } from "antd";
 import Escudo from "../../../../assets/img/escudoCiencias.png";
 import { TIPOPAGOURL } from "@/modules/Seguridad/pages/CrearUsuario/compenetes/reuse/ConstObj";
+import PdfPagoa from "./components/PdfPagos";
 
 export default function PagosGeneral() {
   let { authTokens } = useContext(AuthContext);
@@ -17,8 +18,10 @@ export default function PagosGeneral() {
   const [general, setGeneral] = useState([]);
   const [loading, setLoading] = useState([]);
   const [tipo_pago, setTipoPago] = useState([]);
+  const [pendiente, setPendiente] = useState([]);
   const { id, pagos } = param;
   const URLALUMNOS = `http://127.0.0.1:8000/datos_alumno/api/estudiantes_activos/${id}/`;
+  const URLPEDNIENTE = `http://127.0.0.1:8000/pagos/api/pediente/`;
   const headers = {
     "Content-Type": "application/json",
     Authorization: "Bearer " + String(authTokens.access),
@@ -28,8 +31,10 @@ export default function PagosGeneral() {
       try {
         const alumnos = await axios.get(URLALUMNOS, headers);
         const TipoPago = await axios.get(TIPOPAGOURL, headers);
+        const pendiente = await axios.get(URLPEDNIENTE, headers);
         setGeneral(alumnos.data);
         setTipoPago(TipoPago.data);
+        setPendiente(pendiente.data);
         setLoading(false);
       } catch (error) {
         console.error("Error al obtener los usuarios:", error);
@@ -47,10 +52,19 @@ export default function PagosGeneral() {
       </div>
     );
   }
+  const IdAlumno = Number(id);
+  const buscarPendientePorId = (id) => {
+    return pendiente.find((pendientes) => pendientes.alumno.id === id);
+  };
+  const pendientes = buscarPendientePorId(IdAlumno);
   return (
     <div className="flex overflow-hidden h-screen blue-oscuro">
       <MenuLateral>
-        <FormPagos general={general} tipo_pago={tipo_pago} />
+        <FormPagos
+          general={general}
+          tipo_pago={tipo_pago}
+          pendientes={pendientes}
+        />
       </MenuLateral>
     </div>
   );

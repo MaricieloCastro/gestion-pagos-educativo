@@ -1,7 +1,16 @@
 import React from "react";
-
+import { useEffect, useState, useContext } from "react";
+import {
+  useReactTable,
+  getCoreRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  getFilteredRowModel,
+} from "@tanstack/react-table";
+import { getAxios } from "@/functions/methods";
 import MenuLateral from "@/components/MenuLateral";
 import Listas from "@/components/Listas";
+import AuthContext from "@/contexts/AuthContext";
 
 import { filtrosMenuPrincipal } from "./FiltrosMenuPrincipal/filtrosMenuPrincipal";
 import { alumnosApi } from "@/api/ApiRutas";

@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import AvatarPagos from "./AvatarPagos";
 import moment from "moment";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PdfPagoa from "./PdfPagos";
 //URL
 import {
   AREAURL,
@@ -69,15 +71,39 @@ const FormSchema = z.object({
   tipo_pago: z.string().min(1, {
     message: "campo obligatorio",
   }),
+  um: z.string().min(1, {
+    message: "campo obligatorio",
+  }),
+  cantidad: z.string().min(1, {
+    message: "campo obligatorio",
+  }),
+  tasa_igv: z.string().min(1, {
+    message: "campo obligatorio",
+  }),
+  precio_unitario: z.string().min(1, {
+    message: "campo obligatorio",
+  }),
+  moneda: z.string().min(1, {
+    message: "campo obligatorio",
+  }),
 });
 export default function FormPagos(props) {
-  const { general, tipo_pago } = props;
+  const { general, tipo_pago, pendientes } = props;
   const fechaDefault = moment();
   const fecha = fechaDefault.format("YYYY-MM-DD");
   const año = fechaDefault.format("YYYY");
   const param = useParams();
   const { pagos, id } = param;
   const { descripcion } = tipo_pago[pagos];
+  const { monto_previo, desc_aplicado } = pendientes;
+  const total_pagar = (monto_previo - desc_aplicado).toString();
+  const um = "UNIDAD";
+  const cantidad = "1.00";
+  const op_exonerada = "0.00";
+  const tasa_igv = "0.00";
+  const precio_unitario = monto_previo;
+  const moneda = "SOLES";
+
   //const [tipoPago, setTipoPago] = useState();
   //Lógica para designar los inpust que estarán disponibless
   const tipoPago = pagos;
@@ -114,10 +140,15 @@ export default function FormPagos(props) {
       metodo_pago: "EFECTIVO",
       descripcion: descripcion || "",
       monto: "",
-      monto_previo: "",
-      descuento_aplicado: "",
-      total_pagar: "",
+      monto_previo: monto_previo || "",
+      descuento_aplicado: desc_aplicado || "",
+      total_pagar: total_pagar || "",
       tipo_pago: tipoPago,
+      um: um || "",
+      cantidad: cantidad || "",
+      tasa_igv: tasa_igv || "",
+      precio_unitario: precio_unitario || "",
+      moneda: moneda || "",
     },
   });
   //tipos de pagos
@@ -143,7 +174,7 @@ export default function FormPagos(props) {
   function onSubmit(values) {
     console.log(values);
   }
-  const ButtonView = false;
+  const ButtonView = true;
   //Lógica para no rendirizar los botones de pagos
   const [mostrarBotones, setMostrarBotones] = useState(true);
   useEffect(() => {
@@ -288,7 +319,14 @@ export default function FormPagos(props) {
                 nameLabel="Total a Pagar:"
                 parametros="total_pagar"
               />
-              <Button className="registrar-pago">REGISTRAR PAGO</Button>
+              <PDFDownloadLink
+                document={<PdfPagoa />}
+                fileName="PagosMatricula.pdf"
+              >
+                <Button className="registrar-pago" type="button">
+                  REGISTRAR PAGO
+                </Button>
+              </PDFDownloadLink>
             </div>
           </div>
         </div>

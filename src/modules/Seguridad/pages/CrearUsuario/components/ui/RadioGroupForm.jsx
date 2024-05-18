@@ -72,7 +72,10 @@ export function RadioGroupForm(props) {
               disabled={disabled}
             >
               {item.map((opcion) => (
-                <FormItem className="flex items-center space-x-3 space-y-0">
+                <FormItem
+                  key={opcion.id}
+                  className="flex items-center space-x-3 space-y-0"
+                >
                   <FormControl>
                     <RadioGroupItem value={opcion.nombre.charAt(0)} />
                   </FormControl>

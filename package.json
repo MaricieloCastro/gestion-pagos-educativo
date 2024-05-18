@@ -30,6 +30,7 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
+    "@react-pdf/renderer": "^3.4.4",
     "@tanstack/react-table": "^8.16.0",
     "antd": "^5.17.0",
     "axios": "^1.6.8",

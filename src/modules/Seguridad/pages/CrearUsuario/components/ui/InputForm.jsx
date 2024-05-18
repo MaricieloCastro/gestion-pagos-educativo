@@ -181,7 +181,6 @@ export default function InputFormI(props) {
     const data = values;
     values.password = contraseña;
     values.username = usuario;
-    console.log(values);
     if (data.id_tipo_usuario == "SECRETARIA") {
       data.id_tipo_usuario = "2";
     } else {

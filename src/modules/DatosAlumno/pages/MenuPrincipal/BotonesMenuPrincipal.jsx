@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 
 import ButtonWithIcon from "@/components/ButtonWithIcon";
 import { putAxios, putAxiosPrueba } from "@/functions/methods";
+import { Link } from "react-router-dom";
 import { alumnosApi } from "@/api/ApiRutas";
 import AuthContext from "@/contexts/AuthContext";
 
@@ -61,6 +62,10 @@ const BotonesMenuPrincipal = (props) => {
     );
   };
 
+  const matricula = `http://localhost:5173/pagos/${id}/1`;
+  const mensualidad = `http://localhost:5173/pagos/${id}/2`;
+  const cursoDesaprobado = `http://localhost:5173/pagos/${id}/3`;
+
   return (
     <div className="flex gap-2 justify-center items-center ">
       <ButtonWithIcon
@@ -81,33 +86,39 @@ const BotonesMenuPrincipal = (props) => {
         onClick={handleConfirmacion}
         disabled={false}
       />
-      <ButtonWithIcon
-        text="MA"
-        classNameIcon="w-4"
-        classNameVariants="rounded-sm
+      <Link to={matricula}>
+        <ButtonWithIcon
+          text="MA"
+          classNameIcon="w-4"
+          classNameVariants="rounded-sm
                 bg-[#344A5F] hover:bg-blue-boton-hover
                 w-10"
-        onClick={handleConfirmacion}
-        disabled={false}
-      />
-      <ButtonWithIcon
-        text="ME"
-        classNameIcon="w-4"
-        classNameVariants="rounded-sm
+          onClick={handleConfirmacion}
+          disabled={false}
+        />
+      </Link>
+      <Link to={mensualidad}>
+        <ButtonWithIcon
+          text="ME"
+          classNameIcon="w-4"
+          classNameVariants="rounded-sm
                 bg-[#344A5F] hover:bg-blue-boton-hover
                 w-10"
-        onClick={handleConfirmacion}
-        disabled={false}
-      />
-      <ButtonWithIcon
-        text="CD"
-        classNameIcon="w-4"
-        classNameVariants="rounded-sm
+          onClick={handleConfirmacion}
+          disabled={false}
+        />
+      </Link>
+      <Link to={cursoDesaprobado}>
+        <ButtonWithIcon
+          text="CD"
+          classNameIcon="w-4"
+          classNameVariants="rounded-sm
                 bg-[#344A5F]  hover:bg-blue-boton-hover
                 w-10"
-        onClick={handleConfirmacion}
-        disabled={false}
-      />
+          onClick={handleConfirmacion}
+          disabled={false}
+        />
+      </Link>
       <ButtonWithIcon
         text=""
         icon={faTrashCan}
