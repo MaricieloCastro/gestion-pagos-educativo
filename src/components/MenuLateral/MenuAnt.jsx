@@ -54,9 +54,21 @@ const MenuAnt = (props) => {
   return (
     <ConfigProvider
       theme={{
+        token: {
+          colorBgContainer: "none",
+          colorText: "#C1C1C1",
+        },
         components: {
           Menu: {
             itemBorderRadius: 'none',
+            activeBarBorderWidth: 0,
+            colorTextDisabled: "#001F36",
+            itemActiveBg: "#008AF0",
+            itemSelectedBg: "#004B82",
+            itemSelectedColor: "#C1C1C1",
+            borderRadiusOuter: 1,
+            itemHoverBg: "#004B82",
+            subMenuItemBg: "#003154",
           },
         },
       }}
