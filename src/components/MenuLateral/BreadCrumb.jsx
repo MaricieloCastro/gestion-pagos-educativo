@@ -31,16 +31,16 @@ function BreadcrumbCN(props) {
           // Buscar el alias correspondiente al pathname en el array enlaces
           const enlace = rutas.find((item) => item.name === pathname);
 
-          const { path, alias } = enlace;
+          const { actualPath, alias } = enlace;
 
           // Determinar el tipo de elemento a renderizar
           if (key < pathnames.length - 1) {
             return (
               <React.Fragment key={key}>
-                <BreadcrumbItem className="flex items-center text-blue-500">
+                <BreadcrumbItem className="flex items-center text-gray-listas">
                   <BreadcrumbLink
                     className="cursor-pointer"
-                    onClick={() => handleNavigate(path)}
+                    onClick={() => handleNavigate(actualPath)}
                   >
                     {alias}
                   </BreadcrumbLink>
@@ -54,7 +54,7 @@ function BreadcrumbCN(props) {
             return (
               <React.Fragment key={key}>
                 <BreadcrumbItem className="flex items-center">
-                  <BreadcrumbPage className="text-gray-600">
+                  <BreadcrumbPage>
                     {alias}
                   </BreadcrumbPage>
                 </BreadcrumbItem>

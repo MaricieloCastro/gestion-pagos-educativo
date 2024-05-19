@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 
 import MenuAnt from './MenuAnt';
 import BreadcrumbCN from './BreadCrumb';
-// import { totalRutas } from '@/utils/paths';
 
 import './MenuLateral.scss';
 import { enlaces } from '@/utils/rutas';
 import AvatarCN from '../AvatarCN';
 
 const MenuLateral = (props) => {
-  const { children } = props;
+  const { children } = props
 
   const [collapsed, setCollapsed] = useState(false);
 
@@ -30,26 +29,22 @@ const MenuLateral = (props) => {
             className="flex justify-center items-center rounded-none w-20 h-14"
           >
             {collapsed ?
-              // <img
-              //   className="w-8"
-              //   src="/img/escudoCiencias.png"
-              //   alt="Walter logo pequeño"
-              // />
-              <MenuUnfoldOutlined />
+              <img
+                className="w-8"
+                src="/img/escudoCiencias.png"
+                alt="Walter logo pequeño"
+              />
               : <MenuFoldOutlined />}
           </Button>
           <div className="menu-lateral__boton-image w-full flex justify-center items-center bg-blue-oscuro">
             <img
-              className="w-14"
-              src="/img/escudoCiencias.png"
+              className="w-36"
+              src="/img/escudoCienciasTexto.png"
               alt="Walter logo pequeño"
             />
           </div>
         </div>
-        {/* {!collapsed && <div className="flex justify-center items-center my-4">
-          <AvatarCN />
-        </div>} */}
-        <div className={`flex justify-center items-center transition-all duration-200 ease-in-out transform ${!collapsed ? 'opacity-100 my-4' : 'opacity-0 my-0 overflow-hidden h-0 w-0'}`} >
+        <div className={`flex justify-center items-center transition-all duration-200 ease-in-out transform ${!collapsed ? 'opacity-100 my-7' : 'opacity-0 my-0 overflow-hidden h-0 w-0'}`} >
           <AvatarCN />
         </div>
         <MenuAnt collapsed={collapsed} />

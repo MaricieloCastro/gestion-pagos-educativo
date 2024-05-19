@@ -18,7 +18,7 @@ import './Listas.scss'
 const ListaUsuarios = (props) => {
   let { authTokens } = useContext(AuthContext);
 
-  const { api, columnsValue, classNameTable, classNameFiltros, filtrosLista } =
+  const { api, columnsValue, classNameTable, classNameFiltros, filtrosLista, multiDelete } =
     props;
 
   const [reload, setReload] = useState(true);
@@ -41,7 +41,7 @@ const ListaUsuarios = (props) => {
   const [filteringSearch, setFilteringSearch] = useState("");
 
   const data = dataApi;
-  const columns = columnsValue(reload, setReload);
+  const columns = columnsValue(reload, setReload, multiDelete);
 
   const table = useReactTable({
     data,
@@ -71,7 +71,8 @@ const ListaUsuarios = (props) => {
     table,
     classNameFiltros,
     setFilteringSearch,
-    filteringSearch
+    filteringSearch,
+    multiDelete,
   );
 
   const pageSizeOptions = [10, 20, 50, 100];
@@ -82,13 +83,13 @@ const ListaUsuarios = (props) => {
   return (
     <>
       <div
-        className={`${classNameFiltros} border-[1px] bg-white px-3 gap-2 py-2`}
+        className={`${classNameFiltros} border-[1px] bg-white-cabecera px-3 gap-2 py-2 pb-3`}
       >
         {filtros}
       </div>
 
       <div className="listas">
-        <div className=" overflow-y-auto bg-white">
+        <div className=" overflow-y-auto bg-white-linea">
           <ListasTable
             classNameTable={classNameTable}
             table={table}
@@ -96,6 +97,7 @@ const ListaUsuarios = (props) => {
             totalItems={totalItems}
             loading={loading}
             rowSelection={rowSelection}
+            multiDelete={multiDelete}
           />
         </div>
       </div>

@@ -145,16 +145,16 @@ const MenuLateral = ({ children }) => {
       navigate(enlaces[3].actualPath);
     }
 
+    if (key === "23") {
+      navigate(enlaces[9].actualPath);
+    }
+
     if (key === "3") {
       navigate(enlaces[10].actualPath);
     }
 
     if (key === "6") {
       navigate(enlaces[11].actualPath);
-    }
-
-    if (key === "23") {
-      navigate(enlaces[9].actualPath);
     }
 
     if (key === "71") {

@@ -10,7 +10,7 @@
   .ant-menu {
     &-inline {
       width: 27vh;
-      min-width: 250px;
+      min-width: 270px;
     }
     &-vertical {
       width: 80px;
@@ -23,6 +23,9 @@
       border-style: solid !important;
       border-top-width: 1px;
       border-color: #c1c1c1 !important;
+      margin: 0 !important;
+      height: 45px !important;
+      width: 100% !important;
 
       &-danger {
         background-color: #940303 !important;
@@ -44,6 +47,12 @@
       border-style: solid !important;
       border-top-width: 1px;
       border-color: #c1c1c1 !important;
+
+      &-title {
+        margin: 0 !important;
+        width: 100% !important;
+        height: 45px !important;
+      }
 
       &-open {
         background-color: #003154 !important;

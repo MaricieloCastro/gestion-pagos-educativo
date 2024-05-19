@@ -14,14 +14,22 @@ const InputFiltros = (props) => {
       theme={{
         token: {
           borderRadius: 'none',
+          colorText: "#004F82",
+          colorTextPlaceholder: "#003862",
         },
+        components: {
+          Input: {
+            addonBg: "#003862",
+            colorBgContainer: "none"
+          }
+        }
       }}
     >
       <Space direction="vertical" size="middle">
-        <Space.Compact size="large" className="w-full min-w-28">
+        <Space.Compact size="large" className="w-full min-w-36 border-1 border-blue-claro">
           <Input
             addonBefore={<SearchOutlined />}
-            placeholder="Buscar"
+            placeholder="Buscar..."
             value={filteringSearch}
             onChange={handleChange}
           />

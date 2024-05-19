@@ -20,6 +20,7 @@ const ListaUsuarios = () => {
           classNameTable="usuarios-table"
           classNameFiltros="usuarios-filtros"
           filtrosLista={filtrosListaUsuarios}
+          multiDelete={false}
         />
       </div>
     </MenuLateral>

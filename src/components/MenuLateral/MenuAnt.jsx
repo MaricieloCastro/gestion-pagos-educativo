@@ -1,31 +1,88 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { getLevelKeys } from './MenuLateralFunctions';
-import { ITEMS } from './MenuLateralConstans';
 
 import { ConfigProvider, Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
-// import { seguridadRutas } from '@/utils/paths';
-
-const levelKeys = getLevelKeys(ITEMS);
+import AuthContext from '@/contexts/AuthContext';
+import { menuLateralConstants } from './menuLateralConstants';
+import { enlaces } from '@/utils/rutas';
+import { getAxios } from '@/functions/methods';
+import { alumnosSolicitudDeleteApi } from '@/api/ApiRutas';
 
 const MenuAnt = (props) => {
   const { collapsed } = props;
   const navigate = useNavigate();
 
+  let { user, logoutUser, authTokens } = useContext(AuthContext);
+  let { id_tipo_usuario } = user;
+
   const [stateOpenKeys, setStateOpenKeys] = useState(['2', '23']);
   const [selectedKeys, setSelectedKeys] = useState([]);
+  const [solicitudDelete, setSolicitudDelete] = useState({})
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + String(authTokens?.access),
+  };
+
+  useEffect(() => {
+    getAxios(alumnosSolicitudDeleteApi, headers, setSolicitudDelete, setLoading, setError)
+  }, [])
+
+  const num_solicitud = solicitudDelete.length;
+
+  const levelKeys = getLevelKeys(menuLateralConstants(id_tipo_usuario, num_solicitud));
 
   const onSelect = ({ key }) => {
-    // setSelectedKeys([key]);
+    setSelectedKeys([key]);
 
-    // if (key === "11") {
-    //   navigate(seguridadRutas[3].path);
-    // }
+    if (key === "1") {
+      navigate(enlaces[4].actualPath);
+    }
 
-    // if (key === "12") {
-    //   navigate(seguridadRutas[3].path + seguridadRutas[4].path);
-    // }
+    if (key === "21") {
+      // PENDIENTE DE REVISION
+      navigate(enlaces[3].actualPath);
+    }
+
+    if (key === "23") {
+      navigate(enlaces[9].actualPath);
+    }
+
+    if (key === "3") {
+      navigate(enlaces[10].actualPath);
+    }
+
+    if (key === "6") {
+      navigate(enlaces[11].actualPath);
+    }
+
+    if (key === "71") {
+      navigate(enlaces[5].actualPath);
+    }
+
+    if (key === "72") {
+      navigate(enlaces[13].actualPath);
+    }
+
+    if (key === "73") {
+      navigate(enlaces[12].actualPath);
+    }
+
+    if (key === "741") {
+      navigate(enlaces[6].actualPath);
+    }
+
+    if (key === "742") {
+      navigate(enlaces[7].actualPath);
+    }
+
+    if (key === "8") {
+      logoutUser();
+    }
 
   };
 
@@ -82,7 +139,7 @@ const MenuAnt = (props) => {
         onSelect={onSelect}
         onOpenChange={onOpenChange}
         inlineCollapsed={collapsed}
-        items={ITEMS}
+        items={menuLateralConstants(id_tipo_usuario, num_solicitud)}
       />
     </ConfigProvider>
   );
