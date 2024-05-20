@@ -5,7 +5,7 @@ const ListasPagination = (props) => {
   const { table } = props;
 
   return (
-    <div className="flex justify-center items-center py-4">
+    <div className="flex justify-center items-center pb-2">
       <PaginationList
         goLastPage={() => table.setPageIndex(table.getPageCount() - 1)}
         goFirstPage={() => table.setPageIndex(0)}

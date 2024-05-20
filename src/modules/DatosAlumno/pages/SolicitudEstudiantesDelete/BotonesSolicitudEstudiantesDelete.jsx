@@ -1,23 +1,24 @@
 import React, { useContext, useState } from "react";
 
 import ButtonWithIcon from "@/components/ButtonWithIcon";
-import { putAxios, putAxiosPrueba } from "@/functions/methods";
-import { alumnosApi } from "@/api/ApiRutas";
+import { patchModal } from "@/functions/methods";
+import { estudiantesAPI } from "@/api/ApiRutas";
 import AuthContext from "@/contexts/AuthContext";
 
 import ModalConfirmacion from "@/components/Modal/ModalConfirmacion";
 import ModalCarga from "@/components/Modal/ModalCarga";
 import ModalError from "@/components/Modal/ModalError";
 import ModalSucess from "@/components/Modal/ModalSucess";
-import { faArrowsRotate, faCheck, faX } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faX } from "@fortawesome/free-solid-svg-icons";
 
 const BotonesSolicitudEstudiantesDelete = (props) => {
     let { authTokens } = useContext(AuthContext);
 
-    const { id, id_beneficio, setReload, reload } = props;
+    const { id, setReload, reload } = props;
 
     // MODAL SIMPLE
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpenCheck, setIsModalOpenCheck] = useState(false);
+    const [isModalOpenAspa, setIsModalOpenAspa] = useState(false)
 
     // CARGAS
     const [modalLoading, setModalLoading] = useState(false);
@@ -29,22 +30,41 @@ const BotonesSolicitudEstudiantesDelete = (props) => {
         Authorization: "Bearer " + String(authTokens.access),
     };
 
-    const url = `${alumnosApi}${id}/`;
+    const url = `${estudiantesAPI}${id}/`;
 
-
-    const data = {
-        id_beneficio: id_beneficio,
-        estado: true,
+    const dataEliminar = {
+        eliminacion_pendiente: false,
+        estado: false,
     };
 
-    const handleConfirmacion = () => {
-        setIsModalOpen(true);
+    const handleConfirmacionCheck = () => {
+        setIsModalOpenCheck(true);
     };
 
     const handleEliminar = () => {
-        putAxiosPrueba(
+        patchModal(
             url,
-            data,
+            dataEliminar,
+            headers,
+            setModalLoading,
+            setModalSucessfull,
+            setModalFailed
+        );
+    };
+
+    const dataRechazar = {
+        eliminacion_pendiente: false,
+        estado: true,
+    };
+
+    const handleConfirmacionAspa = () => {
+        setIsModalOpenAspa(true);
+    };
+
+    const handleRechazar = () => {
+        patchModal(
+            url,
+            dataRechazar,
             headers,
             setModalLoading,
             setModalSucessfull,
@@ -61,9 +81,18 @@ const BotonesSolicitudEstudiantesDelete = (props) => {
                 classNameVariants="rounded-sm
                 bg-green-boton hover:bg-green-boton-hover
                 w-10"
-                onClick={handleConfirmacion}
+                onClick={handleConfirmacionCheck}
                 disabled={false}
             />
+
+            <ModalConfirmacion
+                titulo="¿Estás seguro de eliminar a este estudiante?"
+                subtitulo="Esta acción podria generar cambios en el sistema"
+                isModalOpen={isModalOpenCheck}
+                setIsModalOpen={setIsModalOpenCheck}
+                func={handleEliminar}
+            />
+
             <ButtonWithIcon
                 text=""
                 icon={faX}
@@ -71,26 +100,29 @@ const BotonesSolicitudEstudiantesDelete = (props) => {
                 classNameVariants="rounded-sm
                 bg-red-boton hover:bg-red-boton-hover
                 w-10"
-                onClick={handleConfirmacion}
+                onClick={handleConfirmacionAspa}
                 disabled={false}
             />
 
             <ModalConfirmacion
-                titulo="¿Estás seguro de realizar esta acción?"
+                titulo="¿Estás seguro rechazar la eliminación de este estudiante?"
                 subtitulo="Esta acción podria generar cambios en el sistema"
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
-                func={handleEliminar}
+                isModalOpen={isModalOpenAspa}
+                setIsModalOpen={setIsModalOpenAspa}
+                func={handleRechazar}
             />
+
             <ModalCarga modalLoading={modalLoading} titulo="Cargando" />
+
             <ModalSucess
-                titulo="¡Usuario eliminado exitosamente!"
+                titulo="¡Acción realizada exitosamente!"
                 subtitulo=""
                 modalSucessfull={modalSucessfull}
                 setModalSucessfull={setModalSucessfull}
                 reload={reload}
                 setReload={setReload}
             />
+
             <ModalError
                 titulo="Ups ¡Ha ocurrido un error inesperado!"
                 subtitulo="Verifique su conexión a internet y vuelva a intentar la acción en unos minutos"

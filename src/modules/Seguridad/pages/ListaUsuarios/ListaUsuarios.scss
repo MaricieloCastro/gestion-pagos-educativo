@@ -1,46 +1,37 @@
-.lista-usuarios {
-  tr {
-    &:nth-child(even) {
-      background: #c1c1c1;
-    }
-  }
+.usuarios {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  // display: flex;
+  // flex-direction: column;
 
-  th {
-    &:nth-child(1) {
-      text-align: left;
+  .usuarios-table {
+    thead {
+      th {
+        &:nth-child(1) {
+          text-align: center;
+          width: 50px;
+        }
+      }
     }
-    &:nth-child(5) {
-      font-size: 13px;
+    tbody {
+      td {
+        &:nth-child(1) {
+          text-align: center;
+        }
+        &:nth-child(3) {
+          text-align: center;
+        }
+        &:nth-child(5) {
+          text-align: center;
+        }
+      }
     }
-    &:nth-child(6) {
-      font-size: 13px;
-    }
-  }
-
-  td {
-    &:nth-child(1) {
-      max-width: 200px;
-    }
-
-    &:nth-child(3) {
-      text-align: center;
-      max-width: 120px;
-    }
-
-    &:nth-child(2) {
-      max-width: 300px;
-    }
-
-    &:nth-child(5) {
-      text-align: center;
-    }
-
-    &:nth-child(6) {
-      text-align: center;
-    }
-
-    &:nth-child(7) {
-      min-width: 211.3px;
+    tfoot {
+      td {
+        &:nth-child(1) {
+          text-align: center;
+        }
+      }
     }
   }
 }

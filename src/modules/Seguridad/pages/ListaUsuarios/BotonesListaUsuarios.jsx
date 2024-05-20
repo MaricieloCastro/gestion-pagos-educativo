@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import ButtonWithIcon from "@/components/ButtonWithIcon";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { putAxios, putAxiosPrueba } from "@/functions/methods";
+import { patchModal } from "@/functions/methods";
 import { usuarioAPI } from "@/api/ApiRutas";
 import AuthContext from "@/contexts/AuthContext";
 
@@ -13,11 +13,9 @@ import ModalError from "@/components/Modal/ModalError";
 import ModalSucess from "@/components/Modal/ModalSucess";
 
 const BotonesListaUsuarios = (props) => {
-  let { authTokens, logoutUser, user } = useContext(AuthContext);
+  let { authTokens } = useContext(AuthContext);
 
-  const user_id = user.user_id;
-
-  const { id, username, password, id_tipo_usuario, setReload, reload } = props;
+  const { id, id_tipo_usuario, setReload, reload } = props;
 
   // MODAL SIMPLE
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,9 +39,6 @@ const BotonesListaUsuarios = (props) => {
   };
 
   const data = {
-    username: username,
-    password: password,
-    id_tipo_usuario: id_tipo_usuario,
     is_active: false,
   };
 
@@ -53,7 +48,7 @@ const BotonesListaUsuarios = (props) => {
 
   const handleEliminar = () => {
     if (id_tipo_usuario != 1) {
-      putAxiosPrueba(
+      patchModal(
         url,
         data,
         headers,

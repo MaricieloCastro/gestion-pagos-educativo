@@ -4,19 +4,21 @@ import ListasTable from "./ListasTable";
 import ListasPagination from "./ListasPagination";
 
 import {
-  useReactTable,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  getFilteredRowModel,
+  useReactTable,
 } from "@tanstack/react-table";
 import AuthContext from "@/contexts/AuthContext";
 import { getAxios } from "@/functions/methods";
 
+import './Listas.scss'
+
 const ListaUsuarios = (props) => {
   let { authTokens } = useContext(AuthContext);
 
-  const { api, columnsValue, classNameTable, classNameFiltros, filtrosLista } =
+  const { api, columnsValue, classNameTable, classNameFiltros, filtrosLista, multiDelete } =
     props;
 
   const [reload, setReload] = useState(true);
@@ -33,63 +35,77 @@ const ListaUsuarios = (props) => {
     getAxios(api, headers, setDataApi, setLoading, setError);
   }, [reload]);
 
-  const data = dataApi;
-
-  const columns = columnsValue(reload, setReload);
-
+  const [columnFilters, setColumnFilters] = useState([]);
   const [sorting, setSorting] = useState([]);
+  const [rowSelection, setRowSelection] = useState({});
   const [filteringSearch, setFilteringSearch] = useState("");
-  const [filteringTipo, setFilteringTipo] = useState([
-    {
-      id: "tipo",
-      value: "", // Valor inicial del filtro de la columna "tipo"
-    },
-  ]);
 
-  const filtros = filtrosLista(
-    setFilteringTipo,
-    setFilteringSearch,
-    filteringSearch
-  );
+  const data = dataApi;
+  const columns = columnsValue(reload, setReload, multiDelete);
 
   const table = useReactTable({
     data,
     columns,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
+    filterFns: {},
     state: {
       sorting,
       globalFilter: filteringSearch,
-      columnFilters: filteringTipo,
+      columnFilters,
+      rowSelection,
     },
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
+    onColumnFiltersChange: setColumnFilters,
     onSortingChange: setSorting,
-    onColumnFiltersChange: setFilteringTipo,
     onGlobalFilterChange: setFilteringSearch,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(), //client side filtering
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    debugTable: true,
+    debugHeaders: true,
+    debugColumns: false,
   });
+
+  const filtros = filtrosLista(
+    table,
+    classNameFiltros,
+    setFilteringSearch,
+    filteringSearch,
+    multiDelete,
+  );
+
+  const pageSizeOptions = [10, 20, 50, 100];
 
   const numItemsForPage = table.getRowModel().rows.length;
   const totalItems = data.length;
 
   return (
-    <div className="h-screen px-caja-contenido grid grid-rows-caja-contenido max-h-[calc(100vh-30px)]">
+    <>
       <div
-        className={`${classNameFiltros} bg-white-texto h-[20vh] max-h-[15vh] min-h-[140px]`}
+        className={`${classNameFiltros} border-[1px] bg-white-cabecera px-3 gap-2 py-2 pb-3`}
       >
         {filtros}
       </div>
 
-      <ListasTable
-        classNameTable={classNameTable}
-        table={table}
-        numItemsForPage={numItemsForPage}
-        totalItems={totalItems}
-        loading={loading}
-      />
+      <div className="listas">
+        <div className=" overflow-y-auto bg-white-linea">
+          <ListasTable
+            classNameTable={classNameTable}
+            table={table}
+            numItemsForPage={numItemsForPage}
+            totalItems={totalItems}
+            loading={loading}
+            rowSelection={rowSelection}
+            multiDelete={multiDelete}
+          />
+        </div>
+      </div>
 
-      <ListasPagination table={table} />
-    </div>
+      <div className="flex items-start justify-center">
+        <ListasPagination table={table} />
+      </div>
+    </>
   );
 };
 
