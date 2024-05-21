@@ -50,15 +50,13 @@
 }
 
 
-
+.datos-secundarios{
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+}
 
 
 /* Composite panel inferior */
-
-.pgi{
-    padding: 10px;
-    height: 100%;
-}
 .columns{
     padding: 10px;
     
@@ -118,4 +116,39 @@
 .ButtonBR{
     width: 15vw;
     height: 7vh;
+}
+
+/* FAMILIAR EXTRA */
+
+.contenido-extra{
+    display: grid;
+    grid-template-columns: 32fr 1.2fr;
+    align-items: center;
+}
+.extra{
+    display: flex;
+    align-items: center;
+}
+.extra::before,
+.extra::after{
+    content: "";
+    border-bottom: 1px solid white;
+}
+.extra::before {
+    flex: 1; 
+    margin-right: 10px;
+}
+
+.extra::after {
+    flex: 20; 
+    margin-left: 10px;
+}
+.select__control{
+   height: 6vh !important;
+}
+.sp{
+    padding-bottom: 1.45vh;
+}
+.ant-picker{
+    width: 11.2vw !important;
 }
