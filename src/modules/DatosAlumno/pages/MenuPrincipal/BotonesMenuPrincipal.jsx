@@ -24,8 +24,9 @@ const BotonesMenuPrincipal = (props) => {
 
   // MODAL SIMPLE
   const [isModalOpenEliminar, setIsModalOpenEliminar] = useState(false);
-  const [isModalOpenEnviarSolicitud, setIsModalOpenEnviarSolicitud] = useState(false);
-  const [isModalOpenDeuda, setIsModalOpenDeuda] = useState(false)
+  const [isModalOpenEnviarSolicitud, setIsModalOpenEnviarSolicitud] =
+    useState(false);
+  const [isModalOpenDeuda, setIsModalOpenDeuda] = useState(false);
 
   // CARGAS
   const [modalLoading, setModalLoading] = useState(false);
@@ -57,12 +58,12 @@ const BotonesMenuPrincipal = (props) => {
 
   const handleConfirmacion = () => {
     if (estado_deuda == false) {
-      setIsModalOpenDeuda(true)
+      setIsModalOpenDeuda(true);
     } else {
       if (id_tipo_usuario === 1) {
         setIsModalOpenEliminar(true);
       } else {
-        setIsModalOpenEnviarSolicitud(true)
+        setIsModalOpenEnviarSolicitud(true);
       }
     }
   };
@@ -149,17 +150,38 @@ const BotonesMenuPrincipal = (props) => {
       />
 
       <ModalConfirmacion
-        titulo={id_tipo_usuario == 1 ? ("¿Estás seguro de eliminar a este estudiante?") : ("¿Estás seguro de solicitar la eliminación del estudiante?")}
+        titulo={
+          id_tipo_usuario == 1
+            ? "¿Estás seguro de eliminar a este estudiante?"
+            : "¿Estás seguro de solicitar la eliminación del estudiante?"
+        }
         subtitulo="Esta acción podria generar cambios en el sistema"
-        isModalOpen={id_tipo_usuario == 1 ? isModalOpenEliminar : isModalOpenEnviarSolicitud}
-        setIsModalOpen={id_tipo_usuario == 1 ? setIsModalOpenEliminar : setIsModalOpenEnviarSolicitud}
+        isModalOpen={
+          id_tipo_usuario == 1
+            ? isModalOpenEliminar
+            : isModalOpenEnviarSolicitud
+        }
+        setIsModalOpen={
+          id_tipo_usuario == 1
+            ? setIsModalOpenEliminar
+            : setIsModalOpenEnviarSolicitud
+        }
         func={id_tipo_usuario == 1 ? handleEliminar : handleEnviarSolicitud}
       />
 
-      <ModalCarga modalLoading={modalLoading} titulo={id_tipo_usuario == 1 ? "Eliminando estudiante" : "Enviando solicitud"} />
+      <ModalCarga
+        modalLoading={modalLoading}
+        titulo={
+          id_tipo_usuario == 1 ? "Eliminando estudiante" : "Enviando solicitud"
+        }
+      />
 
       <ModalSucess
-        titulo={id_tipo_usuario == 1 ? "¡Estudiante eliminado exitosamente!" : "¡Solicitud enviada exitosamente!"}
+        titulo={
+          id_tipo_usuario == 1
+            ? "¡Estudiante eliminado exitosamente!"
+            : "¡Solicitud enviada exitosamente!"
+        }
         subtitulo=""
         modalSucessfull={modalSucessfull}
         setModalSucessfull={setModalSucessfull}
