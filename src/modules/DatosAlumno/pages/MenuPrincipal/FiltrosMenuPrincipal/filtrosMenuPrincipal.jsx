@@ -2,6 +2,8 @@ import React from "react";
 import CallFilter from "@/components/Listas/CallFilter";
 import InputFiltros from "@/components/Listas/Filtros/InputFiltros";
 import { tipo } from "@/api/optionsFiltros";
+import { filterAdapter } from "@/components/Listas/CallFilter/filterAdapter";
+import { beneficioAPI, gradoAPI, seccionAPI, turnoAPI } from "@/api/ApiRutas";
 
 export const filtrosMenuPrincipal = (
   table,
@@ -9,6 +11,12 @@ export const filtrosMenuPrincipal = (
   setFilteringSearch,
   filteringSearch
 ) => {
+
+  const optionsBeneficio = filterAdapter(beneficioAPI)
+  const optionsTurno = filterAdapter(turnoAPI)
+  const optionsGrado = filterAdapter(gradoAPI)
+  const optionsSeccion = filterAdapter(seccionAPI)
+
   return (
     <div className={`${classNameFiltros}__caja gap-3`}>
       {table.getHeaderGroups().map((headerGroup) => (
@@ -18,33 +26,33 @@ export const filtrosMenuPrincipal = (
         >
           <CallFilter
             headerGroup={headerGroup}
-            num={1}
+            num={2}
             title="ESTADO:"
             options={tipo}
           />
           <CallFilter
             headerGroup={headerGroup}
-            num={3}
-            title="BENEFICIO:"
-            options={tipo}
-          />
-          <CallFilter
-            headerGroup={headerGroup}
             num={4}
-            title="TURNO:"
-            options={tipo}
+            title="BENEFICIO:"
+            options={optionsBeneficio}
           />
           <CallFilter
             headerGroup={headerGroup}
             num={5}
-            title="GRADO:"
-            options={tipo}
+            title="TURNO:"
+            options={optionsTurno}
           />
           <CallFilter
             headerGroup={headerGroup}
             num={6}
+            title="GRADO:"
+            options={optionsGrado}
+          />
+          <CallFilter
+            headerGroup={headerGroup}
+            num={7}
             title="SECCIÓN:"
-            options={tipo}
+            options={optionsSeccion}
           />
         </div>
       ))}

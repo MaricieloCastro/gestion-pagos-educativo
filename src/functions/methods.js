@@ -21,6 +21,16 @@ export const getAxios = async (
   }
 };
 
+export const getAxiosSimple = async (url, headers, setGeneral) => {
+  try {
+    const response = await axios.get(url, { headers });
+    console.log("operacion exitosa:", response);
+    setGeneral(response.data);
+  } catch (error) {
+    console.error("Error al hacer la solicitud:", error);
+  }
+};
+
 export const putAxios = async (
   url,
   data,

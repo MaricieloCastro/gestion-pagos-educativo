@@ -19,7 +19,7 @@ const InputFiltros = (props) => {
         },
         components: {
           Input: {
-            addonBg: "#003862",
+            addonBg: "#C1C1C1",
             colorBgContainer: "none"
           }
         }

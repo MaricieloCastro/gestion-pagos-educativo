@@ -4,9 +4,10 @@ import { enlaces } from "@/utils/rutas";
 import CallFilter from "@/components/Listas/CallFilter";
 import InputFiltros from "@/components/Listas/Filtros/InputFiltros";
 import { Link } from "react-router-dom";
-import { tipo } from "@/api/optionsFiltros";
 import ButtonWithIcon from "@/components/ButtonWithIcon";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { filterAdapter } from "@/components/Listas/CallFilter/filterAdapter";
+import { tipoUsuariosAPI } from "@/api/ApiRutas";
 
 export const filtrosListaUsuarios = (
   table,
@@ -14,6 +15,9 @@ export const filtrosListaUsuarios = (
   setFilteringSearch,
   filteringSearch
 ) => {
+
+  const optionsTipoUsuario = filterAdapter(tipoUsuariosAPI)
+
   return (
     <div className={`${classNameFiltros}__caja gap-3`}>
       <div className={`${classNameFiltros}__caja-filtros gap-3`}>
@@ -26,13 +30,12 @@ export const filtrosListaUsuarios = (
               headerGroup={headerGroup}
               num={2}
               title="TIPO:"
-              options={tipo}
+              options={optionsTipoUsuario}
             />
             <CallFilter
               headerGroup={headerGroup}
               num={4}
               title="ULT. INGRESO:"
-            // options={tipo}
             />
           </div>
         ))}
