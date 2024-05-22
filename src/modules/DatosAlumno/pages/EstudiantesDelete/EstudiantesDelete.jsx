@@ -10,20 +10,22 @@ import { columnsValue } from "./columnsEstudiantesDelete";
 import "./EstudiantesDelete.scss";
 import "./FiltrosEstudiantesDelete/FiltrosEstudiantesDelete.scss";
 
-const EstudiantesDelete = () => {
+
+const MenuPrincipal = () => {
   return (
-    <div className="flex h-screen blue-oscuro overflow-hidden">
-      <MenuLateral>
+    <MenuLateral>
+      <div className="estudiantes-delete h-full gap-3 min-w-[600px]">
         <Listas
           api={alumnosInactivosApi}
           columnsValue={columnsValue}
-          classNameTable="estudiantes-delete"
-          classNameFiltros="filtros-estudiantes-delete"
+          classNameTable="estudiantes-delete-table"
+          classNameFiltros="estudiantes-delete-filtros"
           filtrosLista={filtrosEstudiantesDelete}
+          multiDelete={true}
         />
-      </MenuLateral>
-    </div>
-  )
-}
+      </div>
+    </MenuLateral>
+  );
+};
 
-export default EstudiantesDelete
+export default MenuPrincipal;

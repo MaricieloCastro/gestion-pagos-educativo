@@ -12,17 +12,18 @@ import "./FiltrosListaUsuarios/FiltrosListaUsuarios.scss";
 
 const ListaUsuarios = () => {
   return (
-    <div className="flex h-screen blue-oscuro overflow-hidden">
-      <MenuLateral>
+    <MenuLateral>
+      <div className="usuarios h-full gap-3 min-w-[600px]">
         <Listas
           api={usuariosActivosApi}
           columnsValue={columnsValue}
-          classNameTable="lista-usuarios"
-          classNameFiltros="lista-usuarios-filtros"
+          classNameTable="usuarios-table"
+          classNameFiltros="usuarios-filtros"
           filtrosLista={filtrosListaUsuarios}
+          multiDelete={false}
         />
-      </MenuLateral>
-    </div>
+      </div>
+    </MenuLateral>
   );
 };
 

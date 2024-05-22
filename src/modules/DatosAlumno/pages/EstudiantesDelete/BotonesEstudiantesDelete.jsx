@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 
 import ButtonWithIcon from "@/components/ButtonWithIcon";
-import { putAxios, putAxiosPrueba } from "@/functions/methods";
-import { alumnosApi } from "@/api/ApiRutas";
+import { patchModal } from "@/functions/methods";
+import { estudiantesAPI } from "@/api/ApiRutas";
 import AuthContext from "@/contexts/AuthContext";
 
 import ModalConfirmacion from "@/components/Modal/ModalConfirmacion";
@@ -14,7 +14,7 @@ import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
 const BotonesEstudiantesDelete = (props) => {
     let { authTokens } = useContext(AuthContext);
 
-    const { id, id_beneficio, setReload, reload } = props;
+    const { id, setReload, reload } = props;
 
     // MODAL SIMPLE
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,11 +29,11 @@ const BotonesEstudiantesDelete = (props) => {
         Authorization: "Bearer " + String(authTokens.access),
     };
 
-    const url = `${alumnosApi}${id}/`;
+    const url = `${estudiantesAPI}${id}/`;
 
 
     const data = {
-        id_beneficio: id_beneficio,
+        eliminacion_pendiente: false,
         estado: true,
     };
 
@@ -41,8 +41,8 @@ const BotonesEstudiantesDelete = (props) => {
         setIsModalOpen(true);
     };
 
-    const handleEliminar = () => {
-        putAxiosPrueba(
+    const handleRestaurar = () => {
+        patchModal(
             url,
             data,
             headers,
@@ -66,15 +66,15 @@ const BotonesEstudiantesDelete = (props) => {
             />
 
             <ModalConfirmacion
-                titulo="¿Estás seguro de realizar esta acción?"
+                titulo="¿Estás seguro de restaurar a este estudiante?"
                 subtitulo="Esta acción podria generar cambios en el sistema"
                 isModalOpen={isModalOpen}
                 setIsModalOpen={setIsModalOpen}
-                func={handleEliminar}
+                func={handleRestaurar}
             />
             <ModalCarga modalLoading={modalLoading} titulo="Cargando" />
             <ModalSucess
-                titulo="¡Usuario eliminado exitosamente!"
+                titulo="¡Alumno restaurado exitosamente!"
                 subtitulo=""
                 modalSucessfull={modalSucessfull}
                 setModalSucessfull={setModalSucessfull}
