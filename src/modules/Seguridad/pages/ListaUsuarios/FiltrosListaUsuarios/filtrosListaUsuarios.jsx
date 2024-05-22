@@ -5,7 +5,6 @@ import CallFilter from "@/components/Listas/CallFilter";
 import InputFiltros from "@/components/Listas/Filtros/InputFiltros";
 import { Link } from "react-router-dom";
 import { tipo } from "@/api/optionsFiltros";
-import ButtonAnt from "@/components/ButtonAnt";
 import ButtonWithIcon from "@/components/ButtonWithIcon";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -46,11 +45,15 @@ export const filtrosListaUsuarios = (
           />
         </div>
       </div>
-      <div className={`${classNameFiltros}__caja-boton flex justify-end items-center`}>
-        <Link
-          to={enlaces[7].path}
-        >
-          <ButtonWithIcon text="CREAR USUARIO" icon={faPlus} classNameVariants="gap-2 bg-green-boton hover:bg-green-boton-hover rounded-1" />
+      <div
+        className={`${classNameFiltros}__caja-boton flex justify-end items-center`}
+      >
+        <Link to={enlaces[7].path}>
+          <ButtonWithIcon
+            text="CREAR USUARIO"
+            icon={faPlus}
+            classNameVariants="gap-2 bg-green-boton hover:bg-green-boton-hover rounded-1"
+          />
         </Link>
       </div>
     </div>

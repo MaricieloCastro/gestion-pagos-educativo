@@ -1,111 +1,66 @@
 import React from "react";
+import { enlaces } from "@/utils/rutas";
 
-import SelectFiltros from "@/components/SelectFiltros";
-import { Input } from "@/components/InputListas";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { optionsGrado, optionsTurno } from "@/api/optionsFiltros";
+import CallFilter from "@/components/Listas/CallFilter";
+import InputFiltros from "@/components/Listas/Filtros/InputFiltros";
+import { Link } from "react-router-dom";
+import { tipo } from "@/api/optionsFiltros";
+import ButtonWithIcon from "@/components/ButtonWithIcon";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export const filtrosMenuPrincipal = (
-  setFilteringTipo,
+  table,
+  classNameFiltros,
   setFilteringSearch,
   filteringSearch
 ) => {
   return (
-    <>
-      <div className="filtros-menu-principal__search">
-        <div className="filtros-menu-principal__search-elements gap-4 items-center px-4">
-          <SelectFiltros
-            title="TURNO"
-            classNameTitle="text-blue-claro font-normal"
-            options={optionsTurno}
-            defaultValue="TODOS"
-            bgSelect="#003862"
-            colorFlecha="#D9D9D9"
-            bgElevated="#003768"
-            colorText="#D9D9D9"
-            controlItemBgActive="#004988"
-            controlItemBgHover="#002A50"
-            // width={290}
-            // height={40}
-            setFilteringTipo={setFilteringTipo}
+    <div className={`${classNameFiltros}__caja gap-3`}>
+      {table.getHeaderGroups().map((headerGroup) => (
+        <div
+          className={`${classNameFiltros}__caja-filtros__selects gap-3 items-center`}
+          key={headerGroup.id}
+        >
+          <CallFilter
+            headerGroup={headerGroup}
+            num={1}
+            title="ESTADO:"
+            options={tipo}
           />
-          <SelectFiltros
-            title="GRADO"
-            classNameTitle="text-blue-claro font-normal"
-            options={optionsGrado}
-            defaultValue="TODOS"
-            bgSelect="#003862"
-            colorFlecha="#D9D9D9"
-            bgElevated="#003768"
-            colorText="#D9D9D9"
-            controlItemBgActive="#004988"
-            controlItemBgHover="#002A50"
-            width={290}
-            height={40}
-            setFilteringTipo={setFilteringTipo}
+          <CallFilter
+            headerGroup={headerGroup}
+            num={3}
+            title="BENEFICIO:"
+            options={tipo}
           />
-          <SelectFiltros
-            title="SECCIÓN"
-            classNameTitle="text-blue-claro font-normal"
-            options={optionsTurno}
-            defaultValue="TODOS"
-            bgSelect="#003862"
-            colorFlecha="#D9D9D9"
-            bgElevated="#003768"
-            colorText="#D9D9D9"
-            controlItemBgActive="#004988"
-            controlItemBgHover="#002A50"
-            width={290}
-            height={40}
-            setFilteringTipo={setFilteringTipo}
+          <CallFilter
+            headerGroup={headerGroup}
+            num={4}
+            title="TURNO:"
+            options={tipo}
           />
-          <SelectFiltros
-            title="BENEFICIO"
-            classNameTitle="text-blue-claro font-normal"
-            options={optionsTurno}
-            defaultValue="TODOS"
-            bgSelect="#003862"
-            colorFlecha="#D9D9D9"
-            bgElevated="#003768"
-            colorText="#D9D9D9"
-            controlItemBgActive="#004988"
-            controlItemBgHover="#002A50"
-            width={290}
-            height={40}
-            setFilteringTipo={setFilteringTipo}
+          <CallFilter
+            headerGroup={headerGroup}
+            num={5}
+            title="GRADO:"
+            options={tipo}
           />
-          <SelectFiltros
-            title="DEUDA"
-            classNameTitle="text-blue-claro font-normal"
-            options={optionsTurno}
-            defaultValue="TODOS"
-            bgSelect="#003862"
-            colorFlecha="#D9D9D9"
-            bgElevated="#003768"
-            colorText="#D9D9D9"
-            controlItemBgActive="#004988"
-            controlItemBgHover="#002A50"
-            width={290}
-            height={40}
-            setFilteringTipo={setFilteringTipo}
+          <CallFilter
+            headerGroup={headerGroup}
+            num={6}
+            title="SECCIÓN:"
+            options={tipo}
           />
         </div>
-
-        <div className="filtros-menu-principal__search-input items-center px-4 relative gap-4">
-          <FontAwesomeIcon
-            icon={faSearch}
-            className="absolute left-7 z-10 text-blue-claro"
-          />
-          <Input
-            placeholder="BUSCAR..."
-            className="w-full py-5 my-2 h-10 border-1 border-blue-claro px-10 text-md"
-            value={filteringSearch}
-            onChange={(e) => setFilteringSearch(e.target.value)}
-          />
-        </div>
+      ))}
+      <div
+        className={`${classNameFiltros}__caja-filtros__search gap-3 items-center`}
+      >
+        <InputFiltros
+          filteringSearch={filteringSearch}
+          setFilteringSearch={setFilteringSearch}
+        />
       </div>
-    </>
+    </div>
   );
 };

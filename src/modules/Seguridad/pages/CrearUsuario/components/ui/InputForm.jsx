@@ -79,6 +79,9 @@ const FormSchema = z.object({
   apellido_materno: z.string().min(1, {
     message: "Campo Obligatorio",
   }),
+  usuario_responsable: z.string().min(1, {
+    message: "Campo Obligatorio",
+  }),
 });
 import { putAxios } from "@/functions/methods";
 import { Mail, User } from "lucide-react";
@@ -96,7 +99,7 @@ function onSubmit(data) {
 }
 
 export default function InputFormI(props) {
-  let { authTokens } = useContext(AuthContext);
+  let { authTokens, user } = useContext(AuthContext);
   const [reload, setReload] = useState(true);
   const [usuario, setUsuarios] = useState({});
   const [loading, setLoading] = useState(false);
@@ -105,7 +108,6 @@ export default function InputFormI(props) {
     "Content-Type": "application/json",
     Authorization: "Bearer " + String(authTokens.access),
   };
-
   const { disabled, ButtonView, textButton, usuarios, load, edad } = props;
   const {
     id,
@@ -141,6 +143,7 @@ export default function InputFormI(props) {
       password: password || "",
       id_tipo_usuario: tipo_usuario.nombre,
       fecha_nacimiento: fecha_nacimiento || "",
+      usuario_responsable: user.username || "",
     },
   });
   const url = "http://127.0.0.1:8000/api/usuario/";
