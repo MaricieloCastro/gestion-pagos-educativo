@@ -1,12 +1,7 @@
 import React from "react";
-import { enlaces } from "@/utils/rutas";
-
 import CallFilter from "@/components/Listas/CallFilter";
 import InputFiltros from "@/components/Listas/Filtros/InputFiltros";
-import { Link } from "react-router-dom";
 import { tipo } from "@/api/optionsFiltros";
-import ButtonWithIcon from "@/components/ButtonWithIcon";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export const filtrosMenuPrincipal = (
   table,

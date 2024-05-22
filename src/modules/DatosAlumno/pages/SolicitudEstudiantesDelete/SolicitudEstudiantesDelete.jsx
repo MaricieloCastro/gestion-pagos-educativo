@@ -13,17 +13,18 @@ import "./FiltrosSolicitudEstudiantesDelete/FiltrosSolicitudEstudiantesDelete.sc
 
 const SolicitudEstudiantesDelete = () => {
   return (
-    <div className="flex h-screen blue-oscuro overflow-hidden">
-      <MenuLateral>
+    <MenuLateral>
+      <div className="estudiantes-delete h-full gap-3 min-w-[600px]">
         <Listas
           api={alumnosSolicitudDeleteApi}
           columnsValue={columnsValue}
-          classNameTable="solicitud-estudiantes-delete"
-          classNameFiltros="filtros-solicitud-estudiantes-delete"
+          classNameTable="solicitud-estudiantes-delete-table"
+          classNameFiltros="solicitud-estudiantes-delete-filtros"
           filtrosLista={filtrosSolicitudEstudiantesDelete}
+          multiDelete={true}
         />
-      </MenuLateral>
-    </div>
+      </div>
+    </MenuLateral>
   )
 }
 

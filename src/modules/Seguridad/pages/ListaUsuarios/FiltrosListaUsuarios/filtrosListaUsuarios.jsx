@@ -32,7 +32,7 @@ export const filtrosListaUsuarios = (
               headerGroup={headerGroup}
               num={4}
               title="ULT. INGRESO:"
-              options={tipo}
+            // options={tipo}
             />
           </div>
         ))}

@@ -1,74 +1,47 @@
 .solicitud-estudiantes-delete {
-  tr {
-    &:nth-child(even) {
-      background: #c1c1c1;
-    }
-  }
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  // display: flex;
+  // flex-direction: column;
 
-  th {
-    &:nth-child(1) {
-      width: 1vh;
-      text-align: center;
+  &-table {
+    thead {
+      th {
+        &:nth-child(1) {
+          text-align: center;
+          width: 50px;
+        }
+      }
     }
-
-    &:nth-child(2) {
-      width: 10vh;
-      text-align: center;
+    tbody {
+      td {
+        &:nth-child(2) {
+          text-align: center;
+        }
+        &:nth-child(3) {
+          text-align: center;
+        }
+        &:nth-child(5) {
+          text-align: center;
+          max-width: 100px;
+        }
+        &:nth-child(6) {
+          text-align: center;
+        }
+        &:nth-child(7) {
+          text-align: center;
+        }
+        &:nth-child(8) {
+          text-align: center;
+        }
+      }
     }
-
-    &:nth-child(3) {
-      text-align: center;
-    }
-
-    &:nth-child(4) {
-      width: 13vh;
-      text-align: center;
-    }
-
-    &:nth-child(5) {
-      width: 13vh;
-      text-align: center;
-    }
-
-    &:nth-child(6) {
-      width: 13vh;
-      text-align: center;
-    }
-
-    &:nth-child(7) {
-      width: 13vh;
-      text-align: center;
-    }
-  }
-
-  td {
-    &:nth-child(1) {
-      max-width: 200px;
-    }
-    &:nth-child(2) {
-      max-width: 200px;
-      text-align: center;
-    }
-
-    &:nth-child(3) {
-      text-align: left;
-    }
-
-    &:nth-child(4) {
-      max-width: 300px;
-      text-align: center;
-    }
-
-    &:nth-child(5) {
-      text-align: center;
-    }
-
-    &:nth-child(6) {
-      text-align: center;
-    }
-
-    &:nth-child(7) {
-      text-align: center;
+    tfoot {
+      td {
+        &:nth-child(1) {
+          text-align: center;
+        }
+      }
     }
   }
 }
