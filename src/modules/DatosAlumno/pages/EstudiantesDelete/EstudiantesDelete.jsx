@@ -12,6 +12,11 @@ import "./FiltrosEstudiantesDelete/FiltrosEstudiantesDelete.scss";
 
 
 const MenuPrincipal = () => {
+
+  const restaurarEstudiantes = (estudiante) => {
+    console.log(estudiante)
+  }
+
   return (
     <MenuLateral>
       <div className="estudiantes-delete h-full gap-3 min-w-[600px]">
@@ -22,6 +27,9 @@ const MenuPrincipal = () => {
           classNameFiltros="estudiantes-delete-filtros"
           filtrosLista={filtrosEstudiantesDelete}
           multiDelete={true}
+          buttonTittle1="Restaurar"
+          buttonTittle2="estudiante(s)"
+          buttonFunction={restaurarEstudiantes}
         />
       </div>
     </MenuLateral>

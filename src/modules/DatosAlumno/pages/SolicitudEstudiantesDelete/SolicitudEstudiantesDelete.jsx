@@ -12,6 +12,11 @@ import "./SolicitudEstudiantesDelete.scss";
 import "./FiltrosSolicitudEstudiantesDelete/FiltrosSolicitudEstudiantesDelete.scss";
 
 const SolicitudEstudiantesDelete = () => {
+
+  const rechazarSolicitudes = (solicitud) => {
+    console.log(solicitud)
+  }
+
   return (
     <MenuLateral>
       <div className="estudiantes-delete h-full gap-3 min-w-[600px]">
@@ -22,6 +27,9 @@ const SolicitudEstudiantesDelete = () => {
           classNameFiltros="solicitud-estudiantes-delete-filtros"
           filtrosLista={filtrosSolicitudEstudiantesDelete}
           multiDelete={true}
+          buttonTittle1="Rechazar"
+          buttonTittle2="solicitud(es)"
+          buttonFunction={rechazarSolicitudes}
         />
       </div>
     </MenuLateral>

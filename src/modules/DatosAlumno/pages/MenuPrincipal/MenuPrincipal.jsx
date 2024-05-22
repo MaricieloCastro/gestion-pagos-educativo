@@ -11,6 +11,11 @@ import "./MenuPrincipal.scss";
 import "./FiltrosMenuPrincipal/FiltrosMenuPrincipal.scss";
 
 const MenuPrincipal = () => {
+
+  const eliminarEstudiantes = (estudiantes) => {
+    console.log(estudiantes)
+  }
+
   return (
     <MenuLateral>
       <div className="menu-principal h-full gap-3 min-w-[600px]">
@@ -21,6 +26,9 @@ const MenuPrincipal = () => {
           classNameFiltros="menu-principal-filtros"
           filtrosLista={filtrosMenuPrincipal}
           multiDelete={true}
+          buttonTittle1="Eliminar"
+          buttonTittle2="estudiante(s)"
+          buttonFunction={eliminarEstudiantes}
         />
       </div>
     </MenuLateral>

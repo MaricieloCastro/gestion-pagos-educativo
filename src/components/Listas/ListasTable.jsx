@@ -20,6 +20,9 @@ const ListasTable = (props) => {
     classNameTable,
     rowSelection,
     multiDelete,
+    buttonTittle1,
+    buttonTittle2,
+    buttonFunction,
   } = props;
 
   const rowsSelect = Object.keys(rowSelection);
@@ -98,17 +101,15 @@ const ListasTable = (props) => {
                 </td>
                 <td colSpan={20}>
                   <button
-                    className="border p-2 text-sm text-gray-600 hover:bg-red-400 hover:border-red-500 hover:text-white rounded-[4px]"
+                    className="border p-2 text-sm text-gray-600 hover:bg-red-boton hover:border-red-700 hover:text-white rounded-[4px]"
                     onClick={() => {
                       for (let key in rowsSelect) {
-                        console.log(
-                          table.getRowModel().rows[rowsSelect[key]].original.dni
-                        );
+                        buttonFunction(table.getRowModel().rows[rowsSelect[key]].original.id)
                       }
                     }}
                   >
-                    {<FontAwesomeIcon icon={faTrashCan} />} Eliminar{" "}
-                    {rowsSelect.length} elemento(s)
+                    {<FontAwesomeIcon icon={faTrashCan} />} {buttonTittle1}{" "}
+                    {rowsSelect.length} {buttonTittle2}
                   </button>
                 </td>
               </tr>

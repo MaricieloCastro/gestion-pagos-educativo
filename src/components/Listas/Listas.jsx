@@ -18,8 +18,7 @@ import './Listas.scss'
 const ListaUsuarios = (props) => {
   let { authTokens } = useContext(AuthContext);
 
-  const { api, columnsValue, classNameTable, classNameFiltros, filtrosLista, multiDelete } =
-    props;
+  const { api, columnsValue, classNameTable, classNameFiltros, filtrosLista, multiDelete, buttonTittle1, buttonTittle2, buttonFunction } = props;
 
   const [reload, setReload] = useState(true);
   const [dataApi, setDataApi] = useState({});
@@ -98,6 +97,9 @@ const ListaUsuarios = (props) => {
             loading={loading}
             rowSelection={rowSelection}
             multiDelete={multiDelete}
+            buttonTittle1={buttonTittle1}
+            buttonTittle2={buttonTittle2}
+            buttonFunction={buttonFunction}
           />
         </div>
       </div>
