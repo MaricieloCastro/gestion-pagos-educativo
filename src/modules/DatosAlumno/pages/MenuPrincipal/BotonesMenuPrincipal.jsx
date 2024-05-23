@@ -5,15 +5,12 @@ import { patchModal } from "@/functions/methods";
 import { estudiantesAPI } from "@/api/ApiRutas";
 import AuthContext from "@/contexts/AuthContext";
 import ListasContext from "@/contexts/ListasContext";
-
+import { Link } from "react-router-dom";
 import ModalConfirmacion from "@/components/Modal/ModalConfirmacion";
 import ModalCarga from "@/components/Modal/ModalCarga";
 import ModalError from "@/components/Modal/ModalError";
 import ModalSucess from "@/components/Modal/ModalSucess";
-import {
-  faPenToSquare,
-  faTrashCan,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const BotonesMenuPrincipal = (props) => {
   let { authTokens, user } = useContext(AuthContext);
@@ -89,6 +86,10 @@ const BotonesMenuPrincipal = (props) => {
     );
   };
 
+  const matricula = `http://localhost:5173/pagos/${id}/1`;
+  const mensualidad = `http://localhost:5173/pagos/${id}/2`;
+  const cursoDesaprobado = `http://localhost:5173/pagos/${id}/3`;
+
   return (
     <div className="flex gap-2 justify-center items-center ">
       <ButtonWithIcon
@@ -109,15 +110,17 @@ const BotonesMenuPrincipal = (props) => {
         // onClick={handleConfirmacion}
         disabled={false}
       />
-      <ButtonWithIcon
-        text="MA"
-        classNameIcon="w-4"
-        classNameVariants="rounded-sm
+      <Link to={matricula}>
+        <ButtonWithIcon
+          text="MA"
+          classNameIcon="w-4"
+          classNameVariants="rounded-sm
                 bg-[#344A5F] hover:bg-blue-boton-hover
                 w-10"
-        // onClick={handleConfirmacion}
-        disabled={false}
-      />
+          // onClick={handleConfirmacion}
+          disabled={false}
+        />
+      </Link>
       <ButtonWithIcon
         text="ME"
         classNameIcon="w-4"

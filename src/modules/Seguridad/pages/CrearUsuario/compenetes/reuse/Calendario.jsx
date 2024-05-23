@@ -16,11 +16,11 @@ const onChange = (date, dateString, onChange) => {
   console.log(dateString);
 };
 export default function Calendario(props) {
-  const { nameLabel, form, disabled, dato } = props;
+  const { nameLabel, form, disabled, dato, name } = props;
   return (
     <FormField
       control={form.control}
-      name="fecha_nacimiento"
+      name={name}
       render={({ field }) => (
         //Nombre
         <FormItem>

@@ -1,14 +1,17 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import {
+  Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-export default function formulario(props) {
+import { Button } from "@/components/ui/button";
+export default function formularioPagos(props) {
   const { nameLabel, form, parametros, type, disabled, dato } = props;
   function handleInputChange(event) {
     setInputValue(event.target.value.toUpperCase());
@@ -25,14 +28,17 @@ export default function formulario(props) {
         <FormItem>
           <FormLabel>{nameLabel}</FormLabel>
           <FormControl>
-            <Input
-              //placeholder={dato}
-              {...field}
-              type={type}
-              //onChange={handleInputChange}
-              disabled={disabled}
-              //value={inputValue}
-            />
+            <div className="flex">
+              <Button type="button">PE S/</Button>
+              <Input
+                //placeholder={dato}
+                {...field}
+                type={type}
+                //onChange={handleInputChange}
+                disabled={disabled}
+                //value={inputValue}
+              />
+            </div>
           </FormControl>
           <FormMessage />
         </FormItem>

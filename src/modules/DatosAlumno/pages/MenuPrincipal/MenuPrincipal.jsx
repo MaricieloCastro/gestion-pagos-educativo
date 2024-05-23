@@ -18,7 +18,6 @@ import ModalSucess from "@/components/Modal/ModalSucess";
 import ModalError from "@/components/Modal/ModalError";
 
 const MenuPrincipal = () => {
-
   let { user, authTokens } = useContext(AuthContext);
   let { id_tipo_usuario } = user;
 
@@ -30,15 +29,14 @@ const MenuPrincipal = () => {
   const [modalSucessfull, setModalSucessfull] = useState(false);
   const [modalFailed, setModalFailed] = useState(false);
 
-  const [estudiantesData, setEstudiantesData] = useState([])
+  const [estudiantesData, setEstudiantesData] = useState([]);
 
   const handleModal = (estudiantes) => {
-    setIsModalOpen(true)
-    setEstudiantesData(estudiantes)
-  }
+    setIsModalOpen(true);
+    setEstudiantesData(estudiantes);
+  };
 
   const eliminarEstudiantes = async () => {
-
     const headers = {
       "Content-Type": "application/json",
       Authorization: "Bearer " + String(authTokens?.access),
@@ -47,14 +45,22 @@ const MenuPrincipal = () => {
     const dataEliminar = {
       estado: false,
       eliminacion_pendiente: false,
-    }
+    };
 
     const dataEnviarSolicitud = {
       eliminacion_pendiente: true,
-    }
+    };
 
-    await multiPatchModal(estudiantesAPI, estudiantesData, id_tipo_usuario === 1 ? dataEliminar : dataEnviarSolicitud, headers, setModalLoading, setModalSucessfull, setModalFailed)
-  }
+    await multiPatchModal(
+      estudiantesAPI,
+      estudiantesData,
+      id_tipo_usuario === 1 ? dataEliminar : dataEnviarSolicitud,
+      headers,
+      setModalLoading,
+      setModalSucessfull,
+      setModalFailed
+    );
+  };
 
   return (
     <MenuLateral>
@@ -87,7 +93,9 @@ const MenuPrincipal = () => {
       <ModalCarga
         modalLoading={modalLoading}
         titulo={
-          id_tipo_usuario == 1 ? "Eliminando estudiante(s)" : "Enviando solicitud(es)"
+          id_tipo_usuario == 1
+            ? "Eliminando estudiante(s)"
+            : "Enviando solicitud(es)"
         }
       />
 

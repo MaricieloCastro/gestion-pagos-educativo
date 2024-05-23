@@ -76,9 +76,9 @@ export const enlaces = [
   {
     id: 10,
     name: "pagos",
-    path: "pagos/:id",
+    path: "pagos/:id/:pagos",
     prevPath: "/",
-    actualPath: "/pagos/:id",
+    actualPath: "/pagos/:id/:pagos",
     alias: "PAGOS",
   },
   //inscribir alumno
@@ -121,5 +121,13 @@ export const enlaces = [
     prevPath: "/",
     actualPath: "/panel/",
     alias: "PANEL DE ADMINISTRADOR",
+  },
+  {
+    id: 15,
+    name: "boleta",
+    path: "boleta/:id",
+    prevPath: "pagos/",
+    actualPath: "/pagos/boleta/:id",
+    alias: "BOLETA",
   },
 ];

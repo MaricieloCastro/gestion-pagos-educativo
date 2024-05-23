@@ -17,19 +17,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-export function TipoUsarioSelect(props) {
+export function MetodoPagoSelect(props) {
   const { form, dato, disabled } = props;
   //console.log(dato);
-  let valor = dato.nombre;
   return (
     <FormField
       control={form.control}
-      name="id_tipo_usuario"
+      name="metodo_pago"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Tipo Usuario:</FormLabel>
+          <FormLabel>Metodo de Pago:</FormLabel>
           <Select
-            defaultValue={valor}
+            defaultValue="EFECTIVO"
             onValueChange={field.onChange}
             disabled={disabled}
           >
@@ -39,8 +38,11 @@ export function TipoUsarioSelect(props) {
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              <SelectItem value="SECRETARIA">SECRETARIA</SelectItem>
-              <SelectItem value="DIRECTOR">DIRECTOR</SelectItem>
+              <SelectItem value="EFECTIVO">EFECTIVO</SelectItem>
+              <SelectItem value="YAPE">YAPE</SelectItem>
+              <SelectItem value="PLIN">PLIN</SelectItem>
+              <SelectItem value="BCP">BCP</SelectItem>
+              <SelectItem value="BBVA">BBVA</SelectItem>
               <SelectItem value="."></SelectItem>
             </SelectContent>
           </Select>
