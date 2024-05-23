@@ -11,16 +11,16 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import AuthContext from "@/contexts/AuthContext";
+import ListasContext from "@/contexts/ListasContext";
 import { getAxios } from "@/functions/methods";
 
 import './Listas.scss'
 
 const ListaUsuarios = (props) => {
   let { authTokens } = useContext(AuthContext);
+  let { reload } = useContext(ListasContext);
 
   const { api, columnsValue, classNameTable, classNameFiltros, filtrosLista, multiDelete, buttonTittle1, buttonTittle2, buttonFunction } = props;
-
-  const [reload, setReload] = useState(true);
   const [dataApi, setDataApi] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -40,7 +40,7 @@ const ListaUsuarios = (props) => {
   const [filteringSearch, setFilteringSearch] = useState("");
 
   const data = dataApi;
-  const columns = columnsValue(reload, setReload, multiDelete);
+  const columns = columnsValue(multiDelete);
 
   const table = useReactTable({
     data,
@@ -73,8 +73,6 @@ const ListaUsuarios = (props) => {
     filteringSearch,
     multiDelete,
   );
-
-  const pageSizeOptions = [10, 20, 50, 100];
 
   const numItemsForPage = table.getRowModel().rows.length;
   const totalItems = data.length;

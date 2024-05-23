@@ -4,23 +4,22 @@ import ButtonWithIcon from "@/components/ButtonWithIcon";
 import { patchModal } from "@/functions/methods";
 import { estudiantesAPI } from "@/api/ApiRutas";
 import AuthContext from "@/contexts/AuthContext";
+import ListasContext from "@/contexts/ListasContext";
 
 import ModalConfirmacion from "@/components/Modal/ModalConfirmacion";
 import ModalCarga from "@/components/Modal/ModalCarga";
 import ModalError from "@/components/Modal/ModalError";
 import ModalSucess from "@/components/Modal/ModalSucess";
 import {
-  faArrowsRotate,
-  faCheck,
   faPenToSquare,
   faTrashCan,
-  faX,
 } from "@fortawesome/free-solid-svg-icons";
 
 const BotonesMenuPrincipal = (props) => {
   let { authTokens, user } = useContext(AuthContext);
+  let { reload, setReload } = useContext(ListasContext);
 
-  const { id, estado_deuda, setReload, reload } = props;
+  const { id, estado_deuda } = props;
 
   // MODAL SIMPLE
   const [isModalOpenEliminar, setIsModalOpenEliminar] = useState(false);

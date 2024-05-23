@@ -1,8 +1,12 @@
 import BotonesListaUsuarios from "@/modules/Seguridad/pages/ListaUsuarios/BotonesListaUsuarios";
 import IndeterminateCheckbox from "@/components/Listas/IndeterminateCheckbox";
-import React, { useMemo } from "react";
+import React, { useContext, useMemo } from "react";
+import ListasContext from "@/contexts/ListasContext";
 
-export const columnsValue = (reload, setReload, multiDelete) => {
+export const columnsValue = (multiDelete) => {
+
+  let { reload, setReload } = useContext(ListasContext);
+
   const values = useMemo(() => {
     const columns = [
       multiDelete && {

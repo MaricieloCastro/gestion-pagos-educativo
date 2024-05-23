@@ -27,6 +27,8 @@ const ListasTable = (props) => {
 
   const rowsSelect = Object.keys(rowSelection);
 
+  let ids = []
+
   return (
     <div className="grid ">
       <div className="flex items-center bg-gray-listas h-10 border-b-2  border-b-white-linea">
@@ -103,9 +105,11 @@ const ListasTable = (props) => {
                   <button
                     className="border p-2 text-sm text-gray-600 hover:bg-red-boton hover:border-red-700 hover:text-white rounded-[4px]"
                     onClick={() => {
+                      const newIds = []
                       for (let key in rowsSelect) {
-                        buttonFunction(table.getRowModel().rows[rowsSelect[key]].original.id)
+                        newIds.push(...ids, { id: table.getRowModel().rows[rowsSelect[key]].original.id })
                       }
+                      buttonFunction(newIds)
                     }}
                   >
                     {<FontAwesomeIcon icon={faTrashCan} />} {buttonTittle1}{" "}
