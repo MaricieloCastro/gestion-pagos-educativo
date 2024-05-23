@@ -8,7 +8,8 @@ import {
   View,
 } from "@react-pdf/renderer";
 import Logo from "../../../../../assets/img/escudoCiencias.png";
-export default function PdfPagoa() {
+export default function PdfPagoa(props) {
+  const { name } = props;
   const styles = StyleSheet.create({
     page: {
       padding: 30,
@@ -63,7 +64,7 @@ export default function PdfPagoa() {
     },
   });
   return (
-    <Document>
+    <Document style={styles.document} orientation="landscape">
       <Page style={styles.page}>
         <View style={styles.header}>
           <Image style={styles.logo} src={Logo} />
@@ -84,7 +85,7 @@ export default function PdfPagoa() {
 
         <View style={styles.section}>
           <Text>Datos del Alumno:</Text>
-          <Text>Señor(es): MARCELO GOMEZ SANCHEZ</Text>
+          <Text>Señor(es): {name}</Text>
           <Text>DNI: 71456922</Text>
           <Text>Dirección: BOLOGNESI 735</Text>
           <Text>Grado: 5 to</Text>

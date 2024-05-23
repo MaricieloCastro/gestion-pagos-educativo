@@ -122,4 +122,12 @@ export const enlaces = [
     actualPath: "/panel/",
     alias: "PANEL DE ADMINISTRADOR",
   },
+  {
+    id: 15,
+    name: "boleta",
+    path: "boleta/:id",
+    prevPath: "pagos/",
+    actualPath: "/pagos/boleta/:id",
+    alias: "BOLETA",
+  },
 ];

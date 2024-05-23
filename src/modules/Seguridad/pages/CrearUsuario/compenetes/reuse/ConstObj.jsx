@@ -36,3 +36,4 @@ export const CONFIRMACIONURL =
   "http://127.0.0.1:8000/parametricas/api/confirmacion_mantenimiento/";
 export const SEXOURL =
   "http://127.0.0.1:8000/parametricas/api/sexo_mantenimiento/";
+export const PAGOSURL = "http://127.0.0.1:8000/pagos/api/pagos/";

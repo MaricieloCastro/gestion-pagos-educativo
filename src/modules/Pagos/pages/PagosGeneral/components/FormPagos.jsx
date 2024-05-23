@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./FormPagos.scss";
 import DatosView from "./DatosView";
 import { Button } from "@/components/ui/button";
@@ -7,26 +7,22 @@ import AvatarPagos from "./AvatarPagos";
 import moment from "moment";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import PdfPagoa from "./PdfPagos";
+import { postAxios, getAxios } from "@/functions/methods";
+import AuthContext from "@/contexts/AuthContext";
 //URL
 import {
   AREAURL,
   MESESURL,
   METODOPAGOURL,
   TIPOPAGOURL,
+  PAGOSURL,
 } from "@/modules/Seguridad/pages/CrearUsuario/compenetes/reuse/ConstObj";
 import { SelectForm } from "@/modules/Seguridad/pages/CrearUsuario/components/ui/SelectForm";
 //Importaciones para el formularioI
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import FormularioPagos from "./formularioPagos";
 import Formulario from "@/modules/Seguridad/pages/CrearUsuario/components/ui/formulario";
 import { CondicionVentaSelect } from "./CondicionVentaSelect";
@@ -44,7 +40,7 @@ const FormSchema = z.object({
   area_desaprobada: z.string().min(0, {
     message: "campo obligatorio",
   }),
-  fecha_pago: z.string().min(1, {
+  fecha_vencimiento: z.string().min(1, {
     message: "campo obligatorio",
   }),
   condicion_venta: z.string().min(1, {
@@ -74,16 +70,13 @@ const FormSchema = z.object({
   um: z.string().min(1, {
     message: "campo obligatorio",
   }),
-  cantidad: z.string().min(1, {
-    message: "campo obligatorio",
-  }),
-  tasa_igv: z.string().min(1, {
-    message: "campo obligatorio",
-  }),
   precio_unitario: z.string().min(1, {
     message: "campo obligatorio",
   }),
   moneda: z.string().min(1, {
+    message: "campo obligatorio",
+  }),
+  id_pendiente: z.string().min(0, {
     message: "campo obligatorio",
   }),
 });
@@ -98,14 +91,14 @@ export default function FormPagos(props) {
   const { monto_previo, desc_aplicado } = pendientes;
   const total_pagar = (monto_previo - desc_aplicado).toString();
   const um = "UNIDAD";
-  const cantidad = "1.00";
-  const op_exonerada = "0.00";
-  const tasa_igv = "0.00";
+  const cantidad = 1;
+  const op_exonerada = "0";
+  const tasa_igv = "0";
   const precio_unitario = monto_previo;
   const moneda = "SOLES";
 
-  //const [tipoPago, setTipoPago] = useState();
   //Lógica para designar los inpust que estarán disponibless
+
   const tipoPago = pagos;
   useEffect(() => {
     if (pagos == 1) {
@@ -116,6 +109,7 @@ export default function FormPagos(props) {
       cursoD();
     }
   }, []);
+
   //Lógica para recargar la página cada que cambiamos el tipo de pago
   const [reload, setReload] = useState();
   //Funcion de recargar
@@ -129,13 +123,15 @@ export default function FormPagos(props) {
   if (reload) {
     recargar();
   }
+  const pendiente = "5";
+  const codigo_recibo = "Hola";
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       año_lectivo: año || "",
       mes_cancelado: "",
       area_desaprobada: "",
-      fecha_pago: fecha || "",
+      fecha_vencimiento: fecha || "",
       condicion_venta: "ALCONTADO",
       metodo_pago: "EFECTIVO",
       descripcion: descripcion || "",
@@ -145,10 +141,9 @@ export default function FormPagos(props) {
       total_pagar: total_pagar || "",
       tipo_pago: tipoPago,
       um: um || "",
-      cantidad: cantidad || "",
-      tasa_igv: tasa_igv || "",
       precio_unitario: precio_unitario || "",
       moneda: moneda || "",
+      id_pendiente: pendiente || "",
     },
   });
   //tipos de pagos
@@ -171,9 +166,23 @@ export default function FormPagos(props) {
   //console.log(buttonCD, buttonM);
   //Se actualiza el token
   //Cambia de color el label
+  let { authTokens, user } = useContext(AuthContext);
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + String(authTokens.access),
+  };
   function onSubmit(values) {
+    delete values.año_lectivo;
+    delete values.descuento_aplicado;
+    delete values.monto_previo;
+    delete values.descripcion;
+    delete values.tipo_pago;
+    delete values.total_pagar;
+    delete values.mes_cancelado;
     console.log(values);
+    postAxios(PAGOSURL, values, headers, setReload, reload);
   }
+
   const ButtonView = true;
   //Lógica para no rendirizar los botones de pagos
   const [mostrarBotones, setMostrarBotones] = useState(true);
@@ -303,21 +312,25 @@ export default function FormPagos(props) {
                 form={form}
                 nameLabel="Monto:"
                 parametros="monto"
+                type="number"
               />
               <FormularioPagos
                 form={form}
                 nameLabel="Monto Previo:"
                 parametros="monto_previo"
+                type="number"
               />
               <FormularioPagos
                 form={form}
                 nameLabel="Descuento Aplicado:"
                 parametros="descuento_aplicado"
+                type="number"
               />
               <FormularioPagos
                 form={form}
                 nameLabel="Total a Pagar:"
                 parametros="total_pagar"
+                type="number"
               />
               <PDFDownloadLink
                 document={<PdfPagoa />}
