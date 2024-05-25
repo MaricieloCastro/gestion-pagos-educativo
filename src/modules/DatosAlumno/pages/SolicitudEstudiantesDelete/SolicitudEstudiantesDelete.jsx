@@ -67,7 +67,7 @@ const SolicitudEstudiantesDelete = () => {
       </div>
 
       <ModalConfirmacion
-        titulo="¿Estás seguro rechazar la eliminación de este estudiante?"
+        titulo="¿Estás seguro rechazar la(s) eliminación(es) de este(os) estudiante(s?"
         subtitulo="Esta acción podria generar cambios en el sistema"
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
