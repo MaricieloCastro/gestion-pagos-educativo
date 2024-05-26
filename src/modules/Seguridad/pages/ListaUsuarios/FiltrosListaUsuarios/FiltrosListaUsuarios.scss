@@ -1,0 +1,23 @@
+.usuarios-filtros {
+  display: grid;
+  grid-template-rows: auto;
+
+  &__caja {
+    display: grid;
+    grid-template-columns: 3fr auto;
+
+    &-filtros {
+      display: grid;
+
+      &__selects {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      &__search {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+  }
+}

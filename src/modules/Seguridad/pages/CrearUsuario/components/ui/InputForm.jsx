@@ -22,13 +22,17 @@ import { Link } from "react-router-dom";
 //Radio
 import { RadioGroupForm } from "./RadioGroupForm";
 //Componenete tipo de usuario
-import { TipoUsarioSelect } from "./TipoUsarioSelect";
+import { SelectForm } from "./SelectForm";
 //Calendario
 import Calendario from "../../compenetes/reuse/Calendario";
 //API
 import { postAxios } from "@/functions/methods";
 import AuthContext from "@/contexts/AuthContext";
-
+import {
+  TIPOUSUARIOURL,
+  SEXOURL,
+  CONFIRMACIONURL,
+} from "../../compenetes/reuse/ConstObj";
 //Modals
 import ModaForm from "../../compenetes/Modal/ModalForm";
 // Lógica del componente
@@ -79,6 +83,9 @@ const FormSchema = z.object({
   apellido_materno: z.string().min(1, {
     message: "Campo Obligatorio",
   }),
+  usuario_responsable: z.string().min(1, {
+    message: "Campo Obligatorio",
+  }),
 });
 import { putAxios } from "@/functions/methods";
 import { Mail, User } from "lucide-react";
@@ -96,7 +103,7 @@ function onSubmit(data) {
 }
 
 export default function InputFormI(props) {
-  let { authTokens } = useContext(AuthContext);
+  let { authTokens, user } = useContext(AuthContext);
   const [reload, setReload] = useState(true);
   const [usuario, setUsuarios] = useState({});
   const [loading, setLoading] = useState(false);
@@ -106,7 +113,18 @@ export default function InputFormI(props) {
     Authorization: "Bearer " + String(authTokens.access),
   };
 
-  const { disabled, ButtonView, textButton, usuarios, load, edad } = props;
+  //PROPS
+  const {
+    disabled,
+    ButtonView,
+    textButton,
+    usuarios,
+    load,
+    edad,
+    tipoUsuario,
+  } = props;
+  //DESILACHADO("NO SÉ ESCRIBIR DECONSTRUCTURING")
+
   const {
     id,
     nombres,
@@ -124,7 +142,8 @@ export default function InputFormI(props) {
     fecha_nacimiento,
     uuid,
   } = usuarios || {};
-  //console.log(tipo_usuario.nombre);
+
+  //HOOK DE FORMULARIO
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -141,8 +160,11 @@ export default function InputFormI(props) {
       password: password || "",
       id_tipo_usuario: tipo_usuario.nombre,
       fecha_nacimiento: fecha_nacimiento || "",
+      usuario_responsable: user.username || "",
     },
   });
+
+  //PARA LOS MÉTODOS
   const url = "http://127.0.0.1:8000/api/usuario/";
   const urlUp = `/login/update/${uuid}`;
   const [open, setOpen] = useState(false);
@@ -159,7 +181,6 @@ export default function InputFormI(props) {
     const data = values;
     values.password = contraseña;
     values.username = usuario;
-    console.log(values);
     if (data.id_tipo_usuario == "SECRETARIA") {
       data.id_tipo_usuario = "2";
     } else {
@@ -264,6 +285,7 @@ export default function InputFormI(props) {
                         form={form}
                         dato={sexo}
                         disabled={disabled}
+                        url={SEXOURL}
                       />
                     </div>
                   </FormControl>
@@ -277,6 +299,7 @@ export default function InputFormI(props) {
                 nameLabel="F.de Nacimiento:"
                 dato={fecha_nacimiento}
                 disabled={disabled}
+                name={fecha_nacimiento}
               />
               <Formulario
                 form={form}
@@ -301,7 +324,7 @@ export default function InputFormI(props) {
               form={form}
               nameLabel="Usuario:"
               parametros="username"
-              disabled={true}
+              disabled={false}
               dato={username}
             />
             <Formulario
@@ -309,13 +332,17 @@ export default function InputFormI(props) {
               nameLabel="Contraseña:"
               parametros="password"
               type="password"
-              disabled={true}
+              disabled={false}
               dato={password}
             />
-            <TipoUsarioSelect
+            <SelectForm
               form={form}
               dato={tipo_usuario}
               disabled={disabled}
+              tipoUsuario={tipoUsuario}
+              url={TIPOUSUARIOURL}
+              nameLabel="Tipo de Usuario:"
+              parametros="id_tipo_usuario"
             />
           </div>
         </div>

@@ -13,9 +13,12 @@ const SelectFiltros = (props) => {
     colorText,
     controlItemBgActive,
     controlItemBgHover,
-    width,
-    height,
-    setFilteringTipo,
+    // width,
+    // height,
+    setFilteringColumn,
+    columnValue,
+    columnSelect,
+    setColumnSelect,
   } = props;
 
   const handleChange = (value) => {
@@ -24,7 +27,7 @@ const SelectFiltros = (props) => {
       value = "";
       console.log("efectivamente");
     }
-    setFilteringTipo([{ id: "tipo", value }]);
+    setFilteringColumn([{ id: columnSelect, value }]);
   };
 
   return (
@@ -52,11 +55,11 @@ const SelectFiltros = (props) => {
       >
         <Select
           defaultValue={defaultValue}
-          style={{
-            width: width,
-            height: height,
-          }}
+          className="w-full min-w-36 h-11"
           onChange={handleChange}
+          onClick={() => {
+            setColumnSelect(columnValue);
+          }}
           options={options}
         />
       </ConfigProvider>

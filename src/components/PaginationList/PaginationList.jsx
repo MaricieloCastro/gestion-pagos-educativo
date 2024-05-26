@@ -19,10 +19,8 @@ function PaginationList(props) {
     nextPage,
     goNextPage,
     goPrevPage,
-    lastPage
+    lastPage,
   } = props;
-
-  console.log("pagina final:", lastPage)
 
   return (
     <Pagination>
@@ -55,7 +53,11 @@ function PaginationList(props) {
               className="border-1 rounded-full h-10 w-10 bg-white hover:bg-blue-hover text-slate-600 hover:text-white cursor-pointer"
               onClick={currentPage == lastPage ? goLastPage : goNextPage}
             >
-              {currentPage == lastPage ? <FontAwesomeIcon icon={faBan} /> : nextPage}
+              {currentPage == lastPage ? (
+                <FontAwesomeIcon icon={faBan} />
+              ) : (
+                nextPage
+              )}
             </PaginationLink>
           </PaginationItem>
         </div>

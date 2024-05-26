@@ -8,7 +8,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
-import { loginTokenApi, loginRefreshApi, lastLogoutApi } from "../api/ApiRutas";
+import { LOGIN_TOKEN_API, LOGIN_REFRESH_API, LOGOUT_API } from "../api/ApiRutas";
 import { toast } from "react-toastify";
 
 const AuthContext = createContext();
@@ -16,6 +16,8 @@ const AuthContext = createContext();
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(true);
 
   const [authTokens, setAuthTokens] = useState(() =>
@@ -23,25 +25,36 @@ export const AuthProvider = ({ children }) => {
       ? JSON.parse(localStorage.getItem("authTokens"))
       : null
   );
+
   const [user, setUser] = useState(() =>
     localStorage.getItem("authTokens")
       ? jwtDecode(localStorage.getItem("authTokens"))
       : null
   );
 
-  const navigate = useNavigate();
+  const [refreshHelp, setRefreshHelp] = useState(() =>
+    localStorage.getItem("refreshHelp")
+      ? JSON.parse(localStorage.getItem("refreshHelp"))
+      : null
+  )
 
   const loginUser = (values) => {
+
+    const { username, password } = values;
+
     axios
-      .post(loginTokenApi, {
-        username: values.username,
-        password: values.password,
+      .post(LOGIN_TOKEN_API, {
+        username: username,
+        password: password,
       })
       .then(function (response) {
         setAuthTokens(response.data);
         console.log(response)
         setUser(jwtDecode(response.data.access));
-        localStorage.setItem("authTokens", JSON.stringify(response.data));
+        setRefreshHelp(response.data.refresh)
+        localStorage.setItem("authTokens", JSON.stringify
+          (response.data));
+        localStorage.setItem("refreshHelp", JSON.stringify(response.data.refresh));
         navigate("/");
       })
       .catch(function (error) {
@@ -50,15 +63,52 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
+  let updateToken = async () => {
+    console.log("Update token called");
+
+    const headers = {
+      "Content-Type": "application/json",
+    }
+
+    const dataLoginRefresh = { refresh: refreshHelp }
+
+    if (authTokens != null) {
+      try {
+        const response = await axios.post(LOGIN_REFRESH_API, dataLoginRefresh, { headers });
+        console.log("operacion exitosa:", response);
+
+        const data = response.data
+
+        setAuthTokens(data);
+        setUser(jwtDecode(data.access));
+        localStorage.setItem("authTokens", JSON.stringify(data));
+      } catch (err) {
+        console.error(err)
+        setAuthTokens(null);
+        setUser(null);
+        setRefreshHelp(null)
+        localStorage.removeItem("authTokens");
+        localStorage.removeItem("refreshHelp");
+      }
+    }
+
+    if (loading) {
+      setLoading(false);
+    }
+  };
+
   const logoutUser = async () => {
     await axios
-      .post(lastLogoutApi, {
+      .post(LOGOUT_API, {
         username: user.username,
+        refresh: refreshHelp,
       })
       .then(function (response) {
         setAuthTokens(null);
         setUser(null);
+        setRefreshHelp(null)
         localStorage.removeItem("authTokens");
+        localStorage.removeItem("refreshHelp");
         navigate("/login");
         console.log(response)
       })
@@ -66,31 +116,6 @@ export const AuthProvider = ({ children }) => {
         console.log(error);
         navigate("/login");
       });
-  };
-
-  let updateToken = async () => {
-    console.log("Update token called");
-    console.log(authTokens)
-
-    let response = await fetch(loginRefreshApi, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ refresh: authTokens?.refresh }),
-    });
-
-    let data = await response.json();
-
-    if (response.status === 200) {
-      setAuthTokens(data);
-      setUser(jwtDecode(data.access));
-      localStorage.setItem("authTokens", JSON.stringify(data));
-    }
-
-    if (loading) {
-      setLoading(false);
-    }
   };
 
   useEffect(() => {

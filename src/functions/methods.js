@@ -21,6 +21,16 @@ export const getAxios = async (
   }
 };
 
+export const getAxiosSimple = async (url, headers, setGeneral) => {
+  try {
+    const response = await axios.get(url, { headers });
+    console.log("operacion exitosa:", response);
+    setGeneral(response.data);
+  } catch (error) {
+    console.error("Error al hacer la solicitud:", error);
+  }
+};
+
 export const putAxios = async (
   url,
   data,
@@ -80,6 +90,26 @@ export const putAxiosPrueba = async (
   setLoading(true);
   try {
     const response = await axios.put(url, data, { headers });
+    console.log("operacion exitosa:", response);
+    setLoading(false);
+    setSucess(true);
+  } catch (error) {
+    setLoading(false);
+    setError(true);
+  }
+};
+
+export const patchModal = async (
+  url,
+  data,
+  headers,
+  setLoading,
+  setSucess,
+  setError
+) => {
+  setLoading(true);
+  try {
+    const response = await axios.patch(url, data, { headers });
     console.log("operacion exitosa:", response);
     setLoading(false);
     setSucess(true);

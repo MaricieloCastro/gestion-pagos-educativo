@@ -47,7 +47,7 @@ export const enlaces = [
     path: "panel/",
     prevPath: "/",
     actualPath: "/panel/",
-    alias: "PANEL",
+    alias: "PANEL DE ADMINISTRADOR",
   },
   {
     id: 7,
@@ -76,9 +76,9 @@ export const enlaces = [
   {
     id: 10,
     name: "pagos",
-    path: "pagos/:id",
+    path: "pagos/:id/:pagos",
     prevPath: "/",
-    actualPath: "/pagos/:id",
+    actualPath: "/pagos/:id/:pagos",
     alias: "PAGOS",
   },
   //inscribir alumno
@@ -105,5 +105,29 @@ export const enlaces = [
     prevPath: "panel/",
     actualPath: "/panel/solicitud-estudiantes-delete/",
     alias: "SOLICITUD DE ELIMINACIÓN",
+  },
+  {
+    id: 14,
+    name: "historial-reporte",
+    path: "historial-reporte/",
+    prevPath: "panel/",
+    actualPath: "/panel/historial-reporte/",
+    alias: "HISTORIAL DE REPORTES",
+  },
+  {
+    id: 6,
+    name: "panel",
+    path: "panel/",
+    prevPath: "/",
+    actualPath: "/panel/",
+    alias: "PANEL DE ADMINISTRADOR",
+  },
+  {
+    id: 15,
+    name: "boleta",
+    path: "boleta/:id",
+    prevPath: "pagos/",
+    actualPath: "/pagos/boleta/:id",
+    alias: "BOLETA",
   },
 ];

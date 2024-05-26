@@ -1,0 +1,40 @@
+.usuarios {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  // display: flex;
+  // flex-direction: column;
+
+  &-table {
+    thead {
+      th {
+        &:nth-child(1) {
+          text-align: center;
+          width: 50px;
+        }
+      }
+    }
+    tbody {
+      td {
+        &:nth-child(1) {
+          text-align: center;
+        }
+        &:nth-child(2) {
+          min-width: 190px;
+        }
+        &:nth-child(3) {
+          text-align: center;
+        }
+        &:nth-child(5) {
+          text-align: center;
+        }
+      }
+    }
+    tfoot {
+      td {
+        &:nth-child(1) {
+          text-align: center;
+        }
+      }
+    }
+  }
+}

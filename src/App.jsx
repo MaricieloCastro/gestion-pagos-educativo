@@ -34,6 +34,7 @@ import MenuPrincipal from "./modules/DatosAlumno/pages/MenuPrincipal";
 import InscribirAlumno from "./modules/DatosAlumno/pages/InscribirAlumno/InscribirAlumno";
 import EstudiantesDelete from "./modules/DatosAlumno/pages/EstudiantesDelete";
 import SolicitudEstudiantesDelete from "./modules/DatosAlumno/pages/SolicitudEstudiantesDelete";
+import HistorialReporte from "./modules/Reportes/pages/HistorialReporte";
 
 const App = () => {
   let { user } = useContext(AuthContext);
@@ -58,7 +59,7 @@ const App = () => {
           path={enlaces[0].prevPath + enlaces[0].path}
         />
         <Route element={<PrivateRoutes />}>
-          <Route path="/" element={<Navigate to="perfil/" />} />
+          <Route path="/" element={<Navigate to={enlaces[3].path} />} />
           <Route element={<MenuPrincipal />} path={enlaces[3].path} />
           <Route
             element={<Perfil />}
@@ -101,6 +102,11 @@ const App = () => {
             element={<EstudiantesDelete />}
             path={enlaces[11].prevPath + enlaces[11].path}
           />
+          <Route
+            element={<HistorialReporte />}
+            path={enlaces[13].prevPath + enlaces[13].path}
+          />
+
         </Route>
         <Route
           element={

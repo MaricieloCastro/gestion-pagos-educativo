@@ -33,7 +33,7 @@ const HourFiltros = (props) => {
           minuteStep={minuteStep}
           secondStep={secondStep}
           hourStep={hourStep}
-          className="rounded-none w-date-listas h-height-listas bg-none text-blue-claro border-blue-claro hover:bg-none hover:border-blue-hover"
+          className="rounded-none w-full min-w-36 h-height-listas bg-none text-blue-claro border-blue-claro hover:bg-none hover:border-blue-hover"
           placeholder={placeholder}
           suffixIcon={
             <FontAwesomeIcon className="text-blue-claro" icon={faClock} />
