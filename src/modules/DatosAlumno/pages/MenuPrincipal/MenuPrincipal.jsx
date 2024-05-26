@@ -1,150 +1,124 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useState } from "react";
+
 import MenuLateral from "@/components/MenuLateral";
+import Listas from "@/components/Listas";
 
-import FiltrosTableMenuPrincipal from "@/components/Tables/TableMenuPrincipal/FiltrosTableMenuPrincipal";
-import TableMenuPrincipal from "@/components/Tables/TableMenuPrincipal/TableMenuPrincipal";
-import Pagination from "@/components/Tables/Pagination";
+import { filtrosMenuPrincipal } from "./FiltrosMenuPrincipal/filtrosMenuPrincipal";
+import { alumnosApi, estudiantesAPI } from "@/api/ApiRutas";
+import { columnsValue } from "./columnsMenuPrincipal.jsx";
 
-import {
-  useReactTable,
-  getCoreRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  getFilteredRowModel,
-} from "@tanstack/react-table";
-
-import BotonesMenuPrincipal from "@/components/Tables/TableMenuPrincipal/BotonesMenuPrincipal";
+import "./MenuPrincipal.scss";
+import "./FiltrosMenuPrincipal/FiltrosMenuPrincipal.scss";
 import AuthContext from "@/contexts/AuthContext";
-import { getAxios } from "@/functions/methods";
-import { alumnosApi } from "@/api/ApiRutas";
-import ColorEstadoDeuda from "@/components/Tables/TableSolicitudEstudiantesDelete/ColorEstadoDeuda";
+import ListasContext from "@/contexts/ListasContext";
+import { multiPatchModal } from "@/functions/multiMethods";
+import ModalConfirmacion from "@/components/Modal/ModalConfirmacion";
+import ModalCarga from "@/components/Modal/ModalCarga";
+import ModalSucess from "@/components/Modal/ModalSucess";
+import ModalError from "@/components/Modal/ModalError";
 
 const MenuPrincipal = () => {
-  let { authTokens } = useContext(AuthContext);
+  let { user, authTokens } = useContext(AuthContext);
+  let { id_tipo_usuario } = user;
 
-  const [reload, setReload] = useState(true);
-  const [usuarios, setUsuarios] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  let { reload, setReload } = useContext(ListasContext);
 
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + String(authTokens?.access),
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [modalLoading, setModalLoading] = useState(false);
+  const [modalSucessfull, setModalSucessfull] = useState(false);
+  const [modalFailed, setModalFailed] = useState(false);
+
+  const [estudiantesData, setEstudiantesData] = useState([]);
+
+  const handleModal = (estudiantes) => {
+    setIsModalOpen(true);
+    setEstudiantesData(estudiantes);
   };
 
-  useEffect(() => {
-    getAxios(alumnosApi, headers, setUsuarios, setLoading, setError);
-  }, [reload]);
+  const eliminarEstudiantes = async () => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + String(authTokens?.access),
+    };
 
-  const data = usuarios;
+    const dataEliminar = {
+      estado: false,
+      eliminacion_pendiente: false,
+    };
 
-  const columns = [
-    {
-      header: "CODIGO",
-      accessorKey: "codigo",
-    },
-    {
-      header: "ESTADO",
-      cell: (row) => {
-        const estado = row.cell.row.original.estado;
+    const dataEnviarSolicitud = {
+      eliminacion_pendiente: true,
+    };
 
-        return (
-          <ColorEstadoDeuda
-            estado={estado}
-          />
-        );
-      },
-    },
-    {
-      header: "ALUMNO",
-      accessorKey: "alumno",
-    },
-    {
-      header: "BENEFICIO",
-      accessorKey: "beneficio",
-    },
-    {
-      header: "TURNO",
-      accessorKey: "turno",
-    },
-    {
-      header: "GRADO",
-      accessorKey: "grado",
-    },
-    {
-      header: "SECCIÓN",
-      accessorKey: "seccion",
-      },
-    {
-      header: "OPCIONES",
-      cell: (row) => {
-        const id = row.cell.row.original.id;
-        const id_beneficio = row.cell.row.original.id_beneficio;
-        const estado = row.cell.row.original.estado;
-
-        return (
-          <BotonesMenuPrincipal
-            id={id}
-            setReload={setReload}
-            reload={reload}
-            id_beneficio={id_beneficio}
-            estado={estado}
-          />
-        );
-      },
-    },
-  ];
-
-  const [sorting, setSorting] = useState([]);
-  const [filteringSearch, setFilteringSearch] = useState("");
-  const [filteringTipo, setFilteringTipo] = useState([
-    {
-      id: "tipo",
-      value: "", // Valor inicial del filtro de la columna "tipo"
-    },
-  ]);
-
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    state: {
-      sorting,
-      globalFilter: filteringSearch,
-      columnFilters: filteringTipo,
-    },
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setFilteringTipo,
-    onGlobalFilterChange: setFilteringSearch,
-  });
-
-  const numItemsForPage = table.getRowModel().rows.length;
-  const totalItems = data.length;
+    await multiPatchModal(
+      estudiantesAPI,
+      estudiantesData,
+      id_tipo_usuario === 1 ? dataEliminar : dataEnviarSolicitud,
+      headers,
+      setModalLoading,
+      setModalSucessfull,
+      setModalFailed
+    );
+  };
 
   return (
-    <div className="flex h-screen blue-oscuro overflow-hidden">
-      <MenuLateral>
-        <div className="h-screen px-caja-contenido grid grid-rows-caja-contenido max-h-[calc(100vh-30px)]">
-          <FiltrosTableMenuPrincipal
-            setFilteringTipo={setFilteringTipo}
-            setFilteringSearch={setFilteringSearch}
-            filteringSearch={filteringSearch}
-          />
+    <MenuLateral>
+      <div className="menu-principal h-full gap-3 min-w-[600px]">
+        <Listas
+          api={alumnosApi}
+          columnsValue={columnsValue}
+          classNameTable="menu-principal-table"
+          classNameFiltros="menu-principal-filtros"
+          filtrosLista={filtrosMenuPrincipal}
+          multiDelete={true}
+          buttonTittle1="Eliminar"
+          buttonTittle2="estudiante(s)"
+          buttonFunction={handleModal}
+        />
+      </div>
 
-          <TableMenuPrincipal
-            table={table}
-            numItemsForPage={numItemsForPage}
-            totalItems={totalItems}
-            loading={loading}
-          />
+      <ModalConfirmacion
+        titulo={
+          id_tipo_usuario == 1
+            ? "¿Estás seguro de eliminar a este(os) estudiante(s)?"
+            : "¿Estás seguro de solicitar la eliminación del(los) estudiante(s)?"
+        }
+        subtitulo="Esta acción podria generar cambios en el sistema"
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        func={eliminarEstudiantes}
+      />
 
-          <Pagination table={table} />
-        </div>
-      </MenuLateral>
-    </div>
+      <ModalCarga
+        modalLoading={modalLoading}
+        titulo={
+          id_tipo_usuario == 1
+            ? "Eliminando estudiante(s)"
+            : "Enviando solicitud(es)"
+        }
+      />
+
+      <ModalSucess
+        titulo={
+          id_tipo_usuario == 1
+            ? "¡Estudiante(s) eliminado(s) exitosamente!"
+            : "¡Solicitud(es) enviada(s) exitosamente!"
+        }
+        subtitulo=""
+        modalSucessfull={modalSucessfull}
+        setModalSucessfull={setModalSucessfull}
+        reload={reload}
+        setReload={setReload}
+      />
+
+      <ModalError
+        titulo="Ups ¡Ha ocurrido un error inesperado!"
+        subtitulo="Verifique su conexión a internet y vuelva a intentar la acción en unos minutos"
+        modalFailed={modalFailed}
+        setModalFailed={setModalFailed}
+      />
+    </MenuLateral>
   );
 };
 

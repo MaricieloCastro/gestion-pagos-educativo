@@ -1,139 +1,29 @@
-import React, { useState, useContext, useEffect } from "react";
+import React from "react";
+
 import MenuLateral from "@/components/MenuLateral";
+import Listas from "@/components/Listas";
 
-import FiltrosTableListaUsuarios from "@/components/Tables/TableListaUsuarios/FiltrosTableListaUsuarios";
-import TableListaUsuarios from "@/components/Tables/TableListaUsuarios/TableListaUsuarios";
-import Pagination from "@/components/Tables/Pagination";
-
-import {
-  useReactTable,
-  getCoreRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  getFilteredRowModel,
-} from "@tanstack/react-table";
-
-import BotonesListaUsuarios from "@/components/Tables/TableListaUsuarios/BotonesListaUsuarios";
-import AuthContext from "@/contexts/AuthContext";
-import { getAxios } from "@/functions/methods";
+import { filtrosListaUsuarios } from "./FiltrosListaUsuarios/filtrosListaUsuarios.jsx";
 import { usuariosActivosApi } from "@/api/ApiRutas";
+import { columnsValue } from "./columnsListaUsuarios";
+
+import "./ListaUsuarios.scss";
+import "./FiltrosListaUsuarios/FiltrosListaUsuarios.scss";
 
 const ListaUsuarios = () => {
-  let { authTokens } = useContext(AuthContext);
-
-  const [reload, setReload] = useState(true);
-  const [usuarios, setUsuarios] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + String(authTokens?.access),
-  };
-
-  useEffect(() => {
-    getAxios(usuariosActivosApi, headers, setUsuarios, setLoading, setError);
-  }, [reload]);
-
-  const data = usuarios;
-
-  const columns = [
-    {
-      header: "CODIGO",
-      accessorKey: "codigo",
-    },
-    {
-      header: "USUARIO",
-      accessorKey: "usuario",
-    },
-    {
-      header: "TIPO",
-      accessorKey: "tipo",
-    },
-    {
-      header: "CORREO",
-      accessorKey: "correo",
-    },
-    {
-      header: "ULT. INGRESO",
-      accessorKey: "fecha_inicio",
-    },
-    {
-      header: "ULT. CIERRE",
-      accessorKey: "fecha_cierre",
-    },
-    {
-      header: "OPCIONES",
-      cell: (row) => {
-        const id = row.cell.row.original.id;
-        const id_tipo_usuario = row.cell.row.original.id_tipo_usuario;
-        const username = row.cell.row.original.username;
-        const password = row.cell.row.original.password;
-
-        return (
-          <BotonesListaUsuarios
-            id={id}
-            setReload={setReload}
-            reload={reload}
-            username={username}
-            password={password}
-            id_tipo_usuario={id_tipo_usuario}
-          />
-        );
-      },
-    },
-  ];
-
-  const [sorting, setSorting] = useState([]);
-  const [filteringSearch, setFilteringSearch] = useState("");
-  const [filteringTipo, setFilteringTipo] = useState([
-    {
-      id: "tipo",
-      value: "", // Valor inicial del filtro de la columna "tipo"
-    },
-  ]);
-
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    state: {
-      sorting,
-      globalFilter: filteringSearch,
-      columnFilters: filteringTipo,
-    },
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setFilteringTipo,
-    onGlobalFilterChange: setFilteringSearch,
-  });
-
-  const numItemsForPage = table.getRowModel().rows.length;
-  const totalItems = data.length;
-
   return (
-    <div className="flex h-screen blue-oscuro overflow-hidden">
-      <MenuLateral>
-        <div className="h-screen px-caja-contenido grid grid-rows-caja-contenido max-h-[calc(100vh-30px)]">
-          <FiltrosTableListaUsuarios
-            setFilteringTipo={setFilteringTipo}
-            setFilteringSearch={setFilteringSearch}
-            filteringSearch={filteringSearch}
-          />
-
-          <TableListaUsuarios
-            table={table}
-            numItemsForPage={numItemsForPage}
-            totalItems={totalItems}
-            loading={loading}
-          />
-
-          <Pagination table={table} />
-        </div>
-      </MenuLateral>
-    </div>
+    <MenuLateral>
+      <div className="usuarios h-full gap-3 min-w-[600px]">
+        <Listas
+          api={usuariosActivosApi}
+          columnsValue={columnsValue}
+          classNameTable="usuarios-table"
+          classNameFiltros="usuarios-filtros"
+          filtrosLista={filtrosListaUsuarios}
+          multiDelete={false}
+        />
+      </div>
+    </MenuLateral>
   );
 };
 
