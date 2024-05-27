@@ -57,6 +57,10 @@ export default function PagosGeneral() {
     return pendiente.find((pendientes) => pendientes.alumno.id === id);
   };
   const pendientes = buscarPendientePorId(IdAlumno);
+  console.log(pendientes.alumno);
+  //Sacar el find, porque es lo que se está retrasando
+  //Crear vistas para cada uno de los pendientes para que así se el find demore menos
+  //Buscar otro método de busca del pendientes
   return (
     <div className="flex overflow-hidden h-screen blue-oscuro">
       <MenuLateral>

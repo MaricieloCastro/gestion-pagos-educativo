@@ -1,9 +1,4 @@
-import {
-  createContext,
-  useState,
-  useEffect,
-  useMemo,
-} from "react";
+import { createContext, useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +34,7 @@ export const AuthProvider = ({ children }) => {
       })
       .then(function (response) {
         setAuthTokens(response.data);
-        console.log(response)
+        console.log(response);
         setUser(jwtDecode(response.data.access));
         localStorage.setItem("authTokens", JSON.stringify(response.data));
         navigate("/");
@@ -60,7 +55,7 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         localStorage.removeItem("authTokens");
         navigate("/login");
-        console.log(response)
+        console.log(response);
       })
       .catch(function (error) {
         console.log(error);
@@ -70,7 +65,7 @@ export const AuthProvider = ({ children }) => {
 
   let updateToken = async () => {
     console.log("Update token called");
-    console.log(authTokens)
+    console.log(authTokens);
 
     let response = await fetch(loginRefreshApi, {
       method: "POST",
@@ -107,9 +102,23 @@ export const AuthProvider = ({ children }) => {
 
     return () => clearInterval(interval);
   }, [authTokens, loading]);
-
+  const [estadoCaja, setEstadoCaja] = useState(false);
+  function EstadoCajaSet() {
+    setEstadoCaja(true);
+  }
+  function EstadoCajaSetZ() {
+    setEstadoCaja(false);
+  }
   const contextValue = useMemo(() => {
-    return { user, loginUser, logoutUser, authTokens };
+    return {
+      user,
+      loginUser,
+      logoutUser,
+      authTokens,
+      estadoCaja,
+      EstadoCajaSet,
+      EstadoCajaSetZ,
+    };
   }, [loginUser]);
 
   return (

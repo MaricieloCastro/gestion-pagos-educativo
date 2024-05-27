@@ -22,7 +22,23 @@ import { SelectForm } from "@/modules/Seguridad/pages/CrearUsuario/components/ui
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import FormularioPagos from "./formularioPagos";
 import Formulario from "@/modules/Seguridad/pages/CrearUsuario/components/ui/formulario";
 import { CondicionVentaSelect } from "./CondicionVentaSelect";
@@ -82,6 +98,8 @@ const FormSchema = z.object({
 });
 export default function FormPagos(props) {
   const { general, tipo_pago, pendientes } = props;
+  const { alumnos } = pendientes;
+  console.log(alumnos);
   const fechaDefault = moment();
   const fecha = fechaDefault.format("YYYY-MM-DD");
   const año = fechaDefault.format("YYYY");
@@ -195,6 +213,17 @@ export default function FormPagos(props) {
       setMostrarBotones(false);
     }
   }, []);
+  // PARA AGRAGAR LOS CAMPOS SEGÚN EL TIPO DE COMPROBANTE
+  const [selectedValue, setSelectedValue] = useState(false);
+  console.log(selectedValue);
+  const handleSelectChange = (value) => {
+    if (value == "FACTURA") {
+      setSelectedValue(true);
+    } else {
+      setSelectedValue(false);
+    }
+  };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -262,27 +291,54 @@ export default function FormPagos(props) {
           <div className="pagos-dato">
             <div className="pagos-dato_uno">
               <div className="pagos-dato_uno-uno">
+                <FormField
+                  control={form.control}
+                  name="condicion_venta"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Tipo de Comprobante::</FormLabel>
+                      <Select
+                        defaultValue="hola"
+                        onValueChange={(value) => {
+                          field.onChange(), handleSelectChange(value);
+                        }}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="BOLETA">BOLETA</SelectItem>
+                          <SelectItem value="FACTURA">FACTURA</SelectItem>
+                          <SelectItem value=" "></SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </FormItem>
+                  )}
+                />
+                {selectedValue && (
+                  <Formulario form={form} nameLabel="RUC:" parametros="ruc" />
+                )}
                 <Formulario
                   form={form}
-                  nameLabel="Año Lectivo:"
+                  nameLabel="Pagante:"
                   parametros="año_lectivo"
                 />
-                {/* <MesCanceladoSelect form={form} disabled={buttonM} /> */}
                 <SelectForm
                   form={form}
-                  disabled={buttonM}
+                  disabled={false}
                   url={MESESURL}
                   dato=""
-                  nameLabel="Mes Cancelado:"
+                  nameLabel="Condicion de venta:"
                   parametros="mes_cancelado"
                 />
-                <SelectForm
+
+                <FormularioPagos
                   form={form}
-                  disabled={buttonCD}
-                  url={AREAURL}
-                  dato=""
-                  nameLabel="Curso Desaprobada:"
-                  parametros="area_desaprobada"
+                  nameLabel="Descuento Aplicado:"
+                  parametros="descuento_aplicado"
+                  type="number"
                 />
               </div>
               <div className="pagos-dato_uno-dos">
@@ -292,7 +348,14 @@ export default function FormPagos(props) {
                   form={form}
                   name="fecha_pago"
                 />
-                <CondicionVentaSelect form={form} dato="ALCONTADO" />
+                {selectedValue && (
+                  <Calendario
+                    className="flex-container"
+                    nameLabel="Fecha de Vencimiento:"
+                    form={form}
+                    name="fecha_pago"
+                  />
+                )}
                 <SelectForm
                   form={form}
                   url={METODOPAGOURL}
@@ -300,38 +363,51 @@ export default function FormPagos(props) {
                   nameLabel="Metodo de Pago:"
                   parametros="metodo_pago"
                 />
+                <SelectForm
+                  form={form}
+                  disabled={false}
+                  url={AREAURL}
+                  dato=""
+                  nameLabel="Area  Desaprobada:"
+                  parametros="area_desaprobada"
+                />
+                <FormularioPagos
+                  form={form}
+                  nameLabel="Monto:"
+                  parametros="monto"
+                  type="number"
+                />
+              </div>
+              <div className="pagos-dato_uno-tres">
                 <Formulario
                   form={form}
-                  nameLabel="Descripción:"
-                  parametros="descripcion"
+                  nameLabel="Numero de Comprobante:"
+                  parametros="año_lectivo"
+                />
+                <CondicionVentaSelect form={form} dato="ALCONTADO" />
+                <FormularioPagos
+                  form={form}
+                  nameLabel="Monto Previo:"
+                  parametros="monto_previo"
+                  type="number"
+                />
+                <FormularioPagos
+                  form={form}
+                  nameLabel="Total a Pagar:"
+                  parametros="total_pagar"
+                  type="number"
                 />
               </div>
             </div>
             <div className="pagos-dato_dos">
-              <FormularioPagos
+              <Formulario
                 form={form}
-                nameLabel="Monto:"
-                parametros="monto"
-                type="number"
+                nameLabel="Descripción:"
+                parametros="descripcion"
               />
-              <FormularioPagos
-                form={form}
-                nameLabel="Monto Previo:"
-                parametros="monto_previo"
-                type="number"
-              />
-              <FormularioPagos
-                form={form}
-                nameLabel="Descuento Aplicado:"
-                parametros="descuento_aplicado"
-                type="number"
-              />
-              <FormularioPagos
-                form={form}
-                nameLabel="Total a Pagar:"
-                parametros="total_pagar"
-                type="number"
-              />
+            </div>
+            <div className="pagos-dato_tres">
+              {" "}
               <PDFDownloadLink
                 document={<PdfPagoa />}
                 fileName="PagosMatricula.pdf"
