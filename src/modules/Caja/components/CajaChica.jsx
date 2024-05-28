@@ -33,9 +33,11 @@ import { filtrosAperturaMovimiento } from "./FiltrosAperturaMovimiento";
 import { columnsAperturaMovimiento } from "./ColumnasAperturaMoviento";
 import Listas from "@/components/Listas";
 import { columnsAperturaCaja } from "./ColumnasAperturaCaja";
-import { getAxios, postAxios } from "@/functions/methods";
+import { getAxios, postAxiosPrueba, putAxiosPrueba } from "@/functions/methods";
 import ModalConfirmacion from "@/components/Modal/ModalConfirmacion";
 import { Value } from "sass";
+import ModalCarga from "@/components/Modal/ModalCarga";
+import ModalSucess from "@/components/Modal/ModalSucess";
 const FormSchema = z.object({
   id_caja: z.string().min(1, {
     message: "Campo Obligatorio",
@@ -74,10 +76,8 @@ export default function CajaChica(props) {
   //Props proveniente del componenete de CAJA
   const { cajaDatos } = props;
   const CajaActiva = cajaDatos[0];
-  console.log(CajaActiva.estado);
   const fecha = moment().format("DD MMMM, HH:mm");
   const fecha_apertura = moment().format("YYYY-MM-DD, HH:mm:ss");
-  console.log(fecha_apertura);
   //Variables globales
   let { user, estadoCaja, EstadoCajaSet, EstadoCajaSetZ, authTokens } =
     useContext(AuthContext);
@@ -85,8 +85,10 @@ export default function CajaChica(props) {
   useEffect(() => {
     if (CajaActiva.estado == true) {
       EstadoCajaSet();
+      setDisableA(true);
     } else {
       EstadoCajaSetZ();
+      setDisableA(false);
     }
   }, []);
 
@@ -101,6 +103,7 @@ export default function CajaChica(props) {
   const comle = `${nombres} ${apellido_paterno} ${apellido_materno}`;
   //Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenB, setIsModalOpenB] = useState(false);
 
   //Identificador de estado de los valores del formularios
   const [estadoValue, setEstadoValues] = useState();
@@ -147,25 +150,59 @@ export default function CajaChica(props) {
   //Para el estado del disable del boton Aperturar Caja
   const [disableA, setDisableA] = useState();
   const [caja, SetCaja] = useState(false);
-  const [reload, setReload] = useState();
+  const [reload, setReload] = useState(false);
   //Para resivir los datos del get o del post
   const [general, setGeneral] = useState();
   const [loading, setLoading] = useState();
+  const [open, setOpen] = useState(false);
+  const [error, setError] = useState(null);
+  const [sucess, setSucces] = useState();
+  const [titulo, setTitulo] = useState();
+  const [modalSucessfull, setModalSucessfull] = useState(false);
   const headers = {
     "Content-Type": "application/json",
     Authorization: "Bearer " + String(authTokens.access),
   };
-
+  //Para actualizar la pagaina después del post o del put
+  function recargar() {
+    window.location.reload();
+    setReload(false);
+  }
+  //
+  if (reload) {
+    recargar();
+  }
+  function CierreCaja() {
+    setLoading(true);
+    CajaActiva.fecha_cierre = fecha_apertura;
+    CajaActiva.estado = false;
+    const url = `http://127.0.0.1:8000/caja/api/apertura/${CajaActiva.id}/`;
+    putAxiosPrueba(
+      url,
+      CajaActiva,
+      headers,
+      setLoading,
+      setModalSucessfull,
+      setError,
+      setOpen
+    );
+  }
   //Función que se activa dentro del modal
   async function ModalCaja() {
-    await postAxios(AperturaAPI, estadoValue, headers, reload, setReload);
+    setLoading(true);
+    await postAxiosPrueba(
+      AperturaAPI,
+      estadoValue,
+      headers,
+      setLoading,
+      setModalSucessfull,
+      setError
+    );
     console.log(general);
     SetCaja(estadoValue.monto_inicial);
-    //EstadoCajaSet();
     setDisableA(true);
   }
   // const [estadoCaja, setEstadoCaja] = useState(false);
-
   function onClick(values) {
     setEstadoValues(values);
     showModal(estadoCaja);
@@ -227,7 +264,7 @@ export default function CajaChica(props) {
               <div className="caja-uno_uno-botones">
                 <Button
                   className="caja-uno_dos-botones-uno bg-green-boton "
-                  // onClick={() => showModal(estadoValue)}
+                  onClick={() => showModal(estadoValue)}
                   disabled={disableA}
                 >
                   Aperturar Caja
@@ -235,7 +272,7 @@ export default function CajaChica(props) {
                 <Button
                   className="caja-uno_dos-botones-uno bg-red-boton-listas"
                   type="reset"
-                  onClick={() => setDisableA(false)}
+                  onClick={() => setIsModalOpenB(true)}
                 >
                   Cerrar Caja
                 </Button>
@@ -307,6 +344,22 @@ export default function CajaChica(props) {
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
           func={ModalCaja}
+        />
+        <ModalConfirmacion
+          titulo="¿Estás seguro de realizar el cierre de caja?"
+          subtitulo="Cierre de Caja"
+          isModalOpen={isModalOpenB}
+          setIsModalOpen={setIsModalOpenB}
+          func={CierreCaja}
+        />
+        <ModalCarga modalLoading={loading} titulo="APERTURANDO CAJA" />
+        <ModalSucess
+          titulo="CAJA APERTURADA CORRECTAMENTE"
+          subtitulo=""
+          modalSucessfull={modalSucessfull}
+          setModalSucessfull={setModalSucessfull}
+          reload={reload}
+          setReload={setReload}
         />
       </form>
     </Form>
