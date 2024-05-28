@@ -106,7 +106,6 @@ const App = () => {
             element={<HistorialReporte />}
             path={enlaces[13].prevPath + enlaces[13].path}
           />
-
         </Route>
         <Route
           element={
