@@ -6,7 +6,7 @@ export const data = [
     placeholder: "",
   },
   {
-    label: "Dni:",
+    label: "DNI:",
     name: "dni",
     type: "number",
     placeholder: "Ingrese el DNI",
@@ -35,63 +35,85 @@ export const data = [
     type: "select",
     placeholder: "Seleccione el sexo",
     options: [
-      { value: "M", label: "Masculino" },
-      { value: "F ", label: "Femenino" },
+      { value: "M", label: "MASCULINO" },
+      { value: "F ", label: "FEMENINO" },
     ],
   },
-  {
-    label: "Departamento:",
-    name: "departamento_lugarnacimiento",
-    type: "select",
-    placeholder: "Seleccione el departamento",
-  },
-  {
-    label: "Provincia:",
-    name: "provincia_lugarnacimiento",
-    type: "select",
-    placeholder: "Seleccione la povincia",
-  },
-  {
-    label: "Distrito:",
-    name: "distrito_lugarnacimiento",
-    type: "select",
-    placeholder: "Seleccione el distrito",
-  },
+  // {
+  //   label: "Departamento:",
+  //   name: "departamento_nacimiento",
+  //   type: "select",
+  //   placeholder: "Seleccione el departamento",
+  // },
+  // {
+  //   label: "Provincia:",
+  //   name: "provincia_nacimiento",
+  //   type: "select",
+  //   placeholder: "Seleccione la povincia",
+  // },
+  // {
+  //   label: "Distrito:",
+  //   name: "distrito_nacimiento",
+  //   type: "select",
+  //   placeholder: "Seleccione el distrito",
+  // },
   {
     label: "Fecha de nacimiento:",
     name: "fecha_nacimiento",
     type: "date",
     placeholder: "Seleccione la fecha",
   },
-  {
-    label: "Edad:",
-    name: "edad",
-    type: "number",
-    placeholder: "Seleccione la edad",
-  },
+  // {
+  //   label: "Edad:",
+  //   name: "edad",
+  //   type: "number",
+  //   placeholder: "Seleccione la edad",
+  // },
   {
     label: "Estado civil:",
     name: "estado_civil",
     type: "select",
     placeholder: "Seleccione el estado civil",
+    options:[
+      { value: "soltero", label: "SOLTERO" },
+      { value: "casado", label: "CASADO" },
+      { value: "viudo", label: "VIUDO" },
+      { value: "divorciado", label: "Divorciado" },
+      // Agrega más opciones de distritos según sea necesario
+    ]
   },
   {
     label: "Vive:",
     name: "vive",
     type: "select",
     placeholder: "Seleccione la opcion",
+    options:[
+      { value: "si", label: "SI" },
+      { value: "no", label: "NO" },
+    ]
   },
   {
     label: "Vive con:",
     name: "vive_con",
     type: "select",
     placeholder: "Seleccionar la opcion",
+    options:[
+      { value: "mama", label: "MAMÁ" },
+      { value: "papa", label: "PAPÁ" },
+      { value: "ambos", label: "AMBOS" },
+      { value: "tios", label: "TIOS" },
+      { value: "abuelos", label: "ABUELOS" },
+    ]
   },
   {
     label: "Apoderado:",
     name: "apoderado",
     type: "select",
     placeholder: "Seleccione el apoderado",
+    options:[
+      { value: "si", label: "SI" },
+      { value: "no", label: "NO" },
+    ]
   },
   {
     label: "Celular:",
@@ -105,24 +127,24 @@ export const data = [
     type: "number",
     placeholder: "Ingrese el telefono",
   },
-  {
-    label: "Departamento:",
-    name: "departamento_domicilio",
-    type: "select",
-    placeholder: "Seleccione el departamento",
-  },
-  {
-    label: "Provincia:",
-    name: "provincia_domicilio",
-    type: "select",
-    placeholder: "Seleccione la povincia",
-  },
-  {
-    label: "Distrito:",
-    name: "distrito_domicilio",
-    type: "select",
-    placeholder: "Seleccione el distrito",
-  },
+  // {
+  //   label: "Departamento:",
+  //   name: "departamento_domicilio",
+  //   type: "select",
+  //   placeholder: "Seleccione el departamento",
+  // },
+  // {
+  //   label: "Provincia:",
+  //   name: "provincia_domicilio",
+  //   type: "select",
+  //   placeholder: "Seleccione la povincia",
+  // },
+  // {
+  //   label: "Distrito:",
+  //   name: "distrito_domicilio",
+  //   type: "select",
+  //   placeholder: "Seleccione el distrito",
+  // },
   {
     label: "Direccion:",
     name: "direccion",
@@ -134,6 +156,11 @@ export const data = [
     name: "grado_instruccion",
     type: "select",
     placeholder: "Seleccione el grado",
+    options:[
+      { value: "primaria completa", label: "PRIMARIA COMPLETA" },
+      { value: "secundaria completa", label: "SECUNDARIA COMPLETA" },
+      { value: "superior completa", label: "SUPERIOR COMPLETO" },
+    ]
   },
   {
     label: "Centro de trabajo:",
@@ -143,7 +170,7 @@ export const data = [
   },
   {
     label: "Ocupacion:",
-    name: "Ocupacion",
+    name: "ocupacion",
     type: "text",
     placeholder: "Ingrese la ocupacion",
   },

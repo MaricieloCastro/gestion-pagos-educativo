@@ -1,10 +1,10 @@
 import { z } from 'zod';
-const validateAge = (age) => {
-  if (age.startsWith("0")) {
-    throw new Error("La edad no puede empezar con cero.");
-  } 
-  return true;
-};
+// const validateAge = (age) => {
+//   if (age.startsWith("0")) {
+//     throw new Error("La edad no puede empezar con cero.");
+//   } 
+//   return true;
+// };
 export const FORM_SCHEMA_DATOS_PADRE = {
     parentesco: z.string(1, "Campor requerido"),
     dni: z
@@ -31,11 +31,11 @@ export const FORM_SCHEMA_DATOS_PADRE = {
     distrito_nacimiento: z.string().min(1, "Campo requerido"),
     //
     fecha_nacimiento: z.string(1, "Campor requerido"),
-    edad: z
-      .string()
-      .min(2, "Edad requerida")
-      .max(2, "Edad inválida")
-      .refine(validateAge, { message: "Edad inválida" }),
+    // edad: z
+    //   .string()
+    //   .min(2, "Edad requerida")
+    //   .max(2, "Edad inválida")
+    //   .refine(validateAge, { message: "Edad inválida" }),
     estado_civil: z.string(1, "Campo requerido"),
     vive: z.string(1, "Campo requerido"),
     vive_con: z.string(1, "Campo requerido"),
@@ -65,7 +65,7 @@ export const DEFAULT_VALUES_DATOS_PADRE = {
     distrito_nacimiento: "",
     //
     fecha_nacimiento: "",
-    edad: "",
+    // edad: "",
     estado_civil: "",
     vive: "",
     vive_con: "",
