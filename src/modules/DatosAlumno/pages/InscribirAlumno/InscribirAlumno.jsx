@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MenuLateral from "@/components/MenuLateral";
 import { Button, ConfigProvider, message, Steps, theme } from "antd";
 import "./InscribirAlumno.scss";
@@ -17,6 +17,16 @@ import DatosPadre from "./Forms/DatosPadre";
 import DatosEstudiante from "./Forms/DatosEstudiante";
 import FormController from "./components/FormController";
 import DepartamentosSelect from "./components/DepartamentosSelect";
+import { sufixConvert } from "@/functions/sufix";
+
+export const VALUES_DATOS_PADRE = {
+  parentesco: "",
+  dni: "",
+  nombres: "",
+  apellido_paterno: "",
+  apellido_materno: "",
+  sexo: "",
+};
 
 const InscribirAlumno = () => {
   const { token } = theme.useToken();
@@ -52,7 +62,7 @@ const InscribirAlumno = () => {
     },
   ];
 
-  console.log("current", steps.length);
+  console.log("current", current);
 
   const onSubmit = (values) => {
     if (current === 0) {
@@ -63,8 +73,10 @@ const InscribirAlumno = () => {
 
     if (current === 1) {
       console.log(values);
-      setPadreData(values);
+      const newValues = sufixConvert(VALUES_DATOS_PADRE, values);
+      setPadreData(newValues);
       setCurrent(current + 1);
+      console.log("NewValues: ", newValues);
     }
 
     if (current === steps.length - 1) {
