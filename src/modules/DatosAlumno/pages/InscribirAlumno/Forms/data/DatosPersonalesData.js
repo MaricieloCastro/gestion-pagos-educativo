@@ -1,19 +1,13 @@
 export const data = [
   {
-    label: "DNI:",
+    label: "Dni:",
     name: "dni",
     type: "text",
     placeholder: "Ingrese el DNI",
   },
   {
-    label: "CODIGO:",
-    name: "codigo",
-    type: "text",
-    placeholder: "Ingrese el codigo",
-  },
-  {
-    label: "Nombres:",
-    name: "nombres",
+    label: "Nombre:",
+    name: "nombre",
     type: "text",
     placeholder: "Ingrese el nombre",
   },

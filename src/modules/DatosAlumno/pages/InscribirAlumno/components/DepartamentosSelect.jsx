@@ -4,7 +4,8 @@ import { Controller } from "react-hook-form";
 import { departamentos } from "@/api/Departamentos";
 
 const DepartamentosSelect = (props) => {
-  const { control } = props;
+  const { control, nameDepartamento, nameProvincia, nameDistrito, variante } =
+    props;
   const [departamentoValue, setDepartamentoValue] = useState(null);
   const [departamenteDefaultActive, setDepartamenteDefaultActive] =
     useState(true);
@@ -22,16 +23,16 @@ const DepartamentosSelect = (props) => {
       <div>
         <div className="flex items-center justify-between">
           <label
-            htmlFor="departamento"
+            htmlFor={nameDepartamento}
             className="block text-sm font-normal leading-6 text-white"
           >
-            Departamento:
+            DEPARTAMENTO {variante}:
           </label>
         </div>
         <div className="mt-1">
           <Controller
             control={control}
-            name="departamento"
+            name={nameDepartamento}
             render={({ field, fieldState }) => (
               <div>
                 <ConfigProvider
@@ -70,7 +71,7 @@ const DepartamentosSelect = (props) => {
                         {...field}
                         className="w-full"
                         placeholder="Seleccione un departamento"
-                        id="departamento"
+                        id={nameDepartamento}
                         options={departamentos}
                         disabled={false}
                         value={
@@ -107,16 +108,16 @@ const DepartamentosSelect = (props) => {
       <div>
         <div className="flex items-center justify-between">
           <label
-            htmlFor="provincia"
+            htmlFor={nameProvincia}
             className="block text-sm font-normal leading-6 text-white"
           >
-            Provincia:
+            PROVINCIA {variante}:
           </label>
         </div>
         <div className="mt-1">
           <Controller
             control={control}
-            name="provincia"
+            name={nameProvincia}
             render={({ field, fieldState }) => (
               <div>
                 <ConfigProvider
@@ -155,7 +156,7 @@ const DepartamentosSelect = (props) => {
                         {...field}
                         className="w-full"
                         placeholder="Seleccione una provincia"
-                        id="provincia"
+                        id={nameProvincia}
                         options={provincias}
                         disabled={false}
                         value={
@@ -187,16 +188,16 @@ const DepartamentosSelect = (props) => {
       <div>
         <div className="flex items-center justify-between">
           <label
-            htmlFor="distrito"
+            htmlFor={nameDistrito}
             className="block text-sm font-normal leading-6 text-white"
           >
-            Distrito:
+            DISTRITO {variante}:
           </label>
         </div>
         <div className="mt-1">
           <Controller
             control={control}
-            name="distrito"
+            name={nameDistrito}
             render={({ field, fieldState }) => (
               <div>
                 <ConfigProvider
@@ -235,7 +236,7 @@ const DepartamentosSelect = (props) => {
                         {...field}
                         className="w-full"
                         placeholder="Seleccione un distrito"
-                        id="distrito"
+                        id={nameDistrito}
                         options={distritos}
                         disabled={false}
                         value={
