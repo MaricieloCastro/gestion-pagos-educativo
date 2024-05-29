@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MenuLateral from "@/components/MenuLateral";
-import { Button, message, Steps, theme } from "antd";
-import "./InscribirAlumno.css";
+import { Button, ConfigProvider, message, Steps, theme } from "antd";
+import "./InscribirAlumno.scss";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -86,18 +86,34 @@ const InscribirAlumno = () => {
   const contentStyle = {
     textAlign: "center",
     color: token.colorTextTertiary,
-    backgroundColor: token.colorFillAlter,
-    border: `1px solid ${token.colorBorder}`,
+    backgroundColor: "#D9D9D9",
+    border: `0.5px solid #C9C9C9`,
     marginTop: 16,
   };
 
   return (
     <MenuLateral>
       <form
-        className="inscribir-alumno h-full min-w-[0px]"
+        className="inscribir-alumno h-full"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <Steps size="small" current={current} items={items} />
+        <ConfigProvider
+          theme={{
+            components: {
+              Steps: {
+                colorText: "#F9F9F9",
+                fontFamily: "inter",
+              },
+            },
+          }}
+        >
+          <Steps
+            size="small"
+            current={current}
+            items={items}
+            responsive={false}
+          />
+        </ConfigProvider>
         <div style={contentStyle}>{steps[current].content}</div>
         <div className="flex justify-end py-3">
           {current > 0 && (

@@ -23,11 +23,20 @@ const SelectFormularios = (props) => {
         },
       }}
     >
-      <Space direction="vertical" size="middle" className="w-full">
+      <Space
+        direction="vertical"
+        size="middle"
+        className={`w-full ${
+          !fieldState.error
+            ? "ring-1 ring-[#1877F2] focus:ring-[#1877F2]"
+            : "ring-1 ring-red-500 focus:ring-red-500"
+        }`}
+      >
         <Space.Compact size="large" className="w-full" direction="vertical">
           <Select
             {...field}
             className="w-full"
+            placeholder={placeholder}
             id={name}
             options={options}
             disabled={disabled}

@@ -2,3 +2,21 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 }
+
+.datos-estudiante {
+  display: grid;
+  &__forms {
+    display: grid;
+    grid-template-rows: auto 1fr;
+
+    &-datos-principales {
+      display: grid;
+      grid-template-columns: auto 1fr;
+
+      &-inputs {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+}
