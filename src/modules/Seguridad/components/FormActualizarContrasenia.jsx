@@ -26,9 +26,12 @@ const formSchema = z.object({
     message: "La contraseña debe tener un minimo de 8 caracteres.",
   }),
   repeat_new_password: z.string().min(8, {
-    message: "La contraseña debe ser igual que a la anterior",
+    message: "La contraseña debe tener un minimo de 8 caracteres.",
   }),
   uuid: z.string()
+}).refine(data => data.password === data.repeat_new_password, {
+  message: "Las contraseñas no coinciden.",
+  path: ["repeat_new_password"], // Ubicación del error
 });
 // .refine((data) => data.password === data.repeat_new_password, {
 //   message: "Las contraseñas no coinciden",
