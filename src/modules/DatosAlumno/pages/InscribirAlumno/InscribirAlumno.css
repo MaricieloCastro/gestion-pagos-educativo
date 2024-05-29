@@ -1,4 +1,4 @@
-.Inscribir-alumno {
+.inscribir-alumno {
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto auto;
   }

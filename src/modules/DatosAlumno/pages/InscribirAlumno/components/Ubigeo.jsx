@@ -3,60 +3,60 @@ import "../InscribirAlumno.css";
 import SelectSimple from "./SelectSimple"; // select
 import { Departamentos } from "./OpcionesSelect";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+// import { useForm } from "react-hook-form";
+// import { zodResolver } from "@hookform/resolvers/zod";
+// import { z } from "zod";
 
-// Definir el esquema de validación usando Zod
-const FormSchem = z.object({
-  sexo: z.string().min(1, "Campo requerido"), // Agrega la validación para sexo
-  estadoCivil: z.string().min(1, "Campo requerido"), // Agrega la validación para estado civil
-  vive: z.string().min(1, "Campo requerido"), // Agrega la validación para vive
-  viveCon: z.string().min(1, "Campo requerido"), // Agrega la validación para vive con
-  apoderado: z.string().min(1, "Campo requerido"), // Agrega la validación para apoderado
-  gradoInstitucional: z.string().min(1, "Campo requerido"), // Agrega la validación para grado institucional
-});
-const onSubmit = (data) => {
-  // Validar los selects antes de enviar el formulario
-  if (!selectedOptionSexo) {
-    setError("sexo", { message: "Selecciona una opción de sexo." });
-    return;
-  }
-  if (!selectedOptionEstadoCivil) {
-    setError("estadoCivil", {
-      message: "Selecciona una opción de estado civil.",
-    });
-    return;
-  }
-  if (!selectedOptionVive) {
-    setError("vive", { message: "Selecciona una opción de vive." });
-    return;
-  }
-  if (!selectedOptionViveCon) {
-    setError("viveCon", { message: "Selecciona una opción de vive con." });
-    return;
-  }
-  if (!selectedOptionApoderado) {
-    setError("apoderado", { message: "Selecciona una opción de apoderado." });
-    return;
-  }
-  if (!selectedOptionGradoInstitucional) {
-    setError("gradoInstitucional", {
-      message: "Selecciona una opción de grado institucional.",
-    });
-    return;
-  }
+// // Definir el esquema de validación usando Zod
+// const FormSchem = z.object({
+//   sexo: z.string().min(1, "Campo requerido"), // Agrega la validación para sexo
+//   estadoCivil: z.string().min(1, "Campo requerido"), // Agrega la validación para estado civil
+//   vive: z.string().min(1, "Campo requerido"), // Agrega la validación para vive
+//   viveCon: z.string().min(1, "Campo requerido"), // Agrega la validación para vive con
+//   apoderado: z.string().min(1, "Campo requerido"), // Agrega la validación para apoderado
+//   gradoInstitucional: z.string().min(1, "Campo requerido"), // Agrega la validación para grado institucional
+// });
+// const onSubmit = (data) => {
+//   // Validar los selects antes de enviar el formulario
+//   if (!selectedOptionSexo) {
+//     setError("sexo", { message: "Selecciona una opción de sexo." });
+//     return;
+//   }
+//   if (!selectedOptionEstadoCivil) {
+//     setError("estadoCivil", {
+//       message: "Selecciona una opción de estado civil.",
+//     });
+//     return;
+//   }
+//   if (!selectedOptionVive) {
+//     setError("vive", { message: "Selecciona una opción de vive." });
+//     return;
+//   }
+//   if (!selectedOptionViveCon) {
+//     setError("viveCon", { message: "Selecciona una opción de vive con." });
+//     return;
+//   }
+//   if (!selectedOptionApoderado) {
+//     setError("apoderado", { message: "Selecciona una opción de apoderado." });
+//     return;
+//   }
+//   if (!selectedOptionGradoInstitucional) {
+//     setError("gradoInstitucional", {
+//       message: "Selecciona una opción de grado institucional.",
+//     });
+//     return;
+//   }
 
-  console.log("Datos del formulario:", {
-    ...data,
-    sexo: selectedOptionSexo,
-    estadoCivil: selectedOptionEstadoCivil,
-    vive: selectedOptionVive,
-    viveCon: selectedOptionViveCon,
-    apoderado: selectedOptionApoderado,
-    gradoInstitucional: selectedOptionGradoInstitucional,
-  });
-};
+//   console.log("Datos del formulario:", {
+//     ...data,
+//     sexo: selectedOptionSexo,
+//     estadoCivil: selectedOptionEstadoCivil,
+//     vive: selectedOptionVive,
+//     viveCon: selectedOptionViveCon,
+//     apoderado: selectedOptionApoderado,
+//     gradoInstitucional: selectedOptionGradoInstitucional,
+//   });
+// };
 
 export default function Ubigeo() {
   //ubigeo
