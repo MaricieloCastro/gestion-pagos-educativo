@@ -26,9 +26,9 @@ export const FORM_SCHEMA_DATOS_PADRE = {
       .regex(/^[A-Za-z\s]+$/, "El campo debe contener solo letras y espacios"),
     sexo: z.string().min(1, "Campo requerido"),
     //lugar nacimiento
-    departamento_ln: z.string().min(1, "Campo requerido"),
-    provincia_ln: z.string().min(1, "Campo requerido"),
-    distrito_ln: z.string().min(1, "Campo requerido"),
+    departamento_nacimiento: z.string().min(1, "Campo requerido"),
+    provincia_nacimiento: z.string().min(1, "Campo requerido"),
+    distrito_nacimiento: z.string().min(1, "Campo requerido"),
     //
     fecha_nacimiento: z.string(1, "Campor requerido"),
     edad: z
@@ -42,9 +42,9 @@ export const FORM_SCHEMA_DATOS_PADRE = {
     apoderado: z.string(1, "Campo requerido"),
     celular: z.string().min(9, "Campo requerido").max(9, "celular invalido"),
     telefono: z.string().min(9, "Campo requerido").max(9, "Telefono invalido"),
-    departamento_d: z.string().min(1, "Campo requerido"),
-    provincia_d: z.string().min(1, "Campo requerido"),
-    distrito_d: z.string().min(1, "Campo requerido"),
+    departamento_domicilio: z.string().min(1, "Campo requerido"),
+    provincia_domicilio: z.string().min(1, "Campo requerido"),
+    distrito_domicilio: z.string().min(1, "Campo requerido"),
     direccion: z.string().min(1, "El campo es requerido"),
     grado_institucional: z.string().min(1, "El campo es requerido"),
     centro_trabajo: z.string().min(1, "Campo requerido"),
@@ -60,9 +60,9 @@ export const DEFAULT_VALUES_DATOS_PADRE = {
     apellido_materno: "",
     sexo: "",
     //lugar de ancimiento
-    departamento_ln: "",
-    provincia_ln: "",
-    distrito_ln: "",
+    departamento_nacimiento: "",
+    provincia_nacimiento: "",
+    distrito_nacimiento: "",
     //
     fecha_nacimiento: "",
     edad: "",
@@ -73,9 +73,9 @@ export const DEFAULT_VALUES_DATOS_PADRE = {
     celular: "",
     telefono: "",
     //domicilio
-    departamento_d: "",
-    provincia_d: "",
-    distrito_d: "",
+    departamento_domicilio: "",
+    provincia_domicilio: "",
+    distrito_domicilio: "",
     //
     direccion: "",
     grado_institucional: "",
