@@ -15,8 +15,6 @@ import {
 } from "./Forms/constants/DatosPadreConstans";
 import DatosPadre from "./Forms/DatosPadre";
 import DatosEstudiante from "./Forms/DatosEstudiante";
-import FormController from "./components/FormController";
-import DepartamentosSelect from "./components/DepartamentosSelect";
 import { sufixConvert } from "@/functions/sufix";
 
 export const VALUES_DATOS_PADRE = {
@@ -26,11 +24,29 @@ export const VALUES_DATOS_PADRE = {
   apellido_paterno: "",
   apellido_materno: "",
   sexo: "",
+  departamento_nacimiento: "",
+  provincia_nacimiento: "",
+  distrito_nacimiento: "",
+  fecha_nacimiento: "",
+  estado_civil: "",
+  vive: "",
+  vive_con: "",
+  apoderado: "",
+  celular: "",
+  telefono: "",
+  departamento_domicilio: "",
+  provincia_domicilio: "",
+  distrito_domicilio: "",
+  direccion: "",
+  grado_instruccion: "",
+  centro_trabajo: "",
+  ocupacion: "",
+  correo: "",
 };
 
 const InscribirAlumno = () => {
   const { token } = theme.useToken();
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(1);
   const [estudianteData, setEstudianteData] = useState(null);
   const [padreData, setPadreData] = useState(null);
 
@@ -49,7 +65,6 @@ const InscribirAlumno = () => {
   const steps = [
     {
       title: "Datos del estudiante",
-      // content: <DatosPersonales control={form.control} />,
       content: <DatosEstudiante control={form.control} />,
     },
     {
