@@ -1,11 +1,10 @@
-import FormController from "../components/FormController";
 import React from "react";
+import FormController from "../components/FormController";
+import { data } from "./data/DatosFamiliarExtraData";
 import DepartamentosSelect from "../components/DepartamentosSelect";
-import "./Forms.scss";
-import { data } from "./data/DatosPadreData";
 
-const DatosPadre = (props) => {
-  const { control, defaultDate } = props;
+const DatosFamiliarExtra = (props) => {
+  const { control } = props;
   const datosPrincipalesData = data.slice(0, 4);
   const datosNacimiento1 = data.slice(4, 6);
   const datosNacimiento2 = data.slice(6, 12);
@@ -17,7 +16,7 @@ const DatosPadre = (props) => {
         <p className="text-white font-medium ease-linear underline ml-2 text-left">
           DATOS DEL FAMILIAR:
         </p>
-        <div className="grid grid-cols-4 gap-3 px-2 pb-3">
+        <div className="grid grid-flow-col-dense gap-3 px-2 pb-3">
           {datosPrincipalesData.map((data) => (
             <div key={data.name}>
               <FormController
@@ -26,9 +25,6 @@ const DatosPadre = (props) => {
                 name={data.name}
                 label={data.label}
                 placeholder={data.placeholder}
-                disabled={data.disabled}
-                options={data?.options}
-                defaultDate={defaultDate}
               />
             </div>
           ))}
@@ -43,17 +39,14 @@ const DatosPadre = (props) => {
                 name={data.name}
                 label={data.label}
                 placeholder={data.placeholder}
-                disabled={data.disabled}
-                options={data?.options}
-                defaultDate={defaultDate}
               />
             </div>
           ))}
           <DepartamentosSelect
             control={control}
-            nameDepartamento="departamento_nacimiento_1"
-            nameProvincia="provincia_nacimiento_1"
-            nameDistrito="distrito_nacimiento_1"
+            nameDepartamento="departamento_nacimiento_3"
+            nameProvincia="provincia_nacimiento_3"
+            nameDistrito="distrito_nacimiento_3"
             variante="NACIMIENTO"
           />
           {datosNacimiento2.map((data) => (
@@ -64,9 +57,6 @@ const DatosPadre = (props) => {
                 name={data.name}
                 label={data.label}
                 placeholder={data.placeholder}
-                disabled={data.disabled}
-                options={data?.options}
-                defaultDate={defaultDate}
               />
             </div>
           ))}
@@ -81,17 +71,14 @@ const DatosPadre = (props) => {
                 name={data.name}
                 label={data.label}
                 placeholder={data.placeholder}
-                disabled={data.disabled}
-                options={data?.options}
-                defaultDate={defaultDate}
               />
             </div>
           ))}
           <DepartamentosSelect
             control={control}
-            nameDepartamento="departamento_domicilio_1"
-            nameProvincia="provincia_domicilio_1"
-            nameDistrito="distrito_domicilio_1"
+            nameDepartamento="departamento_domicilio_3"
+            nameProvincia="provincia_domicilio_3"
+            nameDistrito="distrito_domicilio_3"
             variante="DOMICILIO"
           />
           {datosDomicilio2.map((data) => (
@@ -102,9 +89,6 @@ const DatosPadre = (props) => {
                 name={data.name}
                 label={data.label}
                 placeholder={data.placeholder}
-                disabled={data.disabled}
-                options={data?.options}
-                defaultDate={defaultDate}
               />
             </div>
           ))}
@@ -125,4 +109,4 @@ const DatosPadre = (props) => {
   );
 };
 
-export default DatosPadre;
+export default DatosFamiliarExtra;

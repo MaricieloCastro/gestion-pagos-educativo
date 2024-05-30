@@ -1,37 +1,37 @@
 export const data = [
   {
     label: "Parentesco:",
-    name: "parentesco_1",
+    name: "parentesco_3",
     type: "text",
     placeholder: "",
   },
   {
     label: "DNI:",
-    name: "dni_1",
+    name: "dni_3",
     type: "number",
     placeholder: "Ingrese el DNI",
   },
   {
     label: "Nombres:",
-    name: "nombres_1",
+    name: "nombres_3",
     type: "text",
     placeholder: "Ingrese el nombre",
   },
   {
     label: "Ap. Paterno:",
-    name: "apellido_paterno_1",
+    name: "apellido_paterno_3",
     type: "text",
     placeholder: "Ingrese el apellido paterno",
   },
   {
     label: "Ap. Materno:",
-    name: "apellido_materno_1",
+    name: "apellido_materno_3",
     type: "text",
     placeholder: "Ingrese el apellido materno",
   },
   {
     label: "Sexo:",
-    name: "sexo_1",
+    name: "sexo_3",
     type: "select",
     placeholder: "Seleccione el sexo",
     options: [
@@ -39,15 +39,39 @@ export const data = [
       { value: "F ", label: "FEMENINO" },
     ],
   },
+  // {
+  //   label: "Departamento:",
+  //   name: "departamento_nacimiento",
+  //   type: "select",
+  //   placeholder: "Seleccione el departamento",
+  // },
+  // {
+  //   label: "Provincia:",
+  //   name: "provincia_nacimiento",
+  //   type: "select",
+  //   placeholder: "Seleccione la povincia",
+  // },
+  // {
+  //   label: "Distrito:",
+  //   name: "distrito_nacimiento",
+  //   type: "select",
+  //   placeholder: "Seleccione el distrito",
+  // },
   {
     label: "Fecha de nacimiento:",
-    name: "fecha_nacimiento_1",
+    name: "fecha_nacimiento_3",
     type: "date",
     placeholder: "Seleccione la fecha",
   },
+  // {
+  //   label: "Edad:",
+  //   name: "edad",
+  //   type: "number",
+  //   placeholder: "Seleccione la edad",
+  // },
   {
     label: "Estado civil:",
-    name: "estado_civil_1",
+    name: "estado_civil_3",
     type: "select",
     placeholder: "Seleccione el estado civil",
     options:[
@@ -60,7 +84,7 @@ export const data = [
   },
   {
     label: "Vive:",
-    name: "vive_1",
+    name: "vive_3",
     type: "select",
     placeholder: "Seleccione la opcion",
     options:[
@@ -70,7 +94,7 @@ export const data = [
   },
   {
     label: "Vive con:",
-    name: "vive_con_1",
+    name: "vive_con_3",
     type: "select",
     placeholder: "Seleccionar la opcion",
     options:[
@@ -83,7 +107,7 @@ export const data = [
   },
   {
     label: "Apoderado:",
-    name: "apoderado_1",
+    name: "apoderado_3",
     type: "select",
     placeholder: "Seleccione el apoderado",
     options:[
@@ -93,25 +117,43 @@ export const data = [
   },
   {
     label: "Celular:",
-    name: "celular_1",
+    name: "celular_3",
     type: "number",
     placeholder: "Ingrese el celular",
   },
   {
     label: "Telefono:",
-    name: "telefono_1",
+    name: "telefono_3",
     type: "number",
     placeholder: "Ingrese el telefono",
   },
+  // {
+  //   label: "Departamento:",
+  //   name: "departamento_domicilio",
+  //   type: "select",
+  //   placeholder: "Seleccione el departamento",
+  // },
+  // {
+  //   label: "Provincia:",
+  //   name: "provincia_domicilio",
+  //   type: "select",
+  //   placeholder: "Seleccione la povincia",
+  // },
+  // {
+  //   label: "Distrito:",
+  //   name: "distrito_domicilio",
+  //   type: "select",
+  //   placeholder: "Seleccione el distrito",
+  // },
   {
     label: "Direccion:",
-    name: "direccion_1",
+    name: "direccion_3",
     type: "text",
     placeholder: "Ingrese la direccion",
   },
   {
     label: "Grado instruccion:",
-    name: "grado_instruccion_1",
+    name: "grado_instruccion_3",
     type: "select",
     placeholder: "Seleccione el grado",
     options:[
@@ -122,19 +164,19 @@ export const data = [
   },
   {
     label: "Centro de trabajo:",
-    name: "centro_trabajo_1",
+    name: "centro_trabajo_3",
     type: "text",
     placeholder: "Ingrese centro de trabajo",
   },
   {
     label: "Ocupacion:",
-    name: "ocupacion_1",
+    name: "ocupacion_3",
     type: "text",
     placeholder: "Ingrese la ocupacion",
   },
   {
     label: "Correo:",
-    name: "correo_1",
+    name: "correo_3",
     type: "email",
     placeholder: "Ingrese el correo",
   },
