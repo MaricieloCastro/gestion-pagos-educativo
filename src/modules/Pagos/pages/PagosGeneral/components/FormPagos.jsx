@@ -21,7 +21,7 @@ import {
 import { SelectForm } from "@/modules/Seguridad/pages/CrearUsuario/components/ui/SelectForm";
 //Importaciones para el formularioI
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { number, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Select,
@@ -103,7 +103,13 @@ const FormSchema = z.object({
 export default function FormPagos(props) {
   const { general, tipo_pago, pendientes, correlativo } = props;
   const { lastNumber, personaId, suggestedNumber } = correlativo;
+  console.log(correlativo);
   console.log(lastNumber);
+  const [numCom, setNumCom] = useState();
+  useEffect(() => {
+    setNumCom(`B001-${suggestedNumber}`);
+  }, []);
+  console.log(numCom);
   const { alumnos, crnograma_pago } = pendientes;
   const { descripcion, mes_cancelado } = crnograma_pago;
   const fechaDefault = moment();
@@ -136,6 +142,7 @@ export default function FormPagos(props) {
     } else {
       cursoD();
     }
+    setNumCom(`B001-${suggestedNumber}`);
   }, []);
 
   //Lógica para recargar la página cada que cambiamos el tipo de pago
@@ -156,6 +163,7 @@ export default function FormPagos(props) {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
+      num_comprobante: numCom,
       tipo_comprobante: "BOLETA",
       año_lectivo: año || "",
       mes_cancelado: "",
@@ -226,10 +234,14 @@ export default function FormPagos(props) {
   }, []);
   // PARA AGRAGAR LOS CAMPOS SEGÚN EL TIPO DE COMPROBANTE
   const [selectedValue, setSelectedValue] = useState(false);
+  // if (selectedValue) {
+  //   setNumCom(`F001-${lastNumber}`);
+  // }
   console.log(selectedValue);
   const handleSelectChange = (value) => {
     if (value == "FACTURA") {
       setSelectedValue(true);
+      setNumCom(`F001-${lastNumber}`);
     } else {
       setSelectedValue(false);
     }
@@ -263,13 +275,13 @@ export default function FormPagos(props) {
       },
       "cbc:Note": [
         {
-          _text: "CINCUENTA CON 00/100 SOLES",
+          _text: `${precio_unitario} CON 00/100 SOLES`,
           _attributes: {
             languageLocaleID: "1000",
           },
         },
         {
-          _text: "PAGO POR CURSO DESAPROBADO",
+          _text: { descripcion },
         },
       ],
       "cbc:DocumentCurrencyCode": {
@@ -315,12 +327,12 @@ export default function FormPagos(props) {
               _attributes: {
                 schemeID: "1",
               },
-              _text: "74526016",
+              _text: codigo,
             },
           },
           "cac:PartyLegalEntity": {
             "cbc:RegistrationName": {
-              _text: "JHOSEP MARCELO GÓMEZ SÁNCHEZ",
+              _text: alumno,
             },
             "cac:RegistrationAddress": {
               "cac:AddressLine": {
@@ -346,7 +358,7 @@ export default function FormPagos(props) {
               _attributes: {
                 currencyID: "PEN",
               },
-              _text: 50,
+              _text: Number(precio_unitario),
             },
             "cbc:TaxAmount": {
               _attributes: {
@@ -375,19 +387,19 @@ export default function FormPagos(props) {
           _attributes: {
             currencyID: "PEN",
           },
-          _text: 50,
+          _text: Number(precio_unitario),
         },
         "cbc:TaxInclusiveAmount": {
           _attributes: {
             currencyID: "PEN",
           },
-          _text: 50,
+          _text: Number(precio_unitario),
         },
         "cbc:PayableAmount": {
           _attributes: {
             currencyID: "PEN",
           },
-          _text: 50,
+          _text: Number(precio_unitario),
         },
       },
       "cac:InvoiceLine": [
@@ -405,7 +417,7 @@ export default function FormPagos(props) {
             _attributes: {
               currencyID: "PEN",
             },
-            _text: 50,
+            _text: Number(precio_unitario),
           },
           "cac:PricingReference": {
             "cac:AlternativeConditionPrice": {
@@ -413,7 +425,7 @@ export default function FormPagos(props) {
                 _attributes: {
                   currencyID: "PEN",
                 },
-                _text: 50,
+                _text: Number(precio_unitario),
               },
               "cbc:PriceTypeCode": {
                 _text: "01",
@@ -433,7 +445,7 @@ export default function FormPagos(props) {
                   _attributes: {
                     currencyID: "PEN",
                   },
-                  _text: 50,
+                  _text: Number(precio_unitario),
                 },
                 "cbc:TaxAmount": {
                   _attributes: {
@@ -465,7 +477,7 @@ export default function FormPagos(props) {
           },
           "cac:Item": {
             "cbc:Description": {
-              _text: "PAGO DE CURSO DESAPROBADO",
+              _text: descripcion,
             },
             "cac:SellersItemIdentification": {
               "cbc:ID": {
@@ -478,7 +490,7 @@ export default function FormPagos(props) {
               _attributes: {
                 currencyID: "PEN",
               },
-              _text: 50,
+              _text: Number(precio_unitario),
             },
           },
         },
@@ -670,8 +682,9 @@ export default function FormPagos(props) {
                 <Formulario
                   form={form}
                   nameLabel="Numero de Comprobante:"
+                  dato={numCom}
                   disabled={true}
-                  parametros=""
+                  parametros="num_comprobante"
                 />
                 <CondicionVentaSelect form={form} dato="ALCONTADO" />
                 <FormularioPagos
