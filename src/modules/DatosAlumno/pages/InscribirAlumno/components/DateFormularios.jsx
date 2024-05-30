@@ -7,12 +7,13 @@ import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 const currentDate = dayjs();
 
 const DateFormularios = (props) => {
-  const { field, fieldState, name, placeholder, disabled } = props;
+  const { field, fieldState, name, placeholder, disabled, defaultDate } = props;
 
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState(defaultDate);
 
-  console.log("field", field);
-  console.log(dayjs("2014-01-01").diff(dayjs("2000-01-01"), "year"));
+  useEffect(() => {
+    setValue(defaultDate)
+  }, [defaultDate])
 
   return (
     <ConfigProvider
@@ -24,20 +25,14 @@ const DateFormularios = (props) => {
         },
         components: {
           DatePicker: {
-            colorBorder: "none",
+            colorBorder: "none"
           },
         },
       }}
     >
-      <Space
-        direction="vertical"
-        size="middle"
-        className={`w-full ${
-          !fieldState.error
-            ? "ring-1 ring-[#1877F2] focus:ring-[#1877F2]"
-            : "ring-1 ring-red-500 focus:ring-red-500"
-        }`}
-      >
+      <Space direction="vertical" size="middle" className={`w-full ${!fieldState.error
+        ? "ring-1 ring-[#1877F2] focus:ring-[#1877F2]"
+        : "ring-1 ring-red-500 focus:ring-red-500"}`}>
         <Space.Compact
           size="large"
           className="w-full gap-1"
@@ -52,11 +47,11 @@ const DateFormularios = (props) => {
             placeholder={placeholder}
             name={name}
             id={name}
-            defaultValue={""}
             value={value && dayjs(value)}
             onChange={(date, dateStr) => {
-              setValue(dateStr);
-              field.onChange(dateStr);
+              setValue(dateStr)
+              console.log("date: ", date)
+              field.onChange(dateStr)
             }}
             disabled={disabled}
             maxDate={currentDate}
