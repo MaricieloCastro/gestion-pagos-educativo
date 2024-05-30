@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MenuLateral from "@/components/MenuLateral";
 import { Button, ConfigProvider, message, Steps, theme } from "antd";
 import "./InscribirAlumno.scss";
@@ -15,12 +15,38 @@ import {
 } from "./Forms/constants/DatosPadreConstans";
 import DatosPadre from "./Forms/DatosPadre";
 import DatosEstudiante from "./Forms/DatosEstudiante";
-import FormController from "./components/FormController";
-import DepartamentosSelect from "./components/DepartamentosSelect";
+import { sufixConvert } from "@/functions/sufix";
+
+export const VALUES_DATOS_PADRE = {
+  parentesco: "",
+  dni: "",
+  nombres: "",
+  apellido_paterno: "",
+  apellido_materno: "",
+  sexo: "",
+  departamento_nacimiento: "",
+  provincia_nacimiento: "",
+  distrito_nacimiento: "",
+  fecha_nacimiento: "",
+  estado_civil: "",
+  vive: "",
+  vive_con: "",
+  apoderado: "",
+  celular: "",
+  telefono: "",
+  departamento_domicilio: "",
+  provincia_domicilio: "",
+  distrito_domicilio: "",
+  direccion: "",
+  grado_instruccion: "",
+  centro_trabajo: "",
+  ocupacion: "",
+  correo: "",
+};
 
 const InscribirAlumno = () => {
   const { token } = theme.useToken();
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(1);
   const [estudianteData, setEstudianteData] = useState(null);
   const [padreData, setPadreData] = useState(null);
 
@@ -39,7 +65,6 @@ const InscribirAlumno = () => {
   const steps = [
     {
       title: "Datos del estudiante",
-      // content: <DatosPersonales control={form.control} />,
       content: <DatosEstudiante control={form.control} />,
     },
     {
@@ -52,7 +77,7 @@ const InscribirAlumno = () => {
     },
   ];
 
-  console.log("current", steps.length);
+  console.log("current", current);
 
   const onSubmit = (values) => {
     if (current === 0) {
@@ -63,8 +88,10 @@ const InscribirAlumno = () => {
 
     if (current === 1) {
       console.log(values);
-      setPadreData(values);
+      const newValues = sufixConvert(VALUES_DATOS_PADRE, values);
+      setPadreData(newValues);
       setCurrent(current + 1);
+      console.log("NewValues: ", newValues);
     }
 
     if (current === steps.length - 1) {
