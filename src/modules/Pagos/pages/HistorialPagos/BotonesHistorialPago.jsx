@@ -10,9 +10,9 @@ import ModalConfirmacion from "@/components/Modal/ModalConfirmacion";
 import ModalCarga from "@/components/Modal/ModalCarga";
 import ModalError from "@/components/Modal/ModalError";
 import ModalSucess from "@/components/Modal/ModalSucess";
-import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faTrashCan, faUpload } from "@fortawesome/free-solid-svg-icons";
 
-const BotonesMenuPrincipal = (props) => {
+const BotonesHistorialPago = (props) => {
   let { authTokens, user } = useContext(AuthContext);
   let { reload, setReload } = useContext(ListasContext);
 
@@ -93,118 +93,17 @@ const BotonesMenuPrincipal = (props) => {
   return (
     <div className="flex gap-2 justify-center items-center ">
       <ButtonWithIcon
-        text="EDITAR"
-        icon={faPenToSquare}
-        classNameIcon="w-4 pr-1"
-        classNameVariants="rounded-sm
-                p-4 bg-green-boton hover:bg-green-boton-hover"
-        onClick={handleClickEditar}
-        disabled={false}
-      />
-      <ButtonWithIcon
-        text="HP"
-        classNameIcon="w-4"
-        classNameVariants="rounded-sm
-                bg-[#4776A0] hover:bg-blue-boton-hover
-                w-10"
-        // onClick={handleConfirmacion}
-        disabled={false}
-      />
-      <Link to={matricula}>
-        <ButtonWithIcon
-          text="MA"
-          classNameIcon="w-4"
-          classNameVariants="rounded-sm
-                bg-[#344A5F] hover:bg-blue-boton-hover
-                w-10"
-          // onClick={handleConfirmacion}
-          disabled={false}
-        />
-      </Link>
-      <ButtonWithIcon
-        text="ME"
-        classNameIcon="w-4"
-        classNameVariants="rounded-sm
-                bg-[#344A5F] hover:bg-blue-boton-hover
-                w-10"
-        // onClick={handleConfirmacion}
-        disabled={false}
-      />
-      <ButtonWithIcon
-        text="CD"
-        classNameIcon="w-4"
-        classNameVariants="rounded-sm
-                bg-[#344A5F]  hover:bg-blue-boton-hover
-                w-10"
-        // onClick={handleConfirmacion}
-        disabled={false}
-      />
-
-      <ButtonWithIcon
         text=""
-        icon={faTrashCan}
+        icon={faUpload}
         classNameIcon="w-4"
         classNameVariants="rounded-sm
-                bg-red-boton hover:bg-red-boton-hover
+                bg-green-boton hover:bg-green-boton-hover
                 w-10"
         onClick={handleConfirmacion}
         disabled={false}
-      />
-
-      <ModalConfirmacion
-        titulo={
-          id_tipo_usuario == 1
-            ? "¿Estás seguro de eliminar a este estudiante?"
-            : "¿Estás seguro de solicitar la eliminación del estudiante?"
-        }
-        subtitulo="Esta acción podria generar cambios en el sistema"
-        isModalOpen={
-          id_tipo_usuario == 1
-            ? isModalOpenEliminar
-            : isModalOpenEnviarSolicitud
-        }
-        setIsModalOpen={
-          id_tipo_usuario == 1
-            ? setIsModalOpenEliminar
-            : setIsModalOpenEnviarSolicitud
-        }
-        func={id_tipo_usuario == 1 ? handleEliminar : handleEnviarSolicitud}
-      />
-
-      <ModalCarga
-        modalLoading={modalLoading}
-        titulo={
-          id_tipo_usuario == 1 ? "Eliminando estudiante" : "Enviando solicitud"
-        }
-      />
-
-      <ModalSucess
-        titulo={
-          id_tipo_usuario == 1
-            ? "¡Estudiante eliminado exitosamente!"
-            : "¡Solicitud enviada exitosamente!"
-        }
-        subtitulo=""
-        modalSucessfull={modalSucessfull}
-        setModalSucessfull={setModalSucessfull}
-        reload={reload}
-        setReload={setReload}
-      />
-      <ModalError
-        titulo="Ups ¡Ha ocurrido un error inesperado!"
-        subtitulo="Verifique su conexión a internet y vuelva a intentar la acción en unos minutos"
-        modalFailed={modalFailed}
-        setModalFailed={setModalFailed}
-      />
-
-      <ModalError
-        titulo="No puedes eliminar a un estudiante con deudas pendientes"
-        subtitulo=""
-        modalFailed={isModalOpenDeuda}
-        setModalFailed={setIsModalOpenDeuda}
       />
     </div>
   );
 };
 
-export default BotonesMenuPrincipal;
+export default BotonesHistorialPago;
