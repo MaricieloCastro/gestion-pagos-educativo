@@ -75,6 +75,16 @@
         padding: 0;
         color: #000;
       }
+      :where(
+          .css-dev-only-do-not-override-128z1ng
+        ).ant-picker-outlined.ant-picker-disabled,
+      :where(
+          .css-dev-only-do-not-override-128z1ng
+        ).ant-picker-outlined[disabled] {
+        background-color: #98abb9;
+        border-width: px;
+        color: #000;
+      }
       input {
         border-radius: 2px;
         background-color: #fcfdff;

@@ -41,3 +41,4 @@ export const AperturaMovimientoAPI =
 export const AperturaCajaAPI = "http://127.0.0.1:8000/caja/api/apertura-caja/";
 
 export const AperturaAPI = "http://127.0.0.1:8000/caja/api/apertura/";
+export const MoviemientoAPI = "http://127.0.0.1:8000/caja/api/movimiento/";

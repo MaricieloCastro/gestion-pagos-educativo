@@ -14,14 +14,13 @@ export default function TablaMovimientos(props) {
   }
   const rows = [
     createData("Pagos", 0),
-    createData("Gastos", 0),
     createData("Caja", cajaT),
-    createData("Total", 0),
+    createData("Total", parseFloat(parseFloat(cajaT) + 0)),
   ];
   return (
     <TableContainer sx={{ maxHeight: 250 }} component={Paper}>
       <Table
-        sx={{ minWidth: 350, background: "white-cabecera" }}
+        sx={{ minWidth: 350, background: "white-cabecera", marginTop: "25px" }}
         aria-label="simple table"
       >
         <TableHead>

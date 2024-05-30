@@ -4,7 +4,7 @@ import BotonesMenuPrincipal from "@/modules/DatosAlumno/pages/MenuPrincipal/Boto
 import IndeterminateCheckbox from "@/components/Listas/IndeterminateCheckbox";
 import ListasContext from "@/contexts/ListasContext";
 
-export const columnsAperturaMovimiento = (multiDelete) => {
+export const columnasMovimiento = (multiDelete) => {
   let { reload, setReload } = useContext(ListasContext);
 
   const values = useMemo(() => {
@@ -52,6 +52,9 @@ export const columnsAperturaMovimiento = (multiDelete) => {
         accessorKey: "fecha",
         header: "FECHA",
         cell: (info) => info.getValue(),
+        meta: {
+          filterVariant: "dateTime",
+        },
       },
       {
         accessorKey: "descripcion",

@@ -147,4 +147,12 @@ export const enlaces = [
     actualPath: "/historial-pago/",
     alias: "HISTORIAL DE PAGOS",
   },
+  {
+    id: 18,
+    name: "movimientos",
+    path: "movimientos/",
+    prevPath: "caja/",
+    actualPath: "caja/movimientos/",
+    alias: "MOVIMIENTOS",
+  },
 ];

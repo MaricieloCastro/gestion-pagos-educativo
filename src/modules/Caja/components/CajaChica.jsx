@@ -6,9 +6,11 @@ import { faFilePdf } from "@fortawesome/free-regular-svg-icons";
 import "./CajaChica.scss";
 import { Button } from "@/components/ui/button";
 import TablaMovimientos from "./TablaMovimientos";
+//Reprote
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PdfMovimientosDia from "./PdfMovimientosDia";
 import moment from "moment";
-import { Modal } from "antd";
-import ModalSimple from "@/components/Modal/ModalSimple";
+import CancelIcon from "@mui/icons-material/Cancel";
 import {
   AperturaAPI,
   AperturaCajaAPI,
@@ -38,6 +40,7 @@ import ModalConfirmacion from "@/components/Modal/ModalConfirmacion";
 import { Value } from "sass";
 import ModalCarga from "@/components/Modal/ModalCarga";
 import ModalSucess from "@/components/Modal/ModalSucess";
+import ModalCajaMovimiento from "@/components/Modal/ModalCajaMovimiento";
 const FormSchema = z.object({
   id_caja: z.string().min(1, {
     message: "Campo Obligatorio",
@@ -74,7 +77,8 @@ const FormSchemaI = z.object({
 });
 export default function CajaChica(props) {
   //Props proveniente del componenete de CAJA
-  const { cajaDatos } = props;
+  const { cajaDatos, movimiento, movimientos } = props;
+  const { total } = movimiento;
   const CajaActiva = cajaDatos[0];
   const fecha = moment().format("DD MMMM, HH:mm");
   const fecha_apertura = moment().format("YYYY-MM-DD, HH:mm:ss");
@@ -105,6 +109,9 @@ export default function CajaChica(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenB, setIsModalOpenB] = useState(false);
 
+  //MODAL MOVIMIENTOS
+  const [isModalOpenC, setIsModalOpenC] = useState(false);
+
   //Identificador de estado de los valores del formularios
   const [estadoValue, setEstadoValues] = useState();
 
@@ -114,15 +121,6 @@ export default function CajaChica(props) {
       setIsModalOpen(true);
       setDisableA(true);
     }
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-    setDisableA(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
   };
   //Formulario
   const form = useForm({
@@ -136,16 +134,6 @@ export default function CajaChica(props) {
       tipo_movimiento: "INGRESO",
     },
   });
-  const formI = useForm({
-    resolver: zodResolver(FormSchemaI),
-    defaultValues: {
-      descripcionI: "",
-      fechaI: fecha_apertura,
-      totalI: "",
-      tipo_movimientoI: "",
-      id_aperturaI: "1",
-    },
-  });
   //Función para bloqeuar el boton de apertura hasta que cierre para poder abrir otra vez
   //Para el estado del disable del boton Aperturar Caja
   const [disableA, setDisableA] = useState();
@@ -153,12 +141,15 @@ export default function CajaChica(props) {
   const [reload, setReload] = useState(false);
   //Para resivir los datos del get o del post
   const [general, setGeneral] = useState();
+  const [totalCaja, setTotalCaja] = useState(CajaActiva.monto_inicial);
   const [loading, setLoading] = useState();
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(null);
   const [sucess, setSucces] = useState();
-  const [titulo, setTitulo] = useState();
+  const [titulo, setTitulo] = useState("APERTURANDO CAJA");
+  const [tituloI, setTituloI] = useState("CAJA APERTURADA CORRECTAMENTE");
   const [modalSucessfull, setModalSucessfull] = useState(false);
+  const [modalSucessfullI, setModalSucessfullI] = useState(false);
   const headers = {
     "Content-Type": "application/json",
     Authorization: "Bearer " + String(authTokens.access),
@@ -173,8 +164,11 @@ export default function CajaChica(props) {
     recargar();
   }
   function CierreCaja() {
+    setTitulo("CERRANDO CAJA");
+    setTituloI("CAJA CERRADA CORRECTAMENTE");
     setLoading(true);
     CajaActiva.fecha_cierre = fecha_apertura;
+    CajaActiva.monto = 0;
     CajaActiva.estado = false;
     const url = `http://127.0.0.1:8000/caja/api/apertura/${CajaActiva.id}/`;
     putAxiosPrueba(
@@ -187,6 +181,8 @@ export default function CajaChica(props) {
       setOpen
     );
   }
+  //URL
+  const CAJAACTIVAAPI = `http://127.0.0.1:8000/caja/api/apertura-movimiento/?id_apertura=${CajaActiva.id}`;
   //Función que se activa dentro del modal
   async function ModalCaja() {
     setLoading(true);
@@ -207,6 +203,13 @@ export default function CajaChica(props) {
     setEstadoValues(values);
     showModal(estadoCaja);
     console.log(values);
+  }
+  function ValidacionCaja() {
+    if (estadoCaja) {
+      setIsModalOpenC(true);
+    } else {
+      setModalSucessfullI(true);
+    }
   }
   return (
     <Form {...form}>
@@ -232,9 +235,14 @@ export default function CajaChica(props) {
                   )}
                 </div>
                 <div className="caja-uno_uno-usuario-reprotes mr-2">
-                  <Button>
-                    Generar Reporte <FontAwesomeIcon icon={faFilePdf} />
-                  </Button>
+                  <PDFDownloadLink
+                    document={<PdfMovimientosDia data={movimientos} />}
+                    fileName="PagosMatricula.pdf"
+                  >
+                    <Button type="button">
+                      Generar Reporte <FontAwesomeIcon icon={faFilePdf} />
+                    </Button>
+                  </PDFDownloadLink>
                 </div>
               </div>
               <div>
@@ -280,53 +288,23 @@ export default function CajaChica(props) {
             </div>
             <div className="caja-uno_dos">
               <div className="caja-uno_dos-tabla">
-                <TablaMovimientos caja={caja} />
+                <TablaMovimientos caja={total} />
               </div>
               <div className="caja-uno_dos-botones">
                 <Button
                   className="caja-uno_dos-botones-uno bg-green-boton "
                   type="button"
-                  onClick={showModal}
+                  onClick={ValidacionCaja}
                 >
                   Nuevo Movimiento
                 </Button>
-                {/* <Modal
-                  className="caja-uno_dos-botones-modal"
-                  title="Nuevo Movimiento:"
-                  open={isModalOpen}
-                  onCancel={handleCancel}
-                >
-                  <form onSubmit={form.handleSubmit(onClick)}>
-                    <div className="hola">
-                      <Formulario
-                        form={formI}
-                        nameLabel="Descripcion:"
-                        parametros="descripcionI"
-                      />
-                      <Formulario
-                        form={formI}
-                        nameLabel="Tipo Moviento:"
-                        parametros="tipo_movimientoI"
-                      />
-                      <Formulario
-                        form={formI}
-                        nameLabel="Monto:"
-                        parametros="totalI"
-                        type="number"
-                      />
-                    </div>
-                    <Button type="primary" htmlType="submit">
-                      Guardar
-                    </Button>
-                  </form>
-                </Modal> */}
               </div>
             </div>
           </div>
           <div className="caja-dos">
             <div className="bg-white-cabecera p-1.5">
               <Listas
-                api={AperturaMovimientoAPI}
+                api={CAJAACTIVAAPI}
                 columnsValue={columnsAperturaMovimiento}
                 classNameTable="apertura-movimiento-table"
                 classNameFiltros="apertura-movimiento-filtros"
@@ -352,15 +330,28 @@ export default function CajaChica(props) {
           setIsModalOpen={setIsModalOpenB}
           func={CierreCaja}
         />
-        <ModalCarga modalLoading={loading} titulo="APERTURANDO CAJA" />
+        <ModalCarga modalLoading={loading} titulo={titulo} />
         <ModalSucess
-          titulo="CAJA APERTURADA CORRECTAMENTE"
+          titulo={tituloI}
           subtitulo=""
           modalSucessfull={modalSucessfull}
           setModalSucessfull={setModalSucessfull}
           reload={reload}
           setReload={setReload}
         />
+        <ModalCajaMovimiento
+          CajaActiva={CajaActiva}
+          isModalOpen={isModalOpenC}
+          setIsModalOpen={setIsModalOpenC}
+          total={total}
+          id={CajaActiva.id}
+        />
+        <ModalSucess
+          titulo="¡Error! ¡Caja Cerrada!"
+          subtitulo="Caja Cerrada"
+          modalSucessfull={modalSucessfullI}
+          setModalSucessfull={setModalSucessfullI}
+        ></ModalSucess>
       </form>
     </Form>
   );

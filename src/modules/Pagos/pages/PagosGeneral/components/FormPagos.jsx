@@ -9,6 +9,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import PdfPagoa from "./PdfPagos";
 import { postAxios, getAxios } from "@/functions/methods";
 import AuthContext from "@/contexts/AuthContext";
+import axios from "axios";
 //URL
 import {
   AREAURL,
@@ -95,19 +96,28 @@ const FormSchema = z.object({
   id_pendiente: z.string().min(0, {
     message: "campo obligatorio",
   }),
+  tipo_comprobante: z
+    .string()
+    .nonempty({ message: "Debe seleccionar al menos un tipo de comprobante" }),
 });
 export default function FormPagos(props) {
-  const { general, tipo_pago, pendientes } = props;
-  const { alumnos } = pendientes;
-  console.log(alumnos);
+  const { general, tipo_pago, pendientes, correlativo } = props;
+  const { lastNumber, personaId, suggestedNumber } = correlativo;
+  console.log(lastNumber);
+  const { alumnos, crnograma_pago } = pendientes;
+  const { descripcion, mes_cancelado } = crnograma_pago;
   const fechaDefault = moment();
   const fecha = fechaDefault.format("YYYY-MM-DD");
   const año = fechaDefault.format("YYYY");
   const param = useParams();
   const { pagos, id } = param;
-  const { descripcion } = tipo_pago[pagos];
+  //const { descripcion } = tipo_pago[pagos];
   const { monto_previo, desc_aplicado } = pendientes;
-  const total_pagar = (monto_previo - desc_aplicado).toString();
+  let desc = desc_aplicado;
+  if (pagos == 2 || pagos == 4 || pagos == 3) {
+    desc = 0;
+  }
+  const total_pagar = (monto_previo - desc).toString();
   const um = "UNIDAD";
   const cantidad = 1;
   const op_exonerada = "0";
@@ -146,6 +156,7 @@ export default function FormPagos(props) {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
+      tipo_comprobante: "BOLETA",
       año_lectivo: año || "",
       mes_cancelado: "",
       area_desaprobada: "",
@@ -155,7 +166,7 @@ export default function FormPagos(props) {
       descripcion: descripcion || "",
       monto: "",
       monto_previo: monto_previo || "",
-      descuento_aplicado: desc_aplicado || "",
+      descuento_aplicado: desc.toString() || "",
       total_pagar: total_pagar || "",
       tipo_pago: tipoPago,
       um: um || "",
@@ -223,6 +234,279 @@ export default function FormPagos(props) {
       setSelectedValue(false);
     }
   };
+  const SUNAT = {
+    personaId: "665248a370419f0015e8a074",
+    personaToken:
+      "DEV_f1qz2uXCRNohX1UBx1TpTbvUEIce7Owu3f1efWwVwyGKkrZcQrckN8ARE2LRHhpx",
+    fileName: `20450406156-03-B001-${suggestedNumber}`,
+    documentBody: {
+      "cbc:UBLVersionID": {
+        _text: "2.1",
+      },
+      "cbc:CustomizationID": {
+        _text: "2.0",
+      },
+      "cbc:ID": {
+        _text: `B001-${lastNumber}`,
+      },
+      "cbc:IssueDate": {
+        _text: "2024-05-25",
+      },
+      "cbc:IssueTime": {
+        _text: "17:12:10",
+      },
+      "cbc:InvoiceTypeCode": {
+        _attributes: {
+          listID: "0101",
+        },
+        _text: "03",
+      },
+      "cbc:Note": [
+        {
+          _text: "CINCUENTA CON 00/100 SOLES",
+          _attributes: {
+            languageLocaleID: "1000",
+          },
+        },
+        {
+          _text: "PAGO POR CURSO DESAPROBADO",
+        },
+      ],
+      "cbc:DocumentCurrencyCode": {
+        _text: "PEN",
+      },
+      "cac:AccountingSupplierParty": {
+        "cac:Party": {
+          "cac:PartyIdentification": {
+            "cbc:ID": {
+              _attributes: {
+                schemeID: "6",
+              },
+              _text: "20450406156",
+            },
+          },
+          "cac:PartyName": {
+            "cbc:Name": {
+              _text: "Colegio Ciencias",
+            },
+          },
+          "cac:PartyLegalEntity": {
+            "cbc:RegistrationName": {
+              _text: "INSTITUCION EDUCATIVA  PARTICULAR CIENCIAS E.I.R.L.",
+            },
+            "cac:RegistrationAddress": {
+              "cbc:AddressTypeCode": {
+                _text: "0000",
+              },
+              "cac:AddressLine": {
+                "cbc:Line": {
+                  _text:
+                    "JR. PERU 908 CON JR. ESPAÑA NRO. 908 TARAPOTO SAN MARTIN SAN MARTIN",
+                },
+              },
+            },
+          },
+        },
+      },
+      "cac:AccountingCustomerParty": {
+        "cac:Party": {
+          "cac:PartyIdentification": {
+            "cbc:ID": {
+              _attributes: {
+                schemeID: "1",
+              },
+              _text: "74526016",
+            },
+          },
+          "cac:PartyLegalEntity": {
+            "cbc:RegistrationName": {
+              _text: "JHOSEP MARCELO GÓMEZ SÁNCHEZ",
+            },
+            "cac:RegistrationAddress": {
+              "cac:AddressLine": {
+                "cbc:Line": {
+                  _text:
+                    "PSJ. SANTA ISABEL 253 URB FONAVI TARAPOTO SAN MARTIN SAN MARTIN",
+                },
+              },
+            },
+          },
+        },
+      },
+      "cac:TaxTotal": {
+        "cbc:TaxAmount": {
+          _attributes: {
+            currencyID: "PEN",
+          },
+          _text: 0,
+        },
+        "cac:TaxSubtotal": [
+          {
+            "cbc:TaxableAmount": {
+              _attributes: {
+                currencyID: "PEN",
+              },
+              _text: 50,
+            },
+            "cbc:TaxAmount": {
+              _attributes: {
+                currencyID: "PEN",
+              },
+              _text: 0,
+            },
+            "cac:TaxCategory": {
+              "cac:TaxScheme": {
+                "cbc:ID": {
+                  _text: "9997",
+                },
+                "cbc:Name": {
+                  _text: "EXO",
+                },
+                "cbc:TaxTypeCode": {
+                  _text: "VAT",
+                },
+              },
+            },
+          },
+        ],
+      },
+      "cac:LegalMonetaryTotal": {
+        "cbc:LineExtensionAmount": {
+          _attributes: {
+            currencyID: "PEN",
+          },
+          _text: 50,
+        },
+        "cbc:TaxInclusiveAmount": {
+          _attributes: {
+            currencyID: "PEN",
+          },
+          _text: 50,
+        },
+        "cbc:PayableAmount": {
+          _attributes: {
+            currencyID: "PEN",
+          },
+          _text: 50,
+        },
+      },
+      "cac:InvoiceLine": [
+        {
+          "cbc:ID": {
+            _text: 1,
+          },
+          "cbc:InvoicedQuantity": {
+            _attributes: {
+              unitCode: "NIU",
+            },
+            _text: 1,
+          },
+          "cbc:LineExtensionAmount": {
+            _attributes: {
+              currencyID: "PEN",
+            },
+            _text: 50,
+          },
+          "cac:PricingReference": {
+            "cac:AlternativeConditionPrice": {
+              "cbc:PriceAmount": {
+                _attributes: {
+                  currencyID: "PEN",
+                },
+                _text: 50,
+              },
+              "cbc:PriceTypeCode": {
+                _text: "01",
+              },
+            },
+          },
+          "cac:TaxTotal": {
+            "cbc:TaxAmount": {
+              _attributes: {
+                currencyID: "PEN",
+              },
+              _text: 0,
+            },
+            "cac:TaxSubtotal": [
+              {
+                "cbc:TaxableAmount": {
+                  _attributes: {
+                    currencyID: "PEN",
+                  },
+                  _text: 50,
+                },
+                "cbc:TaxAmount": {
+                  _attributes: {
+                    currencyID: "PEN",
+                  },
+                  _text: 0,
+                },
+                "cac:TaxCategory": {
+                  "cbc:Percent": {
+                    _text: 0,
+                  },
+                  "cbc:TaxExemptionReasonCode": {
+                    _text: "20",
+                  },
+                  "cac:TaxScheme": {
+                    "cbc:ID": {
+                      _text: "9997",
+                    },
+                    "cbc:Name": {
+                      _text: "EXO",
+                    },
+                    "cbc:TaxTypeCode": {
+                      _text: "VAT",
+                    },
+                  },
+                },
+              },
+            ],
+          },
+          "cac:Item": {
+            "cbc:Description": {
+              _text: "PAGO DE CURSO DESAPROBADO",
+            },
+            "cac:SellersItemIdentification": {
+              "cbc:ID": {
+                _text: "P4",
+              },
+            },
+          },
+          "cac:Price": {
+            "cbc:PriceAmount": {
+              _attributes: {
+                currencyID: "PEN",
+              },
+              _text: 50,
+            },
+          },
+        },
+      ],
+    },
+  };
+  //Logica para API SUNAR
+  const ApiSunat = async () => {
+    try {
+      const response = await axios.post(
+        "https://back.apisunat.com/personas/v1/sendBill",
+        SUNAT
+      );
+      console.log("operacion exitosa:", response.data);
+      const documentId = response.data.documentId;
+      console.log(documentId);
+      const responses = await axios.get(
+        `https://back.apisunat.com/documents/${documentId}/getById`,
+        SUNAT
+      );
+      console.log("operacion exitosa:", responses.data);
+      const file = responses.data.fileName;
+      console.log(file);
+      window.location.href = `https://back.apisunat.com/documents/${documentId}/getPDF/A4/${file}.pdf`;
+    } catch (error) {
+      console.error("Error al hacer la solicitud:", error);
+    }
+  };
 
   return (
     <Form {...form}>
@@ -251,7 +535,7 @@ export default function FormPagos(props) {
               {mostrarBotones && (
                 <>
                   <Button type="button">HISTORIAL DE PAGOS</Button>
-                  <Link to={`http://localhost:5173/pagos/43/${2}`}>
+                  <Link to={`http://localhost:5173/pagos/${id}/2`}>
                     <Button
                       onClick={() => {
                         setReload(true);
@@ -262,7 +546,7 @@ export default function FormPagos(props) {
                       MENSUALIDAD
                     </Button>
                   </Link>
-                  <Link to={`http://localhost:5173/pagos/43/${1}`}>
+                  <Link to={`http://localhost:5173/pagos/${id}/1`}>
                     <Button
                       type="button"
                       onClick={() => {
@@ -273,7 +557,7 @@ export default function FormPagos(props) {
                       MATRICULA
                     </Button>
                   </Link>
-                  <Link to={`http://localhost:5173/pagos/43/${3}`}>
+                  <Link to={`http://localhost:5173/pagos/${id}/3`}>
                     <Button
                       type="button"
                       onClick={() => {
@@ -293,14 +577,14 @@ export default function FormPagos(props) {
               <div className="pagos-dato_uno-uno">
                 <FormField
                   control={form.control}
-                  name="condicion_venta"
+                  name="tipo_comprobante"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Tipo de Comprobante::</FormLabel>
                       <Select
-                        defaultValue="hola"
+                        defaultValue="BOLETA"
                         onValueChange={(value) => {
-                          field.onChange(), handleSelectChange(value);
+                          field.onChange(value), handleSelectChange(value);
                         }}
                       >
                         <FormControl>
@@ -323,14 +607,14 @@ export default function FormPagos(props) {
                 <Formulario
                   form={form}
                   nameLabel="Pagante:"
-                  parametros="año_lectivo"
+                  parametros="pagante"
                 />
                 <SelectForm
                   form={form}
-                  disabled={false}
+                  disabled={true}
                   url={MESESURL}
-                  dato=""
-                  nameLabel="Condicion de venta:"
+                  dato={mes_cancelado}
+                  nameLabel="Mes Cancelado:"
                   parametros="mes_cancelado"
                 />
 
@@ -339,6 +623,7 @@ export default function FormPagos(props) {
                   nameLabel="Descuento Aplicado:"
                   parametros="descuento_aplicado"
                   type="number"
+                  disabled={true}
                 />
               </div>
               <div className="pagos-dato_uno-dos">
@@ -346,6 +631,7 @@ export default function FormPagos(props) {
                   className="flex-container"
                   nameLabel="Fecha de Pago:"
                   form={form}
+                  disabled={true}
                   name="fecha_pago"
                 />
                 {selectedValue && (
@@ -354,6 +640,7 @@ export default function FormPagos(props) {
                     nameLabel="Fecha de Vencimiento:"
                     form={form}
                     name="fecha_pago"
+                    disabled={true}
                   />
                 )}
                 <SelectForm
@@ -365,7 +652,7 @@ export default function FormPagos(props) {
                 />
                 <SelectForm
                   form={form}
-                  disabled={false}
+                  disabled={buttonCD}
                   url={AREAURL}
                   dato=""
                   nameLabel="Area  Desaprobada:"
@@ -375,6 +662,7 @@ export default function FormPagos(props) {
                   form={form}
                   nameLabel="Monto:"
                   parametros="monto"
+                  disabled={false}
                   type="number"
                 />
               </div>
@@ -382,19 +670,22 @@ export default function FormPagos(props) {
                 <Formulario
                   form={form}
                   nameLabel="Numero de Comprobante:"
-                  parametros="año_lectivo"
+                  disabled={true}
+                  parametros=""
                 />
                 <CondicionVentaSelect form={form} dato="ALCONTADO" />
                 <FormularioPagos
                   form={form}
                   nameLabel="Monto Previo:"
                   parametros="monto_previo"
+                  disabled={true}
                   type="number"
                 />
                 <FormularioPagos
                   form={form}
                   nameLabel="Total a Pagar:"
                   parametros="total_pagar"
+                  disabled={true}
                   type="number"
                 />
               </div>
@@ -404,6 +695,7 @@ export default function FormPagos(props) {
                 form={form}
                 nameLabel="Descripción:"
                 parametros="descripcion"
+                disabled={true}
               />
             </div>
             <div className="pagos-dato_tres">
@@ -412,7 +704,11 @@ export default function FormPagos(props) {
                 document={<PdfPagoa />}
                 fileName="PagosMatricula.pdf"
               >
-                <Button className="registrar-pago" type="button">
+                <Button
+                  className="registrar-pago"
+                  type="button"
+                  onClick={ApiSunat}
+                >
                   REGISTRAR PAGO
                 </Button>
               </PDFDownloadLink>
