@@ -706,7 +706,7 @@ export default function FormPagos(props) {
               >
                 <Button
                   className="registrar-pago"
-                  type="button"
+                  // type="button"
                   onClick={ApiSunat}
                 >
                   REGISTRAR PAGO
