@@ -4,6 +4,7 @@ export const data = [
     name: "parentesco_1",
     type: "text",
     placeholder: "",
+    disabled: true,
   },
   {
     label: "DNI:",

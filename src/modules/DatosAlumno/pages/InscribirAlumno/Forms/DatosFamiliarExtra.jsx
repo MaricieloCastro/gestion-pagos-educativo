@@ -16,7 +16,7 @@ const DatosFamiliarExtra = (props) => {
         <p className="text-white font-medium ease-linear underline ml-2 text-left">
           DATOS DEL FAMILIAR:
         </p>
-        <div className="grid grid-flow-col-dense gap-3 px-2 pb-3">
+        <div className="grid grid-cols-4 gap-3 px-2 pb-3">
           {datosPrincipalesData.map((data) => (
             <div key={data.name}>
               <FormController

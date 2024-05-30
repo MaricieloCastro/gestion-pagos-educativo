@@ -4,6 +4,7 @@ export const data = [
     name: "parentesco_3",
     type: "text",
     placeholder: "",
+    disabled: true,
   },
   {
     label: "DNI:",
@@ -39,36 +40,12 @@ export const data = [
       { value: "F ", label: "FEMENINO" },
     ],
   },
-  // {
-  //   label: "Departamento:",
-  //   name: "departamento_nacimiento",
-  //   type: "select",
-  //   placeholder: "Seleccione el departamento",
-  // },
-  // {
-  //   label: "Provincia:",
-  //   name: "provincia_nacimiento",
-  //   type: "select",
-  //   placeholder: "Seleccione la povincia",
-  // },
-  // {
-  //   label: "Distrito:",
-  //   name: "distrito_nacimiento",
-  //   type: "select",
-  //   placeholder: "Seleccione el distrito",
-  // },
   {
     label: "Fecha de nacimiento:",
     name: "fecha_nacimiento_3",
     type: "date",
     placeholder: "Seleccione la fecha",
   },
-  // {
-  //   label: "Edad:",
-  //   name: "edad",
-  //   type: "number",
-  //   placeholder: "Seleccione la edad",
-  // },
   {
     label: "Estado civil:",
     name: "estado_civil_3",
@@ -127,24 +104,6 @@ export const data = [
     type: "number",
     placeholder: "Ingrese el telefono",
   },
-  // {
-  //   label: "Departamento:",
-  //   name: "departamento_domicilio",
-  //   type: "select",
-  //   placeholder: "Seleccione el departamento",
-  // },
-  // {
-  //   label: "Provincia:",
-  //   name: "provincia_domicilio",
-  //   type: "select",
-  //   placeholder: "Seleccione la povincia",
-  // },
-  // {
-  //   label: "Distrito:",
-  //   name: "distrito_domicilio",
-  //   type: "select",
-  //   placeholder: "Seleccione el distrito",
-  // },
   {
     label: "Direccion:",
     name: "direccion_3",

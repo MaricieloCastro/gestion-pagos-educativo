@@ -57,7 +57,7 @@ const VALUES_DATOS_PADRE = {
 
 const InscribirAlumno = () => {
   const { token } = theme.useToken();
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(3);
   const [estudianteData, setEstudianteData] = useState(null);
   const [padreData, setPadreData] = useState(null);
   const [madreData, setMadreData] = useState(null);
@@ -103,77 +103,77 @@ const InscribirAlumno = () => {
       title: "Datos del familiar extra",
       content: <DatosFamiliarExtra control={form.control} />,
     },
-    // {
-    //   title: "Finalizar",
-    //   content: "¿Está seguro de enviar el formulario?",
-    // },
     {
       title: "Finalizar",
-      content: (
-        <ResumenDatos
-          estudianteData={estudianteData}
-          padreData={padreData}
-          madreData={madreData}
-          familiarExtraData={familiarExtraData}
-        />
-      ),
+      content: "¿Está seguro de enviar el formulario?",
     },
+    // {
+    //   title: "Finalizar",
+    //   content: (
+    //     <ResumenDatos
+    //       estudianteData={estudianteData}
+    //       padreData={padreData}
+    //       madreData={madreData}
+    //       familiarExtraData={familiarExtraData}
+    //     />
+    //   ),
+    // },
   ];
 
   console.log("current", steps.length);
 
   const onSubmit = (values) => {
-    // if (current === 0) {
-    //   console.log(values);
-    //   setEstudianteData(values);
-    //   setCurrent(current + 1);
-    // }
-
-    // if (current === 1) {
-    //   console.log(values);
-    //   // const newValues = sufixConvert(VALUES_DATOS_PADRE, values);
-    //   // setPadreData(newValues);
-    //   setPadreData(values);
-    //   setCurrent(current + 1);
-    // }
-
-    // if (current === 2) {
-    //   console.log(values);
-    //   setMadreData(values);
-    //   setCurrent(current + 1);
-    // }
-
-    // if (current === 3) {
-    //   console.log(values);
-    //   setFamiliarExtraData(values);
-    //   setCurrent(current + 1);
-    // }
-
-    // if (current === steps.length - 1) {
-    //   console.log("datos del estudiante:", estudianteData),
-    //     console.log("datos del padre:", padreData);
-    //   console.log("datos de la madre:", madreData);
-    //   console.log("datos del padre:", familiarExtraData);
-    // }
     if (current === 0) {
+      console.log(values);
       setEstudianteData(values);
       setCurrent(current + 1);
-    } else if (current === 1) {
-      const newValues = sufixConvert(VALUES_DATOS_PADRE, values);
-      setPadreData(newValues);
+    }
+
+    if (current === 1) {
+      console.log(values);
+      // const newValues = sufixConvert(VALUES_DATOS_PADRE, values);
+      // setPadreData(newValues);
+      setPadreData(values);
       setCurrent(current + 1);
-    } else if (current === 2) {
+    }
+
+    if (current === 2) {
+      console.log(values);
       setMadreData(values);
       setCurrent(current + 1);
-    } else if (current === 3) {
+    }
+
+    if (current === 3) {
+      console.log(values);
       setFamiliarExtraData(values);
       setCurrent(current + 1);
-    } else if (current === steps.length - 1) {
-      console.log("Datos del estudiante:", estudianteData);
-      console.log("Datos del padre:", padreData);
-      console.log("Datos de la madre:", madreData);
-      console.log("Datos del familiar extra:", familiarExtraData);
     }
+
+    if (current === steps.length - 1) {
+      console.log("datos del estudiante:", estudianteData),
+        console.log("datos del padre:", padreData);
+      console.log("datos de la madre:", madreData);
+      console.log("datos del padre:", familiarExtraData);
+    }
+    // if (current === 0) {
+    //   setEstudianteData(values);
+    //   setCurrent(current + 1);
+    // } else if (current === 1) {
+    //   // const newValues = sufixConvert(VALUES_DATOS_PADRE, values);
+    //   setPadreData(values);
+    //   setCurrent(current + 1);
+    // } else if (current === 2) {
+    //   setMadreData(values);
+    //   setCurrent(current + 1);
+    // } else if (current === 3) {
+    //   setFamiliarExtraData(values);
+    //   setCurrent(current + 1);
+    // } else if (current === steps.length - 1) {
+    //   console.log("Datos del estudiante:", estudianteData);
+    //   console.log("Datos del padre:", padreData);
+    //   console.log("Datos de la madre:", madreData);
+    //   console.log("Datos del familiar extra:", familiarExtraData);
+    // }
   };
 
   console.log(estudianteData);
