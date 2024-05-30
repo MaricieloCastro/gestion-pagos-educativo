@@ -47,6 +47,7 @@ export const putAxios = async (
     setReload(!reload);
     setOpen(false);
   } catch (error) {
+    console.error("Error al hacer la solicitud:", error);
     setError(error.response.status);
     setOpen(false);
   }
@@ -84,7 +85,7 @@ export const putAxiosPrueba = async (
   data,
   headers,
   setLoading,
-  setSucess,
+  setModalSucessfull,
   setError
 ) => {
   setLoading(true);
@@ -92,7 +93,7 @@ export const putAxiosPrueba = async (
     const response = await axios.put(url, data, { headers });
     console.log("operacion exitosa:", response);
     setLoading(false);
-    setSucess(true);
+    setModalSucessfull(true);
   } catch (error) {
     setLoading(false);
     setError(true);
@@ -124,18 +125,19 @@ export const postAxiosPrueba = async (
   data,
   headers,
   setLoading,
-  setSucess,
+  setModalSucessfull,
   setError,
   allowToast,
   funcGeneral
 ) => {
   setLoading(true);
   try {
-    const response = await axios.put(url, data, { headers });
+    const response = await axios.post(url, data, { headers });
     console.log("operacion exitosa:", response);
     setLoading(false);
-    setSucess(true);
+    setModalSucessfull(true);
   } catch (error) {
+    console.error("Error al hacer la solicitud:", error);
     setLoading(false);
     setError(true);
   }

@@ -134,9 +134,23 @@ export const AuthProvider = ({ children }) => {
 
     return () => clearInterval(interval);
   }, [authTokens, loading]);
-
+  const [estadoCaja, setEstadoCaja] = useState(false);
+  function EstadoCajaSet() {
+    setEstadoCaja(true);
+  }
+  function EstadoCajaSetZ() {
+    setEstadoCaja(false);
+  }
   const contextValue = useMemo(() => {
-    return { user, loginUser, logoutUser, authTokens };
+    return {
+      user,
+      loginUser,
+      logoutUser,
+      authTokens,
+      estadoCaja,
+      EstadoCajaSet,
+      EstadoCajaSetZ,
+    };
   }, [loginUser]);
 
   return (

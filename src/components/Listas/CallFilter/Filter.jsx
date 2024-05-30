@@ -1,25 +1,27 @@
-import DateTimeFiltros from '../Filtros/DateTimeFiltros';
-import SelectFiltros from '../Filtros/SelectFiltros';
+import DateTimeFiltros from "../Filtros/DateTimeFiltros";
+import SelectFiltros from "../Filtros/SelectFiltros";
 
-const Filter = ({ column, title, options }) => {
+const Filter = ({ column, title, options, setTimePicker }) => {
   const columnFilterValue = column.getFilterValue();
   const { filterVariant } = column.columnDef.meta ?? {};
 
   const handleChangeSelect = (value) => {
     column.setFilterValue(value);
+    console.log(value);
   };
 
   const handleChangeDateTime = (_, dateStr) => {
     column.setFilterValue(dateStr);
+    setTimePicker(dateStr);
   };
 
-  return filterVariant === 'range' ? (
+  return filterVariant === "range" ? (
     <div>
       <div className="flex space-x-2">
         {/* See faceted column filters example for min max values functionality */}
         <DebouncedInput
           type="number"
-          value={columnFilterValue?.[0] ?? ''}
+          value={columnFilterValue?.[0] ?? ""}
           onChange={(value) =>
             column.setFilterValue((old) => [value, old?.[1]])
           }
@@ -28,7 +30,7 @@ const Filter = ({ column, title, options }) => {
         />
         <DebouncedInput
           type="number"
-          value={columnFilterValue?.[1] ?? ''}
+          value={columnFilterValue?.[1] ?? ""}
           onChange={(value) =>
             column.setFilterValue((old) => [old?.[0], value])
           }
@@ -38,7 +40,7 @@ const Filter = ({ column, title, options }) => {
       </div>
       <div className="h-1" />
     </div>
-  ) : filterVariant == 'dateTime' ? (
+  ) : filterVariant == "dateTime" ? (
     <DateTimeFiltros
       handleChange={handleChangeDateTime}
       columnFilterValue={columnFilterValue?.toString()}
