@@ -3,7 +3,8 @@ export const data = [
     label: "PARENTESCO:",
     name: "parentesco_1",
     type: "text",
-    placeholder: "",
+    placeholder: "",  
+    disabled:true
   },
   {
     label: "DNI:",

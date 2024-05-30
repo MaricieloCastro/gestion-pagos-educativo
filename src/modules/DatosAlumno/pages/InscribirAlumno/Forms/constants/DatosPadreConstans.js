@@ -64,7 +64,7 @@ export const FORM_SCHEMA_DATOS_PADRE = {
 };
 
 export const DEFAULT_VALUES_DATOS_PADRE = {
-  parentesco_1: "",
+  parentesco_1: "PADRE",
   dni_1: "",
   nombres_1: "",
   apellido_paterno_1: "",
