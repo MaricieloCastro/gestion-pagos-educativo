@@ -26,7 +26,7 @@ export default function formulario(props) {
           <FormLabel>{nameLabel}</FormLabel>
           <FormControl>
             <Input
-              //placeholder={dato}
+              placeholder={dato}
               {...field}
               type={type}
               //onChange={handleInputChange}

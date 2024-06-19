@@ -13,13 +13,13 @@ import { TIPOPAGOURL } from "@/modules/Seguridad/pages/CrearUsuario/compenetes/r
 import PdfPagoa from "./components/PdfPagos";
 
 export default function PagosGeneral() {
-  let { authTokens } = useContext(AuthContext);
   const param = useParams();
   const [general, setGeneral] = useState([]);
   const [loading, setLoading] = useState([]);
   const [tipo_pago, setTipoPago] = useState([]);
   const [pendiente, setPendiente] = useState([]);
   const [correlativo, setCorrelativo] = useState([]);
+  let { authTokens, user } = useContext(AuthContext);
   const { id, pagos } = param;
   const URLALUMNOS = `http://127.0.0.1:8000/datos_alumno/api/estudiantes_activos/${id}/`;
   const URLPEDNIENTE = `http://127.0.0.1:8000/pagos/api/pediente/?id_alumno=${id}&id_tipo_pago=${pagos}`;
