@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import ButtonWithIcon from "@/components/ButtonWithIcon";
 import { patchModal } from "@/functions/methods";
 import { estudiantesAPI } from "@/api/ApiRutas";
@@ -13,11 +13,10 @@ import ModalSucess from "@/components/Modal/ModalSucess";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const BotonesMenuPrincipal = (props) => {
-  let { authTokens, user } = useContext(AuthContext);
+  let { authTokens, user, estadoCaja } = useContext(AuthContext);
   let { reload, setReload } = useContext(ListasContext);
-
   const { id, estado_deuda } = props;
-
+  const navigate = useNavigate();
   // MODAL SIMPLE
   const [isModalOpenEliminar, setIsModalOpenEliminar] = useState(false);
   const [isModalOpenEnviarSolicitud, setIsModalOpenEnviarSolicitud] =
@@ -85,11 +84,32 @@ const BotonesMenuPrincipal = (props) => {
       setModalFailed
     );
   };
-
-  const matricula = `http://localhost:5173/pagos/${id}/1`;
-  const mensualidad = `http://localhost:5173/pagos/${id}/2`;
-  const cursoDesaprobado = `http://localhost:5173/pagos/${id}/3`;
-
+  //Para direccionar caja
+  const [isModalOpen, setIsModalOpen] = useState();
+  function NavigateMatricula() {
+    if (estadoCaja == true) {
+      navigate(`/pagos/${id}/2`);
+    } else {
+      setIsModalOpen(true);
+    }
+  }
+  function NavigateMensualidad() {
+    if (estadoCaja == true) {
+      navigate(`/pagos/${id}/1`);
+    } else {
+      setIsModalOpen(true);
+    }
+  }
+  function NavigateCursoDesaprobado() {
+    if (estadoCaja == true) {
+      navigate(`/pagos/${id}/3`);
+    } else {
+      setIsModalOpen(true);
+    }
+  }
+  function ModalCaja() {
+    navigate("/caja");
+  }
   return (
     <div className="flex gap-2 justify-center items-center ">
       <ButtonWithIcon
@@ -110,24 +130,22 @@ const BotonesMenuPrincipal = (props) => {
         // onClick={handleConfirmacion}
         disabled={false}
       />
-      <Link to={matricula}>
-        <ButtonWithIcon
-          text="MA"
-          classNameIcon="w-4"
-          classNameVariants="rounded-sm
+      <ButtonWithIcon
+        text="MA"
+        classNameIcon="w-4"
+        classNameVariants="rounded-sm
                 bg-[#344A5F] hover:bg-blue-boton-hover
                 w-10"
-          // onClick={handleConfirmacion}
-          disabled={false}
-        />
-      </Link>
+        onClick={NavigateMatricula}
+        disabled={false}
+      />
       <ButtonWithIcon
         text="ME"
         classNameIcon="w-4"
         classNameVariants="rounded-sm
                 bg-[#344A5F] hover:bg-blue-boton-hover
                 w-10"
-        // onClick={handleConfirmacion}
+        onClick={NavigateMensualidad}
         disabled={false}
       />
       <ButtonWithIcon
@@ -136,7 +154,7 @@ const BotonesMenuPrincipal = (props) => {
         classNameVariants="rounded-sm
                 bg-[#344A5F]  hover:bg-blue-boton-hover
                 w-10"
-        // onClick={handleConfirmacion}
+        onClick={NavigateCursoDesaprobado}
         disabled={false}
       />
 
@@ -202,6 +220,13 @@ const BotonesMenuPrincipal = (props) => {
         subtitulo=""
         modalFailed={isModalOpenDeuda}
         setModalFailed={setIsModalOpenDeuda}
+      />
+      <ModalConfirmacion
+        titulo="¡Error! ¡Caja Cerrada"
+        subtitulo="¿Aperturar de Caja?"
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        func={ModalCaja}
       />
     </div>
   );

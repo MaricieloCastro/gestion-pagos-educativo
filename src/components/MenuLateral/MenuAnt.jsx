@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
 
-import { getLevelKeys } from './MenuLateralFunctions';
+import { getLevelKeys } from "./MenuLateralFunctions";
 
-import { ConfigProvider, Menu } from 'antd';
-import { useNavigate } from 'react-router-dom';
-import AuthContext from '@/contexts/AuthContext';
-import { menuLateralConstants } from './menuLateralConstants';
-import { enlaces } from '@/utils/rutas';
-import { getAxios } from '@/functions/methods';
-import { alumnosSolicitudDeleteApi } from '@/api/ApiRutas';
+import { ConfigProvider, Menu } from "antd";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "@/contexts/AuthContext";
+import { menuLateralConstants } from "./menuLateralConstants";
+import { enlaces } from "@/utils/rutas";
+import { getAxios } from "@/functions/methods";
+import { alumnosSolicitudDeleteApi } from "@/api/ApiRutas";
 
 const MenuAnt = (props) => {
   const { collapsed } = props;
@@ -17,11 +17,11 @@ const MenuAnt = (props) => {
   let { user, logoutUser, authTokens } = useContext(AuthContext);
   let { id_tipo_usuario } = user;
 
-  const [stateOpenKeys, setStateOpenKeys] = useState(['2', '23']);
+  const [stateOpenKeys, setStateOpenKeys] = useState(["2", "23"]);
   const [selectedKeys, setSelectedKeys] = useState([]);
-  const [solicitudDelete, setSolicitudDelete] = useState({})
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [solicitudDelete, setSolicitudDelete] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const headers = {
     "Content-Type": "application/json",
@@ -29,12 +29,20 @@ const MenuAnt = (props) => {
   };
 
   useEffect(() => {
-    getAxios(alumnosSolicitudDeleteApi, headers, setSolicitudDelete, setLoading, setError)
-  }, [])
+    getAxios(
+      alumnosSolicitudDeleteApi,
+      headers,
+      setSolicitudDelete,
+      setLoading,
+      setError
+    );
+  }, []);
 
   const num_solicitud = solicitudDelete.length;
 
-  const levelKeys = getLevelKeys(menuLateralConstants(id_tipo_usuario, num_solicitud));
+  const levelKeys = getLevelKeys(
+    menuLateralConstants(id_tipo_usuario, num_solicitud)
+  );
 
   const onSelect = ({ key }) => {
     setSelectedKeys([key]);
@@ -83,7 +91,6 @@ const MenuAnt = (props) => {
     if (key === "8") {
       logoutUser();
     }
-
   };
 
   const onOpenChange = (openKeys) => {
@@ -117,7 +124,7 @@ const MenuAnt = (props) => {
         },
         components: {
           Menu: {
-            itemBorderRadius: 'none',
+            itemBorderRadius: "none",
             activeBarBorderWidth: 0,
             colorTextDisabled: "#001F36",
             itemActiveBg: "#008AF0",
@@ -133,7 +140,7 @@ const MenuAnt = (props) => {
       <Menu
         className="menu-lateral__component-ant"
         mode="inline"
-        defaultSelectedKeys={['231']}
+        defaultSelectedKeys={["231"]}
         openKeys={stateOpenKeys}
         selectedKeys={selectedKeys}
         onSelect={onSelect}

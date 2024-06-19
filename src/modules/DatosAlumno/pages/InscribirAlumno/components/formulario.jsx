@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "./input";
 export default function formulario(props) {
-  const { nameLabel, form, parametros, type, disabled, dato } = props;
+  const { nameLabel, form, parametros, type, disabled, dato, readOnly } = props;
   function handleInputChange(event) {
     setInputValue(event.target.value.toUpperCase());
   }
@@ -20,7 +20,6 @@ export default function formulario(props) {
   //const [inputValue, setInputValue] = useState("");
   return (
     <div>
-      {" "}
       <FormField
         control={form.control}
         name={parametros}
@@ -35,6 +34,7 @@ export default function formulario(props) {
                 type={type}
                 //onChange={handleInputChange}
                 disabled={disabled}
+                readOnly={readOnly}
                 //value={inputValue}
               />
             </FormControl>

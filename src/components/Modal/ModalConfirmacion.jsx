@@ -4,9 +4,9 @@ import "./Modal.scss";
 
 const ModalConfirmacion = (props) => {
   const { isModalOpen, setIsModalOpen, titulo, subtitulo, func } = props;
-
   const handleOk = () => {
     setIsModalOpen(false);
+
     func();
   };
   const handleCancel = () => {

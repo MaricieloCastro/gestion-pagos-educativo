@@ -1,38 +1,37 @@
 export const data = [
   {
     label: "PARENTESCO:",
-    name: "parentesco_1",
+    name: "parentesco_3",
     type: "text",
-    placeholder: "", 
-    
+    placeholder: "",  
   },
   {
     label: "DNI:",
-    name: "dni_1",
+    name: "dni_3",
     type: "number",
     placeholder: "Ingrese el DNI",
   },
   {
     label: "NOMBRES:",
-    name: "nombres_1",
+    name: "nombres_3",
     type: "text",
     placeholder: "Ingrese el nombre",
   },
   {
     label: "AP. PATERNO:",
-    name: "apellido_paterno_1",
+    name: "apellido_paterno_3",
     type: "text",
     placeholder: "Ingrese el apellido paterno",
   },
   {
     label: "AP. MATERNO:",
-    name: "apellido_materno_1",
+    name: "apellido_materno_3",
     type: "text",
     placeholder: "Ingrese el apellido materno",
   },
   {
     label: "SEXO:",
-    name: "sexo_1",
+    name: "sexo_3",
     type: "select",
     placeholder: "Seleccione el sexo",
     options: [
@@ -42,13 +41,13 @@ export const data = [
   },
   {
     label: "F. NACIMIENTO:",
-    name: "fecha_nacimiento_1",
+    name: "fecha_nacimiento_3",
     type: "dateWithYears",
     placeholder: "Seleccione la fecha",
   },
   {
     label: "ESTADO CIVIL:",
-    name: "estado_civil_1",
+    name: "estado_civil_3",
     type: "select",
     placeholder: "Seleccione el estado civil",
     options: [
@@ -58,7 +57,7 @@ export const data = [
   },
   {
     label: "VIVE:",
-    name: "vive_1",
+    name: "vive_3",
     type: "select",
     placeholder: "Seleccione la opcion",
     options: [
@@ -68,7 +67,7 @@ export const data = [
   },
   {
     label: "VIVE CON:",
-    name: "vive_con_1",
+    name: "vive_con_3",
     type: "select",
     placeholder: "Seleccionar la opcion",
     options: [
@@ -78,7 +77,7 @@ export const data = [
   },
   {
     label: "APODERADO:",
-    name: "apoderado_1",
+    name: "apoderado_3",
     type: "select",
     placeholder: "Seleccione el apoderado",
     options: [
@@ -88,48 +87,48 @@ export const data = [
   },
   {
     label: "CELULAR:",
-    name: "celular_1",
+    name: "celular_3",
     type: "number",
     placeholder: "Ingrese el celular",
   },
   {
     label: "TELEFONO:",
-    name: "telefono_1",
+    name: "telefono_3",
     type: "number",
     placeholder: "Ingrese el telefono",
   },
   {
     label: "DIRECCION:",
-    name: "direccion_1",
+    name: "direccion_3",
     type: "text",
     placeholder: "Ingrese el telefono",
   },
   {
     label: "GRADO INSTRUCCION:",
-    name: "grado_instruccion_1",
+    name: "grado_instruccion_3",
     type: "select",
     placeholder: "Seleccione grado de instruccion ",
     options: [
-      { value: "secundaria completa", label: "SECUNDARIA COMPLETA" },
+      { value: "secundaria completa", label: "SIECUNDARIA COMPLETA" },
       { value: "primari completa", label: "PRIMARIA COMPLETA" },
       { value: "superior completa", label: "SUPERIOR COMPLETA" },
     ],
   },
   {
     label: "CENTRO TRABAJO:",
-    name: "centro_trabajo_1",
+    name: "centro_trabajo_3",
     type: "text",
     placeholder: "Ingrese el centro de trabajo",
   },
   {
     label: "OCUPACION:",
-    name: "ocupacion_1",
+    name: "ocupacion_3",
     type: "text",
     placeholder: "Ingrese la ocupacion",
   },
   {
     label: "CORREO:",
-    name: "correo_1",
+    name: "correo_3",
     type: "text",
     placeholder: "Ingrese el correo",
   },

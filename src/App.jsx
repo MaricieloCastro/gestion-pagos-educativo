@@ -36,6 +36,13 @@ import EstudiantesDelete from "./modules/DatosAlumno/pages/EstudiantesDelete";
 import SolicitudEstudiantesDelete from "./modules/DatosAlumno/pages/SolicitudEstudiantesDelete";
 import HistorialReporte from "./modules/Reportes/pages/HistorialReporte";
 
+//Caja
+import Caja from "./modules/Caja/Caja";
+import Movimientos from "./modules/Caja/Movimientos";
+
+//Cronograma de Pagos
+import CronogramaPagos from "./modules/Pagos/pages/CronogramPagos/CronogramaPagos";
+
 const App = () => {
   let { user } = useContext(AuthContext);
   let id_tipo_usuario = user ? user.id_tipo_usuario : null;
@@ -92,8 +99,21 @@ const App = () => {
                 element={<InformacionUsuario />}
                 path={enlaces[8].prevPath + enlaces[8].path}
               />
+
+              <Route
+                element={<Movimientos />}
+                path={enlaces[18].prevPath + enlaces[18].path}
+              />
             </>
           )}
+          <Route
+            element={<Caja />}
+            path={enlaces[16].prevPath + enlaces[16].path}
+          />
+          <Route
+            element={<CronogramaPagos />}
+            path={enlaces[17].prevPath + enlaces[17].path}
+          />
           <Route
             element={<InscribirAlumno />}
             path={enlaces[10].prevPath + enlaces[10].path}
