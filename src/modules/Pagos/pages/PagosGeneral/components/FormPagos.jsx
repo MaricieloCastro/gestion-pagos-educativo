@@ -133,7 +133,7 @@ export default function FormPagos(props) {
   }, []);
 
   //Para identificar los tipos de pagos
-  const [comprobante, setComprobante] = useState();
+  const [comprobante, setComprobante] = useState("BOLETA");
   //Lógica para recargar la página cada que cambiamos el tipo de pago
   const [reload, setReload] = useState();
   //Funcion de recargar
@@ -512,7 +512,8 @@ export default function FormPagos(props) {
       console.log("operacion exitosa:", responses.data);
       const file = responses.data.fileName;
       console.log(file);
-      window.location.href = `https://back.apisunat.com/documents/${documentId}/getPDF/A4/${file}.pdf`;
+      const url = `https://back.apisunat.com/documents/${documentId}/getPDF/A4/${file}.pdf`;
+      window.open(url, "_blank");
     } catch (error) {
       console.error("Error al hacer la solicitud:", error);
     }
