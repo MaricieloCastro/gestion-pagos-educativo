@@ -1,0 +1,8 @@
+.inscribir-alumno {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+  .ant-steps-item-tail {
+    background-color: black !important;
+  }
+}

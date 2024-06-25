@@ -15,6 +15,7 @@ const FormController = (props) => {
     children,
     disabled,
     options,
+    defaultDate,
   } = props;
 
   return (
@@ -41,6 +42,7 @@ const FormController = (props) => {
                   name={name}
                   placeholder={placeholder}
                   disabled={disabled}
+                  defaultDate={defaultDate}
                 />
               ) : type === "dateWithYears" ? (
                 <DateWithYearsFormularios
@@ -49,6 +51,7 @@ const FormController = (props) => {
                   name={name}
                   placeholder={placeholder}
                   disabled={disabled}
+                  defaultDate={defaultDate}
                 />
               ) : type === "select" ? (
                 <SelectFormularios

@@ -1,0 +1,18 @@
+.historial-pagos-filtros {
+  display: grid;
+  grid-template-rows: auto;
+
+  &__caja {
+    display: grid;
+
+    &-filtros__selects {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    &-filtros__search {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+}

@@ -1,14 +1,13 @@
-import {
-  createContext,
-  useState,
-  useEffect,
-  useMemo,
-} from "react";
+import { createContext, useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
-import { LOGIN_TOKEN_API, LOGIN_REFRESH_API, LOGOUT_API } from "../api/ApiRutas";
+import {
+  LOGIN_TOKEN_API,
+  LOGIN_REFRESH_API,
+  LOGOUT_API,
+} from "../api/ApiRutas";
 import { toast } from "react-toastify";
 
 const AuthContext = createContext();
@@ -36,10 +35,9 @@ export const AuthProvider = ({ children }) => {
     localStorage.getItem("refreshHelp")
       ? JSON.parse(localStorage.getItem("refreshHelp"))
       : null
-  )
+  );
 
   const loginUser = (values) => {
-
     const { username, password } = values;
 
     axios
@@ -49,12 +47,14 @@ export const AuthProvider = ({ children }) => {
       })
       .then(function (response) {
         setAuthTokens(response.data);
-        console.log(response)
+        console.log(response);
         setUser(jwtDecode(response.data.access));
-        setRefreshHelp(response.data.refresh)
-        localStorage.setItem("authTokens", JSON.stringify
-          (response.data));
-        localStorage.setItem("refreshHelp", JSON.stringify(response.data.refresh));
+        setRefreshHelp(response.data.refresh);
+        localStorage.setItem("authTokens", JSON.stringify(response.data));
+        localStorage.setItem(
+          "refreshHelp",
+          JSON.stringify(response.data.refresh)
+        );
         navigate("/");
       })
       .catch(function (error) {
@@ -68,25 +68,27 @@ export const AuthProvider = ({ children }) => {
 
     const headers = {
       "Content-Type": "application/json",
-    }
+    };
 
-    const dataLoginRefresh = { refresh: refreshHelp }
+    const dataLoginRefresh = { refresh: refreshHelp };
 
     if (authTokens != null) {
       try {
-        const response = await axios.post(LOGIN_REFRESH_API, dataLoginRefresh, { headers });
+        const response = await axios.post(LOGIN_REFRESH_API, dataLoginRefresh, {
+          headers,
+        });
         console.log("operacion exitosa:", response);
 
-        const data = response.data
+        const data = response.data;
 
         setAuthTokens(data);
         setUser(jwtDecode(data.access));
         localStorage.setItem("authTokens", JSON.stringify(data));
       } catch (err) {
-        console.error(err)
+        console.error(err);
         setAuthTokens(null);
         setUser(null);
-        setRefreshHelp(null)
+        setRefreshHelp(null);
         localStorage.removeItem("authTokens");
         localStorage.removeItem("refreshHelp");
       }
@@ -106,11 +108,11 @@ export const AuthProvider = ({ children }) => {
       .then(function (response) {
         setAuthTokens(null);
         setUser(null);
-        setRefreshHelp(null)
+        setRefreshHelp(null);
         localStorage.removeItem("authTokens");
         localStorage.removeItem("refreshHelp");
         navigate("/login");
-        console.log(response)
+        console.log(response);
       })
       .catch(function (error) {
         console.log(error);
@@ -132,9 +134,23 @@ export const AuthProvider = ({ children }) => {
 
     return () => clearInterval(interval);
   }, [authTokens, loading]);
-
+  const [estadoCaja, setEstadoCaja] = useState(false);
+  function EstadoCajaSet() {
+    setEstadoCaja(true);
+  }
+  function EstadoCajaSetZ() {
+    setEstadoCaja(false);
+  }
   const contextValue = useMemo(() => {
-    return { user, loginUser, logoutUser, authTokens };
+    return {
+      user,
+      loginUser,
+      logoutUser,
+      authTokens,
+      estadoCaja,
+      EstadoCajaSet,
+      EstadoCajaSetZ,
+    };
   }, [loginUser]);
 
   return (

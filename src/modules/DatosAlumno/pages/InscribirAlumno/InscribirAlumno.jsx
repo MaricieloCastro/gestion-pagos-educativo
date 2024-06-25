@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MenuLateral from "@/components/MenuLateral";
-import { Button, message, Steps, theme } from "antd";
-import "./InscribirAlumno.css";
+import { Button, ConfigProvider, message, Steps, theme } from "antd";
+import "./InscribirAlumno.scss";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -15,12 +15,38 @@ import {
 } from "./Forms/constants/DatosPadreConstans";
 import DatosPadre from "./Forms/DatosPadre";
 import DatosEstudiante from "./Forms/DatosEstudiante";
-import FormController from "./components/FormController";
-import DepartamentosSelect from "./components/DepartamentosSelect";
+import { sufixConvert } from "@/functions/sufix";
+
+export const VALUES_DATOS_PADRE = {
+  parentesco: "",
+  dni: "",
+  nombres: "",
+  apellido_paterno: "",
+  apellido_materno: "",
+  sexo: "",
+  departamento_nacimiento: "",
+  provincia_nacimiento: "",
+  distrito_nacimiento: "",
+  fecha_nacimiento: "",
+  estado_civil: "",
+  vive: "",
+  vive_con: "",
+  apoderado: "",
+  celular: "",
+  telefono: "",
+  departamento_domicilio: "",
+  provincia_domicilio: "",
+  distrito_domicilio: "",
+  direccion: "",
+  grado_instruccion: "",
+  centro_trabajo: "",
+  ocupacion: "",
+  correo: "",
+};
 
 const InscribirAlumno = () => {
   const { token } = theme.useToken();
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(1);
   const [estudianteData, setEstudianteData] = useState(null);
   const [padreData, setPadreData] = useState(null);
 
@@ -39,7 +65,6 @@ const InscribirAlumno = () => {
   const steps = [
     {
       title: "Datos del estudiante",
-      // content: <DatosPersonales control={form.control} />,
       content: <DatosEstudiante control={form.control} />,
     },
     {
@@ -52,7 +77,7 @@ const InscribirAlumno = () => {
     },
   ];
 
-  console.log("current", steps.length);
+  console.log("current", current);
 
   const onSubmit = (values) => {
     if (current === 0) {
@@ -63,8 +88,10 @@ const InscribirAlumno = () => {
 
     if (current === 1) {
       console.log(values);
-      setPadreData(values);
+      const newValues = sufixConvert(VALUES_DATOS_PADRE, values);
+      setPadreData(newValues);
       setCurrent(current + 1);
+      console.log("NewValues: ", newValues);
     }
 
     if (current === steps.length - 1) {
@@ -86,18 +113,34 @@ const InscribirAlumno = () => {
   const contentStyle = {
     textAlign: "center",
     color: token.colorTextTertiary,
-    backgroundColor: token.colorFillAlter,
-    border: `1px solid ${token.colorBorder}`,
+    backgroundColor: "#D9D9D9",
+    border: `0.5px solid #C9C9C9`,
     marginTop: 16,
   };
 
   return (
     <MenuLateral>
       <form
-        className="inscribir-alumno h-full min-w-[0px]"
+        className="inscribir-alumno h-full"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <Steps size="small" current={current} items={items} />
+        <ConfigProvider
+          theme={{
+            components: {
+              Steps: {
+                colorText: "#F9F9F9",
+                fontFamily: "inter",
+              },
+            },
+          }}
+        >
+          <Steps
+            size="small"
+            current={current}
+            items={items}
+            responsive={false}
+          />
+        </ConfigProvider>
         <div style={contentStyle}>{steps[current].content}</div>
         <div className="flex justify-end py-3">
           {current > 0 && (

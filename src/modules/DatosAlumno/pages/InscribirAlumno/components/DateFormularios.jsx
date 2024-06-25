@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ConfigProvider, DatePicker, Space } from "antd";
 import dayjs from "dayjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,7 +9,11 @@ const currentDate = dayjs();
 const DateFormularios = (props) => {
   const { field, fieldState, name, placeholder, disabled, defaultDate } = props;
 
-  const [value, setValue] = useState(defaultDate);
+  const [value, setValue] = useState(null);
+
+  useEffect(() => {
+    setValue(defaultDate);
+  }, [defaultDate]);
 
   useEffect(() => {
     setValue(defaultDate)
@@ -47,7 +51,8 @@ const DateFormularios = (props) => {
             placeholder={placeholder}
             name={name}
             id={name}
-            value={value && dayjs(value)}
+            defaultValue={""}
+            value={field.value && dayjs(field.value)}
             onChange={(date, dateStr) => {
               setValue(dateStr)
               console.log("date: ", date)

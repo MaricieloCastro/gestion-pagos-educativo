@@ -23,9 +23,9 @@ import { object } from "zod";
 
 export function SelectForm(props) {
   const { form, dato, disabled, url, nameLabel, parametros } = props;
-  let valor = dato.nombre;
+  let valor = dato;
   if (valor === undefined) {
-    valor = dato;
+    valor = "";
   }
   const [item, setItem] = useState([]);
   const [loading, setLoading] = useState(true);

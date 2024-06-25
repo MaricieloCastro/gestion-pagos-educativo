@@ -32,3 +32,17 @@ export const gradoAPI =
 
 export const seccionAPI =
   "http://127.0.0.1:8000/parametricas/api/seccion_mantenimiento/";
+
+export const pagosAPI = "http://127.0.0.1:8000/pagos/api/pagos/";
+
+export const AperturaMovimientoAPI =
+  "http://127.0.0.1:8000/caja/api/apertura-movimiento/";
+
+export const AperturaCajaAPI = "http://127.0.0.1:8000/caja/api/apertura-caja/";
+
+export const AperturaAPI = "http://127.0.0.1:8000/caja/api/apertura/";
+export const MoviemientoAPI = "http://127.0.0.1:8000/caja/api/movimiento/";
+
+// PAGOS
+export const historialPagosAPI =
+  "http://127.0.0.1:8000/caja/api/historial-pagos/";
