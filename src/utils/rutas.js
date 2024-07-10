@@ -1,5 +1,3 @@
-import path from "path";
-
 export const enlaces = [
   {
     id: 1,
@@ -154,5 +152,37 @@ export const enlaces = [
     prevPath: "caja/",
     actualPath: "/caja/movimientos/",
     alias: "MOVIMIENTOS",
+  },
+  {
+    id: 19,
+    name: "deudas",
+    path: "deudas/",
+    prevPath: "/",
+    actualPath: "/deudas/",
+    alias: "DEUDAS",
+  },
+  {
+    id: 20,
+    name: "beneficios",
+    path: "beneficios/",
+    prevPath: "/",
+    actualPath: "/beneficios/",
+    alias: "ALUMNOS BENEFICIADOS",
+  },
+  {
+    id: 21,
+    name: "metodo-pago",
+    path: "metodo-pago/",
+    prevPath: "/",
+    actualPath: "/metodo-pago/",
+    alias: "METODO DE PAGO",
+  },
+  {
+    id: 22,
+    name: "ingresos",
+    path: "ingresos/",
+    prevPath: "/",
+    actualPath: "/ingresos/",
+    alias: "INGRESOS",
   },
 ];

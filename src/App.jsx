@@ -43,6 +43,10 @@ import Movimientos from "./modules/Caja/Movimientos";
 //Cronograma de Pagos
 import CronogramaPagos from "./modules/Pagos/pages/CronogramPagos/CronogramaPagos";
 import HistorialPagos from "./modules/Pagos/pages/HistorialPagos";
+import Deudas from "./modules/Reportes/pages/Deudas";
+import AlumnosBeneficiados from "./modules/Reportes/pages/AlumnosBeneficiados";
+import MetodoPago from "./modules/Reportes/pages/MetodoPago";
+import Ingresos from "./modules/Reportes/pages/Ingresos";
 
 const App = () => {
   let { user } = useContext(AuthContext);
@@ -126,6 +130,22 @@ const App = () => {
           <Route
             element={<HistorialReporte />}
             path={enlaces[13].prevPath + enlaces[13].path}
+          />
+          <Route
+            element={<Deudas />}
+            path={enlaces[19].prevPath + enlaces[19].path}
+          />
+          <Route
+            element={<AlumnosBeneficiados />}
+            path={enlaces[20].prevPath + enlaces[20].path}
+          />
+          <Route
+            element={<MetodoPago />}
+            path={enlaces[21].prevPath + enlaces[21].path}
+          />
+          <Route
+            element={<Ingresos />}
+            path={enlaces[22].prevPath + enlaces[22].path}
           />
         </Route>
         <Route

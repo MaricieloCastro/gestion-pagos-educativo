@@ -80,14 +80,10 @@ export const menuLateralConstants = (id_tipo_usuario, num_solicitud) => {
         },
         {
           key: '43',
-          label: 'ALUMNOS ESPECIALES',
+          label: 'ALUMNOS BENEFICIADOS',
         },
         {
           key: '44',
-          label: 'PAGOS ANTICIPADOS',
-        },
-        {
-          key: '45',
           label: 'MÉTODO PAGO',
         },
       ],
