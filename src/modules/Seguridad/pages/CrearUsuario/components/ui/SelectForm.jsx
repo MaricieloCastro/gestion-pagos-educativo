@@ -11,13 +11,10 @@ import {
 } from "@/components/ui/select";
 
 import {
-  Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { object } from "zod";
 
@@ -84,7 +81,6 @@ export function SelectForm(props) {
                   {opcion.nombre}
                 </SelectItem>
               ))}
-              <SelectItem value="."></SelectItem>
             </SelectContent>
           </Select>
         </FormItem>

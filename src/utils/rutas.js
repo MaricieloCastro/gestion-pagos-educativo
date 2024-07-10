@@ -185,4 +185,12 @@ export const enlaces = [
     actualPath: "/ingresos/",
     alias: "INGRESOS",
   },
+  {
+    id: 52,
+    name: "editar-alumno",
+    path: "editar-alumno",
+    prevPath: "/",
+    actualPath: "/editar-alumno",
+    alias: "EDITAR DATOS DEL ALUMNO",
+  },
 ];

@@ -147,6 +147,12 @@ const App = () => {
             element={<Ingresos />}
             path={enlaces[22].prevPath + enlaces[22].path}
           />
+          {/* <Route
+            element={<EditarAlumno />}
+            // path={enlaces[21].prevPath + enlaces[21].path}
+            path={`${enlaces[21].prevPath}${enlaces[21].path}/:studentId`}
+          /> */}
+          <Route path="/editar-alumno/:id" element={<EditarAlumno />} />
         </Route>
         <Route
           element={

@@ -17,7 +17,7 @@
 
   &-body {
     display: flex !important;
-    height: 8vh;
+    height: 8vh !important;
     max-height: 8vh;
     color: white !important;
     justify-items: center !important;
@@ -120,6 +120,33 @@
     &:nth-child(1) {
       display: none;
     }
+  }
+}
+
+.modal-permiso {
+  //background-color: #003862;
+
+  p {
+    font-weight: lighter;
+    padding: 0 3vh;
+    font-size: medium;
+  }
+
+  .ant-modal-body {
+    margin-top: 2vh;
+    label {
+      color: #fff;
+    }
+    input {
+      color: #000;
+      height: 5vh;
+      width: 40vh;
+    }
+  }
+
+  .ant-modal-footer {
+    padding: 6vh 0;
+    max-height: 20vh;
   }
 }
 

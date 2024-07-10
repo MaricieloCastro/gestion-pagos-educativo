@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 export default function formularioPagos(props) {
-  const { nameLabel, form, parametros, type, disabled, dato } = props;
+  const { nameLabel, form, parametros, type, disabled, onValueChange } = props;
   function handleInputChange(event) {
     setInputValue(event.target.value.toUpperCase());
   }
@@ -36,6 +36,7 @@ export default function formularioPagos(props) {
                 type={type}
                 //onChange={handleInputChange}
                 disabled={disabled}
+                onChange={onValueChange}
                 //value={inputValue}
               />
             </div>

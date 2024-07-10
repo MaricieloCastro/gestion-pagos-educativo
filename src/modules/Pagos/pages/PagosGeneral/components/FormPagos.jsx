@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import AvatarPagos from "./AvatarPagos";
 import moment from "moment";
-import { postAxios } from "@/functions/methods";
+import { postAxios, putAxios } from "@/functions/methods";
 import AuthContext from "@/contexts/AuthContext";
 import axios from "axios";
 //URL
@@ -14,6 +14,7 @@ import {
   MESESURL,
   METODOPAGOURL,
   PAGOSURL,
+  PENDIENTEALUMNOSURL,
 } from "@/modules/Seguridad/pages/CrearUsuario/compenetes/reuse/ConstObj";
 import { SelectForm } from "@/modules/Seguridad/pages/CrearUsuario/components/ui/SelectForm";
 //Importaciones para el formularioI
@@ -40,6 +41,10 @@ import Formulario from "@/modules/Seguridad/pages/CrearUsuario/components/ui/for
 import { CondicionVentaSelect } from "./CondicionVentaSelect";
 import Calendario from "@/modules/Seguridad/pages/CrearUsuario/compenetes/reuse/Calendario";
 import { Link, useParams } from "react-router-dom";
+import ModalPagosConfirmacion from "./ModalPagosConfirmacion";
+import ModalCarga from "@/components/Modal/ModalCarga";
+import ModalImprimir from "./ModalImprimir";
+import { Input } from "antd";
 
 //Parametro ZOD
 const FormSchema = z.object({
@@ -91,17 +96,28 @@ const FormSchema = z.object({
   id_pendiente: z.string().min(0, {
     message: "campo obligatorio",
   }),
+  codigo_recibo: z.string().min(0, {
+    message: "campo obligatorio",
+  }),
+  id_Document: z.string().min(0, {
+    message: "campo obligatorio",
+  }),
   tipo_comprobante: z
     .string()
     .nonempty({ message: "Debe seleccionar al menos un tipo de comprobante" }),
 });
 export default function FormPagos(props) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { general, tipo_pago, pendientes, correlativo } = props;
   const { lastNumber, personaId, suggestedNumber } = correlativo;
-  console.log(correlativo);
-  console.log(lastNumber);
-  const [numCom, setNumCom] = useState();
+  //console.log(correlativo);
+  //console.log(lastNumber);
+  //CONTROLO DE LOS PENDIENTES Y ACTUALIZACIÓN
   const { alumnos, crnograma_pago } = pendientes;
+  const montosPagos = crnograma_pago.tipo_pago;
+  console.log(montosPagos.monto);
+  const PendienteId = pendientes.id.toString();
+  //console.log(PendienteId);
   const { descripcion, mes_cancelado } = crnograma_pago;
   const fechaDefault = moment();
   const fecha = fechaDefault.format("YYYY-MM-DD");
@@ -114,10 +130,14 @@ export default function FormPagos(props) {
   if (pagos == 2 || pagos == 4 || pagos == 3) {
     desc = 0;
   }
-  const total_pagar = (monto_previo - desc).toString();
+  const total_pagar = (montosPagos.monto - desc).toString();
   const um = "UNIDAD";
   const precio_unitario = monto_previo;
   const moneda = "SOLES";
+
+  //Usetate del modal de carga
+  const [modalLoading, setModalLoading] = useState(false);
+  const [bDisable, setBDisable] = useState();
 
   //Lógica para designar los inpust que estarán disponibless
 
@@ -147,11 +167,17 @@ export default function FormPagos(props) {
   if (reload) {
     recargar();
   }
-  const pendiente = "5";
+
+  const [numCom, setNumCom] = useState(`B001-${suggestedNumber}`);
+  //useEfecct para el numCom
+  console.log(comprobante);
+
+  let numeroComprobante = numCom;
+  console.log(numeroComprobante);
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      num_comprobante: numCom,
+      codigo_recibo: "",
       tipo_comprobante: "BOLETA",
       año_lectivo: año || "",
       mes_cancelado: "",
@@ -161,31 +187,55 @@ export default function FormPagos(props) {
       metodo_pago: "EFECTIVO",
       descripcion: descripcion || "",
       monto: "",
-      monto_previo: monto_previo || "",
+      monto_previo: montosPagos.monto || "",
       descuento_aplicado: desc.toString() || "",
       total_pagar: total_pagar || "",
       tipo_pago: tipoPago,
       um: um || "",
       precio_unitario: precio_unitario || "",
       moneda: moneda || "",
-      id_pendiente: pendiente || "",
+      id_pendiente: PendienteId || "",
+      id_Document: "",
     },
   });
 
-  //useEfecct para el numCom
-  console.log(comprobante);
   useEffect(() => {
     if (comprobante == "BOLETA") {
       setNumCom(`B001-${suggestedNumber}`);
+      form.setValue("codigo_recibo", numCom);
     } else {
       setNumCom(`F001-${suggestedNumber}`);
+      form.setValue("codigo_recibo", numCom);
     }
   }, [suggestedNumber, numCom, setNumCom, comprobante]);
   console.log(numCom);
+
+  // PARA AGRAGAR LOS CAMPOS SEGÚN EL TIPO DE COMPROBANTE
+  const [selectedValue, setSelectedValue] = useState(false);
+  //Esto sirve para que se muestre y se bloqueen los inputs según el tipo de comprobante
+  const handleSelectChange = (value) => {
+    if (value == "FACTURA") {
+      setSelectedValue(true);
+      setComprobante("FACTURA");
+    } else {
+      setSelectedValue(false);
+      setComprobante("BOLETA");
+    }
+  };
+
   //tipos de pagos
   const [buttonCD, setButtonCD] = useState();
   const [buttonM, setButtonM] = useState();
-  const { alumno, codigo, beneficio, turno, grado, seccion, estado } = general;
+  const {
+    alumno,
+    codigo,
+    beneficio,
+    turno,
+    grado,
+    seccion,
+    estado,
+    ruta_fotografia,
+  } = general;
 
   function mensualidad() {
     setButtonCD(true);
@@ -207,7 +257,7 @@ export default function FormPagos(props) {
     "Content-Type": "application/json",
     Authorization: "Bearer " + String(authTokens.access),
   };
-  function onSubmit(values) {
+  async function onSubmit(values) {
     delete values.año_lectivo;
     delete values.descuento_aplicado;
     delete values.monto_previo;
@@ -216,12 +266,13 @@ export default function FormPagos(props) {
     delete values.total_pagar;
     delete values.mes_cancelado;
     console.log(values);
-    postAxios(PAGOSURL, values, headers, setReload, reload);
+    await postAxios(PAGOSURL, values, headers, setReload, reload);
   }
 
   const ButtonView = true;
   //Lógica para no rendirizar los botones de pagos
   const [mostrarBotones, setMostrarBotones] = useState(true);
+  const [modalPrint, setModalPrint] = useState(false);
   useEffect(() => {
     // Lógica para determinar si mostrar o no el botón
     const usuarioEnInicio = ButtonView; // Cambia esto a tu lógica real
@@ -231,18 +282,7 @@ export default function FormPagos(props) {
       setMostrarBotones(false);
     }
   }, []);
-  // PARA AGRAGAR LOS CAMPOS SEGÚN EL TIPO DE COMPROBANTE
-  const [selectedValue, setSelectedValue] = useState(false);
-  //Esto sirve para que se muestre y se bloqueen los inputs según el tipo de comprobante
-  const handleSelectChange = (value) => {
-    if (value == "FACTURA") {
-      setSelectedValue(true);
-      setComprobante("FACTURA");
-    } else {
-      setSelectedValue(false);
-      setComprobante("BOLETA");
-    }
-  };
+  const [urlBoleta, seturlBoleta] = useState();
   //Variable para la SUNAT
   const SUNAT = {
     personaId: "665248a370419f0015e8a074",
@@ -356,7 +396,7 @@ export default function FormPagos(props) {
               _attributes: {
                 currencyID: "PEN",
               },
-              _text: Number(precio_unitario),
+              _text: Number(desc),
             },
             "cbc:TaxAmount": {
               _attributes: {
@@ -385,19 +425,19 @@ export default function FormPagos(props) {
           _attributes: {
             currencyID: "PEN",
           },
-          _text: Number(precio_unitario),
+          _text: Number(desc_aplicado),
         },
         "cbc:TaxInclusiveAmount": {
           _attributes: {
             currencyID: "PEN",
           },
-          _text: Number(precio_unitario),
+          _text: Number(desc_aplicado),
         },
         "cbc:PayableAmount": {
           _attributes: {
             currencyID: "PEN",
           },
-          _text: Number(precio_unitario),
+          _text: Number(total_pagar),
         },
       },
       "cac:InvoiceLine": [
@@ -415,7 +455,7 @@ export default function FormPagos(props) {
             _attributes: {
               currencyID: "PEN",
             },
-            _text: Number(precio_unitario),
+            _text: Number(montosPagos.monto),
           },
           "cac:PricingReference": {
             "cac:AlternativeConditionPrice": {
@@ -423,7 +463,7 @@ export default function FormPagos(props) {
                 _attributes: {
                   currencyID: "PEN",
                 },
-                _text: Number(precio_unitario),
+                _text: Number(montosPagos.monto),
               },
               "cbc:PriceTypeCode": {
                 _text: "01",
@@ -443,7 +483,7 @@ export default function FormPagos(props) {
                   _attributes: {
                     currencyID: "PEN",
                   },
-                  _text: Number(precio_unitario),
+                  _text: Number(montosPagos.monto),
                 },
                 "cbc:TaxAmount": {
                   _attributes: {
@@ -498,13 +538,20 @@ export default function FormPagos(props) {
   //Logica para API SUNAR
   const ApiSunat = async () => {
     try {
+      //Enviamos el documento con el link y el cuerpo de la boleta
       const response = await axios.post(
         "https://back.apisunat.com/personas/v1/sendBill",
         SUNAT
       );
       console.log("operacion exitosa:", response.data);
+      //Guardamos el id del documento que hemos generado
       const documentId = response.data.documentId;
+      //Actualizamos el vamor del id documento para eniar a la base de datos
+      form.setValue("id_Document", documentId);
+      //Ejecutamos el post a PAGOS
+      form.handleSubmit(onSubmit)();
       console.log(documentId);
+      // Generamos el archiv PDF
       const responses = await axios.get(
         `https://back.apisunat.com/documents/${documentId}/getById`,
         SUNAT
@@ -512,20 +559,45 @@ export default function FormPagos(props) {
       console.log("operacion exitosa:", responses.data);
       const file = responses.data.fileName;
       console.log(file);
-      const url = `https://back.apisunat.com/documents/${documentId}/getPDF/A4/${file}.pdf`;
-      window.open(url, "_blank");
+      seturlBoleta(
+        `https://back.apisunat.com/documents/${documentId}/getPDF/A4/${file}.pdf`
+      );
+      //window.open(url, "_blank");
     } catch (error) {
       console.error("Error al hacer la solicitud:", error);
     }
   };
-
+  function ConsoleLog(value) {
+    setIsModalOpen(true), console.log(value);
+  }
+  function Validacion() {
+    form.handleSubmit(ConsoleLog)();
+  }
+  const [vuelto, setVuelto] = useState(0);
+  const handleValueChange = (e) => {
+    const { value } = e.target;
+    const numericValue = parseFloat(value) || 0;
+    const vuelto = total_pagar - numericValue;
+    if (vuelto < 1) {
+      setBDisable(false);
+    } else {
+      setBDisable(true);
+    }
+    if (numericValue == 0) {
+      setVuelto(0);
+      setBDisable(false);
+    } else {
+      setVuelto(vuelto); // Resta el valor ingresado del total
+    }
+  };
+  console.log(vuelto);
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form>
         <div className="pagos">
           <div className="pagos-alumno">
             <div className="pagos-alumno_foto">
-              <AvatarPagos estado={estado} />
+              <AvatarPagos estado={estado} Foto={ruta_fotografia} />
             </div>
             <div className="pagos-alumno_datos">
               <div className="pagos-alumno_datos-nombres">{alumno}</div>
@@ -546,7 +618,7 @@ export default function FormPagos(props) {
               {mostrarBotones && (
                 <>
                   <Button type="button">HISTORIAL DE PAGOS</Button>
-                  <Link to={`http://localhost:5173/pagos/${id}/2`}>
+                  <Link to={`http://localhost:5173/pagos/${id}/1`}>
                     <Button
                       onClick={() => {
                         setReload(true);
@@ -557,7 +629,7 @@ export default function FormPagos(props) {
                       MENSUALIDAD
                     </Button>
                   </Link>
-                  <Link to={`http://localhost:5173/pagos/${id}/1`}>
+                  <Link to={`http://localhost:5173/pagos/${id}/2`}>
                     <Button
                       type="button"
                       onClick={() => {
@@ -669,21 +741,49 @@ export default function FormPagos(props) {
                   nameLabel="Area  Desaprobada:"
                   parametros="area_desaprobada"
                 />
-                <FormularioPagos
+                <FormField
+                  control={form.control}
+                  name="monto"
+                  render={({ field }) => (
+                    //Nombre
+                    <FormItem>
+                      <FormLabel>Monto:</FormLabel>
+                      <FormControl>
+                        <div className="flex">
+                          <Button type="button">PE S/</Button>
+                          <Input
+                            //placeholder={dato}
+                            {...field}
+                            type="number"
+                            //onChange={handleInputChange}
+                            //disabled="false"
+                            onChange={(e) => {
+                              field.onChange(e);
+                              handleValueChange(e);
+                            }}
+                            //value={inputValue}
+                          />
+                        </div>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                {/* <FormularioPagos
                   form={form}
                   nameLabel="Monto:"
                   parametros="monto"
+                  onValueChange={handleValueChange}
                   disabled={false}
                   type="number"
-                />
+                /> */}
               </div>
               <div className="pagos-dato_uno-tres">
                 <Formulario
                   form={form}
                   nameLabel="Numero de Comprobante:"
-                  dato={numCom}
+                  //dato={numCom}
                   disabled={true}
-                  parametros="num_comprobante"
+                  parametros="codigo_recibo"
                 />
                 <CondicionVentaSelect form={form} dato="ALCONTADO" />
                 <FormularioPagos
@@ -700,6 +800,11 @@ export default function FormPagos(props) {
                   disabled={true}
                   type="number"
                 />
+                <div>
+                  <h2 className="flex gap-2 text-white  ">
+                    Vuelto: <p>S/{-1 * vuelto}</p>
+                  </h2>
+                </div>
               </div>
             </div>
             <div className="pagos-dato_dos">
@@ -713,8 +818,11 @@ export default function FormPagos(props) {
             <div className="pagos-dato_tres">
               <Button
                 className="registrar-pago"
-                // type="button"
-                onClick={ApiSunat}
+                disabled={bDisable}
+                type="button"
+                onClick={() => {
+                  Validacion();
+                }} //{ApiSunat}
               >
                 REGISTRAR PAGO
               </Button>
@@ -722,6 +830,23 @@ export default function FormPagos(props) {
           </div>
         </div>
       </form>
+      <ModalPagosConfirmacion
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        func={ApiSunat}
+        funcII={onSubmit}
+        setModalLoading={setModalLoading}
+        form={form}
+        modalPrint={setModalPrint}
+      />
+      <ModalCarga modalLoading={modalLoading} titulo="Realizando Pago" />
+      <ModalImprimir
+        modalPrint={modalPrint}
+        setModalPrint={setModalPrint}
+        titulo="Boleta de Pago"
+        id={general.id}
+        urlBoleta={urlBoleta}
+      />
     </Form>
   );
 }

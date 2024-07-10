@@ -60,7 +60,7 @@ export const columnsValue = (multiDelete) => {
       {
         header: "OPCIONES",
         cell: (row) => {
-          const id = row.cell.row.original.id;
+          const id = row.cell.row.original.id_Document;
 
           return (
             <BotonesHistorialPago

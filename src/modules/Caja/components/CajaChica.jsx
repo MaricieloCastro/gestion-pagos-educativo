@@ -150,10 +150,12 @@ export default function CajaChica(props) {
   const [tituloI, setTituloI] = useState("CAJA APERTURADA CORRECTAMENTE");
   const [modalSucessfull, setModalSucessfull] = useState(false);
   const [modalSucessfullI, setModalSucessfullI] = useState(false);
+  const [estadoCajaLocal, setEstadoCajaLocal] = useState();
   const headers = {
     "Content-Type": "application/json",
     Authorization: "Bearer " + String(authTokens.access),
   };
+
   //Para actualizar la pagaina después del post o del put
   function recargar() {
     window.location.reload();
@@ -180,6 +182,8 @@ export default function CajaChica(props) {
       setError,
       setOpen
     );
+    localStorage.setItem("estadoCaja", JSON.stringify(false));
+    setEstadoCajaLocal(true);
   }
   //URL
   const CAJAACTIVAAPI = `http://127.0.0.1:8000/caja/api/apertura-movimiento/?id_apertura=${CajaActiva.id}`;
@@ -194,6 +198,7 @@ export default function CajaChica(props) {
       setModalSucessfull,
       setError
     );
+    localStorage.setItem("estadoCaja", JSON.stringify(true));
     console.log(general);
     SetCaja(estadoValue.monto_inicial);
     setDisableA(true);

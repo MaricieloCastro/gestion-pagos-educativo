@@ -1,0 +1,12 @@
+.modal-boleta {
+  background-color: #001f36;
+  .ant-modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      margin-top: 50px;
+      background-color: #1ec468 !important;
+    }
+  }
+}
