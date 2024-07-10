@@ -95,6 +95,16 @@ const MenuAnt = (props) => {
     if (key === "8") {
       logoutUser();
     }
+
+    if (key === "91") {
+      navigate(enlaces[16].actualPath);
+    }
+    if (key === "5") {
+      navigate(enlaces[17].actualPath);
+    }
+    if (key === "92") {
+      navigate(enlaces[18].actualPath);
+    }
   };
 
   const onOpenChange = (openKeys) => {

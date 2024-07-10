@@ -152,7 +152,7 @@ export const enlaces = [
     name: "movimientos",
     path: "movimientos/",
     prevPath: "caja/",
-    actualPath: "caja/movimientos/",
+    actualPath: "/caja/movimientos/",
     alias: "MOVIMIENTOS",
   },
   //Reportes

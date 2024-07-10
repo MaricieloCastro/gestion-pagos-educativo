@@ -1,6 +1,5 @@
 import React, { useContext, useMemo } from "react";
-import ListasColorDeuda from "@/components/Listas/ListasColorDeuda";
-import BotonesMenuPrincipal from "./BotonesHistorialPago";
+import BotonesHistorialPago from "./BotonesHistorialPago";
 import IndeterminateCheckbox from "@/components/Listas/IndeterminateCheckbox";
 import ListasContext from "@/contexts/ListasContext";
 
@@ -39,49 +38,33 @@ export const columnsValue = (multiDelete) => {
         cell: (info) => info.getValue(),
       },
       {
-        id: "deuda",
-        accessorKey: "deuda",
-        header: () => "ESTADO",
-        cell: (row) => {
-          const deuda = row.cell.row.original.deuda;
-          return <ListasColorDeuda deuda={deuda} />;
-        },
-      },
-      {
         accessorKey: "alumno",
         header: "ALUMNO",
         cell: (info) => info.getValue(),
       },
       {
-        accessorKey: "beneficio",
-        header: "BENEFICIO",
+        accessorKey: "tipo_de_pago",
+        header: "TIPO PAGO",
         cell: (info) => info.getValue(),
       },
       {
-        accessorKey: "turno",
-        header: "TURNO",
+        accessorKey: "monto",
+        header: "MONTO",
         cell: (info) => info.getValue(),
       },
       {
-        accessorKey: "grado",
-        header: "GRADO",
-        cell: (info) => info.getValue(),
-      },
-      {
-        accessorKey: "seccion",
-        header: "SECCIÓN",
+        accessorKey: "fecha",
+        header: "FECHA",
         cell: (info) => info.getValue(),
       },
       {
         header: "OPCIONES",
         cell: (row) => {
           const id = row.cell.row.original.id;
-          const estado_deuda = row.cell.row.original.deuda;
 
           return (
-            <BotonesMenuPrincipal
+            <BotonesHistorialPago
               id={id}
-              estado_deuda={estado_deuda}
               setReload={setReload}
               reload={reload}
             />

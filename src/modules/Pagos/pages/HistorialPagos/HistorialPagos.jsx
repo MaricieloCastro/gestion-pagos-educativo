@@ -3,23 +3,23 @@ import React from "react";
 import MenuLateral from "@/components/MenuLateral";
 import Listas from "@/components/Listas";
 
-import { filtrosListaUsuarios } from "./FiltrosListaUsuarios/filtrosListaUsuarios.jsx";
-import { usuariosActivosApi } from "@/api/ApiRutas";
+import { filtrosHistorialPagos } from "./FiltrosHistorialPago/filtrosHistorialPago";
+import { historialPagosAPI } from "@/api/ApiRutas";
 import { columnsValue } from "./columnsHistorialPago";
 
-import "./ListaUsuarios.scss";
-import "./FiltrosListaUsuarios/FiltrosListaUsuarios.scss";
+import "./HistorialPagos.scss";
+import "./FiltrosHistorialPago/filtrosHistorialPago";
 
 const HistorialPagos = () => {
   return (
     <MenuLateral>
-      <div className="usuarios h-full gap-3 min-w-[600px]">
+      <div className="historial-pagos h-full gap-3 min-w-[600px]">
         <Listas
-          api={usuariosActivosApi}
+          api={historialPagosAPI}
           columnsValue={columnsValue}
-          classNameTable="usuarios-table"
-          classNameFiltros="usuarios-filtros"
-          filtrosLista={filtrosListaUsuarios}
+          classNameTable="historial-pagos-table"
+          classNameFiltros="historial-pagos-filtros"
+          filtrosLista={filtrosHistorialPagos}
           multiDelete={false}
         />
       </div>

@@ -18,7 +18,7 @@ export const filtrosHistorialPagos = (
 
   return (
     <div className={`${classNameFiltros}__caja gap-3`}>
-      {table.getHeaderGroups().map((headerGroup) => (
+      {/* {table.getHeaderGroups().map((headerGroup) => (
         <div
           className={`${classNameFiltros}__caja-filtros__selects gap-3 items-center`}
           key={headerGroup.id}
@@ -54,7 +54,7 @@ export const filtrosHistorialPagos = (
             options={optionsSeccion}
           />
         </div>
-      ))}
+      ))} */}
       <div
         className={`${classNameFiltros}__caja-filtros__search gap-3 items-center`}
       >

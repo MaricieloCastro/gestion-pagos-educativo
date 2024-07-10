@@ -42,6 +42,7 @@ import Movimientos from "./modules/Caja/Movimientos";
 
 //Cronograma de Pagos
 import CronogramaPagos from "./modules/Pagos/pages/CronogramPagos/CronogramaPagos";
+import HistorialPagos from "./modules/Pagos/pages/HistorialPagos";
 
 //reportes
 import PagosAnticipados from "./modules/Reportes/pages/PagosAnticipados";
@@ -115,7 +116,7 @@ const App = () => {
             path={enlaces[16].prevPath + enlaces[16].path}
           />
           <Route
-            element={<CronogramaPagos />}
+            element={<HistorialPagos />}
             path={enlaces[17].prevPath + enlaces[17].path}
           />
           <Route

@@ -5,9 +5,7 @@ import { Button } from "@/components/ui/button";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import AvatarPagos from "./AvatarPagos";
 import moment from "moment";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import PdfPagoa from "./PdfPagos";
-import { postAxios, getAxios } from "@/functions/methods";
+import { postAxios } from "@/functions/methods";
 import AuthContext from "@/contexts/AuthContext";
 import axios from "axios";
 //URL
@@ -15,13 +13,12 @@ import {
   AREAURL,
   MESESURL,
   METODOPAGOURL,
-  TIPOPAGOURL,
   PAGOSURL,
 } from "@/modules/Seguridad/pages/CrearUsuario/compenetes/reuse/ConstObj";
 import { SelectForm } from "@/modules/Seguridad/pages/CrearUsuario/components/ui/SelectForm";
 //Importaciones para el formularioI
 import { useForm } from "react-hook-form";
-import { number, z } from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Select,
@@ -34,11 +31,9 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import FormularioPagos from "./formularioPagos";
 import Formulario from "@/modules/Seguridad/pages/CrearUsuario/components/ui/formulario";
@@ -106,10 +101,6 @@ export default function FormPagos(props) {
   console.log(correlativo);
   console.log(lastNumber);
   const [numCom, setNumCom] = useState();
-  useEffect(() => {
-    setNumCom(`B001-${suggestedNumber}`);
-  }, []);
-  console.log(numCom);
   const { alumnos, crnograma_pago } = pendientes;
   const { descripcion, mes_cancelado } = crnograma_pago;
   const fechaDefault = moment();
@@ -125,9 +116,6 @@ export default function FormPagos(props) {
   }
   const total_pagar = (monto_previo - desc).toString();
   const um = "UNIDAD";
-  const cantidad = 1;
-  const op_exonerada = "0";
-  const tasa_igv = "0";
   const precio_unitario = monto_previo;
   const moneda = "SOLES";
 
@@ -142,9 +130,10 @@ export default function FormPagos(props) {
     } else {
       cursoD();
     }
-    setNumCom(`B001-${suggestedNumber}`);
   }, []);
 
+  //Para identificar los tipos de pagos
+  const [comprobante, setComprobante] = useState("BOLETA");
   //Lógica para recargar la página cada que cambiamos el tipo de pago
   const [reload, setReload] = useState();
   //Funcion de recargar
@@ -159,7 +148,6 @@ export default function FormPagos(props) {
     recargar();
   }
   const pendiente = "5";
-  const codigo_recibo = "Hola";
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -183,6 +171,17 @@ export default function FormPagos(props) {
       id_pendiente: pendiente || "",
     },
   });
+
+  //useEfecct para el numCom
+  console.log(comprobante);
+  useEffect(() => {
+    if (comprobante == "BOLETA") {
+      setNumCom(`B001-${suggestedNumber}`);
+    } else {
+      setNumCom(`F001-${suggestedNumber}`);
+    }
+  }, [suggestedNumber, numCom, setNumCom, comprobante]);
+  console.log(numCom);
   //tipos de pagos
   const [buttonCD, setButtonCD] = useState();
   const [buttonM, setButtonM] = useState();
@@ -234,18 +233,17 @@ export default function FormPagos(props) {
   }, []);
   // PARA AGRAGAR LOS CAMPOS SEGÚN EL TIPO DE COMPROBANTE
   const [selectedValue, setSelectedValue] = useState(false);
-  // if (selectedValue) {
-  //   setNumCom(`F001-${lastNumber}`);
-  // }
-  console.log(selectedValue);
+  //Esto sirve para que se muestre y se bloqueen los inputs según el tipo de comprobante
   const handleSelectChange = (value) => {
     if (value == "FACTURA") {
       setSelectedValue(true);
-      setNumCom(`F001-${lastNumber}`);
+      setComprobante("FACTURA");
     } else {
       setSelectedValue(false);
+      setComprobante("BOLETA");
     }
   };
+  //Variable para la SUNAT
   const SUNAT = {
     personaId: "665248a370419f0015e8a074",
     personaToken:
@@ -259,7 +257,7 @@ export default function FormPagos(props) {
         _text: "2.0",
       },
       "cbc:ID": {
-        _text: `B001-${lastNumber}`,
+        _text: `B001-${suggestedNumber}`,
       },
       "cbc:IssueDate": {
         _text: "2024-05-25",
@@ -514,7 +512,8 @@ export default function FormPagos(props) {
       console.log("operacion exitosa:", responses.data);
       const file = responses.data.fileName;
       console.log(file);
-      window.location.href = `https://back.apisunat.com/documents/${documentId}/getPDF/A4/${file}.pdf`;
+      const url = `https://back.apisunat.com/documents/${documentId}/getPDF/A4/${file}.pdf`;
+      window.open(url, "_blank");
     } catch (error) {
       console.error("Error al hacer la solicitud:", error);
     }
@@ -712,19 +711,13 @@ export default function FormPagos(props) {
               />
             </div>
             <div className="pagos-dato_tres">
-              {" "}
-              <PDFDownloadLink
-                document={<PdfPagoa />}
-                fileName="PagosMatricula.pdf"
+              <Button
+                className="registrar-pago"
+                // type="button"
+                onClick={ApiSunat}
               >
-                <Button
-                  className="registrar-pago"
-                  // type="button"
-                  onClick={ApiSunat}
-                >
-                  REGISTRAR PAGO
-                </Button>
-              </PDFDownloadLink>
+                REGISTRAR PAGO
+              </Button>
             </div>
           </div>
         </div>

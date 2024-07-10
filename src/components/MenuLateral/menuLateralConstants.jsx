@@ -16,6 +16,21 @@ export const menuLateralConstants = (id_tipo_usuario, num_solicitud) => {
       label: 'PERFIL',
     },
     {
+      key: '9',
+      icon: <UserOutlined />,
+      label: 'CAJA',
+      children: [
+        {
+          key: '91',
+          label: 'CAJA CHICA'
+        },
+        {
+          key: '92',
+          label: 'MOVIMIENTO'
+        },
+      ]
+    },
+    {
       key: '2',
       icon: <FontAwesomeIcon icon={faCrosshairs} />,
       label: 'MENÚ PRINCIPAL',
@@ -41,6 +56,7 @@ export const menuLateralConstants = (id_tipo_usuario, num_solicitud) => {
         {
           key: '23',
           label: 'PAGOS',
+          disabled: true,
         },
       ],
     },
