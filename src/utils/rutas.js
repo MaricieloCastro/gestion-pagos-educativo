@@ -155,4 +155,29 @@ export const enlaces = [
     actualPath: "caja/movimientos/",
     alias: "MOVIMIENTOS",
   },
+  //Reportes
+  {
+    id: 50,
+    name: "metodospago",
+    path: "metodospago/",
+    prevPath: "/",
+    actualPath: "/metodospago",
+    alias: "REPORTES METODOS DE PAGO",
+  },
+  {
+    id: 51,
+    name: "pagos-anticipados",
+    path: "pagos-anticipados",
+    prevPath: "/",
+    actualPath: "/pagos-anticipados",
+    alias: "REPORTES DE PAGOS ANTICIPADOS"
+  },
+  {
+    id: 52,
+    name: "editar-alumno",
+    path: "editar-alumno",
+    prevPath: "/",
+    actualPath: "/editar-alumno",
+    alias: "EDITAR DATOS DEL ALUMNO"
+  }
 ];

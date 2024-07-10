@@ -43,6 +43,10 @@ import Movimientos from "./modules/Caja/Movimientos";
 //Cronograma de Pagos
 import CronogramaPagos from "./modules/Pagos/pages/CronogramPagos/CronogramaPagos";
 
+//reportes
+import PagosAnticipados from "./modules/Reportes/pages/PagosAnticipados";
+import EditarAlumno from "./modules/DatosAlumno/pages/EditarAlumno";
+
 const App = () => {
   let { user } = useContext(AuthContext);
   let id_tipo_usuario = user ? user.id_tipo_usuario : null;
@@ -126,6 +130,16 @@ const App = () => {
             element={<HistorialReporte />}
             path={enlaces[13].prevPath + enlaces[13].path}
           />
+          <Route
+            element={<PagosAnticipados />}
+            path={enlaces[20].prevPath + enlaces[20].path}
+          />
+          {/* <Route
+            element={<EditarAlumno />}
+            // path={enlaces[21].prevPath + enlaces[21].path}
+            path={`${enlaces[21].prevPath}${enlaces[21].path}/:studentId`}
+          /> */}
+          <Route path="/editar-alumno/:id" element={<EditarAlumno />} />
         </Route>
         <Route
           element={

@@ -88,6 +88,10 @@ const MenuAnt = (props) => {
       navigate(enlaces[7].actualPath);
     }
 
+    if (key === "44") {
+      navigate(enlaces[20].actualPath);
+    }
+
     if (key === "8") {
       logoutUser();
     }

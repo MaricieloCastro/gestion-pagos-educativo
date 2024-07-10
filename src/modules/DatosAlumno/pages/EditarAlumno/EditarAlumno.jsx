@@ -27,21 +27,16 @@ import DatosMadre from "./Forms/DatosMadre";
 import DatosFamiliarExtra from "./Forms/DatosFamiliarExtra";
 import axios from "axios";
 import ApoderadoContext from "@/contexts/FomularioContext";
-import { Navigate, redirect } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-const removeSuffix = (data, suffix) => {
-  const result = {};
-  for (const key in data) {
-    if (key.endsWith(suffix)) {
-      result[key.slice(0, -suffix.length)] = data[key];
-    }
-  }
-  return result;
-};
-
-const InscribirAlumno = () => {
-  let { apoderadoPadre, setApoderadoPadre, apoderadoMadre, setApoderadoMadre } =
-    useContext(ApoderadoContext);
+const EditarAlumno = () => {
+  const {
+    apoderadoPadre,
+    setApoderadoPadre,
+    apoderadoMadre,
+    setApoderadoMadre,
+  } = useContext(ApoderadoContext);
+  const { id } = useParams();
   const [current, setCurrent] = useState(0);
   const [formDataEstudiante, setFormDataEstudiante] = useState(
     DEFAULT_VALUES_DATOS_ESTUDIANTE
@@ -59,13 +54,13 @@ const InscribirAlumno = () => {
   const getDefaultValues = (step) => {
     switch (step) {
       case 0:
-        return DEFAULT_VALUES_DATOS_ESTUDIANTE;
+        return formDataEstudiante;
       case 1:
-        return DEFAULT_VALUES_DATOS_PADRE;
+        return formDataPadre;
       case 2:
-        return DEFAULT_VALUES_DATOS_MADRE;
+        return formDataMadre;
       case 3:
-        return DEFAULT_VALUES_DATOS_FAMILIAR_EXTRA;
+        return formDataFamiliarExtra;
       default:
         return {};
     }
@@ -119,30 +114,102 @@ const InscribirAlumno = () => {
 
   useEffect(() => {
     form.reset(getDefaultValues(current));
-  }, [current]);
+  }, [
+    current,
+    formDataEstudiante,
+    formDataPadre,
+    formDataMadre,
+    formDataFamiliarExtra,
+  ]);
+
+  useEffect(() => {
+    const fetchAlumnoFamiliarData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/datos_alumno/api/alumno_x_familiar/?id_alumno=${id}`
+        );
+        const data = response.data;
+
+        let foundPadre = false;
+        let foundMadre = false;
+        let foundExtra = false;
+
+        data.forEach((item) => {
+          if (item.alumno) {
+            setFormDataEstudiante({
+              ...item.alumno,
+              codigo: item.alumno.dni,
+              id_beneficio: item.alumno.beneficio.id,
+            });
+            console.log("Datos del alumno", item.alumno);
+          }
+          if (item.familiar) {
+            if (item.familiar.parentesco === "PADRE") {
+              setFormDataPadre(item.familiar);
+              setApoderadoPadre(true);
+              foundPadre = true;
+              console.log("Datos del Padre", item.familiar);
+            } else if (item.familiar.parentesco === "MADRE") {
+              setFormDataMadre(item.familiar);
+              setApoderadoMadre(true);
+              foundMadre = true;
+              console.log("Datos de la Madre", item.familiar);
+            } else {
+              setFormDataFamiliarExtra(item.familiar);
+              foundExtra = true;
+              console.log("Datos del Familia Extra", item.familiar);
+            }
+          }
+        });
+
+        if (!foundPadre) {
+          setFormDataPadre(DEFAULT_VALUES_DATOS_PADRE);
+        }
+
+        if (!foundMadre) {
+          setFormDataMadre(DEFAULT_VALUES_DATOS_MADRE);
+        }
+
+        if (!foundExtra) {
+          setFormDataFamiliarExtra(DEFAULT_VALUES_DATOS_FAMILIAR_EXTRA);
+        }
+      } catch (error) {
+        console.error("Error fetching alumno_x_familiar data:", error);
+      }
+    };
+
+    if (id) {
+      fetchAlumnoFamiliarData();
+    }
+  }, [id]);
 
   const steps = paginado;
 
   const next = async (values) => {
-    switch (current) {
-      case 0:
-        setFormDataEstudiante({ ...formDataEstudiante, ...values });
-        break;
-      case 1:
-        setFormDataPadre({ ...formDataPadre, ...values });
-        setApoderadoPadre(values.apoderado_1);
-        break;
-      case 2:
-        setFormDataMadre({ ...formDataMadre, ...values });
-        setApoderadoMadre(values.apoderado_2);
-        break;
-      case 3:
-        setFormDataFamiliarExtra({ ...formDataFamiliarExtra, ...values });
-        break;
-      default:
-        break;
+    try {
+      switch (current) {
+        case 0:
+          setFormDataEstudiante({ ...formDataEstudiante, ...values });
+          break;
+        case 1:
+          setFormDataPadre({ ...formDataPadre, ...values });
+          setApoderadoPadre(values.apoderado);
+          break;
+        case 2:
+          setFormDataMadre({ ...formDataMadre, ...values });
+          setApoderadoMadre(values.apoderado);
+          break;
+        case 3:
+          setFormDataFamiliarExtra({ ...formDataFamiliarExtra, ...values });
+          break;
+        default:
+          break;
+      }
+      setCurrent(current + 1);
+    } catch (error) {
+      console.error("Error en el siguiente paso:", error);
+      message.error("Ocurrió un error al avanzar al siguiente paso.");
     }
-    setCurrent(current + 1);
   };
 
   const prev = () => {
@@ -152,29 +219,29 @@ const InscribirAlumno = () => {
   const onSubmit = async () => {
     try {
       const estudianteData = formDataEstudiante;
-      const padreData = removeSuffix(formDataPadre, "_1");
-      const madreData = removeSuffix(formDataMadre, "_2");
-      const familiarExtraData = removeSuffix(formDataFamiliarExtra, "_3");
+      const padreData = formDataPadre;
+      const madreData = formDataMadre;
+      const familiarExtraData = formDataFamiliarExtra;
 
       const promises = [
-        axios.post(
-          "http://localhost:8000/datos_alumno/api/alumno/",
+        axios.put(
+          `http://localhost:8000/datos_alumno/api/alumno/${id}/`,
           estudianteData
         ),
-        axios.post(
-          "http://localhost:8000/datos_alumno/api/familiar/",
+        axios.put(
+          `http://localhost:8000/datos_alumno/api/familiar/${padreData.id}/`,
           padreData
         ),
-        axios.post(
-          "http://localhost:8000/datos_alumno/api/familiar/",
+        axios.put(
+          `http://localhost:8000/datos_alumno/api/familiar/${madreData.id}/`,
           madreData
         ),
       ];
 
       if (!apoderadoPadre && !apoderadoMadre) {
         promises.push(
-          axios.post(
-            "http://localhost:8000/datos_alumno/api/familiar/",
+          axios.put(
+            `http://localhost:8000/datos_alumno/api/familiar/${familiarExtraData.id}/`,
             familiarExtraData
           )
         );
@@ -183,7 +250,6 @@ const InscribirAlumno = () => {
       const responses = await axios.all(promises);
       console.log("enviado correctamente", responses);
       message.success("Formulario enviado exitosamente!");
-      // Navigate("/lista-alumnos");
     } catch (error) {
       message.error(error.message);
       console.error("Error al enviar formulario:", error);
@@ -220,26 +286,25 @@ const InscribirAlumno = () => {
           />
         </ConfigProvider>
         <div style={contentStyle}>{steps[current].content}</div>
-        <div className="flex justify-end py-3">
+        <div
+          style={{
+            marginTop: 24,
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           {current > 0 && (
-            <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
-              Atrás
+            <Button onClick={prev} style={{ marginRight: 8 }}>
+              Anterior
             </Button>
           )}
-          {current < steps.length - 1 && (
-            <Button htmlType="submit" type="primary">
-              Siguiente
-            </Button>
-          )}
-          {current === steps.length - 1 && (
-            <Button htmlType="submit" type="primary">
-              Crear
-            </Button>
-          )}
+          <Button type="primary" htmlType="submit">
+            {current < steps.length - 1 ? "Siguiente" : "Enviar"}
+          </Button>
         </div>
       </form>
     </MenuLateral>
   );
 };
 
-export default InscribirAlumno;
+export default EditarAlumno;
