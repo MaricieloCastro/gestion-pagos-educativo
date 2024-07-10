@@ -44,6 +44,9 @@ import Movimientos from "./modules/Caja/Movimientos";
 import CronogramaPagos from "./modules/Pagos/pages/CronogramPagos/CronogramaPagos";
 import HistorialPagos from "./modules/Pagos/pages/HistorialPagos";
 
+//Reportes
+import AlumnosEspeciales from "./modules/Reportes/pages/Alumnos Especiales/AlumnosEspeciales";
+import FormAlumnosEspeciales from "./modules/Reportes/pages/Alumnos Especiales/components/FormAlumnosEspeciales";
 const App = () => {
   let { user } = useContext(AuthContext);
   let id_tipo_usuario = user ? user.id_tipo_usuario : null;
@@ -126,6 +129,10 @@ const App = () => {
           <Route
             element={<HistorialReporte />}
             path={enlaces[13].prevPath + enlaces[13].path}
+          />
+          <Route
+            element={<AlumnosEspeciales />}
+            path={enlaces[19].prevPath + enlaces[19].path}
           />
         </Route>
         <Route

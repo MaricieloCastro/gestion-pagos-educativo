@@ -4,12 +4,13 @@ import { UserOutlined } from "@ant-design/icons";
 import { Badge } from "antd";
 //import AuthContext from "../contexts/AuthContext";
 import "./AvatarPagos.scss";
-import Foto from "../../../../../assets/img/sin-perfil-350x400.jpg";
+import Fotos from "../../../../../assets/img/sin-perfil-350x400.jpg";
 
 const AvatarPagos = (props) => {
   // let { user } = useContext(AuthContext);
   //let { ruta_fotografica } = user;
-  const { estado } = props;
+  const { estado, Foto } = props;
+  console.log(Foto);
   let colorBad = "";
   if (!estado) {
     colorBad = "#f97316";

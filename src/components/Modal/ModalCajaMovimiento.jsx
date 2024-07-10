@@ -4,21 +4,7 @@ import AuthContext from "@/contexts/AuthContext";
 import "./ModalCajaMovimiento.scss";
 import { Modal } from "antd";
 import Formulario from "@/modules/Seguridad/pages/CrearUsuario/components/ui/formulario";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";

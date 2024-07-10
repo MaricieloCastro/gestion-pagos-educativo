@@ -155,4 +155,12 @@ export const enlaces = [
     actualPath: "/caja/movimientos/",
     alias: "MOVIMIENTOS",
   },
+  {
+    id: 20,
+    name: "alumnos-especiales",
+    path: "alumnos-especiales/",
+    prevPath: "/",
+    actualPath: "/alumnos-especiales/",
+    alias: "REPORTES ALUMNOS ESPECIALES",
+  },
 ];

@@ -13,7 +13,7 @@ import ModalSucess from "@/components/Modal/ModalSucess";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const BotonesMenuPrincipal = (props) => {
-  let { authTokens, user, estadoCaja } = useContext(AuthContext);
+  let { authTokens, user } = useContext(AuthContext);
   let { reload, setReload } = useContext(ListasContext);
   const { id, estado_deuda } = props;
   const navigate = useNavigate();
@@ -86,6 +86,7 @@ const BotonesMenuPrincipal = (props) => {
   };
   //Para direccionar caja
   const [isModalOpen, setIsModalOpen] = useState();
+  const estadoCaja = JSON.parse(localStorage.getItem("estadoCaja"));
   function NavigateMatricula() {
     if (estadoCaja == true) {
       navigate(`/pagos/${id}/2`);

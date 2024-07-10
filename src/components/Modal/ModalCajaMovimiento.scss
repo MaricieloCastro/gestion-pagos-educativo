@@ -1,19 +1,27 @@
-.hola {
-  height: 35vh;
-  label {
-    display: flex;
-    margin-bottom: 3px;
-    margin-top: 15px;
-    color: #fff;
+.modal-movimiento {
+  .ant-modal-footer {
+    display: none;
   }
-  .space-y-2 > :not([hidden]) ~ :not([hidden]) {
-    margin-top: 0px;
-  }
-  p {
-    font-size: small;
-  }
-  input {
-    height: 5.5vh;
-    color: black;
+  .hola {
+    height: 35vh;
+    label {
+      display: flex;
+      margin-bottom: 3px;
+      margin-top: 15px;
+      color: #fff;
+    }
+    .space-y-2 > :not([hidden]) ~ :not([hidden]) {
+      margin-top: 0px;
+    }
+    p {
+      font-size: small;
+    }
+    input {
+      height: 5.5vh;
+      color: black;
+    }
+    button {
+      color: black;
+    }
   }
 }

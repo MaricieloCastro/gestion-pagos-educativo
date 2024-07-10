@@ -1,0 +1,49 @@
+.ModalPagos {
+  .ant-modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 54vh;
+  }
+  .ant-modal-footer {
+    margin-top: 170px !important;
+    padding-top: 20px;
+  }
+  .pago {
+    display: grid !important;
+    grid-template-rows: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    width: 100vh;
+    height: 100%;
+    &-url {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      img {
+        height: 20vh;
+      }
+    }
+    &-cuentas {
+      margin-top: 10px;
+      justify-content: end;
+      display: grid;
+      grid-template-columns: 1.3fr 2fr;
+      flex-direction: column;
+      &_uno {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: end;
+      }
+      &_dos {
+        display: flex;
+        margin-left: 20px;
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+  }
+}
