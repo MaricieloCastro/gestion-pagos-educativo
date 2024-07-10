@@ -57,7 +57,7 @@ const BotonesListaUsuarios = (props) => {
         setModalFailed
       );
     } else {
-      setModalFailed(true)
+      setModalFailed(true);
     }
   };
 

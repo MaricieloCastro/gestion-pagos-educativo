@@ -849,43 +849,6 @@ export default function InscribirAlumno() {
                     </div>
                   </div>
                 </div>
-                {/* DATOS FAMILIAR */}
-                <div className=" p-3">
-                  <div className=" bg-blue-claro text-white grid px-6 py-3">
-                    <h2 className="pl-4 pt-4 underline">DATOS DE FAMILIAR :</h2>
-                    {/* PADRE */}
-                    <div className="pt-3">
-                      <h3 className="pl-4 text-gray-500 pb-2">PADRE :</h3>
-                      <FormularioPadre />
-                    </div>
-                    {/* MADRE */}
-                    <div className=" p-3">
-                      <h3 className="pl-4 text-gray-500 pb-2">MADRE :</h3>
-                      <FormularioMadre />
-                    </div>
-                    {/* FAMILIAR EXTRA */}
-                    <div className="contenido-extra">
-                      <span className="extra pl-4 pt-4 pb-4 pr-1">
-                        FAMILIAR EXTRA
-                      </span>
-                      <a
-                        className="h-6 w-6 border border-white hover:bg-blue-500 bg-transparent rounded-full flex items-center justify-center"
-                        onClick={() => toggleFormulario("familiarExtra")}
-                      >
-                        {formularios.familiarExtra ? "-" : "+"}
-                      </a>
-                      {/* Mostrar el formulario familiar extra si está activo */}
-                      {formularios.familiarExtra && <FormularioFamiliarExtra />}
-                    </div>
-                    <div className="BR pt-5 pb-8">
-                      <button className="ButtonBR bg-sky-600">
-                        <h1 className="text-white text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                          REGISTRAR ALUMNO
-                        </h1>
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </MenuLateral>

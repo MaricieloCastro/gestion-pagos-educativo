@@ -3,7 +3,8 @@ export const data = [
     label: "PARENTESCO:",
     name: "parentesco_1",
     type: "text",
-    placeholder: "",
+    placeholder: "", 
+    
   },
   {
     label: "DNI:",
@@ -88,13 +89,13 @@ export const data = [
   {
     label: "CELULAR:",
     name: "celular_1",
-    type: "text",
+    type: "number",
     placeholder: "Ingrese el celular",
   },
   {
     label: "TELEFONO:",
     name: "telefono_1",
-    type: "text",
+    type: "number",
     placeholder: "Ingrese el telefono",
   },
   {
@@ -106,25 +107,30 @@ export const data = [
   {
     label: "GRADO INSTRUCCION:",
     name: "grado_instruccion_1",
-    type: "text",
-    placeholder: "Ingrese el telefono",
+    type: "select",
+    placeholder: "Seleccione grado de instruccion ",
+    options: [
+      { value: "secundaria completa", label: "SECUNDARIA COMPLETA" },
+      { value: "primari completa", label: "PRIMARIA COMPLETA" },
+      { value: "superior completa", label: "SUPERIOR COMPLETA" },
+    ],
   },
   {
     label: "CENTRO TRABAJO:",
     name: "centro_trabajo_1",
     type: "text",
-    placeholder: "Ingrese el telefono",
+    placeholder: "Ingrese el centro de trabajo",
   },
   {
     label: "OCUPACION:",
     name: "ocupacion_1",
     type: "text",
-    placeholder: "Ingrese el telefono",
+    placeholder: "Ingrese la ocupacion",
   },
   {
     label: "CORREO:",
     name: "correo_1",
     type: "text",
-    placeholder: "Ingrese el telefono",
+    placeholder: "Ingrese el correo",
   },
 ];

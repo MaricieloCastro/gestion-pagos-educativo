@@ -44,9 +44,16 @@ import Movimientos from "./modules/Caja/Movimientos";
 import CronogramaPagos from "./modules/Pagos/pages/CronogramPagos/CronogramaPagos";
 import HistorialPagos from "./modules/Pagos/pages/HistorialPagos";
 
+<<<<<<< HEAD
 //Reportes
 import AlumnosEspeciales from "./modules/Reportes/pages/Alumnos Especiales/AlumnosEspeciales";
 import FormAlumnosEspeciales from "./modules/Reportes/pages/Alumnos Especiales/components/FormAlumnosEspeciales";
+=======
+//reportes
+import PagosAnticipados from "./modules/Reportes/pages/PagosAnticipados";
+import EditarAlumno from "./modules/DatosAlumno/pages/EditarAlumno";
+
+>>>>>>> f2726bfed171469785e502befa668e2cd09767fb
 const App = () => {
   let { user } = useContext(AuthContext);
   let id_tipo_usuario = user ? user.id_tipo_usuario : null;
@@ -131,9 +138,21 @@ const App = () => {
             path={enlaces[13].prevPath + enlaces[13].path}
           />
           <Route
+<<<<<<< HEAD
             element={<AlumnosEspeciales />}
             path={enlaces[19].prevPath + enlaces[19].path}
           />
+=======
+            element={<PagosAnticipados />}
+            path={enlaces[20].prevPath + enlaces[20].path}
+          />
+          {/* <Route
+            element={<EditarAlumno />}
+            // path={enlaces[21].prevPath + enlaces[21].path}
+            path={`${enlaces[21].prevPath}${enlaces[21].path}/:studentId`}
+          /> */}
+          <Route path="/editar-alumno/:id" element={<EditarAlumno />} />
+>>>>>>> f2726bfed171469785e502befa668e2cd09767fb
         </Route>
         <Route
           element={

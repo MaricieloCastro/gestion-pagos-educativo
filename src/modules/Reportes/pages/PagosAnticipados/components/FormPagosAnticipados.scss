@@ -1,0 +1,80 @@
+.cuerpo {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    &-select {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      &_conteniener {
+        display: grid;
+        grid-template-rows: 1fr 2fr 1fr;
+        height: 25vh;
+        width: 75%;
+        background-color: #001f36;
+        &-titulo {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-decoration: underline;
+          font-size: 15px;
+          color: white;
+        }
+  
+        &-dos {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+          button {
+            height: 4.5vh;
+            border-radius: 0;
+          }
+          label {
+            font-weight: normal;
+            font-size: 14px;
+            color: white;
+          }
+        }
+        &-tres {
+          button {
+            border-radius: 0;
+  
+            height: 100%;
+            width: 100%;
+            background-color: #c42727;
+            &:hover {
+              background-color: #df3030;
+              font-size: 15px;
+            }
+          }
+        }
+      }
+    }
+  
+    &-preview {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      &_body {
+        background-color: white;
+        margin: 0 40px 0px 0;
+        width: 100%;
+        height: 84vh;
+      }
+      &_download {
+        display: flex;
+        color: white;
+        font-weight: bold;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        margin-top: 10px;
+        button {
+          background-color: transparent;
+          font-size: 20px;
+        }
+      }
+    }
+  }

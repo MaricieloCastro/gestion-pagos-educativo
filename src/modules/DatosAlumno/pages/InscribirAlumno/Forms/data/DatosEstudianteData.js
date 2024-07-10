@@ -149,8 +149,8 @@ export const data = [
     type: "select",
     placeholder: "Seleccionar tipo de parto",
     options: [
-      { value: "NORMAL", label: "NORMAL" },
-      { value: "CESARIA", label: "CESARIA" },
+      { value: "normal", label: "NORMAL" },
+      { value: "cesaria", label: "CESARIA" },
     ],
   },
   {
