@@ -27,7 +27,7 @@ import DatosMadre from "./Forms/DatosMadre";
 import DatosFamiliarExtra from "./Forms/DatosFamiliarExtra";
 import axios from "axios";
 import ApoderadoContext from "@/contexts/FomularioContext";
-import { Navigate, redirect } from "react-router-dom";
+import { Navigate, redirect, useNavigate } from "react-router-dom";
 
 const removeSuffix = (data, suffix) => {
   const result = {};
@@ -40,6 +40,7 @@ const removeSuffix = (data, suffix) => {
 };
 
 const InscribirAlumno = () => {
+  const navigate = useNavigate();
   let { apoderadoPadre, setApoderadoPadre, apoderadoMadre, setApoderadoMadre } =
     useContext(ApoderadoContext);
   const [current, setCurrent] = useState(0);
@@ -183,7 +184,9 @@ const InscribirAlumno = () => {
       const responses = await axios.all(promises);
       console.log("enviado correctamente", responses);
       message.success("Formulario enviado exitosamente!");
-      // Navigate("/lista-alumnos");
+      const id = responses[0].data.id;
+      console.log(id);
+      window.location.href = `http://localhost:5173/pagos/${id}/4`;
     } catch (error) {
       message.error(error.message);
       console.error("Error al enviar formulario:", error);

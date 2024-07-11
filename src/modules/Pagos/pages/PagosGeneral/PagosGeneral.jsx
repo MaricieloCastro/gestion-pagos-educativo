@@ -23,6 +23,9 @@ export default function PagosGeneral() {
   const [reload, setReload] = useState();
   const [error, setError] = useState();
   const [open, setOpen] = useState();
+
+  //Lógica para generar facturas
+  const [facturas, setFacturas] = useState();
   let { authTokens, user } = useContext(AuthContext);
   const { id, pagos } = param;
   const URLALUMNOS = `http://127.0.0.1:8000/datos_alumno/api/estudiantes_activos/${id}/`;
@@ -39,6 +42,13 @@ export default function PagosGeneral() {
     type: "03",
     serie: "B001",
   };
+  const dataI = {
+    personaId: "665248a370419f0015e8a074",
+    personaToken:
+      "DEV_f1qz2uXCRNohX1UBx1TpTbvUEIce7Owu3f1efWwVwyGKkrZcQrckN8ARE2LRHhpx",
+    type: "01",
+    serie: "F001",
+  };
   useEffect(() => {
     const fetchUsuarios = async () => {
       try {
@@ -49,14 +59,21 @@ export default function PagosGeneral() {
         setGeneral(alumnos.data);
         setTipoPago(TipoPago.data);
         setPendiente(pendiente.data);
-        setLoading(false);
+
         const response = await axios.post(
           "https://back.apisunat.com/personas/lastDocument",
           data
         );
+        const factu = await axios.post(
+          "https://back.apisunat.com/personas/lastDocument",
+          dataI
+        );
         console.log("operacion exitosa:", response.data);
         console.log("operacion exitosa:", EstadoDeuda.data);
+        console.log("Operaciono Exitoda:", factu.data);
         setCorrelativo(response.data);
+        setFacturas(factu.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error al obtener los usuarios:", error);
         setLoading(false);
@@ -106,6 +123,7 @@ export default function PagosGeneral() {
           tipo_pago={tipo_pago}
           pendientes={pendiente[0]}
           correlativo={correlativo}
+          fCorrelativo={facturas}
         />
       </MenuLateral>
     </div>

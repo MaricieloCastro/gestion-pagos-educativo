@@ -155,7 +155,7 @@ export const enlaces = [
     actualPath: "/caja/movimientos/",
     alias: "MOVIMIENTOS",
   },
-<<<<<<< HEAD
+
   {
     id: 20,
     name: "alumnos-especiales",
@@ -164,7 +164,7 @@ export const enlaces = [
     actualPath: "/alumnos-especiales/",
     alias: "REPORTES ALUMNOS ESPECIALES",
   },
-=======
+
   //Reportes
   {
     id: 50,
@@ -180,7 +180,7 @@ export const enlaces = [
     path: "pagos-anticipados",
     prevPath: "/",
     actualPath: "/pagos-anticipados",
-    alias: "REPORTES DE PAGOS ANTICIPADOS"
+    alias: "REPORTES DE PAGOS ANTICIPADOS",
   },
   {
     id: 52,
@@ -188,7 +188,6 @@ export const enlaces = [
     path: "editar-alumno",
     prevPath: "/",
     actualPath: "/editar-alumno",
-    alias: "EDITAR DATOS DEL ALUMNO"
-  }
->>>>>>> f2726bfed171469785e502befa668e2cd09767fb
+    alias: "EDITAR DATOS DEL ALUMNO",
+  },
 ];

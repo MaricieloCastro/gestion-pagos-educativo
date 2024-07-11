@@ -108,8 +108,9 @@ const FormSchema = z.object({
 });
 export default function FormPagos(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { general, tipo_pago, pendientes, correlativo } = props;
+  const { general, tipo_pago, pendientes, correlativo, fCorrelativo } = props;
   const { lastNumber, personaId, suggestedNumber } = correlativo;
+
   //console.log(correlativo);
   //console.log(lastNumber);
   //CONTROLO DE LOS PENDIENTES Y ACTUALIZACIÓN
@@ -204,7 +205,7 @@ export default function FormPagos(props) {
       setNumCom(`B001-${suggestedNumber}`);
       form.setValue("codigo_recibo", numCom);
     } else {
-      setNumCom(`F001-${suggestedNumber}`);
+      setNumCom(`F001-${fCorrelativo.suggestedNumber}`);
       form.setValue("codigo_recibo", numCom);
     }
   }, [suggestedNumber, numCom, setNumCom, comprobante]);
@@ -213,15 +214,6 @@ export default function FormPagos(props) {
   // PARA AGRAGAR LOS CAMPOS SEGÚN EL TIPO DE COMPROBANTE
   const [selectedValue, setSelectedValue] = useState(false);
   //Esto sirve para que se muestre y se bloqueen los inputs según el tipo de comprobante
-  const handleSelectChange = (value) => {
-    if (value == "FACTURA") {
-      setSelectedValue(true);
-      setComprobante("FACTURA");
-    } else {
-      setSelectedValue(false);
-      setComprobante("BOLETA");
-    }
-  };
 
   //tipos de pagos
   const [buttonCD, setButtonCD] = useState();
@@ -283,6 +275,7 @@ export default function FormPagos(props) {
     }
   }, []);
   const [urlBoleta, seturlBoleta] = useState();
+
   //Variable para la SUNAT
   const SUNAT = {
     personaId: "665248a370419f0015e8a074",
@@ -535,13 +528,284 @@ export default function FormPagos(props) {
       ],
     },
   };
+  const SUNATFATURA = {
+    personaId: "665248a370419f0015e8a074",
+    personaToken:
+      "DEV_f1qz2uXCRNohX1UBx1TpTbvUEIce7Owu3f1efWwVwyGKkrZcQrckN8ARE2LRHhpx",
+    fileName: `20450406156-01-F001-${fCorrelativo.suggestedNumber}`,
+    documentBody: {
+      "cbc:UBLVersionID": {
+        _text: "2.1",
+      },
+      "cbc:CustomizationID": {
+        _text: "2.0",
+      },
+      "cbc:ID": {
+        _text: `F001-${fCorrelativo.suggestedNumber}`,
+      },
+      "cbc:IssueDate": {
+        _text: "2024-07-10",
+      },
+      "cbc:IssueTime": {
+        _text: "14:34:02",
+      },
+      "cbc:InvoiceTypeCode": {
+        _attributes: {
+          listID: "0101",
+        },
+        _text: "01",
+      },
+      "cbc:Note": [
+        {
+          _text: "CUATROCIENTOS  CON 00/100 SOLES",
+          _attributes: {
+            languageLocaleID: "1000",
+          },
+        },
+      ],
+      "cbc:DocumentCurrencyCode": {
+        _text: "PEN",
+      },
+      "cac:AccountingSupplierParty": {
+        "cac:Party": {
+          "cac:PartyIdentification": {
+            "cbc:ID": {
+              _attributes: {
+                schemeID: "6",
+              },
+              _text: "20450406156",
+            },
+          },
+          "cac:PartyName": {
+            "cbc:Name": {
+              _text: "Colegio Ciencias",
+            },
+          },
+          "cac:PartyLegalEntity": {
+            "cbc:RegistrationName": {
+              _text: "INSTITUCION EDUCATIVA  PARTICULAR CIENCIAS E.I.R.L.",
+            },
+            "cac:RegistrationAddress": {
+              "cbc:AddressTypeCode": {
+                _text: "0000",
+              },
+              "cac:AddressLine": {
+                "cbc:Line": {
+                  _text:
+                    "JR. PERU 908 CON JR. ESPAÑA NRO. 908 TARAPOTO SAN MARTIN SAN MARTIN",
+                },
+              },
+            },
+          },
+        },
+      },
+      "cac:AccountingCustomerParty": {
+        "cac:Party": {
+          "cac:PartyIdentification": {
+            "cbc:ID": {
+              _attributes: {
+                schemeID: "6",
+              },
+              _text: "10745260166",
+            },
+          },
+          "cac:PartyLegalEntity": {
+            "cbc:RegistrationName": {
+              _text: "GÓMEZ SÁNCHEZ JHOSEP MARCELO",
+            },
+            "cac:RegistrationAddress": {
+              "cac:AddressLine": {
+                "cbc:Line": {
+                  _text:
+                    "PJ. Santa Isabel NRO. 253 URB. Fonavi TARAPOTO SAN MARTIN SAN MARTIN",
+                },
+              },
+            },
+          },
+        },
+      },
+      "cac:TaxTotal": {
+        "cbc:TaxAmount": {
+          _attributes: {
+            currencyID: "PEN",
+          },
+          _text: 0,
+        },
+        "cac:TaxSubtotal": [
+          {
+            "cbc:TaxableAmount": {
+              _attributes: {
+                currencyID: "PEN",
+              },
+              _text: 400,
+            },
+            "cbc:TaxAmount": {
+              _attributes: {
+                currencyID: "PEN",
+              },
+              _text: 0,
+            },
+            "cac:TaxCategory": {
+              "cac:TaxScheme": {
+                "cbc:ID": {
+                  _text: "9997",
+                },
+                "cbc:Name": {
+                  _text: "EXO",
+                },
+                "cbc:TaxTypeCode": {
+                  _text: "VAT",
+                },
+              },
+            },
+          },
+        ],
+      },
+      "cac:LegalMonetaryTotal": {
+        "cbc:LineExtensionAmount": {
+          _attributes: {
+            currencyID: "PEN",
+          },
+          _text: 400,
+        },
+        "cbc:TaxInclusiveAmount": {
+          _attributes: {
+            currencyID: "PEN",
+          },
+          _text: 400,
+        },
+        "cbc:PayableAmount": {
+          _attributes: {
+            currencyID: "PEN",
+          },
+          _text: 400,
+        },
+      },
+      "cac:PaymentTerms": [
+        {
+          "cbc:ID": {
+            _text: "FormaPago",
+          },
+          "cbc:PaymentMeansID": {
+            _text: "Contado",
+          },
+        },
+      ],
+      "cac:InvoiceLine": [
+        {
+          "cbc:ID": {
+            _text: 1,
+          },
+          "cbc:InvoicedQuantity": {
+            _attributes: {
+              unitCode: "NIU",
+            },
+            _text: 1,
+          },
+          "cbc:LineExtensionAmount": {
+            _attributes: {
+              currencyID: "PEN",
+            },
+            _text: 400,
+          },
+          "cac:PricingReference": {
+            "cac:AlternativeConditionPrice": {
+              "cbc:PriceAmount": {
+                _attributes: {
+                  currencyID: "PEN",
+                },
+                _text: 400,
+              },
+              "cbc:PriceTypeCode": {
+                _text: "01",
+              },
+            },
+          },
+          "cac:TaxTotal": {
+            "cbc:TaxAmount": {
+              _attributes: {
+                currencyID: "PEN",
+              },
+              _text: 0,
+            },
+            "cac:TaxSubtotal": [
+              {
+                "cbc:TaxableAmount": {
+                  _attributes: {
+                    currencyID: "PEN",
+                  },
+                  _text: 400,
+                },
+                "cbc:TaxAmount": {
+                  _attributes: {
+                    currencyID: "PEN",
+                  },
+                  _text: 0,
+                },
+                "cac:TaxCategory": {
+                  "cbc:Percent": {
+                    _text: 0,
+                  },
+                  "cbc:TaxExemptionReasonCode": {
+                    _text: "20",
+                  },
+                  "cac:TaxScheme": {
+                    "cbc:ID": {
+                      _text: "9997",
+                    },
+                    "cbc:Name": {
+                      _text: "EXO",
+                    },
+                    "cbc:TaxTypeCode": {
+                      _text: "VAT",
+                    },
+                  },
+                },
+              },
+            ],
+          },
+          "cac:Item": {
+            "cbc:Description": {
+              _text: "PAGO POR MENSUALIDAD",
+            },
+            "cac:SellersItemIdentification": {
+              "cbc:ID": {
+                _text: "MENSUALIDAD",
+              },
+            },
+          },
+          "cac:Price": {
+            "cbc:PriceAmount": {
+              _attributes: {
+                currencyID: "PEN",
+              },
+              _text: 400,
+            },
+          },
+        },
+      ],
+    },
+  };
+  const [bodySunat, setBodySunat] = useState(SUNAT);
+  const handleSelectChange = (value) => {
+    if (value == "FACTURA") {
+      setSelectedValue(true);
+      setComprobante("FACTURA");
+      setBodySunat(SUNATFATURA);
+    } else {
+      setSelectedValue(false);
+      setComprobante("BOLETA");
+      setBodySunat(SUNAT);
+    }
+  };
+  console.log(bodySunat);
   //Logica para API SUNAR
   const ApiSunat = async () => {
     try {
       //Enviamos el documento con el link y el cuerpo de la boleta
       const response = await axios.post(
         "https://back.apisunat.com/personas/v1/sendBill",
-        SUNAT
+        bodySunat
       );
       console.log("operacion exitosa:", response.data);
       //Guardamos el id del documento que hemos generado
@@ -554,7 +818,7 @@ export default function FormPagos(props) {
       // Generamos el archiv PDF
       const responses = await axios.get(
         `https://back.apisunat.com/documents/${documentId}/getById`,
-        SUNAT
+        bodySunat
       );
       console.log("operacion exitosa:", responses.data);
       const file = responses.data.fileName;
