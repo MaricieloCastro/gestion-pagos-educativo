@@ -23,6 +23,7 @@ import { Link } from "react-router-dom";
 import { RadioGroupForm } from "./RadioGroupForm";
 //Componenete tipo de usuario
 import { SelectForm } from "./SelectForm";
+import { Input } from "@/components/ui/input";
 //Calendario
 import Calendario from "../../compenetes/reuse/Calendario";
 //API
@@ -83,6 +84,7 @@ const FormSchema = z.object({
   apellido_materno: z.string().min(1, {
     message: "Campo Obligatorio",
   }),
+  ruta_fotografia: z.string(),
   usuario_responsable: z.string().min(1, {
     message: "Campo Obligatorio",
   }),
@@ -138,10 +140,10 @@ export default function InputFormI(props) {
     username,
     password,
     tipo_usuario,
-    ruta_fotografia,
     fecha_nacimiento,
     uuid,
   } = usuarios || {};
+
 
   //HOOK DE FORMULARIO
   const form = useForm({
@@ -160,9 +162,12 @@ export default function InputFormI(props) {
       password: password || "",
       id_tipo_usuario: tipo_usuario.nombre,
       fecha_nacimiento: fecha_nacimiento || "",
+      ruta_fotografia: "",
       usuario_responsable: user.username || "",
     },
   });
+
+  // console.log("1: ", ruta_fotografia)
 
   //PARA LOS MÉTODOS
   const url = "http://127.0.0.1:8000/api/usuario/";
@@ -181,6 +186,7 @@ export default function InputFormI(props) {
     const data = values;
     values.password = contraseña;
     values.username = usuario;
+    console.log("foto: ", values.ruta_fotografia)
     if (data.id_tipo_usuario == "SECRETARIA") {
       data.id_tipo_usuario = "2";
     } else {
@@ -206,23 +212,37 @@ export default function InputFormI(props) {
 
   return (
     <Form {...form}>
-      <div className="fotografia">
-        <img src={ruta_fotografia} />
-        <div className="imp">
-          <h2>Adjuntar Fotografia</h2>
+      <form onSubmit={form.handleSubmit(Methods)} encType="multipart/form-data">
+        <div className="fotografia">
+          <img src={""} />
+          <div className="flex gap-2 justify-center items-center pt-2 cursor-pointer">
+            <label htmlFor="ruta_fotografia" className="cursor-pointer text-[14px] bg-[#C1C1C1] p-[4.5px]">Adjuntar Fotografia</label>
 
-          {/* <InputFile /> */}
-          <Button
-            className={buttonVariants({
-              variant: "default",
-              className: "rounded-none",
-            })}
-          >
-            <PlusOutlined />
-          </Button>
+            {/* <InputFile /> */}
+            {/* <div className="relative w-7 h-7 bg-[#003862] rounded-sm">
+              <PlusOutlined className="text-[#fff] absolute left-[5.5px] top-[5.5px]" />
+              <input type="file" name="ruta_fotografia" id="ruta_fotografia" className="absolute w-7 h-7 opacity-0" />
+            </div> */}
+            <FormField
+              control={form.control}
+              name="ruta_fotografia"
+              render={({ field }) => (
+                //Nombre
+                <FormItem>
+                  <FormLabel>fotografia</FormLabel>
+                  <FormControl>
+                    <input
+                      {...field}
+                      type="file"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
         </div>
-      </div>
-      <form onSubmit={form.handleSubmit(Methods)}>
+
         {/* Este es la sección del contenedor */}
         <div className="usario-datos">
           <h2>DATOS PERSONALES: </h2>

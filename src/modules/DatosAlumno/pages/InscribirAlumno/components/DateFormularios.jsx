@@ -15,8 +15,9 @@ const DateFormularios = (props) => {
     setValue(defaultDate);
   }, [defaultDate]);
 
-  console.log("field", field);
-  console.log(dayjs("2014-01-01").diff(dayjs("2000-01-01"), "year"));
+  useEffect(() => {
+    setValue(defaultDate)
+  }, [defaultDate])
 
   return (
     <ConfigProvider
@@ -28,20 +29,14 @@ const DateFormularios = (props) => {
         },
         components: {
           DatePicker: {
-            colorBorder: "none",
+            colorBorder: "none"
           },
         },
       }}
     >
-      <Space
-        direction="vertical"
-        size="middle"
-        className={`w-full ${
-          !fieldState.error
-            ? "ring-1 ring-[#1877F2] focus:ring-[#1877F2]"
-            : "ring-1 ring-red-500 focus:ring-red-500"
-        }`}
-      >
+      <Space direction="vertical" size="middle" className={`w-full ${!fieldState.error
+        ? "ring-1 ring-[#1877F2] focus:ring-[#1877F2]"
+        : "ring-1 ring-red-500 focus:ring-red-500"}`}>
         <Space.Compact
           size="large"
           className="w-full gap-1"
@@ -59,8 +54,9 @@ const DateFormularios = (props) => {
             defaultValue={""}
             value={field.value && dayjs(field.value)}
             onChange={(date, dateStr) => {
-              setValue(dateStr);
-              field.onChange(dateStr);
+              setValue(dateStr)
+              console.log("date: ", date)
+              field.onChange(dateStr)
             }}
             disabled={disabled}
             maxDate={currentDate}

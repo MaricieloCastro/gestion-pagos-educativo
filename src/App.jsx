@@ -43,14 +43,14 @@ import Movimientos from "./modules/Caja/Movimientos";
 //Cronograma de Pagos
 import CronogramaPagos from "./modules/Pagos/pages/CronogramPagos/CronogramaPagos";
 import HistorialPagos from "./modules/Pagos/pages/HistorialPagos";
-
-//Reportes
+import Deudas from "./modules/Reportes/pages/Deudas";
+import AlumnosBeneficiados from "./modules/Reportes/pages/AlumnosBeneficiados";
+import MetodoPago from "./modules/Reportes/pages/MetodoPago";
+import Ingresos from "./modules/Reportes/pages/Ingresos";
 import AlumnosEspeciales from "./modules/Reportes/pages/Alumnos Especiales/AlumnosEspeciales";
-import FormAlumnosEspeciales from "./modules/Reportes/pages/Alumnos Especiales/components/FormAlumnosEspeciales";
 import PagosAnticipados from "./modules/Reportes/pages/PagosAnticipados";
 import EditarAlumno from "./modules/DatosAlumno/pages/EditarAlumno";
 
-//reportes
 const App = () => {
   let { user } = useContext(AuthContext);
   let id_tipo_usuario = user ? user.id_tipo_usuario : null;
@@ -141,6 +141,14 @@ const App = () => {
           <Route
             element={<PagosAnticipados />}
             path={enlaces[20].prevPath + enlaces[20].path}
+          />
+          <Route
+            element={<MetodoPago />}
+            path={enlaces[21].prevPath + enlaces[21].path}
+          />
+          <Route
+            element={<Ingresos />}
+            path={enlaces[22].prevPath + enlaces[22].path}
           />
           {/* <Route
             element={<EditarAlumno />}

@@ -105,6 +105,19 @@ const MenuAnt = (props) => {
     if (key === "92") {
       navigate(enlaces[18].actualPath);
     }
+    if (key === "41") {
+      navigate(enlaces[22].actualPath)
+    }
+    if (key === "42") {
+      navigate(enlaces[19].actualPath)
+    }
+    if (key === "43") {
+      navigate(enlaces[20].actualPath)
+    }
+    if (key === "44") {
+      navigate(enlaces[21].actualPath)
+    }
+
   };
 
   const onOpenChange = (openKeys) => {

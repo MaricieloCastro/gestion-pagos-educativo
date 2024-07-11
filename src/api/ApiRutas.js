@@ -30,6 +30,9 @@ export const turnoAPI =
 export const gradoAPI =
   "http://127.0.0.1:8000/parametricas/api/grado_mantenimiento/";
 
+export const metodoPagoAPI =
+  "http://127.0.0.1:8000/parametricas/api/metodo_pago_mantenimiento/";
+
 export const seccionAPI =
   "http://127.0.0.1:8000/parametricas/api/seccion_mantenimiento/";
 
@@ -42,7 +45,23 @@ export const AperturaCajaAPI = "http://127.0.0.1:8000/caja/api/apertura-caja/";
 
 export const AperturaAPI = "http://127.0.0.1:8000/caja/api/apertura/";
 export const MoviemientoAPI = "http://127.0.0.1:8000/caja/api/movimiento/";
+export const tipoPagoAPI =
+  "http://127.0.0.1:8000/parametricas/api/tipo_pago_mantenimiento/";
 
 // PAGOS
 export const historialPagosAPI =
   "http://127.0.0.1:8000/caja/api/historial-pagos/";
+
+// REPORTES
+
+export const reporteBeneficiadosAPI =
+  "http://localhost:8000/reportes/api/reporte-beneficiados/agrupado";
+
+export const reporteDeudasAPI =
+  "http://127.0.0.1:8000/reportes/api/reporte-deudas/agrupado";
+
+export const reporteMetodoPagoAPI =
+  "http://127.0.0.1:8000/reportes/api/reporte-metodo-pago/agrupado";
+
+export const reporteIngresosAPI =
+  "http://127.0.0.1:8000/reportes/api/reporte-ingresos/agrupado";
