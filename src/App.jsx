@@ -1,65 +1,61 @@
-import React, { useContext } from "react";
-import { Routes, Route, Navigate, Link } from "react-router-dom";
-import "@/components/ToastStyle.scss";
+import { useContext } from 'react'
+import { Routes, Route, Navigate, Link } from 'react-router-dom'
+import '@/components/ToastStyle.scss'
 
 //MODULOS
 //Modulo de seguridad
-import InformacionUsuario from "./modules/Seguridad/pages/InformacionUsuario";
+import InformacionUsuario from './modules/Seguridad/pages/InformacionUsuario'
 
 //Pruebas
-import PruebasModales from "./modules/Seguridad/pages/PruebasModales";
-import PruebasToast from "./modules/Seguridad/pages/PruebasToast";
+import PruebasModales from './modules/Seguridad/pages/PruebasModales'
+import PruebasToast from './modules/Seguridad/pages/PruebasToast'
 
-import IniciarSesion from "./modules/Seguridad/pages/IniciarSesion";
-import ListaUsuarios from "./modules/Seguridad/pages/ListaUsuarios";
-import PanelAdministrador from "./modules/Seguridad/pages/PanelAdministrador";
-import Perfil from "./modules/Seguridad/pages/Perfil";
+import IniciarSesion from './modules/Seguridad/pages/IniciarSesion'
+import ListaUsuarios from './modules/Seguridad/pages/ListaUsuarios'
+import PanelAdministrador from './modules/Seguridad/pages/PanelAdministrador'
+import Perfil from './modules/Seguridad/pages/Perfil'
 
-import RestablecerContrasenia from "./modules/Seguridad/pages/RestablecerContrasenia";
-import ActualizarContrasenia from "./modules/Seguridad/pages/ActualizarContrasenia";
-import CrearUsuario from "./modules/Seguridad/pages/CrearUsuario";
+import RestablecerContrasenia from './modules/Seguridad/pages/RestablecerContrasenia'
+import ActualizarContrasenia from './modules/Seguridad/pages/ActualizarContrasenia'
+import CrearUsuario from './modules/Seguridad/pages/CrearUsuario'
 
-import PagosGeneral from "./modules/Pagos/pages/PagosGeneral";
-import PagoInscripcion from "./modules/Pagos/pages/PagoInscripcion";
+import PagosGeneral from './modules/Pagos/pages/PagosGeneral'
 
-import { enlaces } from "./utils/rutas";
+import { enlaces } from './utils/rutas'
 
 //RutasPrivadas
-import PrivateRoutes from "./utils/PrivateRoutes";
-import AuthContext from "./contexts/AuthContext";
+import PrivateRoutes from './utils/PrivateRoutes'
+import AuthContext from './contexts/AuthContext'
 
 //Modulo de datos alumnos
 
-import MenuPrincipal from "./modules/DatosAlumno/pages/MenuPrincipal";
-import InscribirAlumno from "./modules/DatosAlumno/pages/InscribirAlumno/InscribirAlumno";
-import EstudiantesDelete from "./modules/DatosAlumno/pages/EstudiantesDelete";
-import SolicitudEstudiantesDelete from "./modules/DatosAlumno/pages/SolicitudEstudiantesDelete";
-import HistorialReporte from "./modules/Reportes/pages/HistorialReporte";
+import MenuPrincipal from './modules/DatosAlumno/pages/MenuPrincipal'
+import InscribirAlumno from './modules/DatosAlumno/pages/InscribirAlumno/InscribirAlumno'
+import EstudiantesDelete from './modules/DatosAlumno/pages/EstudiantesDelete'
+import SolicitudEstudiantesDelete from './modules/DatosAlumno/pages/SolicitudEstudiantesDelete'
+import HistorialReporte from './modules/Reportes/pages/HistorialReporte'
 
 //Caja
-import Caja from "./modules/Caja/Caja";
-import Movimientos from "./modules/Caja/Movimientos";
+import Caja from './modules/Caja/Caja'
+import Movimientos from './modules/Caja/Movimientos'
 
 //Cronograma de Pagos
-import CronogramaPagos from "./modules/Pagos/pages/CronogramPagos/CronogramaPagos";
-import HistorialPagos from "./modules/Pagos/pages/HistorialPagos";
-import Deudas from "./modules/Reportes/pages/Deudas";
-import AlumnosBeneficiados from "./modules/Reportes/pages/AlumnosBeneficiados";
-import MetodoPago from "./modules/Reportes/pages/MetodoPago";
-import Ingresos from "./modules/Reportes/pages/Ingresos";
-import AlumnosEspeciales from "./modules/Reportes/pages/Alumnos Especiales/AlumnosEspeciales";
-import PagosAnticipados from "./modules/Reportes/pages/PagosAnticipados";
-import EditarAlumno from "./modules/DatosAlumno/pages/EditarAlumno";
+import HistorialPagos from './modules/Pagos/pages/HistorialPagos'
+import MetodoPago from './modules/Reportes/pages/MetodoPago'
+import Ingresos from './modules/Reportes/pages/Ingresos'
+import EditarAlumno from './modules/DatosAlumno/pages/EditarAlumno'
+import Deudas from './modules/Reportes/pages/Deudas'
+import AlumnosBeneficiados from './modules/Reportes/pages/AlumnosBeneficiados'
 
 const App = () => {
-  let { user } = useContext(AuthContext);
-  let id_tipo_usuario = user ? user.id_tipo_usuario : null;
+  let { user } = useContext(AuthContext)
+  let id_tipo_usuario = user ? user.id_tipo_usuario : null
 
   return (
-    <div className="bg-blue-claro h-screen">
+    <div className='bg-blue-claro h-screen'>
       <Routes>
-        <Route element={<PruebasModales />} path="/prueba/modal" />
-        <Route element={<PruebasToast />} path="/prueba/toast" />
+        <Route element={<PruebasModales />} path='/prueba/modal' />
+        <Route element={<PruebasToast />} path='/prueba/toast' />
 
         <Route
           element={<RestablecerContrasenia />}
@@ -74,7 +70,7 @@ const App = () => {
           path={enlaces[0].prevPath + enlaces[0].path}
         />
         <Route element={<PrivateRoutes />}>
-          <Route path="/" element={<Navigate to={enlaces[3].path} />} />
+          <Route path='/' element={<Navigate to={enlaces[3].path} />} />
           <Route element={<MenuPrincipal />} path={enlaces[3].path} />
           <Route
             element={<Perfil />}
@@ -135,11 +131,11 @@ const App = () => {
             path={enlaces[13].prevPath + enlaces[13].path}
           />
           <Route
-            element={<AlumnosEspeciales />}
+            element={<Deudas />}
             path={enlaces[19].prevPath + enlaces[19].path}
           />
           <Route
-            element={<PagosAnticipados />}
+            element={<AlumnosBeneficiados />}
             path={enlaces[20].prevPath + enlaces[20].path}
           />
           <Route
@@ -155,25 +151,25 @@ const App = () => {
             // path={enlaces[21].prevPath + enlaces[21].path}
             path={`${enlaces[21].prevPath}${enlaces[21].path}/:studentId`}
           /> */}
-          <Route path="/editar-alumno/:id" element={<EditarAlumno />} />
+          <Route path='/editar-alumno/:id' element={<EditarAlumno />} />
         </Route>
         <Route
           element={
             <>
-              <div className="h-screen flex justify-center items-center flex-col gap-4">
-                <h1 className="text-6xl">ERROR 404</h1>
+              <div className='h-screen flex justify-center items-center flex-col gap-4'>
+                <h1 className='text-6xl'>ERROR 404</h1>
                 <p>PAGE NOT FOUND</p>
-                <p className="text-slate-400">
-                  <Link to="/">Regresar a inicio de sesión</Link>
+                <p className='text-slate-400'>
+                  <Link to='/'>Regresar a inicio de sesión</Link>
                 </p>
               </div>
             </>
           }
-          path="*"
+          path='*'
         />
       </Routes>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

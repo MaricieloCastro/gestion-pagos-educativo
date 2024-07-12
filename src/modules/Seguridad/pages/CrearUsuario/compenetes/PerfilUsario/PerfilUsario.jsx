@@ -1,13 +1,10 @@
-import React from "react";
-import "./PerfilUsario.scss";
-import { Input } from "@/components/ui/input";
-import InputFormI from "../../components/ui/InputForm";
-import ApiUser from "../../components/ui/ApiUser";
+import './PerfilUsario.scss'
+import ApiUser from '../../components/ui/ApiUser'
 export default function PerfilUsario(props) {
-  const { disabled, indice, ButtonView, textButton, load } = props;
+  const { disabled, indice, ButtonView, textButton, load } = props
   return (
-    <div className="perfil-usario">
-      <div className="perfil-usario_datos">
+    <div className='perfil-usario'>
+      <div className='perfil-usario_datos'>
         {/* <InputForm nombre={nombre} apellido={apellido} edad={edad} /> */}
         <ApiUser
           disabled={disabled}
@@ -19,5 +16,5 @@ export default function PerfilUsario(props) {
         />
       </div>
     </div>
-  );
+  )
 }
