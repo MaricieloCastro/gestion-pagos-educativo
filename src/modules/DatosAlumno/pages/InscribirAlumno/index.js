@@ -1,1 +1,1 @@
-export { default } from "./InscribirAlumno";
+export { default } from './InscribirAlumno.jsx'

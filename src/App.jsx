@@ -30,7 +30,7 @@ import AuthContext from './contexts/AuthContext'
 //Modulo de datos alumnos
 
 import MenuPrincipal from './modules/DatosAlumno/pages/MenuPrincipal'
-import InscribirAlumno from './modules/DatosAlumno/pages/InscribirAlumno/InscribirAlumno'
+import InscribirAlumno from './modules/DatosAlumno/pages/InscribirAlumno'
 import EstudiantesDelete from './modules/DatosAlumno/pages/EstudiantesDelete'
 import SolicitudEstudiantesDelete from './modules/DatosAlumno/pages/SolicitudEstudiantesDelete'
 import HistorialReporte from './modules/Reportes/pages/HistorialReporte'

@@ -1,5 +1,5 @@
-import axios from "axios";
-import { toast } from "react-toastify";
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 export const getAxios = async (
   url,
@@ -8,28 +8,28 @@ export const getAxios = async (
   setLoading,
   setError
 ) => {
-  setLoading(false);
+  setLoading(false)
   try {
-    const response = await axios.get(url, { headers });
-    console.log("operacion exitosa:", response);
-    setGeneral(response.data);
-    setLoading(true);
+    const response = await axios.get(url, { headers })
+    console.log('operacion exitosa:', response)
+    setGeneral(response.data)
+    setLoading(true)
   } catch (error) {
-    console.error("Error al hacer la solicitud:", error);
-    setError(error.message);
-    setLoading(true);
+    console.error('Error al hacer la solicitud:', error)
+    setError(error.message)
+    setLoading(true)
   }
-};
+}
 
 export const getAxiosSimple = async (url, headers, setGeneral) => {
   try {
-    const response = await axios.get(url, { headers });
-    console.log("operacion exitosa:", response);
-    setGeneral(response.data);
+    const response = await axios.get(url, { headers })
+    console.log('operacion exitosa:', response)
+    setGeneral(response.data)
   } catch (error) {
-    console.error("Error al hacer la solicitud:", error);
+    console.error('Error al hacer la solicitud:', error)
   }
-};
+}
 
 export const putAxios = async (
   url,
@@ -40,43 +40,42 @@ export const putAxios = async (
   setError,
   setOpen
 ) => {
-  setOpen(true);
+  setOpen(true)
   try {
-    const response = await axios.put(url, data, { headers });
-    console.log("operacion exitosa:", response);
-    setReload(!reload);
-    setOpen(false);
+    const response = await axios.put(url, data, { headers })
+    console.log('operacion exitosa:', response)
+    setReload(!reload)
+    setOpen(false)
   } catch (error) {
-    console.error("Error al hacer la solicitud:", error);
-    setError(error.response.status);
-    setOpen(false);
+    console.error('Error al hacer la solicitud:', error)
+    setError(error.response.status)
+    setOpen(false)
   }
-};
+}
 
 export const postAxios = async (
   url,
   data,
   headers,
-  setReload,
-  reload,
-  setError,
   allowToast,
   funcGeneral
 ) => {
   try {
-    const response = await axios.post(url, data, { headers });
-    console.log("Proceso exitoso:", response.data);
+    const response = await axios.post(url, data, { headers })
+    console.log('Proceso exitoso:', response.data)
     if (allowToast) {
-      toast.success(response.data.message);
+      toast.success(response.data.message)
     }
-    funcGeneral();
+    if (funcGeneral) {
+      funcGeneral()
+    }
   } catch (error) {
-    console.error("Error al hacer la solicitud:", error);
+    console.error('Error al hacer la solicitud:', error)
     if (allowToast) {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.message)
     }
   }
-};
+}
 
 // PRUEBAS
 
@@ -88,17 +87,17 @@ export const putAxiosPrueba = async (
   setModalSucessfull,
   setError
 ) => {
-  setLoading(true);
+  setLoading(true)
   try {
-    const response = await axios.put(url, data, { headers });
-    console.log("operacion exitosa:", response);
-    setLoading(false);
-    setModalSucessfull(true);
+    const response = await axios.put(url, data, { headers })
+    console.log('operacion exitosa:', response)
+    setLoading(false)
+    setModalSucessfull(true)
   } catch (error) {
-    setLoading(false);
-    setError(true);
+    setLoading(false)
+    setError(true)
   }
-};
+}
 
 export const patchModal = async (
   url,
@@ -108,17 +107,17 @@ export const patchModal = async (
   setSucess,
   setError
 ) => {
-  setLoading(true);
+  setLoading(true)
   try {
-    const response = await axios.patch(url, data, { headers });
-    console.log("operacion exitosa:", response);
-    setLoading(false);
-    setSucess(true);
+    const response = await axios.patch(url, data, { headers })
+    console.log('operacion exitosa:', response)
+    setLoading(false)
+    setSucess(true)
   } catch (error) {
-    setLoading(false);
-    setError(true);
+    setLoading(false)
+    setError(true)
   }
-};
+}
 
 export const postAxiosPrueba = async (
   url,
@@ -130,15 +129,29 @@ export const postAxiosPrueba = async (
   allowToast,
   funcGeneral
 ) => {
-  setLoading(true);
+  setLoading(true)
   try {
-    const response = await axios.post(url, data, { headers });
-    console.log("operacion exitosa:", response);
-    setLoading(false);
-    setModalSucessfull(true);
+    const response = await axios.post(url, data, { headers })
+    console.log('operacion exitosa:', response)
+    setLoading(false)
+    setModalSucessfull(true)
   } catch (error) {
-    console.error("Error al hacer la solicitud:", error);
-    setLoading(false);
-    setError(true);
+    console.error('Error al hacer la solicitud:', error)
+    setLoading(false)
+    setError(true)
   }
-};
+}
+
+export const postAxiosWithReturn = async (url, data, headers, setLoading) => {
+  setLoading(true)
+  try {
+    const response = await axios.post(url, data, { headers })
+    console.log('Proceso exitoso:', response.data)
+    setLoading(false)
+    return response.data
+  } catch (error) {
+    console.error('Error al hacer la solicitud:', error)
+    setLoading(false)
+    return error
+  }
+}
