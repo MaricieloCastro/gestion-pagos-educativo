@@ -1,6 +1,6 @@
 .menu-lateral {
   display: grid;
-  grid-template-columns: 1fr 100fr;
+  grid-template-columns: auto 1fr;
 
   &__boton {
     display: grid;

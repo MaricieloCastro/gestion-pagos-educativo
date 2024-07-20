@@ -213,7 +213,7 @@ const InscribirAlumno = () => {
   return (
     <MenuLateral>
       <form
-        className='inscribir-alumno h-full'
+        className='inscribir-alumno overflow-auto h-full'
         onSubmit={form.handleSubmit(
           current < steps.length - 1 ? next : onSubmit
         )}
