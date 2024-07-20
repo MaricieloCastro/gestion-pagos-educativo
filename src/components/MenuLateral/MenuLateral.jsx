@@ -42,13 +42,15 @@ const MenuLateral = (props) => {
               <MenuFoldOutlined />
             )}
           </Button>
-          <div className='menu-lateral__boton-image w-full flex justify-center items-center bg-blue-oscuro'>
-            <img
-              className='w-36'
-              src='/img/escudoCienciasTexto.png'
-              alt='Walter logo pequeño'
-            />
-          </div>
+          {!collapsed && (
+            <div className='menu-lateral__boton-image w-full flex justify-center items-center bg-blue-oscuro'>
+              <img
+                className='w-36'
+                src='/img/escudoCienciasTexto.png'
+                alt='Walter logo pequeño'
+              />
+            </div>
+          )}
         </div>
         <div
           className={`flex justify-center items-center transition-all duration-200 ease-in-out transform ${
