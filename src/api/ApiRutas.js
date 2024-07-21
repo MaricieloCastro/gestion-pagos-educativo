@@ -67,3 +67,9 @@ export const reporteMetodoPagoAPI =
 
 export const reporteIngresosAPI =
   'http://127.0.0.1:8000/reportes/api/reporte-ingresos/agrupado'
+
+export const HISTORIAL_REPORTES_API =
+  'http://127.0.0.1:8000/reportes/api/historial-reportes/'
+
+export const TIPO_REPORTES_API =
+  'http://127.0.0.1:8000/reportes/api/tipo-reportes/'

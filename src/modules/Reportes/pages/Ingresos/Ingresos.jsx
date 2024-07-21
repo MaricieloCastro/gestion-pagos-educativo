@@ -1,43 +1,51 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react'
 
 import MenuLateral from '@/components/MenuLateral'
-import Reporte from "../../components/Reporte";
+import Reporte from '../../components/Reporte'
 
-import { reporteIngresosAPI, tipoPagoAPI } from "@/api/ApiRutas";
-import AuthContext from "@/contexts/AuthContext";
-import { getAxios } from "@/functions/methods";
-import IngresoPDF from "../../components/PDF/IngresosPDF";
+import { reporteIngresosAPI, tipoPagoAPI } from '@/api/ApiRutas'
+import AuthContext from '@/contexts/AuthContext'
+import { getAxios } from '@/functions/methods'
+import IngresoPDF from '../../components/PDF/IngresosPDF'
 
 const Ingresos = () => {
+  let { authTokens } = useContext(AuthContext)
+  const [optionSelected, setOptionSelected] = useState('')
+  const [triggerReporte, setTriggerReporte] = useState(true)
 
-    let { authTokens } = useContext(AuthContext);
-    const [optionSelected, setOptionSelected] = useState("")
-    const [triggerReporte, setTriggerReporte] = useState(true)
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
-    const [data, setData] = useState([])
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
+  useEffect(() => {
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + String(authTokens.access)
+    }
 
-    useEffect(() => {
+    let url = `${reporteIngresosAPI}/?tipo_pago=${optionSelected}`
 
-        const headers = {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + String(authTokens.access),
-        };
+    getAxios(url, headers, setData, setLoading, setError)
+  }, [triggerReporte])
 
-        let url = `${reporteIngresosAPI}/?tipo_pago=${optionSelected}`
-
-        getAxios(url, headers, setData, setLoading, setError)
-    }, [triggerReporte])
-
-    return (
-        <MenuLateral>
-            <Reporte loadingApiPDF={loading} apiFiltros={tipoPagoAPI} tittleFiltro="Tipo de pago:" apiReporte={data} nombreReporte="Ingresos" optionSelected={optionSelected} setOptionSelected={setOptionSelected} triggerReporte={triggerReporte} setTriggerReporte={setTriggerReporte} >
-                <IngresoPDF data={data} />
-            </Reporte>
-        </MenuLateral>
-
-    )
+  return (
+    <MenuLateral>
+      <Reporte
+        loadingApiPDF={loading}
+        apiFiltros={tipoPagoAPI}
+        tittleFiltro='Tipo de pago:'
+        apiReporte={data}
+        nombreReporte='Ingresos'
+        optionSelected={optionSelected}
+        setOptionSelected={setOptionSelected}
+        triggerReporte={triggerReporte}
+        setTriggerReporte={setTriggerReporte}
+        idReporte={1}
+      >
+        <IngresoPDF data={data} />
+      </Reporte>
+    </MenuLateral>
+  )
 }
 
 export default Ingresos
