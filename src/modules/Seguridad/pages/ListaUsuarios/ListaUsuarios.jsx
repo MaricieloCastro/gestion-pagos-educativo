@@ -1,5 +1,3 @@
-import React from 'react'
-
 import MenuLateral from '@/components/MenuLateral'
 import Listas from '@/components/Listas'
 

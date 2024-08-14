@@ -125,9 +125,7 @@ export const postAxiosPrueba = async (
   headers,
   setLoading,
   setModalSucessfull,
-  setError,
-  allowToast,
-  funcGeneral
+  setError
 ) => {
   setLoading(true)
   try {

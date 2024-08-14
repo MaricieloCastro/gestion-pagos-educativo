@@ -2,7 +2,37 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
 
-  .ant-steps-item-tail {
-    background-color: black !important;
+  .ant-steps-item {
+    &-tail {
+      background-color: black !important;
+    }
+
+    &-active {
+      .ant-steps-item-title {
+        color: rgb(204, 228, 248) !important;
+      }
+    }
+
+    &-wait {
+      .ant-steps-item {
+        &-title {
+          color: rgba(255, 255, 255, 0.514) !important;
+        }
+
+        &-icon {
+          background-color: #012742 !important;
+
+          span {
+            color: rgba(255, 255, 255, 0.475) !important;
+          }
+        }
+      }
+    }
+
+    &-finish {
+      .ant-steps-item-title {
+        color: rgb(204, 228, 248) !important;
+      }
+    }
   }
 }

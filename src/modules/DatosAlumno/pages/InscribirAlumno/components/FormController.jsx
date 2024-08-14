@@ -1,9 +1,9 @@
-import React from "react";
-import { Controller } from "react-hook-form";
-import InputFormularios from "./InputFormularios";
-import DateFormularios from "./DateFormularios";
-import DateWithYearsFormularios from "./DateWithYearsFormularios";
-import SelectFormularios from "./SelectFormularios";
+import React from 'react'
+import { Controller } from 'react-hook-form'
+import InputFormularios from './InputFormularios'
+import DateFormularios from './DateFormularios'
+import DateWithYearsFormularios from './DateWithYearsFormularios'
+import SelectFormularios from './SelectFormularios'
 
 const FormController = (props) => {
   const {
@@ -16,26 +16,27 @@ const FormController = (props) => {
     disabled,
     options,
     defaultDate,
-  } = props;
+    yearSpecial
+  } = props
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className='flex items-center justify-between'>
         <label
           htmlFor={name}
-          className="block text-sm font-normal leading-6 text-white"
+          className='block text-sm font-normal leading-6 text-white'
         >
           {label}
         </label>
         {children}
       </div>
-      <div className="mt-1">
+      <div className='mt-1'>
         <Controller
           control={control}
           name={name}
           render={({ field, fieldState }) => (
             <div>
-              {type === "date" ? (
+              {type === 'date' ? (
                 <DateFormularios
                   field={field}
                   fieldState={fieldState}
@@ -44,7 +45,7 @@ const FormController = (props) => {
                   disabled={disabled}
                   defaultDate={defaultDate}
                 />
-              ) : type === "dateWithYears" ? (
+              ) : type === 'dateWithYears' ? (
                 <DateWithYearsFormularios
                   field={field}
                   fieldState={fieldState}
@@ -52,8 +53,9 @@ const FormController = (props) => {
                   placeholder={placeholder}
                   disabled={disabled}
                   defaultDate={defaultDate}
+                  yearSpecial={yearSpecial}
                 />
-              ) : type === "select" ? (
+              ) : type === 'select' ? (
                 <SelectFormularios
                   field={field}
                   fieldState={fieldState}
@@ -73,7 +75,7 @@ const FormController = (props) => {
                 />
               )}
               {fieldState.error && (
-                <p className="text-red-500 text-sm mt-1 text-left">
+                <p className='text-red-500 text-sm mt-1 text-left'>
                   {fieldState.error.message}
                 </p>
               )}
@@ -82,7 +84,7 @@ const FormController = (props) => {
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FormController;
+export default FormController
