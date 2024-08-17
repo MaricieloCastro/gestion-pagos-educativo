@@ -1,14 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import MenuLateral from '@/components/MenuLateral'
 import Reporte from '../../components/Reporte'
 
 import { beneficioAPI, reporteBeneficiadosAPI } from '@/api/ApiRutas'
-import DeudasPDF from '../../components/PDF/DeudasPDF'
 import { getAxios } from '@/functions/methods'
 import AuthContext from '@/contexts/AuthContext'
-import { Spin } from 'antd'
-import { LoadingOutlined } from '@ant-design/icons'
 import AlumnosBeneficiadosPDF from '../../components/PDF/AlumnosBeneficiadosPDF'
 
 const AlumnosBeneficiados = () => {

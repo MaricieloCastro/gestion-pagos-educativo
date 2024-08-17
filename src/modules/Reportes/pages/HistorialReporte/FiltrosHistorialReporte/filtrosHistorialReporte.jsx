@@ -1,7 +1,7 @@
 import CallFilter from '@/components/Listas/CallFilter'
 import InputFiltros from '@/components/Listas/Filtros/InputFiltros'
 import { filterAdapter } from '@/components/Listas/CallFilter/filterAdapter'
-import { gradoAPI, TIPO_REPORTES_API, tipoUsuariosAPI } from '@/api/ApiRutas'
+import { TIPO_REPORTES_API, tipoUsuariosAPI } from '@/api/ApiRutas'
 
 export const filtrosHistorialReporte = (
   table,

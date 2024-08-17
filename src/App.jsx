@@ -48,6 +48,7 @@ import Deudas from './modules/Reportes/pages/Deudas'
 import AlumnosBeneficiados from './modules/Reportes/pages/AlumnosBeneficiados'
 import PerfilPrueba from './modules/Seguridad/pages/PerfilPrueba'
 import CrearUsuarioPrueba from './modules/Seguridad/pages/CrearUsuarioPrueba'
+import InformacionUsuarioPrueba from './modules/Seguridad/pages/InformacionUsuarioPrueba'
 
 const App = () => {
   let { user } = useContext(AuthContext)
@@ -102,7 +103,7 @@ const App = () => {
                 path={enlaces[7].prevPath + enlaces[7].path}
               />
               <Route
-                element={<InformacionUsuario />}
+                element={<InformacionUsuarioPrueba />}
                 path={enlaces[8].prevPath + enlaces[8].path}
               />
 

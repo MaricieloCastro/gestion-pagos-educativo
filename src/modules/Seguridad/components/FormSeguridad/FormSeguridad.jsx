@@ -15,11 +15,12 @@ import { Spin } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import ModalCarga from '@/components/Modal/ModalCarga'
 import { useNavigate } from 'react-router-dom'
+import { dataInfo } from '../../pages/InformacionUsuarioPrueba/data/InformacionUsuarioData'
 
 const FormSeguridad = (props) => {
   const { user, authTokens } = useContext(AuthContext)
 
-  const { edit, DEFAULT_VALUES, FORM_SCHEMA } = props
+  const { edit, editAdmin, DEFAULT_VALUES, FORM_SCHEMA } = props
   const navigate = useNavigate()
 
   const [userAPI, setUserAPI] = useState([])
@@ -45,6 +46,9 @@ const FormSeguridad = (props) => {
 
   const dataPersonalCrear = dataCrear.slice(0, 9)
   const dataUserCrear = dataCrear.slice(9, 13)
+
+  const dataPersonalAdmin = dataInfo.slice(0, 9)
+  const dataUserAdmin = dataInfo.slice(9, 13)
 
   useEffect(() => {
     if (edit) {
@@ -94,13 +98,6 @@ const FormSeguridad = (props) => {
 
   const onSubmit = async (values) => {
     if (edit) {
-      const data = {
-        celular: values.celular,
-        domicilio: values.domicilio,
-        sexo: values.sexo,
-        email: values.email
-      }
-
       const headers = {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + String(authTokens?.access)
@@ -110,7 +107,7 @@ const FormSeguridad = (props) => {
 
       await patchModal(
         url,
-        data,
+        values,
         headers,
         setModalLoading,
         setModalSuccess,
@@ -161,7 +158,48 @@ const FormSeguridad = (props) => {
             <p>DATOS PERSONALES:</p>
           </div>
           <div className='form-seguridad__datos-personales-inputs gap-2'>
-            {edit
+            {/* {edit
+              ? dataPersonal.map((item, index) => (
+                  <FormController
+                    key={index}
+                    control={form.control}
+                    type={item.type}
+                    name={item.name}
+                    label={item.label}
+                    placeholder={item.placeholder}
+                    disabled={item.disabled}
+                    options={item?.options}
+                    yearSpecial={item?.yearSpecial}
+                  />
+                ))
+              : dataPersonalCrear.map((item, index) => (
+                  <FormController
+                    key={index}
+                    control={form.control}
+                    type={item.type}
+                    name={item.name}
+                    label={item.label}
+                    placeholder={item.placeholder}
+                    disabled={item.disabled}
+                    options={item?.options}
+                    yearSpecial={item?.yearSpecial}
+                  />
+                ))} */}
+            {editAdmin
+              ? dataPersonalAdmin.map((item, index) => (
+                  <FormController
+                    key={index}
+                    control={form.control}
+                    type={item.type}
+                    name={item.name}
+                    label={item.label}
+                    placeholder={item.placeholder}
+                    disabled={item.disabled}
+                    options={item?.options}
+                    yearSpecial={item?.yearSpecial}
+                  />
+                ))
+              : edit
               ? dataPersonal.map((item, index) => (
                   <FormController
                     key={index}
@@ -195,7 +233,48 @@ const FormSeguridad = (props) => {
             <p>DATOS DE PERFIL:</p>
           </div>
           <div className='form-seguridad__datos-personales-inputs gap-2'>
-            {edit
+            {/* {edit
+              ? dataUser.map((item, index) => (
+                  <FormController
+                    key={index}
+                    control={form.control}
+                    type={item.type}
+                    name={item.name}
+                    label={item.label}
+                    placeholder={item.placeholder}
+                    disabled={item.disabled}
+                    options={item?.options}
+                    yearSpecial={item?.yearSpecial}
+                  />
+                ))
+              : dataUserCrear.map((item, index) => (
+                  <FormController
+                    key={index}
+                    control={form.control}
+                    type={item.type}
+                    name={item.name}
+                    label={item.label}
+                    placeholder={item.placeholder}
+                    disabled={item.disabled}
+                    options={item?.options}
+                    yearSpecial={item?.yearSpecial}
+                  />
+                ))} */}
+            {editAdmin
+              ? dataUserAdmin.map((item, index) => (
+                  <FormController
+                    key={index}
+                    control={form.control}
+                    type={item.type}
+                    name={item.name}
+                    label={item.label}
+                    placeholder={item.placeholder}
+                    disabled={item.disabled}
+                    options={item?.options}
+                    yearSpecial={item?.yearSpecial}
+                  />
+                ))
+              : edit
               ? dataUser.map((item, index) => (
                   <FormController
                     key={index}
