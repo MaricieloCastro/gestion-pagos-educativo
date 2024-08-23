@@ -23,6 +23,8 @@ const FormSeguridad = (props) => {
   const { edit, editAdmin, DEFAULT_VALUES, FORM_SCHEMA } = props
   const navigate = useNavigate()
 
+  const [valueInputPhoto, setValueInputPhoto] = useState('')
+
   const [userAPI, setUserAPI] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -151,40 +153,16 @@ const FormSeguridad = (props) => {
         className='form-seguridad bg-[#d9d9d9] gap-3 p-3'
       >
         <div className='flex justify-center items-center'>
-          <ImageProfile src={userAPI.ruta_fotografia} />
+          <ImageProfile
+            valueInputPhoto={valueInputPhoto}
+            src={userAPI.ruta_fotografia}
+          />
         </div>
         <div className='form-seguridad__datos-personales text-white bg-[#001f36] p-3 gap-3'>
           <div>
             <p>DATOS PERSONALES:</p>
           </div>
           <div className='form-seguridad__datos-personales-inputs gap-2'>
-            {/* {edit
-              ? dataPersonal.map((item, index) => (
-                  <FormController
-                    key={index}
-                    control={form.control}
-                    type={item.type}
-                    name={item.name}
-                    label={item.label}
-                    placeholder={item.placeholder}
-                    disabled={item.disabled}
-                    options={item?.options}
-                    yearSpecial={item?.yearSpecial}
-                  />
-                ))
-              : dataPersonalCrear.map((item, index) => (
-                  <FormController
-                    key={index}
-                    control={form.control}
-                    type={item.type}
-                    name={item.name}
-                    label={item.label}
-                    placeholder={item.placeholder}
-                    disabled={item.disabled}
-                    options={item?.options}
-                    yearSpecial={item?.yearSpecial}
-                  />
-                ))} */}
             {editAdmin
               ? dataPersonalAdmin.map((item, index) => (
                   <FormController
