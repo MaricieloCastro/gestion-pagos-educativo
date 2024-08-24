@@ -71,7 +71,7 @@ const PDF = ({ nombreReporte, optionSelected, currentDate, children }) => {
                     <View style={styles.tittleCabecera}>
                         <Text style={styles.tittleCabecera_tittle}>Colegio Ciencias Tarapoto</Text>
                         <Text style={styles.tittleCabecera__tittle_2}>
-                            Reporte de {nombreReporte} por {optionSelected === "" ? "todos" : optionSelected.toLowerCase()}
+                            Reporte de {nombreReporte}
                         </Text>
                         <View style={styles.tittleCabecera__tittle_caja}>
                             <Text>Jr. Perú 906, Tarapoto 22202, Perú</Text>

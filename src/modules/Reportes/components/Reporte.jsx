@@ -28,7 +28,10 @@ const Reporte = (props) => {
     loadingApiPDF,
     triggerReporte,
     setTriggerReporte,
-    idReporte
+    idReporte,
+    setFechas,
+    activeRangePicker = true,
+    handleClickAplicar
   } = props
 
   const [loading, setLoading] = useState(false)
@@ -46,9 +49,8 @@ const Reporte = (props) => {
     const data = {
       id_usuario: user.user_id,
       id_tipo_reportes: idReporte,
-      descripcion: `${nombreReporte.toUpperCase()} - ${
-        optionSelected === '' ? 'TODOS' : optionSelected.toUpperCase()
-      }`
+      descripcion: `${nombreReporte.toUpperCase()} - ${optionSelected === '' ? 'TODOS' : optionSelected.toUpperCase()
+        }`
     }
 
     postAxios(HISTORIAL_REPORTES_API, data, headers, false, false)
@@ -65,8 +67,10 @@ const Reporte = (props) => {
           setOptionSelected={setOptionSelected}
           triggerReporte={triggerReporte}
           setTriggerReporte={setTriggerReporte}
+          setFechas={setFechas}
+          activeRangePicker={activeRangePicker}
         >
-          <button className='w-full h-full bg-[#970001] hover:bg-[#ab0000]'>
+          <button disabled={!loading} onClick={handleClickAplicar} className='w-full h-full bg-[#970001] hover:bg-[#ab0000]'>
             {loading ? (
               <span className='text-slate-300'>Aplicar</span>
             ) : (
@@ -109,9 +113,8 @@ const Reporte = (props) => {
                 {children}
               </PDF>
             }
-            fileName={`${nombreReporte} - ${
-              optionSelected === '' ? 'TODOS' : optionSelected
-            } - ${currentDate.format('DD-MM-YYYY')}`}
+            fileName={`${nombreReporte} - ${optionSelected === '' ? 'TODOS' : optionSelected
+              } - ${currentDate.format('DD-MM-YYYY')}`}
           >
             {({ loading, url, error, blob }) =>
               loading ? (
@@ -119,9 +122,8 @@ const Reporte = (props) => {
               ) : (
                 <button onClick={handleClick} disabled={loading}>
                   <FontAwesomeIcon
-                    className={`text-2xl ${
-                      loading ? 'text-gray-400' : 'hover:text-white'
-                    }`}
+                    className={`text-2xl ${loading ? 'text-gray-400' : 'hover:text-white'
+                      }`}
                     icon={faFilePdf}
                   />
                 </button>

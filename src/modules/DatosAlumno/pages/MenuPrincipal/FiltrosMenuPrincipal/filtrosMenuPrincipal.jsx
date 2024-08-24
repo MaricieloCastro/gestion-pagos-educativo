@@ -3,7 +3,7 @@ import CallFilter from "@/components/Listas/CallFilter";
 import InputFiltros from "@/components/Listas/Filtros/InputFiltros";
 import { tipo } from "@/api/optionsFiltros";
 import { filterAdapter } from "@/components/Listas/CallFilter/filterAdapter";
-import { beneficioAPI, gradoAPI, seccionAPI, turnoAPI } from "@/api/ApiRutas";
+import { beneficioAPI, CONFIGURACION_API } from "@/api/ApiRutas";
 
 export const filtrosMenuPrincipal = (
   table,
@@ -13,9 +13,9 @@ export const filtrosMenuPrincipal = (
 ) => {
 
   const optionsBeneficio = filterAdapter(beneficioAPI)
-  const optionsTurno = filterAdapter(turnoAPI)
-  const optionsGrado = filterAdapter(gradoAPI)
-  const optionsSeccion = filterAdapter(seccionAPI)
+  const optionsTurno = filterAdapter(`${CONFIGURACION_API}=TURNO`)
+  const optionsGrado = filterAdapter(`${CONFIGURACION_API}=GRADO`)
+  const optionsSeccion = filterAdapter(`${CONFIGURACION_API}=SECCION`)
 
   return (
     <div className={`${classNameFiltros}__caja gap-3`}>
