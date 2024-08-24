@@ -1,9 +1,9 @@
-import React from 'react'
 import { Controller } from 'react-hook-form'
 import InputFormularios from './InputFormularios'
 import DateFormularios from './DateFormularios'
 import DateWithYearsFormularios from './DateWithYearsFormularios'
 import SelectFormularios from './SelectFormularios'
+import PropTypes from 'prop-types'
 
 const FormController = (props) => {
   const {
@@ -88,3 +88,16 @@ const FormController = (props) => {
 }
 
 export default FormController
+
+FormController.propTypes = {
+  control: PropTypes.object,
+  type: PropTypes.string,
+  name: PropTypes.string,
+  label: PropTypes.string,
+  placeholder: PropTypes.string,
+  children: PropTypes.object,
+  disabled: PropTypes.bool,
+  options: PropTypes.array,
+  defaultDate: PropTypes.string,
+  yearSpecial: PropTypes.bool
+}

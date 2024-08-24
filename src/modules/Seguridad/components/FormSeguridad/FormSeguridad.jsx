@@ -16,26 +16,22 @@ import { LoadingOutlined } from '@ant-design/icons'
 import ModalCarga from '@/components/Modal/ModalCarga'
 import { useNavigate } from 'react-router-dom'
 import { dataInfo } from '../../pages/InformacionUsuarioPrueba/data/InformacionUsuarioData'
+import PropTypes from 'prop-types'
 
 const FormSeguridad = (props) => {
-  const { user, authTokens } = useContext(AuthContext)
+  let { user, authTokens } = useContext(AuthContext)
 
   const { edit, editAdmin, DEFAULT_VALUES, FORM_SCHEMA } = props
   const navigate = useNavigate()
 
-  const [valueInputPhoto, setValueInputPhoto] = useState('')
+  const [fotoUpload, setFotoUpload] = useState(null)
 
   const [userAPI, setUserAPI] = useState([])
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
 
   const [modalLoading, setModalLoading] = useState(false)
-  const [modalSuccess, setModalSuccess] = useState(false)
-  const [modalError, setModalError] = useState(false)
 
   const [loadingCrear, setLoadingCrear] = useState(false)
-  const [modalSuccessCrear, setModalSuccessCrear] = useState(false)
-  const [modalErrorCrear, setModalErrorCrear] = useState(false)
 
   const formSchema = z.object(FORM_SCHEMA)
   const form = useForm({
@@ -62,7 +58,7 @@ const FormSeguridad = (props) => {
 
         const url = `http://localhost:8000/api/usuario/${user?.user_id}`
 
-        await getAxios(url, headers, setUserAPI, setLoading, setError)
+        await getAxios(url, headers, setUserAPI, setLoading)
       }
 
       actualizarDefault()
@@ -101,46 +97,39 @@ const FormSeguridad = (props) => {
   const onSubmit = async (values) => {
     if (edit) {
       const headers = {
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
         Authorization: 'Bearer ' + String(authTokens?.access)
       }
 
-      const url = `http://localhost:8000/api/usuario/${user?.user_id}/`
+      const url = `http://localhost:8000/api/update-profile-picture/${user?.user_id}/`
 
-      await patchModal(
-        url,
-        values,
-        headers,
-        setModalLoading,
-        setModalSuccess,
-        setModalError
-      )
+      if (fotoUpload !== null) {
+        values.ruta_fotografia = fotoUpload
+      }
+
+      await patchModal(url, values, headers, setModalLoading)
 
       navigate('/lista-alumnos/')
 
       console.log('newValues', values)
     } else {
       const headers = {
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
         Authorization: 'Bearer ' + String(authTokens?.access)
       }
 
       const url = `http://localhost:8000/api/usuario/`
 
       const newValues = {
-        ...values,
-        ruta_fotografia:
-          'https://ontrust-cm.culturadelalegalidad.net/sites/default/files/participantes/profile_pics/anonimo.jpg'
+        ruta_fotografia: fotoUpload,
+        is_active: true,
+        ...values
       }
 
-      await postAxiosPrueba(
-        url,
-        newValues,
-        headers,
-        setLoadingCrear,
-        setModalSuccessCrear,
-        setModalErrorCrear
-      )
+      console.log(newValues)
+
+      await postAxiosPrueba(url, newValues, headers, setLoadingCrear)
 
       navigate('/panel/lista-usuarios/')
     }
@@ -154,8 +143,11 @@ const FormSeguridad = (props) => {
       >
         <div className='flex justify-center items-center'>
           <ImageProfile
-            valueInputPhoto={valueInputPhoto}
             src={userAPI.ruta_fotografia}
+            setFotoUpload={setFotoUpload}
+            control={form.control}
+            name={'ruta_fotografia'}
+            edit={edit}
           />
         </div>
         <div className='form-seguridad__datos-personales text-white bg-[#001f36] p-3 gap-3'>
@@ -308,3 +300,10 @@ const FormSeguridad = (props) => {
 }
 
 export default FormSeguridad
+
+FormSeguridad.propTypes = {
+  edit: PropTypes.bool,
+  editAdmin: PropTypes.bool,
+  DEFAULT_VALUES: PropTypes.object,
+  FORM_SCHEMA: PropTypes.object
+}

@@ -16,7 +16,7 @@ export const getAxios = async (
     setLoading(true)
   } catch (error) {
     console.error('Error al hacer la solicitud:', error)
-    setError(error.message)
+    if (setError) setError(error.message)
     setLoading(true)
   }
 }
@@ -115,7 +115,7 @@ export const patchModal = async (
     setSucess(true)
   } catch (error) {
     setLoading(false)
-    setError(true)
+    if (setError) setError(true)
   }
 }
 
@@ -132,11 +132,11 @@ export const postAxiosPrueba = async (
     const response = await axios.post(url, data, { headers })
     console.log('operacion exitosa:', response)
     setLoading(false)
-    setModalSucessfull(true)
+    if (setModalSucessfull) setModalSucessfull(true)
   } catch (error) {
     console.error('Error al hacer la solicitud:', error)
     setLoading(false)
-    setError(true)
+    if (setError) setError(true)
   }
 }
 

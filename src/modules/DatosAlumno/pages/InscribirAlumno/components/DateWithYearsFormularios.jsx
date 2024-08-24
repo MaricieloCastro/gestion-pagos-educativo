@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ConfigProvider, DatePicker, Space } from 'antd'
 import dayjs from 'dayjs'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendar } from '@fortawesome/free-regular-svg-icons'
+import PropTypes from 'prop-types'
 
 const currentDate = dayjs()
 
@@ -23,15 +24,9 @@ const DateWithYearsFormularios = (props) => {
     setValue(defaultDate)
   }, [defaultDate])
 
-  console.log('field', field)
-
   const yearsOld = currentDate.diff(dayjs(value), 'year')
-  console.log('yearsOld', yearsOld)
 
   const yearsOldSpecial = currentDate.diff(dayjs(field.value), 'year')
-  console.log('yearsOld', yearsOld)
-
-  console.log(yearsOldSpecial)
 
   return (
     <ConfigProvider
@@ -75,7 +70,6 @@ const DateWithYearsFormularios = (props) => {
             id={name}
             value={field.value && dayjs(field.value)}
             onChange={(date, dateStr) => {
-              console.log('date: ', date)
               setValue(dateStr)
               field.onChange(dateStr)
             }}
@@ -95,3 +89,13 @@ const DateWithYearsFormularios = (props) => {
   )
 }
 export default DateWithYearsFormularios
+
+DateWithYearsFormularios.propTypes = {
+  field: PropTypes.object,
+  fieldState: PropTypes.object,
+  name: PropTypes.string,
+  placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
+  defaultDate: PropTypes.string,
+  yearSpecial: PropTypes.bool
+}
