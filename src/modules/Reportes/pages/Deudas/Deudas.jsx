@@ -41,6 +41,7 @@ const Deudas = () => {
         triggerReporte={triggerReporte}
         setTriggerReporte={setTriggerReporte}
         idReporte={2}
+        activeRangePicker={false}
       >
         <DeudasPDF data={data} />
       </Reporte>

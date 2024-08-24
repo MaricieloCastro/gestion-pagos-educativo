@@ -41,6 +41,7 @@ const AlumnosBeneficiados = () => {
         triggerReporte={triggerReporte}
         setTriggerReporte={setTriggerReporte}
         idReporte={3}
+        activeRangePicker={false}
       >
         <AlumnosBeneficiadosPDF data={data} />
       </Reporte>
