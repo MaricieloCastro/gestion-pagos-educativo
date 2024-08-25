@@ -3,9 +3,8 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Image } from 'antd'
 import PropTypes from 'prop-types'
-import { Controller } from 'react-hook-form'
 
-const ImageProfile = ({ src, control, name, edit, setFotoUpload }) => {
+const ImageProfile = ({ src, edit, setFotoUpload, editAdmin }) => {
   const fileInputRef = useRef(null)
 
   const [photographyDirection, setPhotographyDirection] = useState(null)
@@ -30,32 +29,25 @@ const ImageProfile = ({ src, control, name, edit, setFotoUpload }) => {
         className='h-full'
         width={200}
         height={230}
-        src={edit && !photographyDirection ? src : urlImage}
+        src={(edit || editAdmin) && !photographyDirection ? src : urlImage}
       />
       <div
         className='flex w-full border-1 border-[#ffffff] cursor-pointer'
         onClick={() => fileInputRef.current.click()}
       >
-        <Controller
-          control={control}
-          name={name}
-          render={({ field }) => (
-            <input
-              {...field}
-              type='file'
-              name='ruta_fotografia'
-              ref={fileInputRef}
-              style={{ display: 'none' }}
-              onChange={handleFileInputChange}
-            />
-          )}
+        <input
+          type='file'
+          name='ruta_fotografia'
+          ref={fileInputRef}
+          style={{ display: 'none' }}
+          onChange={handleFileInputChange}
         />
         <div
           className={`flex overflow-hidden px-2 ${
-            edit ? 'justify-center' : 'justify-start'
+            edit || editAdmin ? 'justify-center' : 'justify-start'
           } items-center text-gray-400 w-60 bg-[#fff] outline-none`}
         >
-          {edit && !photographyDirection
+          {edit || (editAdmin && !photographyDirection)
             ? 'Cambiar foto'
             : photographyDirection}
         </div>
@@ -71,8 +63,7 @@ export default ImageProfile
 
 ImageProfile.propTypes = {
   src: PropTypes.string,
-  control: PropTypes.object,
-  name: PropTypes.string,
   edit: PropTypes.bool,
-  setFotoUpload: PropTypes.func
+  setFotoUpload: PropTypes.func,
+  editAdmin: PropTypes.bool
 }

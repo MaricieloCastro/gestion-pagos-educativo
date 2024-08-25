@@ -8,8 +8,6 @@ const AvatarCN = () => {
 
   const [fotoPerfil, setFotoPerfil] = useState(ruta_fotografica)
 
-  console.log('authTokens', authTokens)
-
   useEffect(() => {
     setFotoPerfil(ruta_fotografica)
   }, [ruta_fotografica, authTokens])

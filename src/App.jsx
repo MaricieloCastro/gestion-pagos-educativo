@@ -3,7 +3,10 @@ import { Routes, Route, Navigate, Link } from 'react-router-dom'
 import '@/components/ToastStyle.scss'
 
 //MODULOS
+
 //Modulo de seguridad
+import PerfilPrueba from './modules/Seguridad/pages/Perfil'
+import CrearUsuario from './modules/Seguridad/pages/CrearUsuario'
 import InformacionUsuario from './modules/Seguridad/pages/InformacionUsuario'
 
 //Pruebas
@@ -13,11 +16,9 @@ import PruebasToast from './modules/Seguridad/pages/PruebasToast'
 import IniciarSesion from './modules/Seguridad/pages/IniciarSesion'
 import ListaUsuarios from './modules/Seguridad/pages/ListaUsuarios'
 import PanelAdministrador from './modules/Seguridad/pages/PanelAdministrador'
-import Perfil from './modules/Seguridad/pages/Perfil'
 
 import RestablecerContrasenia from './modules/Seguridad/pages/RestablecerContrasenia'
 import ActualizarContrasenia from './modules/Seguridad/pages/ActualizarContrasenia'
-import CrearUsuario from './modules/Seguridad/pages/CrearUsuario'
 
 import PagosGeneral from './modules/Pagos/pages/PagosGeneral'
 
@@ -28,7 +29,6 @@ import PrivateRoutes from './utils/PrivateRoutes'
 import AuthContext from './contexts/AuthContext'
 
 //Modulo de datos alumnos
-
 import MenuPrincipal from './modules/DatosAlumno/pages/MenuPrincipal'
 import InscribirAlumno from './modules/DatosAlumno/pages/InscribirAlumno'
 import EstudiantesDelete from './modules/DatosAlumno/pages/EstudiantesDelete'
@@ -46,9 +46,6 @@ import Ingresos from './modules/Reportes/pages/Ingresos'
 import EditarAlumno from './modules/DatosAlumno/pages/EditarAlumno'
 import Deudas from './modules/Reportes/pages/Deudas'
 import AlumnosBeneficiados from './modules/Reportes/pages/AlumnosBeneficiados'
-import PerfilPrueba from './modules/Seguridad/pages/PerfilPrueba'
-import CrearUsuarioPrueba from './modules/Seguridad/pages/CrearUsuarioPrueba'
-import InformacionUsuarioPrueba from './modules/Seguridad/pages/InformacionUsuarioPrueba'
 
 const App = () => {
   let { user } = useContext(AuthContext)
@@ -99,11 +96,11 @@ const App = () => {
                 path={enlaces[6].prevPath + enlaces[6].path}
               />
               <Route
-                element={<CrearUsuarioPrueba />}
+                element={<CrearUsuario />}
                 path={enlaces[7].prevPath + enlaces[7].path}
               />
               <Route
-                element={<InformacionUsuarioPrueba />}
+                element={<InformacionUsuario />}
                 path={enlaces[8].prevPath + enlaces[8].path}
               />
 

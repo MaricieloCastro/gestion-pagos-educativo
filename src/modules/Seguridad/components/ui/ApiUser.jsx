@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { URLAPIUSUARIO } from '../../compenetes/reuse/ConstObj'
+import { URLAPIUSUARIO } from '../Reuse/ConstObj'
 import InputFormI from './InputForm'
 import { Spin } from 'antd'
-import { Usuario } from '../../compenetes/reuse/ConstObj'
+import { Usuario } from '../Reuse/ConstObj'
+
 export default function ApiUser(props) {
   const { disabled, indice, ButtonView, textButton, load } = props
   const [usuarios, setUsuarios] = useState([])

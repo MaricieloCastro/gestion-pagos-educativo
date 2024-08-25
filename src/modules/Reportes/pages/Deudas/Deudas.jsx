@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import MenuLateral from '@/components/MenuLateral'
 import Reporte from '../../components/Reporte'
@@ -11,11 +11,9 @@ import { getAxios } from '@/functions/methods'
 const Deudas = () => {
   let { authTokens } = useContext(AuthContext)
   const [optionSelected, setOptionSelected] = useState('')
-  const [triggerReporte, setTriggerReporte] = useState(true)
 
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
 
   useEffect(() => {
     const headers = {
@@ -25,8 +23,19 @@ const Deudas = () => {
 
     let url = `${reporteDeudasAPI}/?nombre=${optionSelected}`
 
-    getAxios(url, headers, setData, setLoading, setError)
-  }, [triggerReporte])
+    getAxios(url, headers, setData, setLoading)
+  }, [])
+
+  const handleClickAplicar = () => {
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + String(authTokens.access)
+    }
+
+    let url = `${reporteDeudasAPI}/?nombre=${optionSelected}`
+
+    getAxios(url, headers, setData, setLoading)
+  }
 
   return (
     <MenuLateral>
@@ -38,10 +47,9 @@ const Deudas = () => {
         nombreReporte='Deudas'
         optionSelected={optionSelected}
         setOptionSelected={setOptionSelected}
-        triggerReporte={triggerReporte}
-        setTriggerReporte={setTriggerReporte}
         idReporte={2}
         activeRangePicker={false}
+        handleClickAplicar={handleClickAplicar}
       >
         <DeudasPDF data={data} />
       </Reporte>

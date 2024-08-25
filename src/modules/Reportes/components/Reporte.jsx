@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { Spin } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
@@ -14,6 +14,7 @@ import Preview from './Preview'
 import { postAxios } from '@/functions/methods'
 import AuthContext from '@/contexts/AuthContext'
 import { HISTORIAL_REPORTES_API } from '@/api/ApiRutas'
+import PropTypes from 'prop-types'
 
 const Reporte = (props) => {
   let { authTokens, user } = useContext(AuthContext)
@@ -26,8 +27,6 @@ const Reporte = (props) => {
     optionSelected,
     setOptionSelected,
     loadingApiPDF,
-    triggerReporte,
-    setTriggerReporte,
     idReporte,
     setFechas,
     activeRangePicker = true,
@@ -49,8 +48,9 @@ const Reporte = (props) => {
     const data = {
       id_usuario: user.user_id,
       id_tipo_reportes: idReporte,
-      descripcion: `${nombreReporte.toUpperCase()} - ${optionSelected === '' ? 'TODOS' : optionSelected.toUpperCase()
-        }`
+      descripcion: `${nombreReporte.toUpperCase()} - ${
+        optionSelected === '' ? 'TODOS' : optionSelected.toUpperCase()
+      }`
     }
 
     postAxios(HISTORIAL_REPORTES_API, data, headers, false, false)
@@ -65,12 +65,14 @@ const Reporte = (props) => {
           api={apiFiltros}
           optionSelected={optionSelected}
           setOptionSelected={setOptionSelected}
-          triggerReporte={triggerReporte}
-          setTriggerReporte={setTriggerReporte}
           setFechas={setFechas}
           activeRangePicker={activeRangePicker}
         >
-          <button disabled={!loading} onClick={handleClickAplicar} className='w-full h-full bg-[#970001] hover:bg-[#ab0000]'>
+          <button
+            disabled={!loading}
+            onClick={handleClickAplicar}
+            className='w-full h-full bg-[#970001] hover:bg-[#ab0000]'
+          >
             {loading ? (
               <span className='text-slate-300'>Aplicar</span>
             ) : (
@@ -113,17 +115,19 @@ const Reporte = (props) => {
                 {children}
               </PDF>
             }
-            fileName={`${nombreReporte} - ${optionSelected === '' ? 'TODOS' : optionSelected
-              } - ${currentDate.format('DD-MM-YYYY')}`}
+            fileName={`${nombreReporte} - ${
+              optionSelected === '' ? 'TODOS' : optionSelected
+            } - ${currentDate.format('DD-MM-YYYY')}`}
           >
-            {({ loading, url, error, blob }) =>
+            {({ loading }) =>
               loading ? (
                 <Spin indicator={<LoadingOutlined spin />} size='small' />
               ) : (
                 <button onClick={handleClick} disabled={loading}>
                   <FontAwesomeIcon
-                    className={`text-2xl ${loading ? 'text-gray-400' : 'hover:text-white'
-                      }`}
+                    className={`text-2xl ${
+                      loading ? 'text-gray-400' : 'hover:text-white'
+                    }`}
                     icon={faFilePdf}
                   />
                 </button>
@@ -137,3 +141,17 @@ const Reporte = (props) => {
 }
 
 export default Reporte
+
+Reporte.propTypes = {
+  apiFiltros: PropTypes.string,
+  tittleFiltro: PropTypes.string,
+  nombreReporte: PropTypes.string,
+  children: PropTypes.node,
+  optionSelected: PropTypes.string,
+  setOptionSelected: PropTypes.func,
+  loadingApiPDF: PropTypes.bool,
+  idReporte: PropTypes.number,
+  setFechas: PropTypes.func,
+  activeRangePicker: PropTypes.bool,
+  handleClickAplicar: PropTypes.func
+}

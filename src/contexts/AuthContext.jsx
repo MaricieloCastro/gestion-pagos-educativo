@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
       })
       .then(function (response) {
         setAuthTokens(response.data)
-        console.log(response)
+
         setUser(jwtDecode(response.data.access))
         setRefreshHelp(response.data.refresh)
         localStorage.setItem('authTokens', JSON.stringify(response.data))
@@ -54,15 +54,12 @@ export const AuthProvider = ({ children }) => {
         )
         navigate('/')
       })
-      .catch(function (error) {
-        console.log(error)
+      .catch(function () {
         toast.error('ALGO SALIÓ MAL')
       })
   }
 
   let updateToken = async () => {
-    console.log('Update token called')
-
     const headers = {
       'Content-Type': 'application/json'
     }
@@ -74,13 +71,12 @@ export const AuthProvider = ({ children }) => {
         const response = await axios.post(LOGIN_REFRESH_API, dataLoginRefresh, {
           headers
         })
-        console.log('operacion exitosa:', response)
 
         const data = response.data
 
         setAuthTokens(data)
         setUser(jwtDecode(data.access))
-        console.log('data', response)
+
         localStorage.setItem('authTokens', JSON.stringify(data))
       } catch (err) {
         console.error(err)
@@ -103,19 +99,25 @@ export const AuthProvider = ({ children }) => {
         username: user.username,
         refresh: refreshHelp
       })
-      .then(function (response) {
+      .then(function () {
         setAuthTokens(null)
         setUser(null)
         setRefreshHelp(null)
         localStorage.removeItem('authTokens')
         localStorage.removeItem('refreshHelp')
         navigate('/login')
-        console.log(response)
       })
-      .catch(function (error) {
-        console.log(error)
+      .catch(function () {
         navigate('/login')
       })
+  }
+
+  const updateTokenProfile = (data) => {
+    setAuthTokens(data)
+    setUser(jwtDecode(data.access))
+    setRefreshHelp(data.refresh)
+    localStorage.setItem('authTokens', JSON.stringify(data))
+    localStorage.setItem('refreshHelp', JSON.stringify(data.refresh))
   }
 
   useEffect(() => {
@@ -149,9 +151,10 @@ export const AuthProvider = ({ children }) => {
       estadoCaja,
       EstadoCajaSet,
       EstadoCajaSetZ,
-      updateToken
+      updateToken,
+      updateTokenProfile
     }
-  }, [loginUser])
+  }, [loginUser, authTokens, user, estadoCaja])
 
   return (
     <AuthContext.Provider value={contextValue}>

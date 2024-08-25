@@ -4,29 +4,35 @@ import ImageProfile from './ImageProfile'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { data } from '../../pages/PerfilPrueba/data/PerfilData'
-import { dataCrear } from '../../pages/CrearUsuarioPrueba/data/CrearUsuarioData'
+import { data } from '../../pages/Perfil/data/PerfilData'
+import { dataCrear } from '../../pages/CrearUsuario/data/CrearUsuarioData'
 import ButtonFormSeguridad from '../ButtonFormSeguridad'
 import { faPlus, faSave } from '@fortawesome/free-solid-svg-icons'
 import { useContext, useEffect, useState } from 'react'
 import AuthContext from '@/contexts/AuthContext'
-import { getAxios, patchModal, postAxiosPrueba } from '@/functions/methods'
+import {
+  getAxios,
+  patchModalUpdateProfile,
+  postAxiosPrueba
+} from '@/functions/methods'
 import { Spin } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import ModalCarga from '@/components/Modal/ModalCarga'
-import { useNavigate } from 'react-router-dom'
-import { dataInfo } from '../../pages/InformacionUsuarioPrueba/data/InformacionUsuarioData'
+import { useParams, useNavigate } from 'react-router-dom'
+import { dataInfo } from '../../pages/InformacionUsuario/data/InformacionUsuarioData'
 import PropTypes from 'prop-types'
 
 const FormSeguridad = (props) => {
-  let { user, authTokens } = useContext(AuthContext)
+  let { user, authTokens, updateTokenProfile } = useContext(AuthContext)
 
-  const { edit, editAdmin, DEFAULT_VALUES, FORM_SCHEMA } = props
+  const { edit = false, editAdmin = false, DEFAULT_VALUES, FORM_SCHEMA } = props
   const navigate = useNavigate()
+  const { id } = useParams()
 
   const [fotoUpload, setFotoUpload] = useState(null)
 
   const [userAPI, setUserAPI] = useState([])
+  const [userAdminAPI, setUserAdminAPI] = useState([])
   const [loading, setLoading] = useState(false)
 
   const [modalLoading, setModalLoading] = useState(false)
@@ -62,13 +68,26 @@ const FormSeguridad = (props) => {
       }
 
       actualizarDefault()
-    } else {
-      setLoading(true)
     }
-  }, [authTokens, user?.user_id, edit])
+
+    if (editAdmin) {
+      const actualizarDefault = async () => {
+        const headers = {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + String(authTokens?.access)
+        }
+
+        const url = `http://localhost:8000/api/usuario/${id}`
+
+        await getAxios(url, headers, setUserAdminAPI, setLoading)
+      }
+
+      actualizarDefault()
+    }
+  }, [authTokens, user?.user_id, edit, id, editAdmin])
 
   useEffect(() => {
-    if (userAPI) {
+    if (edit) {
       const newDefaults = {
         nombres: userAPI?.nombres || '',
         apellido_paterno: userAPI?.apellido_paterno || '',
@@ -86,7 +105,26 @@ const FormSeguridad = (props) => {
 
       form.reset(newDefaults)
     }
-  }, [userAPI, form])
+
+    if (editAdmin) {
+      const newDefaults = {
+        nombres: userAdminAPI?.nombres || '',
+        apellido_paterno: userAdminAPI?.apellido_paterno || '',
+        apellido_materno: userAdminAPI?.apellido_materno || '',
+        dni: userAdminAPI?.dni || '',
+        celular: userAdminAPI?.celular || '',
+        domicilio: userAdminAPI?.domicilio || '',
+        sexo: userAdminAPI?.sexo || '',
+        fecha_nacimiento: userAdminAPI?.fecha_nacimiento || '',
+        email: userAdminAPI?.email || '',
+        username: userAdminAPI?.username || '',
+        password: userAdminAPI?.password || '',
+        id_tipo_usuario: userAdminAPI?.tipo_usuario?.id || ''
+      }
+
+      form.reset(newDefaults)
+    }
+  }, [userAPI, form, userAdminAPI, edit, editAdmin])
 
   const cambiarContrasenia = () => {
     const uuid = userAPI.uuid
@@ -97,7 +135,6 @@ const FormSeguridad = (props) => {
   const onSubmit = async (values) => {
     if (edit) {
       const headers = {
-        // 'Content-Type': 'application/json',
         'Content-Type': 'multipart/form-data',
         Authorization: 'Bearer ' + String(authTokens?.access)
       }
@@ -108,11 +145,31 @@ const FormSeguridad = (props) => {
         values.ruta_fotografia = fotoUpload
       }
 
-      await patchModal(url, values, headers, setModalLoading)
+      const response = await patchModalUpdateProfile(
+        url,
+        values,
+        headers,
+        setModalLoading
+      )
 
-      navigate('/lista-alumnos/')
+      updateTokenProfile(response)
 
-      console.log('newValues', values)
+      window.location.reload()
+    } else if (editAdmin) {
+      const headers = {
+        'Content-Type': 'multipart/form-data',
+        Authorization: 'Bearer ' + String(authTokens?.access)
+      }
+
+      const url = `http://localhost:8000/api/usuario/${id}/`
+
+      if (fotoUpload !== null) {
+        values.ruta_fotografia = fotoUpload
+      }
+
+      await patchModalUpdateProfile(url, values, headers, setModalLoading)
+
+      setFotoUpload(null)
     } else {
       const headers = {
         'Content-Type': 'multipart/form-data',
@@ -126,8 +183,6 @@ const FormSeguridad = (props) => {
         is_active: true,
         ...values
       }
-
-      console.log(newValues)
 
       await postAxiosPrueba(url, newValues, headers, setLoadingCrear)
 
@@ -143,11 +198,10 @@ const FormSeguridad = (props) => {
       >
         <div className='flex justify-center items-center'>
           <ImageProfile
-            src={userAPI.ruta_fotografia}
+            src={edit ? userAPI.ruta_fotografia : userAdminAPI.ruta_fotografia}
             setFotoUpload={setFotoUpload}
-            control={form.control}
-            name={'ruta_fotografia'}
             edit={edit}
+            editAdmin={editAdmin}
           />
         </div>
         <div className='form-seguridad__datos-personales text-white bg-[#001f36] p-3 gap-3'>
@@ -203,33 +257,6 @@ const FormSeguridad = (props) => {
             <p>DATOS DE PERFIL:</p>
           </div>
           <div className='form-seguridad__datos-personales-inputs gap-2'>
-            {/* {edit
-              ? dataUser.map((item, index) => (
-                  <FormController
-                    key={index}
-                    control={form.control}
-                    type={item.type}
-                    name={item.name}
-                    label={item.label}
-                    placeholder={item.placeholder}
-                    disabled={item.disabled}
-                    options={item?.options}
-                    yearSpecial={item?.yearSpecial}
-                  />
-                ))
-              : dataUserCrear.map((item, index) => (
-                  <FormController
-                    key={index}
-                    control={form.control}
-                    type={item.type}
-                    name={item.name}
-                    label={item.label}
-                    placeholder={item.placeholder}
-                    disabled={item.disabled}
-                    options={item?.options}
-                    yearSpecial={item?.yearSpecial}
-                  />
-                ))} */}
             {editAdmin
               ? dataUserAdmin.map((item, index) => (
                   <FormController
@@ -283,7 +310,7 @@ const FormSeguridad = (props) => {
           )}
           <ButtonFormSeguridad
             icon={edit ? faSave : faPlus}
-            text={edit ? 'GUARDAR' : 'CREAR'}
+            text={edit || editAdmin ? 'GUARDAR' : 'CREAR'}
             htmlType='submit'
             style={1}
           />

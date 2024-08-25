@@ -10,12 +10,11 @@ import AlumnosBeneficiadosPDF from '../../components/PDF/AlumnosBeneficiadosPDF'
 
 const AlumnosBeneficiados = () => {
   let { authTokens } = useContext(AuthContext)
+
   const [optionSelected, setOptionSelected] = useState('')
-  const [triggerReporte, setTriggerReporte] = useState(true)
 
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
 
   useEffect(() => {
     const headers = {
@@ -25,8 +24,19 @@ const AlumnosBeneficiados = () => {
 
     let url = `${reporteBeneficiadosAPI}/?beneficio=${optionSelected}`
 
-    getAxios(url, headers, setData, setLoading, setError)
-  }, [triggerReporte])
+    getAxios(url, headers, setData, setLoading)
+  }, [])
+
+  const handleClickAplicar = () => {
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + String(authTokens.access)
+    }
+
+    let url = `${reporteBeneficiadosAPI}/?beneficio=${optionSelected}`
+
+    getAxios(url, headers, setData, setLoading)
+  }
 
   return (
     <MenuLateral>
@@ -38,10 +48,9 @@ const AlumnosBeneficiados = () => {
         nombreReporte='Beneficios'
         optionSelected={optionSelected}
         setOptionSelected={setOptionSelected}
-        triggerReporte={triggerReporte}
-        setTriggerReporte={setTriggerReporte}
         idReporte={3}
         activeRangePicker={false}
+        handleClickAplicar={handleClickAplicar}
       >
         <AlumnosBeneficiadosPDF data={data} />
       </Reporte>

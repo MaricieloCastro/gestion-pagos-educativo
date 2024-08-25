@@ -11,7 +11,7 @@ export const getAxios = async (
   setLoading(false)
   try {
     const response = await axios.get(url, { headers })
-    console.log('operacion exitosa:', response)
+
     setGeneral(response.data)
     setLoading(true)
   } catch (error) {
@@ -24,7 +24,7 @@ export const getAxios = async (
 export const getAxiosSimple = async (url, headers, setGeneral) => {
   try {
     const response = await axios.get(url, { headers })
-    console.log('operacion exitosa:', response)
+
     setGeneral(response.data)
   } catch (error) {
     console.error('Error al hacer la solicitud:', error)
@@ -42,8 +42,7 @@ export const putAxios = async (
 ) => {
   setOpen(true)
   try {
-    const response = await axios.put(url, data, { headers })
-    console.log('operacion exitosa:', response)
+    await axios.put(url, data, { headers })
     setReload(!reload)
     setOpen(false)
   } catch (error) {
@@ -62,7 +61,7 @@ export const postAxios = async (
 ) => {
   try {
     const response = await axios.post(url, data, { headers })
-    console.log('Proceso exitoso:', response.data)
+
     if (allowToast) {
       toast.success(response.data.message)
     }
@@ -89,8 +88,7 @@ export const putAxiosPrueba = async (
 ) => {
   setLoading(true)
   try {
-    const response = await axios.put(url, data, { headers })
-    console.log('operacion exitosa:', response)
+    await axios.put(url, data, { headers })
     setLoading(false)
     setModalSucessfull(true)
   } catch (error) {
@@ -109,13 +107,30 @@ export const patchModal = async (
 ) => {
   setLoading(true)
   try {
-    const response = await axios.patch(url, data, { headers })
-    console.log('operacion exitosa:', response)
+    await axios.patch(url, data, { headers })
     setLoading(false)
     setSucess(true)
   } catch (error) {
     setLoading(false)
     if (setError) setError(true)
+  }
+}
+
+export const patchModalUpdateProfile = async (
+  url,
+  data,
+  headers,
+  setLoading
+) => {
+  setLoading(true)
+  try {
+    const response = await axios.patch(url, data, { headers })
+
+    setLoading(false)
+
+    return response.data
+  } catch (error) {
+    setLoading(false)
   }
 }
 
@@ -129,8 +144,7 @@ export const postAxiosPrueba = async (
 ) => {
   setLoading(true)
   try {
-    const response = await axios.post(url, data, { headers })
-    console.log('operacion exitosa:', response)
+    await axios.post(url, data, { headers })
     setLoading(false)
     if (setModalSucessfull) setModalSucessfull(true)
   } catch (error) {
@@ -144,7 +158,7 @@ export const postAxiosWithReturn = async (url, data, headers, setLoading) => {
   setLoading(true)
   try {
     const response = await axios.post(url, data, { headers })
-    console.log('Proceso exitoso:', response.data)
+
     setLoading(false)
     return response.data
   } catch (error) {

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import MenuLateral from '@/components/MenuLateral'
 import Reporte from '../../components/Reporte'
@@ -15,17 +15,12 @@ const InitialDates = {
 
 const Ingresos = () => {
   let { authTokens } = useContext(AuthContext)
-  const [optionSelected, setOptionSelected] = useState('')
-  const [triggerReporte, setTriggerReporte] = useState(true)
 
+  const [optionSelected, setOptionSelected] = useState('')
   const [fechas, setFechas] = useState(InitialDates)
 
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-
-  // console.log('fechaInicial', fechaInicial)
-  // console.log('fechaFinal', fechaFinal)
 
   useEffect(() => {
     const headers = {
@@ -35,7 +30,7 @@ const Ingresos = () => {
 
     let url = `${reporteIngresosAPI}/?tipo_pago=${optionSelected}&fecha_inicial=${fechas.fechaInicial}&fecha_final=${fechas.fechaFinal}`
 
-    getAxios(url, headers, setData, setLoading, setError)
+    getAxios(url, headers, setData, setLoading)
   }, [])
 
   const handleClickAplicar = () => {
@@ -46,7 +41,7 @@ const Ingresos = () => {
 
     let url = `${reporteIngresosAPI}/?tipo_pago=${optionSelected}&fecha_inicial=${fechas.fechaInicial}&fecha_final=${fechas.fechaFinal}`
 
-    getAxios(url, headers, setData, setLoading, setError)
+    getAxios(url, headers, setData, setLoading)
   }
 
   return (
@@ -60,8 +55,6 @@ const Ingresos = () => {
         optionSelected={optionSelected}
         setFechas={setFechas}
         setOptionSelected={setOptionSelected}
-        triggerReporte={triggerReporte}
-        setTriggerReporte={setTriggerReporte}
         idReporte={1}
         handleClickAplicar={handleClickAplicar}
       >
