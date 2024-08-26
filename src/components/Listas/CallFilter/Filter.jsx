@@ -1,5 +1,6 @@
 import DateTimeFiltros from '../Filtros/DateTimeFiltros'
 import SelectFiltros from '../Filtros/SelectFiltros'
+import PropTypes from 'prop-types'
 
 const Filter = ({ column, title, options, setTimePicker }) => {
   const columnFilterValue = column.getFilterValue()
@@ -7,7 +8,6 @@ const Filter = ({ column, title, options, setTimePicker }) => {
 
   const handleChangeSelect = (value) => {
     column.setFilterValue(value)
-    console.log(value)
   }
 
   const handleChangeDateTime = (_, dateStr) => {
@@ -32,3 +32,10 @@ const Filter = ({ column, title, options, setTimePicker }) => {
 }
 
 export default Filter
+
+Filter.propTypes = {
+  column: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
+  options: PropTypes.array.isRequired,
+  setTimePicker: PropTypes.func
+}

@@ -1,49 +1,56 @@
-import React from "react";
-import { ConfigProvider, Select, Space } from "antd";
+import { ConfigProvider, Select, Space } from 'antd'
+import PropTypes from 'prop-types'
 
 const SelectPrueba = (props) => {
-  const { handleChange, columnFilterValue, title, options } = props;
+  const { handleChange, columnFilterValue, title, options } = props
 
   return (
     <ConfigProvider
       theme={{
         token: {
-          borderRadius: "none",
-          colorText: "#D9D9D9",
+          borderRadius: 'none',
+          colorText: '#D9D9D9'
         },
         components: {
           Select: {
-            colorTextQuaternary: "#D9D9D9",
-            colorTextPlaceholder: "#B5B5B5",
-            colorBgContainer: "#003862",
-            colorBgElevated: "#003768",
-            controlItemBgActive: "#004988",
-            controlItemBgHover: "#002A50",
-            colorBorder: "#003862",
-          },
-        },
+            colorTextQuaternary: '#D9D9D9',
+            colorTextPlaceholder: '#B5B5B5',
+            colorBgContainer: '#003862',
+            colorBgElevated: '#003768',
+            controlItemBgActive: '#004988',
+            controlItemBgHover: '#002A50',
+            colorBorder: '#003862'
+          }
+        }
       }}
     >
-      <Space direction="vertical" size="middle">
+      <Space direction='vertical' size='middle'>
         <Space.Compact
-          size="large"
-          className="w-full gap-1 min-w-36"
-          direction="vertical"
+          size='large'
+          className='w-full gap-1 min-w-36'
+          direction='vertical'
         >
-          <p className="font-inter text-blue-950 text-sm pl-1">{title}</p>
+          <p className='font-inter text-blue-950 text-sm pl-1'>{title}</p>
           <Select
-            className="w-full"
-            defaultValue=""
+            className='w-full'
+            defaultValue=''
             onChange={handleChange}
             value={
-              columnFilterValue === undefined ? "TODOS" : columnFilterValue
+              columnFilterValue === undefined ? 'TODOS' : columnFilterValue
             }
             options={options}
           />
         </Space.Compact>
       </Space>
     </ConfigProvider>
-  );
-};
+  )
+}
 
-export default SelectPrueba;
+export default SelectPrueba
+
+SelectPrueba.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  columnFilterValue: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  options: PropTypes.array.isRequired
+}

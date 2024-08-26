@@ -72,6 +72,7 @@ const FormController = (props) => {
                   name={name}
                   placeholder={placeholder}
                   disabled={disabled}
+                  style={{ textTransform: 'uppercase' }}
                 />
               )}
               {fieldState.error && (

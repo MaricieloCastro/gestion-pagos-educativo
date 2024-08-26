@@ -21,11 +21,18 @@ import ModalCarga from '@/components/Modal/ModalCarga'
 import { useParams, useNavigate } from 'react-router-dom'
 import { dataInfo } from '../../pages/InformacionUsuario/data/InformacionUsuarioData'
 import PropTypes from 'prop-types'
+import { convertValuesToUpperCase } from '@/functions/convertValuesToUpperCase'
 
 const FormSeguridad = (props) => {
   let { user, authTokens, updateTokenProfile } = useContext(AuthContext)
 
-  const { edit = false, editAdmin = false, DEFAULT_VALUES, FORM_SCHEMA } = props
+  const {
+    edit = false,
+    editAdmin = false,
+    crear = false,
+    DEFAULT_VALUES,
+    FORM_SCHEMA
+  } = props
   const navigate = useNavigate()
   const { id } = useParams()
 
@@ -133,6 +140,8 @@ const FormSeguridad = (props) => {
   }
 
   const onSubmit = async (values) => {
+    const valuesUpperCase = convertValuesToUpperCase(values)
+
     if (edit) {
       const headers = {
         'Content-Type': 'multipart/form-data',
@@ -142,12 +151,14 @@ const FormSeguridad = (props) => {
       const url = `http://localhost:8000/api/update-profile-picture/${user?.user_id}/`
 
       if (fotoUpload !== null) {
-        values.ruta_fotografia = fotoUpload
+        valuesUpperCase.ruta_fotografia = fotoUpload
       }
+
+      console.log('valuesUpperCase', valuesUpperCase)
 
       const response = await patchModalUpdateProfile(
         url,
-        values,
+        valuesUpperCase,
         headers,
         setModalLoading
       )
@@ -164,10 +175,15 @@ const FormSeguridad = (props) => {
       const url = `http://localhost:8000/api/usuario/${id}/`
 
       if (fotoUpload !== null) {
-        values.ruta_fotografia = fotoUpload
+        valuesUpperCase.ruta_fotografia = fotoUpload
       }
 
-      await patchModalUpdateProfile(url, values, headers, setModalLoading)
+      await patchModalUpdateProfile(
+        url,
+        valuesUpperCase,
+        headers,
+        setModalLoading
+      )
 
       setFotoUpload(null)
     } else {
@@ -181,7 +197,7 @@ const FormSeguridad = (props) => {
       const newValues = {
         ruta_fotografia: fotoUpload,
         is_active: true,
-        ...values
+        ...valuesUpperCase
       }
 
       await postAxiosPrueba(url, newValues, headers, setLoadingCrear)
@@ -190,7 +206,7 @@ const FormSeguridad = (props) => {
     }
   }
 
-  return loading ? (
+  return loading || crear ? (
     <>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
@@ -332,5 +348,6 @@ FormSeguridad.propTypes = {
   edit: PropTypes.bool,
   editAdmin: PropTypes.bool,
   DEFAULT_VALUES: PropTypes.object,
-  FORM_SCHEMA: PropTypes.object
+  FORM_SCHEMA: PropTypes.object,
+  crear: PropTypes.bool
 }

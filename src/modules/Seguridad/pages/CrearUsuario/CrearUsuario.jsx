@@ -11,6 +11,7 @@ const CrearUsuarioPrueba = () => {
       <FormSeguridad
         DEFAULT_VALUES={DEFAULT_VALUES_CREAR_USUARIO}
         FORM_SCHEMA={FORM_SCHEMA_CREAR_USUARIO}
+        crear={true}
       />
     </MenuLateral>
   )

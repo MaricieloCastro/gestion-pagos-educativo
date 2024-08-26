@@ -1,7 +1,7 @@
-import React from 'react'
+import PropTypes from 'prop-types'
 
 const InputFormularios = (props) => {
-  const { field, fieldState, type, name, placeholder, disabled } = props
+  const { field, fieldState, type, name, placeholder, disabled, style } = props
 
   return (
     <input
@@ -18,8 +18,19 @@ const InputFormularios = (props) => {
           : 'ring-red-500 focus:ring-red-500'
       } placeholder:text-gray-400 focus:ring-2 focus:ring-inset  focus:outline-none sm:text-sm sm:leading-6 `}
       disabled={disabled}
+      style={style}
     />
   )
 }
 
 export default InputFormularios
+
+InputFormularios.propTypes = {
+  field: PropTypes.object,
+  fieldState: PropTypes.object,
+  type: PropTypes.string,
+  name: PropTypes.string,
+  placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
+  style: PropTypes.object
+}

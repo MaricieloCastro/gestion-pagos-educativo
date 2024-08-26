@@ -47,7 +47,7 @@ const ImageProfile = ({ src, edit, setFotoUpload, editAdmin }) => {
             edit || editAdmin ? 'justify-center' : 'justify-start'
           } items-center text-gray-400 w-60 bg-[#fff] outline-none`}
         >
-          {edit || (editAdmin && !photographyDirection)
+          {(edit || editAdmin) && !photographyDirection
             ? 'Cambiar foto'
             : photographyDirection}
         </div>
