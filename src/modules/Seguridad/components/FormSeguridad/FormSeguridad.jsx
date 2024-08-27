@@ -22,6 +22,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { dataInfo } from '../../pages/InformacionUsuario/data/InformacionUsuarioData'
 import PropTypes from 'prop-types'
 import { convertValuesToUpperCase } from '@/functions/convertValuesToUpperCase'
+import { renameFile } from '@/functions/renameFile'
 
 const FormSeguridad = (props) => {
   let { user, authTokens, updateTokenProfile } = useContext(AuthContext)
@@ -151,7 +152,9 @@ const FormSeguridad = (props) => {
       const url = `http://localhost:8000/api/update-profile-picture/${user?.user_id}/`
 
       if (fotoUpload !== null) {
-        valuesUpperCase.ruta_fotografia = fotoUpload
+        const newFile = renameFile(fotoUpload, valuesUpperCase.dni)
+
+        valuesUpperCase.ruta_fotografia = newFile
       }
 
       console.log('valuesUpperCase', valuesUpperCase)
@@ -175,7 +178,9 @@ const FormSeguridad = (props) => {
       const url = `http://localhost:8000/api/usuario/${id}/`
 
       if (fotoUpload !== null) {
-        valuesUpperCase.ruta_fotografia = fotoUpload
+        const newFile = renameFile(fotoUpload, valuesUpperCase.dni)
+
+        valuesUpperCase.ruta_fotografia = newFile
       }
 
       await patchModalUpdateProfile(
@@ -195,7 +200,8 @@ const FormSeguridad = (props) => {
       const url = `http://localhost:8000/api/usuario/`
 
       const newValues = {
-        ruta_fotografia: fotoUpload,
+        ruta_fotografia:
+          fotoUpload && renameFile(fotoUpload, valuesUpperCase.dni),
         is_active: true,
         ...valuesUpperCase
       }

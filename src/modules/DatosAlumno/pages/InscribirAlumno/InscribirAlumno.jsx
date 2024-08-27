@@ -31,6 +31,8 @@ import { INCRIRIBIR_ALUMNO_API } from '@/api/ApiRutas'
 import AuthContext from '@/contexts/AuthContext'
 import Confirmación from './Confirmación'
 import { useNavigate } from 'react-router-dom'
+import { convertValuesToUpperCase } from '@/functions/convertValuesToUpperCase'
+import PropTypes from 'prop-types'
 
 const removeSuffix = (data, suffix) => {
   const result = {}
@@ -162,10 +164,14 @@ const InscribirAlumno = () => {
 
   const onSubmit = async () => {
     try {
-      const estudianteData = formDataEstudiante
-      const padreData = removeSuffix(formDataPadre, '_1')
-      const madreData = removeSuffix(formDataMadre, '_2')
-      const familiarExtraData = removeSuffix(formDataFamiliarExtra, '_3')
+      const estudianteDataLower = formDataEstudiante
+      const padreDataLower = removeSuffix(formDataPadre, '_1')
+      const madreDataLower = removeSuffix(formDataMadre, '_2')
+      const familiarExtraDataLower = removeSuffix(formDataFamiliarExtra, '_3')
+
+      const estudianteData = convertValuesToUpperCase(estudianteDataLower)
+      const padreData = convertValuesToUpperCase(padreDataLower)
+      const madreData = convertValuesToUpperCase(madreDataLower)
 
       const headers = {
         'Content-Type': 'application/json',
@@ -178,19 +184,25 @@ const InscribirAlumno = () => {
       }
 
       if (!apoderadoPadre && !apoderadoMadre) {
+        const familiarExtraData = convertValuesToUpperCase(
+          familiarExtraDataLower
+        )
+
         data.familiares.push(familiarExtraData)
       }
 
-      const response = await postAxiosWithReturn(
-        INCRIRIBIR_ALUMNO_API,
-        data,
-        headers,
-        setLoading
-      )
+      console.log(data)
 
-      const id = response.alumno.id_alumno
-      console.log(id)
-      navigate(`/pagos/${id}/4`)
+      // const response = await postAxiosWithReturn(
+      //   INCRIRIBIR_ALUMNO_API,
+      //   data,
+      //   headers,
+      //   setLoading
+      // )
+
+      // const id = response.alumno.id_alumno
+      // console.log(id)
+      // navigate(`/pagos/${id}/4`)
     } catch (error) {
       message.error(error.message)
       console.error('Error al enviar formulario:', error)
@@ -269,3 +281,7 @@ const InscribirAlumno = () => {
 }
 
 export default InscribirAlumno
+
+InscribirAlumno.propTypes = {
+  control: PropTypes.object
+}

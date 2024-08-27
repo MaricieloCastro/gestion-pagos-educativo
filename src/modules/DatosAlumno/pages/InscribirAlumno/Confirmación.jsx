@@ -1,14 +1,19 @@
 import dayjs from 'dayjs'
 import { LoadingOutlined } from '@ant-design/icons'
 import { Spin } from 'antd'
+import PropTypes from 'prop-types'
+import { convertValuesToUpperCase } from '@/functions/convertValuesToUpperCase'
 
 const Confirmación = (props) => {
   const { formDataEstudiante, formDataPadre, formDataMadre, loading } = props
-  console.log(formDataEstudiante)
 
-  const fecha_nacimiento = dayjs(formDataEstudiante.fecha_nacimiento).format(
-    'DD/MM/YYYY'
-  )
+  const formDataEstudianteUpper = convertValuesToUpperCase(formDataEstudiante)
+  const formDataPadreUpper = convertValuesToUpperCase(formDataPadre)
+  const formDataMadreUpper = convertValuesToUpperCase(formDataMadre)
+
+  const fecha_nacimiento = dayjs(
+    formDataEstudianteUpper.fecha_nacimiento
+  ).format('DD/MM/YYYY')
 
   return (
     <div className='h-full flex justify-center items-center p-10 '>
@@ -33,21 +38,21 @@ const Confirmación = (props) => {
               <p className='font-medium'>Alumno(a):</p>
               <p>
                 <span className='font-medium'>DNI:</span>{' '}
-                {formDataEstudiante.dni}
+                {formDataEstudianteUpper.dni}
               </p>
             </div>
             <div className='grid grid-cols-[repeat(2,1fr)] p-3 gap-5 text-left'>
               <p>
                 <span className='font-medium'>Nombre:</span>{' '}
-                {formDataEstudiante.nombres}
+                {formDataEstudianteUpper.nombres}
               </p>
               <p>
                 <span className='font-medium'>Ap. Paterno:</span>{' '}
-                {formDataEstudiante.apellido_paterno}
+                {formDataEstudianteUpper.apellido_paterno}
               </p>
               <p>
                 <span className='font-medium'>Ap. Materno:</span>{' '}
-                {formDataEstudiante.apellido_materno}
+                {formDataEstudianteUpper.apellido_materno}
               </p>
               <p>
                 <span className='font-medium'>F. Nacimiento:</span>{' '}
@@ -55,7 +60,7 @@ const Confirmación = (props) => {
               </p>
               <p>
                 <span className='font-medium'>Domicilio:</span>{' '}
-                {formDataEstudiante.direccion}
+                {formDataEstudianteUpper.direccion}
               </p>
             </div>
           </div>
@@ -63,25 +68,26 @@ const Confirmación = (props) => {
             <div className='p-3 flex justify-between border-[#003862] border-b-[1px] border-dashed'>
               <p className='font-medium'>Padre:</p>
               <p>
-                <span className='font-medium'>DNI:</span> {formDataPadre.dni_1}
+                <span className='font-medium'>DNI:</span>{' '}
+                {formDataPadreUpper.dni_1}
               </p>
             </div>
             <div className='grid grid-cols-[repeat(2,1fr)] p-3 gap-5 text-left'>
               <p>
                 <span className='font-medium'>Nombre:</span>{' '}
-                {formDataPadre.nombres_1}
+                {formDataPadreUpper.nombres_1}
               </p>
               <p>
                 <span className='font-medium'>Ap. Paterno:</span>{' '}
-                {formDataPadre.apellido_paterno_1}
+                {formDataPadreUpper.apellido_paterno_1}
               </p>
               <p>
                 <span className='font-medium'>Ap. Materno:</span>{' '}
-                {formDataPadre.apellido_materno_1}
+                {formDataPadreUpper.apellido_materno_1}
               </p>
               <p>
                 <span className='font-medium'>Telefono: </span>{' '}
-                {formDataPadre.telefono_1}
+                {formDataPadreUpper.telefono_1}
               </p>
             </div>
           </div>
@@ -89,25 +95,26 @@ const Confirmación = (props) => {
             <div className='p-3 flex justify-between border-[#003862] border-b-[1px] border-dashed'>
               <p className='font-medium'>Madre:</p>
               <p>
-                <span className='font-medium'>DNI:</span> {formDataMadre.dni_2}
+                <span className='font-medium'>DNI:</span>{' '}
+                {formDataMadreUpper.dni_2}
               </p>
             </div>
             <div className='grid grid-cols-[repeat(2,1fr)] p-3 gap-5 text-left'>
               <p>
                 <span className='font-medium'>Nombre:</span>{' '}
-                {formDataMadre.nombres_2}
+                {formDataMadreUpper.nombres_2}
               </p>
               <p>
                 <span className='font-medium'>Ap. Paterno:</span>{' '}
-                {formDataMadre.apellido_paterno_2}
+                {formDataMadreUpper.apellido_paterno_2}
               </p>
               <p>
                 <span className='font-medium'>Ap. Materno:</span>{' '}
-                {formDataMadre.apellido_materno_2}
+                {formDataMadreUpper.apellido_materno_2}
               </p>
               <p>
                 <span className='font-medium'>Telefono: </span>{' '}
-                {formDataMadre.telefono_2}
+                {formDataMadreUpper.telefono_2}
               </p>
             </div>
           </div>
@@ -118,3 +125,10 @@ const Confirmación = (props) => {
 }
 
 export default Confirmación
+
+Confirmación.propTypes = {
+  formDataEstudiante: PropTypes.object,
+  formDataPadre: PropTypes.object,
+  formDataMadre: PropTypes.object,
+  loading: PropTypes.bool
+}
