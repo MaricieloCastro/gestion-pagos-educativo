@@ -237,12 +237,5 @@ export const data = [
     type: 'select-async',
     placeholder: 'Seleccione el beneficio',
     urlAPI: beneficioAPI
-    // options: [
-    //   { value: 1, label: 'PRIMER PUESTO' },
-    //   { value: 2, label: 'DEPORTISTA DESTACADO' },
-    //   { value: 3, label: 'HERMANOS' },
-    //   { value: 4, label: 'HIJO DE PROFESOR' },
-    //   { value: 5, label: 'NINGUNO' }
-    // ]
   }
 ]
