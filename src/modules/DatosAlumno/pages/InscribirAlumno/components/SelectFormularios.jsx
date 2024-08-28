@@ -1,5 +1,5 @@
-import React from 'react'
 import { ConfigProvider, Select, Space } from 'antd'
+import PropTypes from 'prop-types'
 
 const SelectFormularios = (props) => {
   const { field, fieldState, name, placeholder, disabled, options } = props
@@ -50,3 +50,12 @@ const SelectFormularios = (props) => {
 }
 
 export default SelectFormularios
+
+SelectFormularios.propTypes = {
+  field: PropTypes.object,
+  fieldState: PropTypes.object,
+  name: PropTypes.string,
+  placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
+  options: PropTypes.array
+}

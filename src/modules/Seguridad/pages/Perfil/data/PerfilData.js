@@ -1,3 +1,5 @@
+import { tipoUsuariosAPI } from '@/api/ApiRutas'
+
 export const data = [
   {
     label: 'Nombres:',
@@ -44,19 +46,10 @@ export const data = [
   {
     label: 'Sexo:',
     name: 'sexo',
-    type: 'select',
+    type: 'select-async',
     disabled: false,
     placeholder: '',
-    options: [
-      {
-        label: 'MASCULINO',
-        value: 'M'
-      },
-      {
-        label: 'FEMENINO',
-        value: 'F'
-      }
-    ]
+    tabla: 'SEXO'
   },
   {
     label: 'F. de nacimiento:',
@@ -83,18 +76,9 @@ export const data = [
   {
     label: 'Tipo de usuario:',
     name: 'id_tipo_usuario',
-    type: 'select',
+    type: 'select-async',
     disabled: true,
     placeholder: '',
-    options: [
-      {
-        label: 'DIRECTOR',
-        value: 1
-      },
-      {
-        label: 'SECRETARIA',
-        value: 2
-      }
-    ]
+    urlAPI: tipoUsuariosAPI
   }
 ]

@@ -4,6 +4,7 @@ import DateFormularios from './DateFormularios'
 import DateWithYearsFormularios from './DateWithYearsFormularios'
 import SelectFormularios from './SelectFormularios'
 import PropTypes from 'prop-types'
+import SelectAsyncFormularios from './SelectAsyncFormularios'
 
 const FormController = (props) => {
   const {
@@ -16,7 +17,9 @@ const FormController = (props) => {
     disabled,
     options,
     defaultDate,
-    yearSpecial
+    yearSpecial,
+    tabla = null,
+    urlAPI = null
   } = props
 
   return (
@@ -64,6 +67,16 @@ const FormController = (props) => {
                   disabled={disabled}
                   options={options}
                 />
+              ) : type === 'select-async' ? (
+                <SelectAsyncFormularios
+                  field={field}
+                  fieldState={fieldState}
+                  name={name}
+                  placeholder={placeholder}
+                  disabled={disabled}
+                  urlAPI={urlAPI}
+                  tabla={tabla}
+                />
               ) : (
                 <InputFormularios
                   field={field}
@@ -100,5 +113,7 @@ FormController.propTypes = {
   disabled: PropTypes.bool,
   options: PropTypes.array,
   defaultDate: PropTypes.string,
-  yearSpecial: PropTypes.bool
+  yearSpecial: PropTypes.bool,
+  tabla: PropTypes.string,
+  urlAPI: PropTypes.string
 }

@@ -38,6 +38,8 @@ const DatosEstudiante = ({ control, setFotoUpload }) => {
                     placeholder={data.placeholder}
                     disabled={data.disabled}
                     options={data?.options}
+                    tabla={data?.tabla}
+                    urlAPI={data?.urlAPI}
                   />
                 </div>
               ))}
@@ -67,6 +69,8 @@ const DatosEstudiante = ({ control, setFotoUpload }) => {
                     placeholder={data.placeholder}
                     disabled={data.disabled}
                     options={data?.options}
+                    tabla={data?.tabla}
+                    urlAPI={data?.urlAPI}
                   />
                 </div>
               ))}
@@ -87,6 +91,8 @@ const DatosEstudiante = ({ control, setFotoUpload }) => {
                     placeholder={data.placeholder}
                     disabled={data.disabled}
                     options={data?.options}
+                    tabla={data?.tabla}
+                    urlAPI={data?.urlAPI}
                   />
                 </div>
               ))}
@@ -107,6 +113,8 @@ const DatosEstudiante = ({ control, setFotoUpload }) => {
                         placeholder={data.placeholder}
                         disabled={data.disabled}
                         options={data?.options}
+                        tabla={data?.tabla}
+                        urlAPI={data?.urlAPI}
                       />
                     </div>
                   ))}

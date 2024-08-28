@@ -243,6 +243,8 @@ const FormSeguridad = (props) => {
                     disabled={item.disabled}
                     options={item?.options}
                     yearSpecial={item?.yearSpecial}
+                    tabla={item?.tabla}
+                    urlAPI={item?.urlAPI}
                   />
                 ))
               : edit
@@ -257,6 +259,8 @@ const FormSeguridad = (props) => {
                     disabled={item.disabled}
                     options={item?.options}
                     yearSpecial={item?.yearSpecial}
+                    tabla={item?.tabla}
+                    urlAPI={item?.urlAPI}
                   />
                 ))
               : dataPersonalCrear.map((item, index) => (
@@ -270,6 +274,8 @@ const FormSeguridad = (props) => {
                     disabled={item.disabled}
                     options={item?.options}
                     yearSpecial={item?.yearSpecial}
+                    tabla={item?.tabla}
+                    urlAPI={item?.urlAPI}
                   />
                 ))}
           </div>
@@ -291,6 +297,8 @@ const FormSeguridad = (props) => {
                     disabled={item.disabled}
                     options={item?.options}
                     yearSpecial={item?.yearSpecial}
+                    tabla={item?.tabla}
+                    urlAPI={item?.urlAPI}
                   />
                 ))
               : edit
@@ -305,6 +313,8 @@ const FormSeguridad = (props) => {
                     disabled={item.disabled}
                     options={item?.options}
                     yearSpecial={item?.yearSpecial}
+                    tabla={item?.tabla}
+                    urlAPI={item?.urlAPI}
                   />
                 ))
               : dataUserCrear.map((item, index) => (
@@ -318,6 +328,8 @@ const FormSeguridad = (props) => {
                     disabled={item.disabled}
                     options={item?.options}
                     yearSpecial={item?.yearSpecial}
+                    tabla={item?.tabla}
+                    urlAPI={item?.urlAPI}
                   />
                 ))}
           </div>

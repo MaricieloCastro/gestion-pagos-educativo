@@ -1,13 +1,12 @@
-import React from "react";
-import { enlaces } from "@/utils/rutas";
+import { enlaces } from '@/utils/rutas'
 
-import CallFilter from "@/components/Listas/CallFilter";
-import InputFiltros from "@/components/Listas/Filtros/InputFiltros";
-import { Link } from "react-router-dom";
-import ButtonWithIcon from "@/components/ButtonWithIcon";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { filterAdapter } from "@/components/Listas/CallFilter/filterAdapter";
-import { tipoUsuariosAPI } from "@/api/ApiRutas";
+import CallFilter from '@/components/Listas/CallFilter'
+import InputFiltros from '@/components/Listas/Filtros/InputFiltros'
+import { Link } from 'react-router-dom'
+import ButtonWithIcon from '@/components/ButtonWithIcon'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { filterAdapter } from '@/components/Listas/CallFilter/filterAdapter'
+import { tipoUsuariosAPI } from '@/api/ApiRutas'
 
 export const filtrosListaUsuarios = (
   table,
@@ -15,7 +14,6 @@ export const filtrosListaUsuarios = (
   setFilteringSearch,
   filteringSearch
 ) => {
-
   const optionsTipoUsuario = filterAdapter(tipoUsuariosAPI)
 
   return (
@@ -29,13 +27,13 @@ export const filtrosListaUsuarios = (
             <CallFilter
               headerGroup={headerGroup}
               num={2}
-              title="TIPO:"
+              title='TIPO:'
               options={optionsTipoUsuario}
             />
             <CallFilter
               headerGroup={headerGroup}
               num={4}
-              title="ULT. INGRESO:"
+              title='ULT. INGRESO:'
             />
           </div>
         ))}
@@ -53,12 +51,12 @@ export const filtrosListaUsuarios = (
       >
         <Link to={enlaces[7].path}>
           <ButtonWithIcon
-            text="CREAR USUARIO"
+            text='CREAR USUARIO'
             icon={faPlus}
-            classNameVariants="gap-2 bg-green-boton hover:bg-green-boton-hover rounded-1"
+            classNameVariants='gap-2 bg-green-boton hover:bg-green-boton-hover rounded-1'
           />
         </Link>
       </div>
     </div>
-  );
-};
+  )
+}
