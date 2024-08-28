@@ -33,6 +33,7 @@ import Confirmación from './Confirmación'
 import { useNavigate } from 'react-router-dom'
 import { convertValuesToUpperCase } from '@/functions/convertValuesToUpperCase'
 import PropTypes from 'prop-types'
+import { renameFile } from '@/functions/renameFile'
 
 const removeSuffix = (data, suffix) => {
   const result = {}
@@ -61,6 +62,7 @@ const InscribirAlumno = () => {
     DEFAULT_VALUES_DATOS_FAMILIAR_EXTRA
   )
   const [loading, setLoading] = useState(false)
+  const [fotoUpload, setFotoUpload] = useState(null)
 
   const getDefaultValues = (step) => {
     switch (step) {
@@ -95,7 +97,9 @@ const InscribirAlumno = () => {
   let paginado = [
     {
       title: 'Datos del estudiante',
-      content: <DatosEstudiante control={form.control} />
+      content: (
+        <DatosEstudiante setFotoUpload={setFotoUpload} control={form.control} />
+      )
     },
     {
       title: 'Datos del padre',
@@ -139,7 +143,10 @@ const InscribirAlumno = () => {
   const next = async (values) => {
     switch (current) {
       case 0:
-        setFormDataEstudiante({ ...formDataEstudiante, ...values })
+        setFormDataEstudiante({
+          ...formDataEstudiante,
+          ...values
+        })
         break
       case 1:
         setFormDataPadre({ ...formDataPadre, ...values })
@@ -175,12 +182,28 @@ const InscribirAlumno = () => {
 
       const headers = {
         'Content-Type': 'application/json',
+        // 'Content-Type': 'multipart/form-data',
         Authorization: 'Bearer ' + String(authTokens?.access)
       }
 
+      const newFile = renameFile(fotoUpload, estudianteData.dni)
+
+      const convertImageToBase64 = (file) => {
+        if (!file) return null
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader()
+          reader.readAsDataURL(file)
+          reader.onload = () => resolve(reader.result)
+          reader.onerror = (error) => reject(error)
+        })
+      }
+
+      const fotoBase64 = await convertImageToBase64(newFile)
+
       const data = {
         alumno: estudianteData,
-        familiares: [padreData, madreData]
+        familiares: [padreData, madreData],
+        ruta_fotografia: fotoBase64
       }
 
       if (!apoderadoPadre && !apoderadoMadre) {
@@ -191,18 +214,20 @@ const InscribirAlumno = () => {
         data.familiares.push(familiarExtraData)
       }
 
-      console.log(data)
+      console.log('data', data)
 
-      // const response = await postAxiosWithReturn(
-      //   INCRIRIBIR_ALUMNO_API,
-      //   data,
-      //   headers,
-      //   setLoading
-      // )
+      const response = await postAxiosWithReturn(
+        INCRIRIBIR_ALUMNO_API,
+        data,
+        headers,
+        setLoading
+      )
 
-      // const id = response.alumno.id_alumno
-      // console.log(id)
-      // navigate(`/pagos/${id}/4`)
+      console.log('response', response)
+
+      const id = response.alumno.id_alumno
+      console.log(id)
+      navigate(`/pagos/${id}/4`)
     } catch (error) {
       message.error(error.message)
       console.error('Error al enviar formulario:', error)

@@ -1,6 +1,6 @@
 import FormController from '@/modules/DatosAlumno/pages/InscribirAlumno/components/FormController'
 import './FormSeguridad.scss'
-import ImageProfile from './ImageProfile'
+import ImageProfile from '../../../../components/ImageProfile'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

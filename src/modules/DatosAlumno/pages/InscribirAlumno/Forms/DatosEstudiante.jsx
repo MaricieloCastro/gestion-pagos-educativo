@@ -1,11 +1,10 @@
-import React from 'react'
 import FormController from '../components/FormController'
 import { data } from './data/DatosEstudianteData'
-import ImageUser from '../components/ImageUser'
-import UploadFormularios from '../components/UploadFormularios'
 import DepartamentosSelect from '../components/DepartamentosSelect'
+import ImageProfile from '@/components/ImageProfile'
+import PropTypes from 'prop-types'
 
-const DatosEstudiante = ({ control }) => {
+const DatosEstudiante = ({ control, setFotoUpload }) => {
   const datosPrincipalesData = data.slice(0, 6)
   const datosSecundariosData = data.slice(6, 11)
   const datosSecundariosDireccionData = data.slice(11, 12)
@@ -17,11 +16,11 @@ const DatosEstudiante = ({ control }) => {
         <div className='datos-estudiante__forms-datos-principales gap-2'>
           <div>
             <div className='w-[240px] min-w-[80px]'>
-              <ImageUser />
-              <div className='flex justify-center items-center gap-1'>
-                <p className='text-sm'>Fotografia: </p>
-                <UploadFormularios />
-              </div>
+              <ImageProfile
+                // src={}
+                setFotoUpload={setFotoUpload}
+                edit={false}
+              />
             </div>
           </div>
           <div className='bg-[#001F36]'>
@@ -122,3 +121,8 @@ const DatosEstudiante = ({ control }) => {
 }
 
 export default DatosEstudiante
+
+DatosEstudiante.propTypes = {
+  control: PropTypes.object,
+  setFotoUpload: PropTypes.func
+}

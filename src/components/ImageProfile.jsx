@@ -4,7 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Image } from 'antd'
 import PropTypes from 'prop-types'
 
-const ImageProfile = ({ src, edit, setFotoUpload, editAdmin }) => {
+const ImageProfile = ({
+  src = '',
+  edit = false,
+  setFotoUpload = () => {},
+  editAdmin = false
+}) => {
   const fileInputRef = useRef(null)
 
   const [photographyDirection, setPhotographyDirection] = useState(null)

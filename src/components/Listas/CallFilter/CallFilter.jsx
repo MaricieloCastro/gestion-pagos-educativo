@@ -2,7 +2,7 @@ import Filter from './Filter'
 import PropTypes from 'prop-types'
 
 const CallFilter = (props) => {
-  const { headerGroup, num, title, options, setTimePicker } = props
+  const { headerGroup, num, title, options = [], setTimePicker } = props
 
   return headerGroup.headers[num].isPlaceholder ? null : (
     <>
@@ -24,6 +24,6 @@ CallFilter.propTypes = {
   headerGroup: PropTypes.object.isRequired,
   num: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  options: PropTypes.array.isRequired,
+  options: PropTypes.array,
   setTimePicker: PropTypes.func
 }
