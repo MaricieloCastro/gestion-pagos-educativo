@@ -1,13 +1,5 @@
 import { z } from 'zod'
-const validateAge = (age) => {
-  if (age.startsWith('0')) {
-    throw new Error('La edad no puede empezar con cero.')
-  }
-  if (parseInt(age) <= 11) {
-    throw new Error('La edad debe ser mayor de 11 años.')
-  }
-  return true
-}
+
 export const FORM_SCHEMA_DATOS_ESTUDIANTE = {
   dni: z
     .string()
@@ -93,39 +85,37 @@ export const FORM_SCHEMA_DATOS_ESTUDIANTE = {
 //   seccion: "",
 //   grado: "",
 //   id_beneficio: "",
-//   fecha_inscripcion: "2024-06-04",
-//   deuda: "true",
-//   eliminacion_pendiente: "false",
-//   estado:"true",
+//   deuda: true,
+//   eliminacion_pendiente: false,
+//   estado:true,
 // };
 
 export const DEFAULT_VALUES_DATOS_ESTUDIANTE = {
-  dni: '87654321',
-  codigo: '12345678',
-  nombres: 'Maria Fernanda',
-  apellido_paterno: 'Ramos',
-  apellido_materno: 'Gutierrez',
-  sexo: 'Femenino',
-  departamento_nacimiento: 'San Martin',
-  provincia_nacimiento: 'San Martin',
-  distrito_nacimiento: 'Tarapoto',
+  dni: '31354321',
+  codigo: '31354321',
+  nombres: 'DIEGO ROBERTO',
+  apellido_paterno: 'RAMOS',
+  apellido_materno: 'GUITIERREZ',
+  sexo: 'FEMENINO',
+  departamento_nacimiento: 'SAN MARTIN',
+  provincia_nacimiento: 'SAN MARTIN',
+  distrito_nacimiento: 'TARAPOTO',
   fecha_nacimiento: '2008-08-15',
-  lengua_materna: 'español',
-  religion: 'cristianismo',
-  parto: 'normal',
+  lengua_materna: 'ESPAÑOL',
+  religion: 'CRISTIANISMO',
+  parto: 'NORMAL',
   numero_hermanos: 2,
-  departamento_domicilio: 'San Martin',
-  provincia_domicilio: 'San Martin',
-  distrito_domicilio: 'Tarapoto',
-  direccion: 'Av. Los Incas 456',
+  departamento_domicilio: 'SAN MARTIN',
+  provincia_domicilio: 'SAN MARTIN',
+  distrito_domicilio: 'TARAPOTO',
+  direccion: 'Av. LOS INCAS 456',
   situacion: 'PAGANTE',
   cod_ie_procedencia: 'IE1234',
-  nivel: 'secundaria',
-  turno: 'mañana',
+  nivel: 'SECUNDARIA',
+  turno: 'MAÑANA',
   seccion: 'B',
   grado: '3',
   id_beneficio: 1,
-  fecha_inscripcion: '2024-06-04',
   deuda: true,
   eliminacion_pendiente: false,
   estado: true

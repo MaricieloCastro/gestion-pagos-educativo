@@ -1,3 +1,5 @@
+import { tipoUsuariosAPI } from '@/api/ApiRutas'
+
 export const dataInfo = [
   {
     label: 'Nombres:',
@@ -83,18 +85,9 @@ export const dataInfo = [
   {
     label: 'Tipo de usuario:',
     name: 'id_tipo_usuario',
-    type: 'select',
+    type: 'select-async',
     disabled: false,
     placeholder: '',
-    options: [
-      {
-        label: 'DIRECTOR',
-        value: 1
-      },
-      {
-        label: 'SECRETARIA',
-        value: 2
-      }
-    ]
+    urlAPI: tipoUsuariosAPI
   }
 ]

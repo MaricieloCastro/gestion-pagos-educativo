@@ -63,8 +63,6 @@ const SelectAsyncFormularios = (props) => {
     }
   }, [options, tabla, urlAPI])
 
-  console.log('newOPTIONS', newOPTIONS)
-
   return (
     <ConfigProvider
       theme={{

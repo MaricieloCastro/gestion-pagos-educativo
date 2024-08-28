@@ -46,10 +46,13 @@ export const data = [
   {
     label: 'Sexo:',
     name: 'sexo',
-    type: 'select-async',
+    type: 'select',
     disabled: false,
     placeholder: '',
-    tabla: 'SEXO'
+    options: [
+      { value: 'MASCULINO', label: 'MASCULINO' },
+      { value: 'FEMENINO ', label: 'FEMENINO' }
+    ]
   },
   {
     label: 'F. de nacimiento:',

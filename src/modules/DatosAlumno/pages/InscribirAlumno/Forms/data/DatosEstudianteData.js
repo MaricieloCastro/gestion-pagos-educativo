@@ -34,9 +34,12 @@ export const data = [
   {
     label: 'Sexo:',
     name: 'sexo',
-    type: 'select-async',
+    type: 'select',
     placeholder: 'Seleccione el sexo',
-    tabla: 'SEXO'
+    options: [
+      { value: 'MASCULINO', label: 'MASCULINO' },
+      { value: 'FEMENINO ', label: 'FEMENINO' }
+    ]
   },
   {
     label: 'F. DE NACIMIENTO:',
@@ -105,43 +108,44 @@ export const data = [
   {
     label: 'RELIGION:',
     name: 'religion',
-    type: 'select',
+    type: 'select-async',
     placeholder: 'Seleccione la religion',
-    options: [
-      { value: 'cristianismo', label: 'Cristianismo' },
-      { value: 'islam', label: 'Islam' },
-      { value: 'hinduismo', label: 'Hinduismo' },
-      { value: 'budismo', label: 'Budismo' },
-      { value: 'sijismo', label: 'Sijismo' },
-      { value: 'judaísmo', label: 'Judaísmo' },
-      { value: "bahá'í", label: "Bahá'í" },
-      { value: 'jainismo', label: 'Jainismo' },
-      { value: 'shintoísmo', label: 'Shintoísmo' },
-      { value: 'taoísmo', label: 'Taoísmo' },
-      { value: 'zoroastrismo', label: 'Zoroastrismo' },
-      { value: 'confucianismo', label: 'Confucianismo' },
-      { value: 'animismo', label: 'Animismo' },
-      { value: 'espiritualismo', label: 'Espiritualismo' },
-      { value: 'wicca', label: 'Wicca' },
-      { value: 'ateísmo', label: 'Ateísmo' },
-      { value: 'agnosticismo', label: 'Agnosticismo' },
-      { value: 'rastra', label: 'Rastafarismo' },
-      { value: 'cienciología', label: 'Cienciología' },
-      { value: 'unitarismo', label: 'Unitarismo' },
-      { value: 'deísmo', label: 'Deísmo' },
-      { value: 'paganismo', label: 'Paganismo' },
-      { value: 'gnosticismo', label: 'Gnosticismo' },
-      { value: 'satanismo', label: 'Satanismo' },
-      { value: 'nativoamericano', label: 'Religiones Nativo Americanas' },
-      { value: 'zande', label: 'Zande' },
-      { value: 'umbanda', label: 'Umbanda' },
-      { value: 'candomblé', label: 'Candomblé' },
-      { value: 'voodoo', label: 'Voodoo' },
-      { value: 'santería', label: 'Santería' },
-      { value: 'caodaísmo', label: 'Caodaísmo' },
-      { value: 'tenrikyo', label: 'Tenrikyo' },
-      { value: 'santo_dios', label: 'Iglesia Santo Dios' }
-    ]
+    tabla: 'RELIGION'
+    // options: [
+    //   { value: 'cristianismo', label: 'Cristianismo' },
+    //   { value: 'islam', label: 'Islam' },
+    //   { value: 'hinduismo', label: 'Hinduismo' },
+    //   { value: 'budismo', label: 'Budismo' },
+    //   { value: 'sijismo', label: 'Sijismo' },
+    //   { value: 'judaísmo', label: 'Judaísmo' },
+    //   { value: "bahá'í", label: "Bahá'í" },
+    //   { value: 'jainismo', label: 'Jainismo' },
+    //   { value: 'shintoísmo', label: 'Shintoísmo' },
+    //   { value: 'taoísmo', label: 'Taoísmo' },
+    //   { value: 'zoroastrismo', label: 'Zoroastrismo' },
+    //   { value: 'confucianismo', label: 'Confucianismo' },
+    //   { value: 'animismo', label: 'Animismo' },
+    //   { value: 'espiritualismo', label: 'Espiritualismo' },
+    //   { value: 'wicca', label: 'Wicca' },
+    //   { value: 'ateísmo', label: 'Ateísmo' },
+    //   { value: 'agnosticismo', label: 'Agnosticismo' },
+    //   { value: 'rastra', label: 'Rastafarismo' },
+    //   { value: 'cienciología', label: 'Cienciología' },
+    //   { value: 'unitarismo', label: 'Unitarismo' },
+    //   { value: 'deísmo', label: 'Deísmo' },
+    //   { value: 'paganismo', label: 'Paganismo' },
+    //   { value: 'gnosticismo', label: 'Gnosticismo' },
+    //   { value: 'satanismo', label: 'Satanismo' },
+    //   { value: 'nativoamericano', label: 'Religiones Nativo Americanas' },
+    //   { value: 'zande', label: 'Zande' },
+    //   { value: 'umbanda', label: 'Umbanda' },
+    //   { value: 'candomblé', label: 'Candomblé' },
+    //   { value: 'voodoo', label: 'Voodoo' },
+    //   { value: 'santería', label: 'Santería' },
+    //   { value: 'caodaísmo', label: 'Caodaísmo' },
+    //   { value: 'tenrikyo', label: 'Tenrikyo' },
+    //   { value: 'santo_dios', label: 'Iglesia Santo Dios' }
+    // ]
   },
   {
     label: 'PARTO:',
@@ -206,30 +210,16 @@ export const data = [
   {
     label: 'SECCION:',
     name: 'seccion',
-    type: 'select',
+    type: 'select-async',
     placeholder: 'Seleccione la seccion',
-    options: [
-      { value: 'A', label: 'A' },
-      { value: 'B', label: 'B' },
-      { value: 'C', label: 'C' },
-      { value: 'D', label: 'D' },
-      { value: 'E', label: 'E' }
-      // Agrega más opciones de distritos según sea necesario
-    ]
+    tabla: 'SECCION'
   },
   {
     label: 'GRADO:',
     name: 'grado',
-    type: 'select',
+    type: 'select-async',
     placeholder: 'Seleccione el grado',
-    options: [
-      { value: '1', label: 'Primero' },
-      { value: '2', label: 'Segundo' },
-      { value: '3', label: 'Tercero' },
-      { value: '4', label: 'Cuarto' },
-      { value: '5', label: 'Quinto' }
-      // Agrega más opciones de distritos según sea necesario
-    ]
+    tabla: 'GRADO'
   },
   {
     label: 'BENEFICIO:',

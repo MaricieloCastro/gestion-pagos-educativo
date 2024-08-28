@@ -2,6 +2,7 @@ import './Forms.scss'
 import { data } from './data/DatosPadreData'
 import FormController from '../components/FormController'
 import DepartamentosSelect from '../components/DepartamentosSelect'
+import PropTypes from 'prop-types'
 
 const DatosPadre = (props) => {
   const { control } = props
@@ -27,6 +28,8 @@ const DatosPadre = (props) => {
                 placeholder={data.placeholder}
                 disabled={data.disabled}
                 options={data?.options}
+                tabla={data?.tabla}
+                urlAPI={data?.urlAPI}
               />
             </div>
           ))}
@@ -43,6 +46,8 @@ const DatosPadre = (props) => {
                 placeholder={data.placeholder}
                 disabled={data.disabled}
                 options={data?.options}
+                tabla={data?.tabla}
+                urlAPI={data?.urlAPI}
               />
             </div>
           ))}
@@ -63,6 +68,8 @@ const DatosPadre = (props) => {
                 placeholder={data.placeholder}
                 disabled={data.disabled}
                 options={data?.options}
+                tabla={data?.tabla}
+                urlAPI={data?.urlAPI}
               />
             </div>
           ))}
@@ -79,6 +86,8 @@ const DatosPadre = (props) => {
                 placeholder={data.placeholder}
                 disabled={data.disabled}
                 options={data?.options}
+                tabla={data?.tabla}
+                urlAPI={data?.urlAPI}
               />
             </div>
           ))}
@@ -99,24 +108,19 @@ const DatosPadre = (props) => {
                 placeholder={data.placeholder}
                 disabled={data.disabled}
                 options={data?.options}
+                tabla={data?.tabla}
+                urlAPI={data?.urlAPI}
               />
             </div>
           ))}
         </div>
       </div>
-      {/* {data.map((data) => (
-        <div key={data.name}>
-          <InputForm
-            control={control}
-            type={data.type}
-            name={data.name}
-            label={data.label}
-            placeholder={data.placeholder}
-          />
-        </div>
-      ))} */}
     </div>
   )
 }
 
 export default DatosPadre
+
+DatosPadre.propTypes = {
+  control: PropTypes.object.isRequired
+}
