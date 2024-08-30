@@ -83,10 +83,10 @@ const InscribirAlumno = () => {
     current === 0
       ? FORM_SCHEMA_DATOS_ESTUDIANTE
       : current === 1
-      ? FORM_SCHEMA_DATOS_PADRE
-      : current === 2
-      ? FORM_SCHEMA_DATOS_MADRE
-      : FORM_SCHEMA_DATOS_FAMILIAR_EXTRA
+        ? FORM_SCHEMA_DATOS_PADRE
+        : current === 2
+          ? FORM_SCHEMA_DATOS_MADRE
+          : FORM_SCHEMA_DATOS_FAMILIAR_EXTRA
   )
 
   const form = useForm({
@@ -250,7 +250,7 @@ const InscribirAlumno = () => {
   return (
     <MenuLateral>
       <form
-        className='inscribir-alumno overflow-auto h-full'
+        className='inscribir-alumno  h-full'
         onSubmit={form.handleSubmit(
           current < steps.length - 1 ? next : onSubmit
         )}

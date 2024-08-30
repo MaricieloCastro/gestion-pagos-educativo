@@ -23,9 +23,8 @@ const MenuLateral = (props) => {
     <div className='menu-lateral h-full overflow-auto'>
       <div className='grid grid-rows-[auto,auto,1fr] bg-[#001F36] overflow-auto'>
         <div
-          className={`menu-lateral__boton ${
-            !collapsed && 'border-b-[1px]'
-          } border-gray-300`}
+          className={`menu-lateral__boton ${!collapsed && 'border-b-[1px]'
+            } border-gray-300`}
         >
           <Button
             type='primary'
@@ -53,11 +52,10 @@ const MenuLateral = (props) => {
           )}
         </div>
         <div
-          className={`flex justify-center items-center transition-all duration-200 ease-in-out transform ${
-            !collapsed
+          className={`flex justify-center items-center transition-all duration-200 ease-in-out transform ${!collapsed
               ? 'opacity-100 my-7'
               : 'opacity-0 my-0 overflow-hidden h-0 w-0'
-          }`}
+            }`}
         >
           <AvatarCN />
         </div>
