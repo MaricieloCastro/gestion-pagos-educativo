@@ -184,7 +184,7 @@ export const enlaces = [
     name: "ingresos",
     path: "ingresos/",
     prevPath: "/",
-    actualPath: "/pagos-anticipados",
+    actualPath: "/ingresos",
     alias: "REPORTES DE PAGOS ANTICIPADOS",
   },
   {

@@ -4,7 +4,7 @@ import AuthContext from "@/contexts/AuthContext";
 import "./ModalCajaMovimiento.scss";
 import { Modal } from "antd";
 import Formulario from "@/modules/Seguridad/pages/CrearUsuario/components/ui/formulario";
-import { Form } from "@/components/ui/form";
+import { Form, FormField } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -12,6 +12,11 @@ import "./Modal.scss";
 import { Button } from "../ui/button";
 import { postAxios, postAxiosPrueba } from "@/functions/methods";
 import { MoviemientoAPI } from "@/api/ApiRutas";
+import FormItem from "antd/es/form/FormItem";
+import { FormLabel } from "@mui/material";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select";
+import { Margin } from "@mui/icons-material";
+import ListasContext from "@/contexts/ListasContext";
 const FormSchemaI = z.object({
   descripcion: z.string().min(1, {
     message: "Campo Obligatorio",
@@ -36,7 +41,9 @@ const FormSchemaI = z.object({
   }),
 });
 const ModalCajaMovimiento = (props) => {
-  const { isModalOpen, setIsModalOpen, CajaActiva, total, id } = props;
+  const { isModalOpen, setIsModalOpen, CajaActiva, total, id, setReloading } =
+    props;
+  let { reload, setReload } = useContext(ListasContext);
   const formI = useForm({
     resolver: zodResolver(FormSchemaI),
     defaultValues: {
@@ -65,7 +72,6 @@ const ModalCajaMovimiento = (props) => {
   //Para postear el nuevo movimiento
   const [general, setGeneral] = useState();
   const [loading, setLoading] = useState();
-  const [reload, setReload] = useState(false);
   const [modalSucessfull, setModalSucessfull] = useState(false);
   let { authTokens } = useContext(AuthContext);
   const headers = {
@@ -73,14 +79,6 @@ const ModalCajaMovimiento = (props) => {
     Authorization: "Bearer " + String(authTokens.access),
   };
   //Para actualizar la pagaina después del post o del put
-  function recargar() {
-    window.location.reload();
-    setReload(false);
-  }
-  //
-  if (reload) {
-    recargar();
-  }
   async function onClick(values) {
     console.log(values);
     setIsModalOpen(false);
@@ -98,17 +96,17 @@ const ModalCajaMovimiento = (props) => {
       setLoading,
       setModalSucessfull
     );
-    setReload(true);
+    setReload(!reload);
   }
   return (
     <>
       <Modal
-        className="modal-simple"
+        className="modal-simple-movimiento"
         title="Nuevo Movimiento :"
         centered
         width={360}
         style={{
-          height: "400px",
+          height: "300px",
           background: "#003862",
           //paddingTop: "-10px",
           color: "black",
@@ -127,33 +125,50 @@ const ModalCajaMovimiento = (props) => {
       >
         <Form {...formI}>
           <form onSubmit={formI.handleSubmit(onClick)}>
-            <div className="hola">
-              <Formulario
-                form={formI}
-                nameLabel="Descripcion:"
-                parametros="descripcion"
-              />
-              <Formulario
-                form={formI}
-                nameLabel="Tipo de movimiento:"
-                parametros="tipo_movimiento"
-              />
-              <Formulario
-                form={formI}
-                nameLabel="Monto:"
-                parametros="monto"
-                type="number"
-              />
+            <div className="movimientos">
+              <section className="movimientos-uno">
+                <FormField
+                  control={formI.control}
+                  name="tipo_movimiento"
+                  render={({ field }) => (
+                    <FormItem>
+                      <label>Tipo de Movimiento:</label>
+                      <select onChange={field.onChange}>
+                        <option></option>
+                        <option value="INGRESO">INGRESO</option>
+                        <option value="EGRESO">EGRESO</option>
+                      </select>
+                    </FormItem>
+                  )}
+                />
+                <Formulario
+                  form={formI}
+                  nameLabel="Monto:"
+                  parametros="monto"
+                  type="number"
+                />
+              </section>
+              <section className="movimientos-dos">
+                <Formulario
+                  form={formI}
+                  nameLabel="Descripcion:"
+                  parametros="descripcion"
+                />
+              </section>
             </div>
-            <Button className="mt-5" type="button" onClick={handleSubmitForm}>
-              Guardar
-            </Button>
             <Button
-              className="mt-5 ml-10 bg-red-boton"
+              className="mt-5  bg-red-boton"
               type="button"
               onClick={ResetFormI}
             >
               Vaciar
+            </Button>
+            <Button
+              className="mt-5 ml-10"
+              type="button"
+              onClick={handleSubmitForm}
+            >
+              Guardar
             </Button>
           </form>
         </Form>

@@ -41,6 +41,9 @@ import { Value } from "sass";
 import ModalCarga from "@/components/Modal/ModalCarga";
 import ModalSucess from "@/components/Modal/ModalSucess";
 import ModalCajaMovimiento from "@/components/Modal/ModalCajaMovimiento";
+
+//Contexto de lista
+import ListasContext from "@/contexts/ListasContext";
 const FormSchema = z.object({
   id_caja: z.string().min(1, {
     message: "Campo Obligatorio",
@@ -77,7 +80,7 @@ const FormSchemaI = z.object({
 });
 export default function CajaChica(props) {
   //Props proveniente del componenete de CAJA
-  const { cajaDatos, movimiento, movimientos } = props;
+  const { cajaDatos, movimiento, movimientos, reloading, setReloading } = props;
   const { total } = movimiento;
   const CajaActiva = cajaDatos[0];
   const fecha = moment().format("DD MMMM, HH:mm");
@@ -85,7 +88,7 @@ export default function CajaChica(props) {
   //Variables globales
   let { user, estadoCaja, EstadoCajaSet, EstadoCajaSetZ, authTokens } =
     useContext(AuthContext);
-
+  let { reload, setReload } = useContext(ListasContext);
   useEffect(() => {
     if (CajaActiva.estado == true) {
       EstadoCajaSet();
@@ -94,7 +97,7 @@ export default function CajaChica(props) {
       EstadoCajaSetZ();
       setDisableA(false);
     }
-  }, []);
+  }, [reloading]);
 
   //Aquí identidicamos al tipo de usuario
   let tipoUsuario = "";
@@ -138,14 +141,18 @@ export default function CajaChica(props) {
   //Para el estado del disable del boton Aperturar Caja
   const [disableA, setDisableA] = useState();
   const [caja, SetCaja] = useState(false);
-  const [reload, setReload] = useState(false);
   //Para resivir los datos del get o del post
   const [general, setGeneral] = useState();
   const [totalCaja, setTotalCaja] = useState(CajaActiva.monto_inicial);
+  //Estado para abrir el modal de abrir caja
   const [loading, setLoading] = useState();
+  console.log(loading);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(null);
   const [sucess, setSucces] = useState();
+
+  //Antes de cambiar los estados con el useEfecct, se acualizaba la página. Entonces se reestalbecían los valores
+  //como ahora funciona con useEffect tenemos que cambiarlo en la función de ModalCaja() cambian el estado de la varibale
   const [titulo, setTitulo] = useState("APERTURANDO CAJA");
   const [tituloI, setTituloI] = useState("CAJA APERTURADA CORRECTAMENTE");
   const [modalSucessfull, setModalSucessfull] = useState(false);
@@ -157,14 +164,14 @@ export default function CajaChica(props) {
   };
 
   //Para actualizar la pagaina después del post o del put
-  function recargar() {
-    window.location.reload();
-    setReload(false);
-  }
-  //
-  if (reload) {
-    recargar();
-  }
+  // function recargar() {
+  //   window.location.reload();
+  //   setReload(false);
+  // }
+  // //
+  // if (reload) {
+  //   recargar();
+  // }
   function CierreCaja() {
     setTitulo("CERRANDO CAJA");
     setTituloI("CAJA CERRADA CORRECTAMENTE");
@@ -184,11 +191,15 @@ export default function CajaChica(props) {
     );
     localStorage.setItem("estadoCaja", JSON.stringify(false));
     setEstadoCajaLocal(true);
+    setReloading(!reloading);
+    setReload(!reload);
   }
   //URL
   const CAJAACTIVAAPI = `http://127.0.0.1:8000/caja/api/apertura-movimiento/?id_apertura=${CajaActiva.id}`;
   //Función que se activa dentro del modal
   async function ModalCaja() {
+    setTitulo("APERTURANDO CAJA");
+    setTituloI("CAJA APERTURADA CORRECTAMENTE");
     setLoading(true);
     await postAxiosPrueba(
       AperturaAPI,
@@ -202,6 +213,8 @@ export default function CajaChica(props) {
     console.log(general);
     SetCaja(estadoValue.monto_inicial);
     setDisableA(true);
+    setReloading(!reloading);
+    setReload(!reload);
   }
   // const [estadoCaja, setEstadoCaja] = useState(false);
   function onClick(values) {
@@ -223,12 +236,13 @@ export default function CajaChica(props) {
           <div className="caja-uno">
             <div className="caja-uno_uno">
               <div className="caja-uno_uno-usuario">
-                <div>
-                  <h1>
-                    {comle} - {tipoUsuario}
-                  </h1>
-                  <h1>{fecha}</h1>
-
+                <div className="caja-uno_uno-usuario-datos">
+                  <section>
+                    <h1>
+                      {comle} - {tipoUsuario}
+                    </h1>
+                    <h1>{fecha}</h1>
+                  </section>
                   {estadoCaja ? (
                     <div className=" estado bg-green-boton text-white">
                       Caja Abierta

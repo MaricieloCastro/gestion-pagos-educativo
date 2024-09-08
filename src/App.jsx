@@ -135,11 +135,11 @@ const App = () => {
             path={enlaces[13].prevPath + enlaces[13].path}
           />
           <Route
-            element={<AlumnosEspeciales />}
+            element={<Deudas />}
             path={enlaces[19].prevPath + enlaces[19].path}
           />
           <Route
-            element={<PagosAnticipados />}
+            element={<AlumnosBeneficiados />}
             path={enlaces[20].prevPath + enlaces[20].path}
           />
           <Route

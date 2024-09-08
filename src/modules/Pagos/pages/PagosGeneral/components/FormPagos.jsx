@@ -8,6 +8,10 @@ import moment from "moment";
 import { postAxios, putAxios } from "@/functions/methods";
 import AuthContext from "@/contexts/AuthContext";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 //URL
 import {
   AREAURL,
@@ -35,6 +39,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import FormularioPagos from "./formularioPagos";
 import Formulario from "@/modules/Seguridad/pages/CrearUsuario/components/ui/formulario";
@@ -46,7 +51,13 @@ import ModalCarga from "@/components/Modal/ModalCarga";
 import ModalImprimir from "./ModalImprimir";
 import { Input } from "antd";
 
+import Escudo from "/public/img/escudoCiencias.png";
 //Parametro ZOD
+const FormSchemaII = z.object({
+  ruc: z.string().min(0, {
+    message: "campo obligatorio",
+  }),
+});
 const FormSchema = z.object({
   año_lectivo: z.string().min(1, {
     message: "El campo tiene que ser llenado",
@@ -102,6 +113,12 @@ const FormSchema = z.object({
   id_Document: z.string().min(0, {
     message: "campo obligatorio",
   }),
+  ruc: z.string().min(0, {
+    message: "campo obligatorio",
+  }),
+  pagante: z.string().min(0, {
+    message: "campo obligatorio",
+  }),
   tipo_comprobante: z
     .string()
     .nonempty({ message: "Debe seleccionar al menos un tipo de comprobante" }),
@@ -116,26 +133,29 @@ export default function FormPagos(props) {
   //CONTROLO DE LOS PENDIENTES Y ACTUALIZACIÓN
   const { alumnos, crnograma_pago } = pendientes;
   const montosPagos = crnograma_pago.tipo_pago;
-  console.log(montosPagos.monto);
+
   const PendienteId = pendientes.id.toString();
   //console.log(PendienteId);
   const { descripcion, mes_cancelado } = crnograma_pago;
   const fechaDefault = moment();
+
   const fecha = fechaDefault.format("YYYY-MM-DD");
+  const hora = fechaDefault.format("hh:mm:ss");
   const año = fechaDefault.format("YYYY");
   const param = useParams();
   const { pagos, id } = param;
-  //const { descripcion } = tipo_pago[pagos];
+
   const { monto_previo, desc_aplicado } = pendientes;
   let desc = desc_aplicado;
   if (pagos == 2 || pagos == 4 || pagos == 3) {
     desc = 0;
   }
   const total_pagar = (montosPagos.monto - desc).toString();
+
   const um = "UNIDAD";
   const precio_unitario = monto_previo;
   const moneda = "SOLES";
-
+  console.log(montosPagos.monto, precio_unitario);
   //Usetate del modal de carga
   const [modalLoading, setModalLoading] = useState(false);
   const [bDisable, setBDisable] = useState();
@@ -145,9 +165,9 @@ export default function FormPagos(props) {
   const tipoPago = pagos;
   useEffect(() => {
     if (pagos == 1) {
-      matricula();
-    } else if (pagos == 2) {
       mensualidad();
+    } else if (pagos == 2) {
+      matricula();
     } else {
       cursoD();
     }
@@ -197,8 +217,67 @@ export default function FormPagos(props) {
       moneda: moneda || "",
       id_pendiente: PendienteId || "",
       id_Document: "",
+      ruc: general.codigo || "",
+      pagante: general.alumno || "",
     },
   });
+  const formII = useForm({
+    resolver: zodResolver(FormSchemaII),
+    defaultValues: {
+      ruc: "",
+    },
+  });
+
+  //Captura el valor del input en el cual se registrar el RUC
+  const [inputValue, setInputValue] = useState("");
+  console.log(inputValue);
+  //Para campturar los valors del input RUC
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+    SUNATFATURA.documentBody["cac:AccountingCustomerParty"]["cac:Party"][
+      "cac:PartyIdentification"
+    ]["cbc:ID"]._text = e.target.value;
+  };
+  //STATE DE PAGANTE RUC
+  const [paganteRuc, setPaganteRuc] = useState("");
+  //Para la captura de los valores que introduzco en el input de dirección
+  const [inputDireccion, setInputDireccion] = useState();
+  const handleInputDirección = (e) => {
+    setInputDireccion(e.target.value);
+    SUNATFATURA.documentBody["cac:AccountingCustomerParty"]["cac:Party"][
+      "cac:PartyLegalEntity"
+    ]["cac:RegistrationAddress"]["cac:AddressLine"]["cbc:Line"]._text =
+      e.target.value;
+    console.log(e.target.value);
+    SUNATFATURA.documentBody["cac:AccountingCustomerParty"]["cac:Party"][
+      "cac:PartyLegalEntity"
+    ]["cbc:RegistrationName"]._text = paganteRuc;
+    SUNAT.documentBody["cac:AccountingCustomerParty"]["cac:Party"][
+      "cac:PartyLegalEntity"
+    ]["cac:RegistrationAddress"]["cac:AddressLine"]["cbc:Line"]._text =
+      e.target.value;
+  };
+
+  const onApiReniec = async () => {
+    const value = {
+      ruc: inputValue,
+    };
+    try {
+      console.log(value);
+      //Enviamos el documento con el link y el cuerpo de la boleta
+      const response = await axios.post(
+        "http://127.0.0.1:8000/caja/api/reniec/pagos",
+        value
+      );
+      console.log("operacion exitosa:", response.data);
+      console.log(response.data.data.razonSocial);
+      form.setValue("pagante", response.data.data.razonSocial);
+      setPaganteRuc(response.data.data.razonSocial);
+      form.setValue("ruc", response.data.data.numeroDocumento);
+    } catch (error) {
+      console.error("Error al hacer la solicitud:", error);
+    }
+  };
 
   useEffect(() => {
     if (comprobante == "BOLETA") {
@@ -229,27 +308,36 @@ export default function FormPagos(props) {
     ruta_fotografia,
   } = general;
 
+  const [tPago, setTPago] = useState();
   function mensualidad() {
     setButtonCD(true);
     setButtonM(false);
+    setTPago("MENSUALIDAD");
   }
   function matricula() {
     setButtonCD(true);
     setButtonM(true);
+    setTPago("MATRICULA");
   }
   function cursoD() {
     setButtonCD(false);
     setButtonM(true);
+    setTPago("CURSO DESAPROBADO");
   }
   //console.log(buttonCD, buttonM);
   //Se actualiza el token
   //Cambia de color el label
+  const [Ruc, SetRuc] = useState();
+  const [paga, SetPaga] = useState();
   let { authTokens, user } = useContext(AuthContext);
   const headers = {
     "Content-Type": "application/json",
     Authorization: "Bearer " + String(authTokens.access),
   };
   async function onSubmit(values) {
+    console.log(values);
+    SetRuc(values.ruc);
+    SetPaga(values.pagante);
     delete values.año_lectivo;
     delete values.descuento_aplicado;
     delete values.monto_previo;
@@ -257,6 +345,8 @@ export default function FormPagos(props) {
     delete values.tipo_pago;
     delete values.total_pagar;
     delete values.mes_cancelado;
+    delete values.pagante;
+    delete values.ruc;
     console.log(values);
     await postAxios(PAGOSURL, values, headers, setReload, reload);
   }
@@ -275,9 +365,7 @@ export default function FormPagos(props) {
     }
   }, []);
   const [urlBoleta, seturlBoleta] = useState();
-
-  //Variable para la SUNAT
-  const SUNAT = {
+  const [SUNAT, setSunat] = useState({
     personaId: "665248a370419f0015e8a074",
     personaToken:
       "DEV_f1qz2uXCRNohX1UBx1TpTbvUEIce7Owu3f1efWwVwyGKkrZcQrckN8ARE2LRHhpx",
@@ -293,10 +381,10 @@ export default function FormPagos(props) {
         _text: `B001-${suggestedNumber}`,
       },
       "cbc:IssueDate": {
-        _text: "2024-05-25",
+        _text: fecha,
       },
       "cbc:IssueTime": {
-        _text: "17:12:10",
+        _text: hora,
       },
       "cbc:InvoiceTypeCode": {
         _attributes: {
@@ -312,7 +400,7 @@ export default function FormPagos(props) {
           },
         },
         {
-          _text: { descripcion },
+          _text: descripcion,
         },
       ],
       "cbc:DocumentCurrencyCode": {
@@ -368,8 +456,7 @@ export default function FormPagos(props) {
             "cac:RegistrationAddress": {
               "cac:AddressLine": {
                 "cbc:Line": {
-                  _text:
-                    "PSJ. SANTA ISABEL 253 URB FONAVI TARAPOTO SAN MARTIN SAN MARTIN",
+                  _text: inputDireccion,
                 },
               },
             },
@@ -418,13 +505,13 @@ export default function FormPagos(props) {
           _attributes: {
             currencyID: "PEN",
           },
-          _text: Number(desc_aplicado),
+          _text: Number(desc),
         },
         "cbc:TaxInclusiveAmount": {
           _attributes: {
             currencyID: "PEN",
           },
-          _text: Number(desc_aplicado),
+          _text: Number(desc),
         },
         "cbc:PayableAmount": {
           _attributes: {
@@ -508,7 +595,7 @@ export default function FormPagos(props) {
           },
           "cac:Item": {
             "cbc:Description": {
-              _text: descripcion,
+              _text: "",
             },
             "cac:SellersItemIdentification": {
               "cbc:ID": {
@@ -527,8 +614,9 @@ export default function FormPagos(props) {
         },
       ],
     },
-  };
-  const SUNATFATURA = {
+  });
+  //Variable para la SUNAT
+  const [SUNATFATURA, setSUNATFACTURA] = useState({
     personaId: "665248a370419f0015e8a074",
     personaToken:
       "DEV_f1qz2uXCRNohX1UBx1TpTbvUEIce7Owu3f1efWwVwyGKkrZcQrckN8ARE2LRHhpx",
@@ -544,10 +632,10 @@ export default function FormPagos(props) {
         _text: `F001-${fCorrelativo.suggestedNumber}`,
       },
       "cbc:IssueDate": {
-        _text: "2024-07-10",
+        _text: fecha,
       },
       "cbc:IssueTime": {
-        _text: "14:34:02",
+        _text: hora,
       },
       "cbc:InvoiceTypeCode": {
         _attributes: {
@@ -606,17 +694,18 @@ export default function FormPagos(props) {
               _attributes: {
                 schemeID: "6",
               },
-              _text: "10745260166",
+              _text: "RUC",
             },
           },
           "cac:PartyLegalEntity": {
             "cbc:RegistrationName": {
-              _text: "GÓMEZ SÁNCHEZ JHOSEP MARCELO",
+              _text: "SHANDE",
             },
             "cac:RegistrationAddress": {
               "cac:AddressLine": {
                 "cbc:Line": {
                   _text:
+                    //Este valor cambia con los eventos
                     "PJ. Santa Isabel NRO. 253 URB. Fonavi TARAPOTO SAN MARTIN SAN MARTIN",
                 },
               },
@@ -637,7 +726,7 @@ export default function FormPagos(props) {
               _attributes: {
                 currencyID: "PEN",
               },
-              _text: 400,
+              _text: Number(montosPagos.monto),
             },
             "cbc:TaxAmount": {
               _attributes: {
@@ -666,19 +755,19 @@ export default function FormPagos(props) {
           _attributes: {
             currencyID: "PEN",
           },
-          _text: 400,
+          _text: Number(total_pagar),
         },
         "cbc:TaxInclusiveAmount": {
           _attributes: {
             currencyID: "PEN",
           },
-          _text: 400,
+          _text: Number(total_pagar),
         },
         "cbc:PayableAmount": {
           _attributes: {
             currencyID: "PEN",
           },
-          _text: 400,
+          _text: Number(total_pagar),
         },
       },
       "cac:PaymentTerms": [
@@ -706,7 +795,7 @@ export default function FormPagos(props) {
             _attributes: {
               currencyID: "PEN",
             },
-            _text: 400,
+            _text: Number(montosPagos.monto),
           },
           "cac:PricingReference": {
             "cac:AlternativeConditionPrice": {
@@ -714,7 +803,7 @@ export default function FormPagos(props) {
                 _attributes: {
                   currencyID: "PEN",
                 },
-                _text: 400,
+                _text: Number(montosPagos.monto),
               },
               "cbc:PriceTypeCode": {
                 _text: "01",
@@ -734,7 +823,7 @@ export default function FormPagos(props) {
                   _attributes: {
                     currencyID: "PEN",
                   },
-                  _text: 400,
+                  _text: Number(montosPagos.monto),
                 },
                 "cbc:TaxAmount": {
                   _attributes: {
@@ -766,13 +855,13 @@ export default function FormPagos(props) {
           },
           "cac:Item": {
             "cbc:Description": {
-              _text: "PAGO POR MENSUALIDAD",
+              _text: `${descripcion}`,
             },
-            "cac:SellersItemIdentification": {
-              "cbc:ID": {
-                _text: "MENSUALIDAD",
-              },
-            },
+            // "cac:SellersItemIdentification": {
+            //   "cbc:ID": {
+            //     _text: tPago,
+            //   },
+            // },
           },
           "cac:Price": {
             "cbc:PriceAmount": {
@@ -785,17 +874,24 @@ export default function FormPagos(props) {
         },
       ],
     },
-  };
+  });
+
   const [bodySunat, setBodySunat] = useState(SUNAT);
   const handleSelectChange = (value) => {
     if (value == "FACTURA") {
       setSelectedValue(true);
       setComprobante("FACTURA");
+      form.setValue("pagante", "");
+      form.setValue("ruc", "");
       setBodySunat(SUNATFATURA);
     } else {
       setSelectedValue(false);
+      form.setValue("pagante", alumno);
+      form.setValue("ruc", codigo);
       setComprobante("BOLETA");
       setBodySunat(SUNAT);
+
+      form.setValue("codigo_recibo", numCom);
     }
   };
   console.log(bodySunat);
@@ -838,6 +934,8 @@ export default function FormPagos(props) {
     form.handleSubmit(ConsoleLog)();
   }
   const [vuelto, setVuelto] = useState(0);
+
+  //Evento para sacar el valor de input con el Hook Form
   const handleValueChange = (e) => {
     const { value } = e.target;
     const numericValue = parseFloat(value) || 0;
@@ -856,7 +954,7 @@ export default function FormPagos(props) {
   };
   console.log(vuelto);
   return (
-    <Form {...form}>
+    <Form {...form} {...formII}>
       <form>
         <div className="pagos">
           <div className="pagos-alumno">
@@ -920,6 +1018,298 @@ export default function FormPagos(props) {
             </div>
           </div>
           <div className="pagos-dato">
+            <div className="pagos-dato_body">
+              <div className="pagos-dato_body-titulo">
+                <div className="pagos-dato_body-titulo-colegio">
+                  <img src={Escudo}></img>
+                  <section className="pagos-dato_body-titulo-colegio_datos">
+                    <h2>I.E.P "CIENCIAS"</h2>
+                    <p>INSTITUCION EDUCATIVA PARTICULAR CIENCIAS E.I.R.L.</p>
+                    <p>
+                      JR. PERU 908 CON JR. ESPAÑA NRO. 908 TARAPOTO SAN MARTIN
+                      SAN MARTIN
+                    </p>
+                  </section>
+                </div>
+                <div className="pagos-dato_body-titulo-recibo">
+                  <div className="pagos-dato_body-titulo-recibo_datos">
+                    <h2>R.U.C. N° 20450406156</h2>
+                    <h2 className="comprobante">
+                      <FormField
+                        control={form.control}
+                        name="tipo_comprobante"
+                        render={({ field }) => (
+                          <FormItem>
+                            <Select
+                              defaultValue="BOLETA"
+                              onValueChange={(value) => {
+                                field.onChange(value),
+                                  handleSelectChange(value);
+                              }}
+                            >
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="BOLETA">BOLETA</SelectItem>
+                                <SelectItem value="FACTURA">FACTURA</SelectItem>
+                                <SelectItem value=" "></SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </FormItem>
+                        )}
+                      />
+                      ELECTRÓNICA
+                    </h2>
+                    <Formulario
+                      form={form}
+                      nameLabel=""
+                      parametros="codigo_recibo"
+                      disabled="true"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="pagos-dato_body-pagante">
+                <div className="pagos-dato_body-pagante-uno">
+                  <div className="inputs-font">
+                    <FontAwesomeIcon icon={faUser} className="fuente ml-2" />
+                    {/* <Input placeholder="Alumno" value={alumno} /> */}
+                    <Formulario
+                      form={form}
+                      nameLabel=""
+                      parametros="pagante"
+                      dato="Pagante"
+                    />
+                  </div>
+                  <div className="inputs-font">
+                    {/* <Input placeholder="Número de Documento" value={codigo} /> */}
+                    <Button type="button" onClick={onApiReniec}>
+                      <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    </Button>
+
+                    <FormField
+                      control={form.control}
+                      name="ruc"
+                      render={({ field }) => (
+                        //Nombre
+                        <FormItem>
+                          <FormControl>
+                            <Input
+                              className="pt-3"
+                              placeholder="R.U.C"
+                              {...field}
+                              onChange={(e) => {
+                                field.onChange(e);
+                                handleInputChange(e);
+                              }}
+                              //value={inputValue}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+                <div className="pagos-dato_body-pagante-dos">
+                  <div className="inputs-font">
+                    <FontAwesomeIcon icon={faHouse} className="ml-2" />
+                    <Input
+                      placeholder="Dirección (opcional)"
+                      className="direccion"
+                      onChange={(e) => {
+                        handleInputDirección(e);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="pagos-dato_body-recibo">
+                <div className="pagos-dato_body-recibo-date">
+                  <section>
+                    <Calendario
+                      className="flex-container"
+                      nameLabel="Fecha de Emision:"
+                      form={form}
+                      disabled={true}
+                      name="fecha_pago"
+                    />
+                  </section>
+                  <section>
+                    {selectedValue && (
+                      <Calendario
+                        className="flex-container"
+                        nameLabel="Fecha de Vencimiento:"
+                        form={form}
+                        name="fecha_pago"
+                        disabled={true}
+                      />
+                    )}
+                  </section>
+                </div>
+                <div className="pagos-dato_body-recibo-table">
+                  <div className="pagos-dato_body-recibo-table-uno">
+                    <div>
+                      <h2>CANT</h2>
+                    </div>
+                    <div>
+                      <h2>TIPO DE PAGO</h2>
+                    </div>
+                    <div>
+                      <h2>DESCRIPCIÓN</h2>
+                    </div>
+                    <div>
+                      <h2>P.UNI</h2>
+                    </div>
+                    <div>
+                      <h2>TOTAL</h2>
+                    </div>
+                  </div>
+                  <div className="pagos-dato_body-recibo-table-dos">
+                    <div>
+                      <Input className="mt-2" value="1" disabled="true"></Input>
+                    </div>
+                    <div>
+                      <Input
+                        className="mt-2"
+                        value={tPago}
+                        disabled="true"
+                      ></Input>
+                    </div>
+                    <div>
+                      <Formulario
+                        form={form}
+                        nameLabel=""
+                        parametros="descripcion"
+                        disabled={true}
+                      />
+                    </div>
+                    <div>
+                      <h2>
+                        <Formulario
+                          form={form}
+                          nameLabel=""
+                          parametros="monto_previo"
+                          disabled={true}
+                        />
+                      </h2>
+                    </div>
+                    <div>
+                      <h2>
+                        <Formulario
+                          form={form}
+                          nameLabel=""
+                          parametros="monto_previo"
+                          disabled={true}
+                        />
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <div className="pagos-dato_body-recibo-montos">
+                  <div className="pagos-dato_body-recibo-montos-cero">
+                    <SelectForm
+                      form={form}
+                      disabled={true}
+                      url={MESESURL}
+                      dato={mes_cancelado}
+                      nameLabel="Mes Cancelado:"
+                      parametros="mes_cancelado"
+                    />
+                    <SelectForm
+                      form={form}
+                      disabled={buttonCD}
+                      url={AREAURL}
+                      dato=""
+                      nameLabel="Area  Desaprobada:"
+                      parametros="area_desaprobada"
+                    />
+                    <SelectForm
+                      form={form}
+                      url={METODOPAGOURL}
+                      dato="EFECTIVO"
+                      nameLabel="Metodo de Pago:"
+                      parametros="metodo_pago"
+                    />
+                    <CondicionVentaSelect form={form} dato="ALCONTADO" />
+                  </div>
+                  <div className="pagos-dato_body-recibo-montos-cerouno">
+                    <div className="pagos-dato_body-recibo-montos-dos">
+                      <section>
+                        <Formulario
+                          form={form}
+                          nameLabel="Descuento Aplicado"
+                          parametros="descuento_aplicado"
+                          disabled={true}
+                        />
+                      </section>
+                      <section>
+                        <FormField
+                          control={form.control}
+                          name="monto"
+                          render={({ field }) => (
+                            //Nombre
+
+                            <FormItem>
+                              <FormLabel>Monto:</FormLabel>
+                              <FormControl>
+                                <div className="flex">
+                                  <Input
+                                    //placeholder={dato}
+                                    {...field}
+                                    type="number"
+                                    //onChange={handleInputChange}
+                                    //disabled="false"
+                                    onChange={(e) => {
+                                      field.onChange(e);
+                                      handleValueChange(e);
+                                    }}
+                                    //value={inputValue}
+                                  />
+                                </div>
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </section>
+                      <section>
+                        <div className="space-y-0">
+                          <label>Vuelto:</label>
+                          <p>S/{-1 * vuelto}</p>
+                        </div>
+                      </section>
+                      <section>
+                        <Formulario
+                          form={form}
+                          nameLabel="Total a Pagar"
+                          parametros="total_pagar"
+                          disabled={true}
+                        />
+                      </section>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="pagos-dato_body-recibo-botones">
+                <div className="pagos-dato_body-recibo-botones-uno">
+                  <Button
+                    className="registrar-pago"
+                    disabled={bDisable}
+                    type="button"
+                    onClick={() => {
+                      Validacion();
+                    }} //{ApiSunat}
+                  >
+                    Emitir Recibo de Pago
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <div className="pagos-dato">
             <div className="pagos-dato_uno">
               <div className="pagos-dato_uno-uno">
                 <FormField
@@ -1005,33 +1395,7 @@ export default function FormPagos(props) {
                   nameLabel="Area  Desaprobada:"
                   parametros="area_desaprobada"
                 />
-                <FormField
-                  control={form.control}
-                  name="monto"
-                  render={({ field }) => (
-                    //Nombre
-                    <FormItem>
-                      <FormLabel>Monto:</FormLabel>
-                      <FormControl>
-                        <div className="flex">
-                          <Button type="button">PE S/</Button>
-                          <Input
-                            //placeholder={dato}
-                            {...field}
-                            type="number"
-                            //onChange={handleInputChange}
-                            //disabled="false"
-                            onChange={(e) => {
-                              field.onChange(e);
-                              handleValueChange(e);
-                            }}
-                            //value={inputValue}
-                          />
-                        </div>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
+                
                 {/* <FormularioPagos
                   form={form}
                   nameLabel="Monto:"
@@ -1039,7 +1403,7 @@ export default function FormPagos(props) {
                   onValueChange={handleValueChange}
                   disabled={false}
                   type="number"
-                /> */}
+                /> 
               </div>
               <div className="pagos-dato_uno-tres">
                 <Formulario
@@ -1057,13 +1421,7 @@ export default function FormPagos(props) {
                   disabled={true}
                   type="number"
                 />
-                <FormularioPagos
-                  form={form}
-                  nameLabel="Total a Pagar:"
-                  parametros="total_pagar"
-                  disabled={true}
-                  type="number"
-                />
+                
                 <div>
                   <h2 className="flex gap-2 text-white  ">
                     Vuelto: <p>S/{-1 * vuelto}</p>
@@ -1072,26 +1430,10 @@ export default function FormPagos(props) {
               </div>
             </div>
             <div className="pagos-dato_dos">
-              <Formulario
-                form={form}
-                nameLabel="Descripción:"
-                parametros="descripcion"
-                disabled={true}
-              />
+              
             </div>
-            <div className="pagos-dato_tres">
-              <Button
-                className="registrar-pago"
-                disabled={bDisable}
-                type="button"
-                onClick={() => {
-                  Validacion();
-                }} //{ApiSunat}
-              >
-                REGISTRAR PAGO
-              </Button>
-            </div>
-          </div>
+           
+          </div> */}
         </div>
       </form>
       <ModalPagosConfirmacion
