@@ -1,8 +1,8 @@
 import { ConfigProvider, Select, Space } from 'antd';
 import PropTypes from 'prop-types';
 
-const SelectPrueba = (props) => {
-  const { handleChange, columnFilterValue, title, options } = props;
+const SelectConsult = (props) => {
+  const { handleChange, title, options } = props;
 
   return (
     <ConfigProvider
@@ -35,9 +35,6 @@ const SelectPrueba = (props) => {
             className='w-full'
             defaultValue=''
             onChange={handleChange}
-            value={
-              columnFilterValue === undefined ? 'TODOS' : columnFilterValue
-            }
             options={options}
           />
         </Space.Compact>
@@ -46,11 +43,10 @@ const SelectPrueba = (props) => {
   );
 };
 
-export default SelectPrueba;
+export default SelectConsult;
 
-SelectPrueba.propTypes = {
-  handleChange: PropTypes.func,
-  columnFilterValue: PropTypes.string,
+SelectConsult.propTypes = {
+  handleChange: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired
 };

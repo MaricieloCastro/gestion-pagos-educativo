@@ -1,49 +1,63 @@
-import { enlaces } from '@/utils/rutas'
+import { useState } from 'react';
+import { tipoUsuariosAPI } from '@/api/ApiRutas';
+import ButtonWithIcon from '@/components/ButtonWithIcon';
+import { filterAdapter } from '@/components/Listas/CallFilter/filterAdapter';
+import SelectConsult from '@/components/Listas/ConsultFilter/SelectConsult';
+import { enlaces } from '@/utils/rutas';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-import CallFilter from '@/components/Listas/CallFilter'
-import InputFiltros from '@/components/Listas/Filtros/InputFiltros'
-import { Link } from 'react-router-dom'
-import ButtonWithIcon from '@/components/ButtonWithIcon'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { filterAdapter } from '@/components/Listas/CallFilter/filterAdapter'
-import { tipoUsuariosAPI } from '@/api/ApiRutas'
+import './FiltrosListaUsuarios.scss';
+import DateConsult from '@/components/Listas/ConsultFilter/DateConsult';
+import dayjs from 'dayjs';
+import InputConsult from '@/components/Listas/ConsultFilter/InputConsult';
 
-export const filtrosListaUsuarios = (
-  table,
-  classNameFiltros,
-  setFilteringSearch,
-  filteringSearch
-) => {
-  const optionsTipoUsuario = filterAdapter(tipoUsuariosAPI)
+const FiltrosListaUsuarios = ({ classNameFiltros, setParams }) => {
+  const [tipoUsuario, setTipoUsuario] = useState('');
+
+  const optionsTipoUsuario = filterAdapter(tipoUsuariosAPI);
+
+  const handleTipoUsuario = (value) => {
+    setTipoUsuario(value);
+    setParams((prev) => ({ ...prev, tipo_usuario: value }));
+  };
+
+  const handleFecha = (value) => {
+    const formatDate = dayjs(value).format('YYYY-MM-DD');
+    setParams((prev) => ({ ...prev, last_login: value ? formatDate : '' }));
+  };
+
+  const handleBuscador = (e) => {
+    const { value } = e.target;
+
+    if (value.length > 2) {
+      setParams((prev) => ({ ...prev, buscador: value }));
+    } else {
+      setParams((prev) => ({ ...prev, buscador: '' }));
+    }
+  };
+
+  console.log(tipoUsuario);
 
   return (
     <div className={`${classNameFiltros}__caja gap-3`}>
       <div className={`${classNameFiltros}__caja-filtros gap-3`}>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <div
-            className={`${classNameFiltros}__caja-filtros__selects gap-3 items-center`}
-            key={headerGroup.id}
-          >
-            <CallFilter
-              headerGroup={headerGroup}
-              num={2}
-              title='TIPO:'
-              options={optionsTipoUsuario}
-            />
-            <CallFilter
-              headerGroup={headerGroup}
-              num={4}
-              title='ULT. INGRESO:'
-            />
-          </div>
-        ))}
+        <div
+          className={`${classNameFiltros}__caja-filtros__selects gap-3 items-center`}
+        >
+          <SelectConsult
+            handleChange={handleTipoUsuario}
+            title='TIPO:'
+            options={optionsTipoUsuario}
+          />
+
+          <DateConsult title='ULT. INGRESO' handleChange={handleFecha} />
+        </div>
         <div
           className={`${classNameFiltros}__caja-filtros__search gap-3 items-center`}
         >
-          <InputFiltros
-            filteringSearch={filteringSearch}
-            setFilteringSearch={setFilteringSearch}
-          />
+          <InputConsult handleChange={handleBuscador} />
         </div>
       </div>
       <div
@@ -58,5 +72,12 @@ export const filtrosListaUsuarios = (
         </Link>
       </div>
     </div>
-  )
-}
+  );
+};
+
+export default FiltrosListaUsuarios;
+
+FiltrosListaUsuarios.propTypes = {
+  classNameFiltros: PropTypes.string,
+  setParams: PropTypes.func.isRequired
+};

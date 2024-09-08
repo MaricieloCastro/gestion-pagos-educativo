@@ -1,12 +1,14 @@
-// Preview.js
-import React from 'react';
-import { PDFViewer } from '@react-pdf/renderer';
-import PDF from './PDF/PDF';
+import { PDFViewer } from '@react-pdf/renderer'
+import PropTypes from 'prop-types'
 
 const Preview = ({ children }) => (
-    <PDFViewer width="100%" height="100%" showToolbar={false}>
-        {children}
-    </PDFViewer>
-);
+  <PDFViewer width='100%' height='100%' showToolbar={false}>
+    {children}
+  </PDFViewer>
+)
 
-export default Preview;
+export default Preview
+
+Preview.propTypes = {
+  children: PropTypes.node.isRequired
+}

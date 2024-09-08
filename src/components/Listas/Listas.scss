@@ -7,3 +7,37 @@
     }
   }
 }
+
+.ant-pagination {
+  &-item {
+    border: 1px solid #d9d9d9 !important;
+    background-color: #1677ff51 !important;
+
+    &-active {
+      border: 1px solid #1677ff !important;
+      color: #1677ff !important;
+      background-color: #d9d9d9 !important;
+    }
+  }
+
+  &-options {
+    .ant-select {
+      &-selector {
+        border: 1px solid #d9d9d9 !important;
+        background-color: #1677ff51 !important;
+        color: #d9d9d9 !important;
+      }
+
+      &-open {
+        .ant-select-selector {
+          border: 1px solid #1677ff !important;
+          background-color: white !important;
+        }
+      }
+
+      &-arrow {
+        color: #d9d9d9b6 !important;
+      }
+    }
+  }
+}

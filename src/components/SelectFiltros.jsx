@@ -1,5 +1,5 @@
-import React from "react";
-import { Select, ConfigProvider } from "antd";
+import { Select, ConfigProvider } from 'antd';
+import PropTypes from 'prop-types';
 
 const SelectFiltros = (props) => {
   const {
@@ -13,19 +13,17 @@ const SelectFiltros = (props) => {
     colorText,
     controlItemBgActive,
     controlItemBgHover,
-    // width,
-    // height,
     setFilteringColumn,
     columnValue,
     columnSelect,
-    setColumnSelect,
+    setColumnSelect
   } = props;
 
   const handleChange = (value) => {
     // Actualizar solo el valor de "value" en el estado del filtro de tipo
-    if (value === "TODOS") {
-      value = "";
-      console.log("efectivamente");
+    if (value === 'TODOS') {
+      value = '';
+      console.log('efectivamente');
     }
     setFilteringColumn([{ id: columnSelect, value }]);
   };
@@ -37,25 +35,25 @@ const SelectFiltros = (props) => {
         theme={{
           token: {
             borderRadius: 0,
-            colorText: `${colorText}`,
+            colorText: `${colorText}`
             // colorBorder: "none",
           },
           components: {
             Select: {
               colorTextQuaternary: `${colorFlecha}`,
-              colorTextPlaceholder: "#B5B5B5",
+              colorTextPlaceholder: '#B5B5B5',
               colorBgContainer: `${bgSelect}`,
               colorBgElevated: `${bgElevated}`,
               controlItemBgActive: `${controlItemBgActive}`,
               controlItemBgHover: `${controlItemBgHover}`,
-              colorBorder: "#003862",
-            },
-          },
+              colorBorder: '#003862'
+            }
+          }
         }}
       >
         <Select
           defaultValue={defaultValue}
-          className="w-full min-w-36 h-11"
+          className='w-full min-w-36 h-11'
           onChange={handleChange}
           onClick={() => {
             setColumnSelect(columnValue);
@@ -68,3 +66,20 @@ const SelectFiltros = (props) => {
 };
 
 export default SelectFiltros;
+
+SelectFiltros.propTypes = {
+  title: PropTypes.string,
+  classNameTitle: PropTypes.string,
+  options: PropTypes.array.isRequired,
+  defaultValue: PropTypes.string,
+  bgSelect: PropTypes.string,
+  colorFlecha: PropTypes.string,
+  bgElevated: PropTypes.string,
+  colorText: PropTypes.string,
+  controlItemBgActive: PropTypes.string,
+  controlItemBgHover: PropTypes.string,
+  setFilteringColumn: PropTypes.func,
+  columnValue: PropTypes.string,
+  columnSelect: PropTypes.string,
+  setColumnSelect: PropTypes.func
+};

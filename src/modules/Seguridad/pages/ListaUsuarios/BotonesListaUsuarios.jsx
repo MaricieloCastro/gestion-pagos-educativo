@@ -1,21 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useState } from 'react';
 
-import ButtonWithIcon from "@/components/ButtonWithIcon";
-import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import { useNavigate } from "react-router-dom";
-import { patchModal } from "@/functions/methods";
-import { usuarioAPI } from "@/api/ApiRutas";
-import AuthContext from "@/contexts/AuthContext";
+import ButtonWithIcon from '@/components/ButtonWithIcon';
+import { faPenToSquare, faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import { useNavigate } from 'react-router-dom';
+import { patchModal } from '@/functions/methods';
+import { usuarioAPI } from '@/api/ApiRutas';
+import AuthContext from '@/contexts/AuthContext';
 
-import ModalConfirmacion from "@/components/Modal/ModalConfirmacion";
-import ModalCarga from "@/components/Modal/ModalCarga";
-import ModalError from "@/components/Modal/ModalError";
-import ModalSucess from "@/components/Modal/ModalSucess";
+import ModalConfirmacion from '@/components/Modal/ModalConfirmacion';
+import ModalCarga from '@/components/Modal/ModalCarga';
+import ModalError from '@/components/Modal/ModalError';
+import ModalSucess from '@/components/Modal/ModalSucess';
+
+import PropTypes from 'prop-types';
 
 const BotonesListaUsuarios = (props) => {
   let { authTokens } = useContext(AuthContext);
 
-  const { id, id_tipo_usuario, setReload, reload } = props;
+  const { id, id_tipo_usuario, setReload } = props;
 
   // MODAL SIMPLE
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,18 +30,18 @@ const BotonesListaUsuarios = (props) => {
   const navigate = useNavigate();
 
   const headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + String(authTokens.access),
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer ' + String(authTokens.access)
   };
 
-  const url = `${usuarioAPI}${id}/`;
+  const url = `${usuarioAPI}/${id}/`;
 
   const handleClickEditar = () => {
     navigate(`info-user/${id}`);
   };
 
   const data = {
-    is_active: false,
+    is_active: false
   };
 
   const handleConfirmacion = () => {
@@ -62,54 +64,53 @@ const BotonesListaUsuarios = (props) => {
   };
 
   return (
-    <div className="flex gap-2 justify-center items-center ">
+    <div className='flex gap-2 justify-center items-center '>
       <ButtonWithIcon
-        text="EDITAR"
+        text='EDITAR'
         icon={faPenToSquare}
-        classNameIcon="w-4 pr-1"
-        classNameVariants="rounded-sm
-                p-4 bg-green-boton hover:bg-green-boton-hover"
+        classNameIcon='w-4 pr-1'
+        classNameVariants='rounded-sm
+                p-4 bg-green-boton hover:bg-green-boton-hover'
         onClick={handleClickEditar}
         disabled={false}
       />
       <ButtonWithIcon
-        text=""
+        text=''
         icon={faTrashCan}
-        classNameIcon="w-4"
-        classNameVariants="rounded-sm
+        classNameIcon='w-4'
+        classNameVariants='rounded-sm
                 bg-red-boton-listas hover:bg-red-boton-listas-hover
-                w-10"
+                w-10'
         onClick={handleConfirmacion}
         disabled={false}
       />
 
       <ModalConfirmacion
-        titulo="¿Estás seguro de realizar esta acción?"
-        subtitulo="Esta acción podria generar cambios en el sistema"
+        titulo='¿Estás seguro de realizar esta acción?'
+        subtitulo='Esta acción podria generar cambios en el sistema'
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         func={handleEliminar}
       />
-      <ModalCarga modalLoading={modalLoading} titulo="Cargando" />
+      <ModalCarga modalLoading={modalLoading} titulo='Cargando' />
       <ModalSucess
-        titulo="¡Usuario eliminado exitosamente!"
-        subtitulo=""
+        titulo='¡Usuario eliminado exitosamente!'
+        subtitulo=''
         modalSucessfull={modalSucessfull}
         setModalSucessfull={setModalSucessfull}
-        reload={reload}
-        setReload={setReload}
+        setReload={() => setReload((prev) => !prev)}
       />
       <ModalError
-        titulo="Ups ¡Ha ocurrido un error inesperado!"
-        subtitulo="Verifique su conexión a internet y vuelva a intentar la acción en unos minutos"
+        titulo='Ups ¡Ha ocurrido un error inesperado!'
+        subtitulo='Verifique su conexión a internet y vuelva a intentar la acción en unos minutos'
         modalFailed={modalFailed}
         setModalFailed={setModalFailed}
       />
 
       {id_tipo_usuario === 1 && (
         <ModalError
-          titulo="No puedes eliminar a un administrador"
-          subtitulo="Esta acción está restringida por motivos de seguridad"
+          titulo='No puedes eliminar a un administrador'
+          subtitulo='Esta acción está restringida por motivos de seguridad'
           modalFailed={modalFailed}
           setModalFailed={setModalFailed}
         />
@@ -119,3 +120,9 @@ const BotonesListaUsuarios = (props) => {
 };
 
 export default BotonesListaUsuarios;
+
+BotonesListaUsuarios.propTypes = {
+  id: PropTypes.number,
+  id_tipo_usuario: PropTypes.number,
+  setReload: PropTypes.func
+};

@@ -1,85 +1,83 @@
-import BotonesListaUsuarios from "@/modules/Seguridad/pages/ListaUsuarios/BotonesListaUsuarios";
-import IndeterminateCheckbox from "@/components/Listas/IndeterminateCheckbox";
-import React, { useContext, useMemo } from "react";
-import ListasContext from "@/contexts/ListasContext";
+import BotonesListaUsuarios from '@/modules/Seguridad/pages/ListaUsuarios/BotonesListaUsuarios';
+import IndeterminateCheckbox from '@/components/Listas/IndeterminateCheckbox';
+import dayjs from 'dayjs';
 
-export const columnsValue = (multiDelete) => {
+export const columnsValue = (multiDelete, setReload) => {
+  const columns = [
+    {
+      accessorKey: 'dni',
+      header: 'CODIGO',
+      id: 'dni',
+      cell: (info) => info.getValue()
+    },
+    {
+      accessorKey: 'usuario',
+      header: 'USUARIO',
+      id: 'usuario',
+      cell: (info) => info.getValue()
+    },
+    {
+      accessorKey: 'tipo_usuario',
+      header: 'TIPO',
+      id: 'tipo_usuario',
+      cell: (info) => info.getValue()
+    },
+    {
+      accessorKey: 'email',
+      header: 'CORREO',
+      id: 'email',
+      cell: (info) => info.getValue()
+    },
+    {
+      accessorKey: 'last_login',
+      id: 'last_login',
+      header: 'ULTIMO INGRESO',
+      cell: (info) => dayjs(info.getValue()).format('DD/MM/YYYY HH:mm:ss') // Formatear la fecha
+    },
+    {
+      header: 'OPCIONES',
+      id: 'opciones',
+      cell: (row) => {
+        const id = row.cell.row.original.id;
+        const id_tipo_usuario = row.cell.row.original.id_tipo_usuario;
 
-  let { reload, setReload } = useContext(ListasContext);
+        return (
+          <BotonesListaUsuarios
+            id={id}
+            setReload={setReload}
+            id_tipo_usuario={id_tipo_usuario}
+          />
+        );
+      }
+    }
+  ];
 
-  const values = useMemo(() => {
-    const columns = [
-      multiDelete && {
-        id: "select",
-        header: ({ table }) => (
+  if (!multiDelete) {
+    columns.unshift({
+      id: 'select',
+      header: ({ table }) => (
+        <IndeterminateCheckbox
+          {...{
+            checked: table.getIsAllRowsSelected(),
+            indeterminate: table.getIsSomeRowsSelected(),
+            onChange: table.getToggleAllRowsSelectedHandler()
+          }}
+        />
+      ),
+      cell: ({ row }) => (
+        <div className='px-1 flex justify-center items-center'>
           <IndeterminateCheckbox
             {...{
-              checked: table.getIsAllRowsSelected(),
-              indeterminate: table.getIsSomeRowsSelected(),
-              onChange: table.getToggleAllRowsSelectedHandler(),
+              checked: row.getIsSelected(),
+              disabled: !row.getCanSelect(),
+              indeterminate: row.getIsSomeSelected(),
+              onChange: row.getToggleSelectedHandler()
             }}
           />
-        ),
-        cell: ({ row }) => (
-          <div className="px-1">
-            <IndeterminateCheckbox
-              {...{
-                checked: row.getIsSelected(),
-                disabled: !row.getCanSelect(),
-                indeterminate: row.getIsSomeSelected(),
-                onChange: row.getToggleSelectedHandler(),
-              }}
-            />
-          </div>
-        ),
-      },
-      {
-        accessorKey: "codigo",
-        header: "CODIGO",
-        cell: (info) => info.getValue(),
-      },
-      {
-        accessorKey: "usuario",
-        header: "USUARIO",
-        cell: (info) => info.getValue(),
-      },
-      {
-        accessorKey: "tipo",
-        header: () => "TIPO",
-      },
-      {
-        accessorKey: "correo",
-        header: "CORREO",
-        cell: (info) => info.getValue(),
-      },
-      {
-        accessorKey: "ultimo_inicio",
-        header: "ULTIMO INGRESO",
-        cell: (info) => info.getValue(),
-        meta: {
-          filterVariant: "dateTime",
-        },
-      },
-      {
-        header: "OPCIONES",
-        cell: (row) => {
-          const id = row.cell.row.original.id;
-          const id_tipo_usuario = row.cell.row.original.id_tipo_usuario;
+        </div>
+      )
+    });
+  }
 
-          return (
-            <BotonesListaUsuarios
-              id={id}
-              setReload={setReload}
-              reload={reload}
-              id_tipo_usuario={id_tipo_usuario}
-            />
-          );
-        },
-      },
-    ];
-
-    return columns.filter(Boolean);
-  }, [reload, setReload, multiDelete]);
-
-  return values;
+  return columns;
 };

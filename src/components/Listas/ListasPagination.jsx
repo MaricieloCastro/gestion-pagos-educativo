@@ -1,27 +1,41 @@
-import React from "react";
-import PaginationList from "../PaginationList";
+import { ConfigProvider, Pagination } from 'antd';
+import PropTypes from 'prop-types';
 
-const ListasPagination = (props) => {
-  const { table } = props;
+const ListasPagination = ({ total, page, setPage, setPageSize }) => {
+  const handleChange = (currentPage, sizePagination) => {
+    setPage(currentPage - 1);
+    setPageSize(sizePagination);
+  };
 
   return (
-    <div className="flex justify-center items-center pb-2">
-      <PaginationList
-        goLastPage={() => table.setPageIndex(table.getPageCount() - 1)}
-        goFirstPage={() => table.setPageIndex(0)}
-        goNextPage={() =>
-          table.setPageIndex(table.getState().pagination.pageIndex + 1)
+    <ConfigProvider
+      theme={{
+        components: {
+          Pagination: {
+            colorTextDisabled: '#0077d2',
+            itemActiveBg: '#d9d9d9',
+            colorText: '#d9d9d9',
+            itemBg: '#d9d9d9'
+          }
         }
-        goPrevPage={() =>
-          table.setPageIndex(table.getState().pagination.pageIndex - 1)
-        }
-        currentPage={table.getState().pagination.pageIndex + 1}
-        prevPage={table.getState().pagination.pageIndex}
-        nextPage={table.getState().pagination.pageIndex + 2}
-        lastPage={table.getPageCount()}
+      }}
+    >
+      <Pagination
+        defaultCurrent={1}
+        total={total}
+        current={page + 1}
+        showSizeChanger
+        onChange={handleChange}
+        pageSizeOptions={['10', '20', '30', '40', '50']}
       />
-    </div>
+    </ConfigProvider>
   );
 };
-
 export default ListasPagination;
+
+ListasPagination.propTypes = {
+  total: PropTypes.number,
+  page: PropTypes.number,
+  setPage: PropTypes.func,
+  setPageSize: PropTypes.func
+};

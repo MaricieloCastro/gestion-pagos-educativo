@@ -3,12 +3,8 @@ import { Input, Space, ConfigProvider } from 'antd';
 
 import PropTypes from 'prop-types';
 
-const InputFiltros = (props) => {
-  const { setFilteringSearch, filteringSearch } = props;
-
-  const handleChange = (e) => {
-    setFilteringSearch(e.target.value);
-  };
+const InputConsult = (props) => {
+  const { handleChange } = props;
 
   return (
     <ConfigProvider
@@ -16,7 +12,7 @@ const InputFiltros = (props) => {
         token: {
           borderRadius: 'none',
           colorText: '#004F82',
-          colorTextPlaceholder: '#003862'
+          colorTextPlaceholder: '#7f94a4'
         },
         components: {
           Input: {
@@ -33,8 +29,7 @@ const InputFiltros = (props) => {
         >
           <Input
             addonBefore={<SearchOutlined />}
-            placeholder='Buscar...'
-            value={filteringSearch}
+            placeholder='Ingrese 3 letras...'
             onChange={handleChange}
           />
         </Space.Compact>
@@ -42,9 +37,8 @@ const InputFiltros = (props) => {
     </ConfigProvider>
   );
 };
-export default InputFiltros;
+export default InputConsult;
 
-InputFiltros.propTypes = {
-  setFilteringSearch: PropTypes.func,
-  filteringSearch: PropTypes.string
+InputConsult.propTypes = {
+  handleChange: PropTypes.func
 };
