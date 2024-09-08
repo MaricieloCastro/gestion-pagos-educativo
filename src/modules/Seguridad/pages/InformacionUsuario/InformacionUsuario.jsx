@@ -1,24 +1,20 @@
-import React from "react";
-import MenuLateral from "@/components/MenuLateral";
-import PerfilUsario from "../CrearUsuario/compenetes/PerfilUsario";
-import { faL } from "@fortawesome/free-solid-svg-icons";
-import { useParams } from "react-router-dom";
-const InformacionUsuario = () => {
-  const params = useParams();
-  let indice = params.id;
+import MenuLateral from '@/components/MenuLateral'
+import FormSeguridad from '../../components/FormSeguridad'
+import {
+  DEFAULT_VALUES_INFORMACION_USUARIO,
+  FORM_SCHEMA_INFORMACION_USUARIO
+} from './constants/InformacionUsuarioConstants'
 
+const InformacionUsuarioPrueba = () => {
   return (
-    <div className="flex overflow-hidden h-screen blue-oscuro">
-      <MenuLateral>
-        <PerfilUsario
-          disabled={false}
-          indice={indice}
-          ButtonView={true}
-          textButton="GUARGAR"
-        />
-      </MenuLateral>
-    </div>
-  );
-};
+    <MenuLateral>
+      <FormSeguridad
+        editAdmin={true}
+        DEFAULT_VALUES={DEFAULT_VALUES_INFORMACION_USUARIO}
+        FORM_SCHEMA={FORM_SCHEMA_INFORMACION_USUARIO}
+      />
+    </MenuLateral>
+  )
+}
 
-export default InformacionUsuario;
+export default InformacionUsuarioPrueba

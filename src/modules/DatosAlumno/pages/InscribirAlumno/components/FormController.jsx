@@ -1,9 +1,10 @@
-import React from "react";
-import { Controller } from "react-hook-form";
-import InputFormularios from "./InputFormularios";
-import DateFormularios from "./DateFormularios";
-import DateWithYearsFormularios from "./DateWithYearsFormularios";
-import SelectFormularios from "./SelectFormularios";
+import { Controller } from 'react-hook-form'
+import InputFormularios from './InputFormularios'
+import DateFormularios from './DateFormularios'
+import DateWithYearsFormularios from './DateWithYearsFormularios'
+import SelectFormularios from './SelectFormularios'
+import PropTypes from 'prop-types'
+import SelectAsyncFormularios from './SelectAsyncFormularios'
 
 const FormController = (props) => {
   const {
@@ -16,26 +17,29 @@ const FormController = (props) => {
     disabled,
     options,
     defaultDate,
-  } = props;
+    yearSpecial,
+    tabla = null,
+    urlAPI = null
+  } = props
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className='flex items-center justify-between'>
         <label
           htmlFor={name}
-          className="block text-sm font-normal leading-6 text-white"
+          className='block text-sm font-normal leading-6 text-white'
         >
           {label}
         </label>
         {children}
       </div>
-      <div className="mt-1">
+      <div className='mt-1'>
         <Controller
           control={control}
           name={name}
           render={({ field, fieldState }) => (
             <div>
-              {type === "date" ? (
+              {type === 'date' ? (
                 <DateFormularios
                   field={field}
                   fieldState={fieldState}
@@ -44,7 +48,7 @@ const FormController = (props) => {
                   disabled={disabled}
                   defaultDate={defaultDate}
                 />
-              ) : type === "dateWithYears" ? (
+              ) : type === 'dateWithYears' ? (
                 <DateWithYearsFormularios
                   field={field}
                   fieldState={fieldState}
@@ -52,8 +56,9 @@ const FormController = (props) => {
                   placeholder={placeholder}
                   disabled={disabled}
                   defaultDate={defaultDate}
+                  yearSpecial={yearSpecial}
                 />
-              ) : type === "select" ? (
+              ) : type === 'select' ? (
                 <SelectFormularios
                   field={field}
                   fieldState={fieldState}
@@ -61,6 +66,16 @@ const FormController = (props) => {
                   placeholder={placeholder}
                   disabled={disabled}
                   options={options}
+                />
+              ) : type === 'select-async' ? (
+                <SelectAsyncFormularios
+                  field={field}
+                  fieldState={fieldState}
+                  name={name}
+                  placeholder={placeholder}
+                  disabled={disabled}
+                  urlAPI={urlAPI}
+                  tabla={tabla}
                 />
               ) : (
                 <InputFormularios
@@ -70,10 +85,11 @@ const FormController = (props) => {
                   name={name}
                   placeholder={placeholder}
                   disabled={disabled}
+                  style={{ textTransform: 'uppercase' }}
                 />
               )}
               {fieldState.error && (
-                <p className="text-red-500 text-sm mt-1 text-left">
+                <p className='text-red-500 text-sm mt-1 text-left'>
                   {fieldState.error.message}
                 </p>
               )}
@@ -82,7 +98,22 @@ const FormController = (props) => {
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FormController;
+export default FormController
+
+FormController.propTypes = {
+  control: PropTypes.object,
+  type: PropTypes.string,
+  name: PropTypes.string,
+  label: PropTypes.string,
+  placeholder: PropTypes.string,
+  children: PropTypes.object,
+  disabled: PropTypes.bool,
+  options: PropTypes.array,
+  defaultDate: PropTypes.string,
+  yearSpecial: PropTypes.bool,
+  tabla: PropTypes.string,
+  urlAPI: PropTypes.string
+}

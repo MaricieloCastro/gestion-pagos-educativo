@@ -1,9 +1,7 @@
-import React from "react";
-import CallFilter from "@/components/Listas/CallFilter";
-import InputFiltros from "@/components/Listas/Filtros/InputFiltros";
-import { tipo } from "@/api/optionsFiltros";
-import { filterAdapter } from "@/components/Listas/CallFilter/filterAdapter";
-import { beneficioAPI, gradoAPI, seccionAPI, turnoAPI } from "@/api/ApiRutas";
+import CallFilter from '@/components/Listas/CallFilter'
+import InputFiltros from '@/components/Listas/Filtros/InputFiltros'
+import { filterAdapter } from '@/components/Listas/CallFilter/filterAdapter'
+import { beneficioAPI, CONFIGURACION_API } from '@/api/ApiRutas'
 
 export const filtrosMenuPrincipal = (
   table,
@@ -11,11 +9,10 @@ export const filtrosMenuPrincipal = (
   setFilteringSearch,
   filteringSearch
 ) => {
-
   const optionsBeneficio = filterAdapter(beneficioAPI)
-  const optionsTurno = filterAdapter(turnoAPI)
-  const optionsGrado = filterAdapter(gradoAPI)
-  const optionsSeccion = filterAdapter(seccionAPI)
+  const optionsTurno = filterAdapter(`${CONFIGURACION_API}=TURNO`)
+  const optionsGrado = filterAdapter(`${CONFIGURACION_API}=GRADO`)
+  const optionsSeccion = filterAdapter(`${CONFIGURACION_API}=SECCION`)
 
   return (
     <div className={`${classNameFiltros}__caja gap-3`}>
@@ -26,32 +23,26 @@ export const filtrosMenuPrincipal = (
         >
           <CallFilter
             headerGroup={headerGroup}
-            num={2}
-            title="ESTADO:"
-            options={tipo}
-          />
-          <CallFilter
-            headerGroup={headerGroup}
             num={4}
-            title="BENEFICIO:"
+            title='BENEFICIO:'
             options={optionsBeneficio}
           />
           <CallFilter
             headerGroup={headerGroup}
             num={5}
-            title="TURNO:"
+            title='TURNO:'
             options={optionsTurno}
           />
           <CallFilter
             headerGroup={headerGroup}
             num={6}
-            title="GRADO:"
+            title='GRADO:'
             options={optionsGrado}
           />
           <CallFilter
             headerGroup={headerGroup}
             num={7}
-            title="SECCIÓN:"
+            title='SECCIÓN:'
             options={optionsSeccion}
           />
         </div>
@@ -65,5 +56,5 @@ export const filtrosMenuPrincipal = (
         />
       </div>
     </div>
-  );
-};
+  )
+}

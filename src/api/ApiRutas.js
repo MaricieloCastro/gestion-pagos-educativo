@@ -21,8 +21,13 @@ export const alumnosSolicitudDeleteApi =
   "http://127.0.0.1:8000/datos_alumno/api/estudiantes_solicitud_eliminacion/";
 
 export const beneficioAPI = "http://127.0.0.1:8000/datos_alumno/api/beneficio/";
+export const INCRIRIBIR_ALUMNO_API =
+  "http://127.0.0.1:8000/datos_alumno/inscribir-alumno/";
 
 // MANTENIMIENTO
+
+export const CONFIGURACION_API =
+  "http://localhost:8000/parametricas/api/configuracion/?tabla";
 
 export const turnoAPI =
   "http://127.0.0.1:8000/parametricas/api/turno_mantenimiento/";
@@ -65,3 +70,9 @@ export const reporteMetodoPagoAPI =
 
 export const reporteIngresosAPI =
   "http://127.0.0.1:8000/reportes/api/reporte-ingresos/agrupado";
+
+export const HISTORIAL_REPORTES_API =
+  "http://127.0.0.1:8000/reportes/api/historial-reportes/";
+
+export const TIPO_REPORTES_API =
+  "http://127.0.0.1:8000/reportes/api/tipo-reportes/";

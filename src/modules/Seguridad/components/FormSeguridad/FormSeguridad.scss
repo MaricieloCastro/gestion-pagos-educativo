@@ -1,0 +1,18 @@
+.form-seguridad {
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+
+  .ant-image {
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+  }
+
+  &__datos-personales {
+    display: grid;
+    grid-template-rows: auto 1fr;
+
+    &-inputs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}

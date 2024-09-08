@@ -1,1 +1,1 @@
-export { default } from "./CrearUsuario";
+export { default } from './CrearUsuario.jsx'

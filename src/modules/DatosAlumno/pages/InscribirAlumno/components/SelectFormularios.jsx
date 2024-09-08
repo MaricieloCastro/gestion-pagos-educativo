@@ -1,41 +1,43 @@
-import React from "react";
-import { ConfigProvider, Select, Space } from "antd";
+import { ConfigProvider, Select, Space } from 'antd'
+import PropTypes from 'prop-types'
 
 const SelectFormularios = (props) => {
-  const { field, fieldState, name, placeholder, disabled, options } = props;
+  const { field, fieldState, name, placeholder, disabled, options } = props
 
   return (
     <ConfigProvider
       theme={{
         token: {
-          borderRadius: "none",
+          borderRadius: 'none'
         },
         components: {
           Select: {
-            colorTextQuaternary: "#B9B9B9",
-            colorTextPlaceholder: "#B9B9B9",
-            colorText: "black",
-            colorBgElevated: "white",
-            controlItemBgActive: "#CACACA",
-            controlItemBgHover: "#EBEBEB",
-            colorBorder: "#003862",
-          },
-        },
+            colorTextQuaternary: '#B9B9B9',
+            colorTextPlaceholder: '#B9B9B9',
+            colorText: 'black',
+            colorBgElevated: 'white',
+            controlItemBgActive: '#CACACA',
+            controlItemBgHover: '#EBEBEB',
+            colorBorder: 'white',
+            colorBgContainerDisabled: '#485e6e',
+            colorTextDisabled: '#DBDBDB'
+          }
+        }
       }}
     >
       <Space
-        direction="vertical"
-        size="middle"
+        direction='vertical'
+        size='middle'
         className={`w-full ${
           !fieldState.error
-            ? "ring-1 ring-[#1877F2] focus:ring-[#1877F2]"
-            : "ring-1 ring-red-500 focus:ring-red-500"
+            ? 'ring-2 ring-[#1e40af] focus:ring-[#1877F2]'
+            : 'ring-2 ring-red-500 focus:ring-red-500'
         }`}
       >
-        <Space.Compact size="large" className="w-full" direction="vertical">
+        <Space.Compact size='large' className='w-full' direction='vertical'>
           <Select
             {...field}
-            className="w-full"
+            className='w-full'
             placeholder={placeholder}
             id={name}
             options={options}
@@ -44,7 +46,16 @@ const SelectFormularios = (props) => {
         </Space.Compact>
       </Space>
     </ConfigProvider>
-  );
-};
+  )
+}
 
-export default SelectFormularios;
+export default SelectFormularios
+
+SelectFormularios.propTypes = {
+  field: PropTypes.object,
+  fieldState: PropTypes.object,
+  name: PropTypes.string,
+  placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
+  options: PropTypes.array
+}

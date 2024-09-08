@@ -1,7 +1,6 @@
-import React from "react";
-import "./IniciarSesion.scss";
-import Box from "../../components/Box";
-import FormIniciarSesion from "../../components/FormIniciarSesion";
+import './IniciarSesion.scss'
+import Box from '../../components/Box'
+import FormIniciarSesion from '../../components/FormIniciarSesion'
 
 const IniciarSesion = () => {
   return (
@@ -17,7 +16,7 @@ const IniciarSesion = () => {
     <Box>
       <FormIniciarSesion />
     </Box>
-  );
-};
+  )
+}
 
-export default IniciarSesion;
+export default IniciarSesion

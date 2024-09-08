@@ -1,15 +1,20 @@
-import React from "react";
-import MenuLateral from "@/components/MenuLateral";
-import PerfilUsario from "./compenetes/PerfilUsario";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const CrearUsuario = () => {
-  return (
-    <div className="flex overflow-hidden h-screen blue-oscuro">
-      <MenuLateral>
-        <PerfilUsario textButton="CREAR" indice={1} load={true} />
-      </MenuLateral>
-    </div>
-  );
-};
+import MenuLateral from '@/components/MenuLateral'
+import FormSeguridad from '../../components/FormSeguridad'
+import {
+  DEFAULT_VALUES_CREAR_USUARIO,
+  FORM_SCHEMA_CREAR_USUARIO
+} from './constants/CrearUsuarioConstants'
 
-export default CrearUsuario;
+const CrearUsuarioPrueba = () => {
+  return (
+    <MenuLateral>
+      <FormSeguridad
+        DEFAULT_VALUES={DEFAULT_VALUES_CREAR_USUARIO}
+        FORM_SCHEMA={FORM_SCHEMA_CREAR_USUARIO}
+        crear={true}
+      />
+    </MenuLateral>
+  )
+}
+
+export default CrearUsuarioPrueba

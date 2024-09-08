@@ -19,8 +19,8 @@ import {
   METODOPAGOURL,
   PAGOSURL,
   PENDIENTEALUMNOSURL,
-} from "@/modules/Seguridad/pages/CrearUsuario/compenetes/reuse/ConstObj";
-import { SelectForm } from "@/modules/Seguridad/pages/CrearUsuario/components/ui/SelectForm";
+} from "@/modules/Seguridad/components/Reuse/ConstObj";
+import { SelectForm } from "@/modules/Seguridad/components/ui/SelectForm";
 //Importaciones para el formularioI
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -39,12 +39,11 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import FormularioPagos from "./formularioPagos";
-import Formulario from "@/modules/Seguridad/pages/CrearUsuario/components/ui/formulario";
+import Formulario from "@/modules/Seguridad/components/ui/formulario";
 import { CondicionVentaSelect } from "./CondicionVentaSelect";
-import Calendario from "@/modules/Seguridad/pages/CrearUsuario/compenetes/reuse/Calendario";
+import Calendario from "@/modules/Seguridad/components/Reuse/Calendario";
 import { Link, useParams } from "react-router-dom";
 import ModalPagosConfirmacion from "./ModalPagosConfirmacion";
 import ModalCarga from "@/components/Modal/ModalCarga";
@@ -119,6 +118,12 @@ const FormSchema = z.object({
   pagante: z.string().min(0, {
     message: "campo obligatorio",
   }),
+  ruc: z.string().min(0, {
+    message: "campo obligatorio",
+  }),
+  pagante: z.string().min(0, {
+    message: "campo obligatorio",
+  }),
   tipo_comprobante: z
     .string()
     .nonempty({ message: "Debe seleccionar al menos un tipo de comprobante" }),
@@ -151,11 +156,10 @@ export default function FormPagos(props) {
     desc = 0;
   }
   const total_pagar = (montosPagos.monto - desc).toString();
-
   const um = "UNIDAD";
   const precio_unitario = monto_previo;
   const moneda = "SOLES";
-  console.log(montosPagos.monto, precio_unitario);
+
   //Usetate del modal de carga
   const [modalLoading, setModalLoading] = useState(false);
   const [bDisable, setBDisable] = useState();
@@ -456,7 +460,8 @@ export default function FormPagos(props) {
             "cac:RegistrationAddress": {
               "cac:AddressLine": {
                 "cbc:Line": {
-                  _text: inputDireccion,
+                  _text:
+                    "PSJ. SANTA ISABEL 253 URB FONAVI TARAPOTO SAN MARTIN SAN MARTIN",
                 },
               },
             },
@@ -761,7 +766,7 @@ export default function FormPagos(props) {
           _attributes: {
             currencyID: "PEN",
           },
-          _text: Number(total_pagar),
+          _text: 400,
         },
         "cbc:PayableAmount": {
           _attributes: {
@@ -855,7 +860,7 @@ export default function FormPagos(props) {
           },
           "cac:Item": {
             "cbc:Description": {
-              _text: `${descripcion}`,
+              _text: "PAGO POR MENSUALIDAD",
             },
             // "cac:SellersItemIdentification": {
             //   "cbc:ID": {
@@ -1314,14 +1319,14 @@ export default function FormPagos(props) {
               <div className="pagos-dato_uno-uno">
                 <FormField
                   control={form.control}
-                  name="tipo_comprobante"
+                  name='tipo_comprobante'
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Tipo de Comprobante::</FormLabel>
                       <Select
-                        defaultValue="BOLETA"
+                        defaultValue='BOLETA'
                         onValueChange={(value) => {
-                          field.onChange(value), handleSelectChange(value);
+                          field.onChange(value), handleSelectChange(value)
                         }}
                       >
                         <FormControl>
@@ -1330,72 +1335,98 @@ export default function FormPagos(props) {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="BOLETA">BOLETA</SelectItem>
-                          <SelectItem value="FACTURA">FACTURA</SelectItem>
-                          <SelectItem value=" "></SelectItem>
+                          <SelectItem value='BOLETA'>BOLETA</SelectItem>
+                          <SelectItem value='FACTURA'>FACTURA</SelectItem>
+                          <SelectItem value=' '></SelectItem>
                         </SelectContent>
                       </Select>
                     </FormItem>
                   )}
                 />
                 {selectedValue && (
-                  <Formulario form={form} nameLabel="RUC:" parametros="ruc" />
+                  <Formulario form={form} nameLabel='RUC:' parametros='ruc' />
                 )}
                 <Formulario
                   form={form}
-                  nameLabel="Pagante:"
-                  parametros="pagante"
+                  nameLabel='Pagante:'
+                  parametros='pagante'
                 />
                 <SelectForm
                   form={form}
                   disabled={true}
                   url={MESESURL}
                   dato={mes_cancelado}
-                  nameLabel="Mes Cancelado:"
-                  parametros="mes_cancelado"
+                  nameLabel='Mes Cancelado:'
+                  parametros='mes_cancelado'
                 />
 
                 <FormularioPagos
                   form={form}
-                  nameLabel="Descuento Aplicado:"
-                  parametros="descuento_aplicado"
-                  type="number"
+                  nameLabel='Descuento Aplicado:'
+                  parametros='descuento_aplicado'
+                  type='number'
                   disabled={true}
                 />
               </div>
-              <div className="pagos-dato_uno-dos">
+              <div className='pagos-dato_uno-dos'>
                 <Calendario
-                  className="flex-container"
-                  nameLabel="Fecha de Pago:"
+                  className='flex-container'
+                  nameLabel='Fecha de Pago:'
                   form={form}
                   disabled={true}
-                  name="fecha_pago"
+                  name='fecha_pago'
                 />
                 {selectedValue && (
                   <Calendario
-                    className="flex-container"
-                    nameLabel="Fecha de Vencimiento:"
+                    className='flex-container'
+                    nameLabel='Fecha de Vencimiento:'
                     form={form}
-                    name="fecha_pago"
+                    name='fecha_pago'
                     disabled={true}
                   />
                 )}
                 <SelectForm
                   form={form}
                   url={METODOPAGOURL}
-                  dato="EFECTIVO"
-                  nameLabel="Metodo de Pago:"
-                  parametros="metodo_pago"
+                  dato='EFECTIVO'
+                  nameLabel='Metodo de Pago:'
+                  parametros='metodo_pago'
                 />
                 <SelectForm
                   form={form}
                   disabled={buttonCD}
                   url={AREAURL}
-                  dato=""
-                  nameLabel="Area  Desaprobada:"
-                  parametros="area_desaprobada"
+                  dato=''
+                  nameLabel='Area  Desaprobada:'
+                  parametros='area_desaprobada'
                 />
-                
+                <FormField
+                  control={form.control}
+                  name="monto"
+                  render={({ field }) => (
+                    //Nombre
+                    <FormItem>
+                      <FormLabel>Monto:</FormLabel>
+                      <FormControl>
+                        <div className="flex">
+                          <Button type="button">PE S/</Button>
+                          <Input
+                            //placeholder={dato}
+                            {...field}
+                            type="number"
+                            //onChange={handleInputChange}
+                            //disabled="false"
+                            onChange={(e) => {
+                              field.onChange(e);
+                              handleValueChange(e);
+                            }}
+                            //value={inputValue}
+                          />
+                        </div>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
                 {/* <FormularioPagos
                   form={form}
                   nameLabel="Monto:"
@@ -1405,25 +1436,25 @@ export default function FormPagos(props) {
                   type="number"
                 /> 
               </div>
-              <div className="pagos-dato_uno-tres">
+              <div className='pagos-dato_uno-tres'>
                 <Formulario
                   form={form}
-                  nameLabel="Numero de Comprobante:"
+                  nameLabel='Numero de Comprobante:'
                   //dato={numCom}
                   disabled={true}
-                  parametros="codigo_recibo"
+                  parametros='codigo_recibo'
                 />
-                <CondicionVentaSelect form={form} dato="ALCONTADO" />
+                <CondicionVentaSelect form={form} dato='ALCONTADO' />
                 <FormularioPagos
                   form={form}
-                  nameLabel="Monto Previo:"
-                  parametros="monto_previo"
+                  nameLabel='Monto Previo:'
+                  parametros='monto_previo'
                   disabled={true}
-                  type="number"
+                  type='number'
                 />
                 
                 <div>
-                  <h2 className="flex gap-2 text-white  ">
+                  <h2 className='flex gap-2 text-white  '>
                     Vuelto: <p>S/{-1 * vuelto}</p>
                   </h2>
                 </div>
