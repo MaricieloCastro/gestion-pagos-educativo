@@ -39,6 +39,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import FormularioPagos from "./formularioPagos";
 import Formulario from "@/modules/Seguridad/components/ui/formulario";
@@ -110,12 +111,6 @@ const FormSchema = z.object({
     message: "campo obligatorio",
   }),
   id_Document: z.string().min(0, {
-    message: "campo obligatorio",
-  }),
-  ruc: z.string().min(0, {
-    message: "campo obligatorio",
-  }),
-  pagante: z.string().min(0, {
     message: "campo obligatorio",
   }),
   ruc: z.string().min(0, {
