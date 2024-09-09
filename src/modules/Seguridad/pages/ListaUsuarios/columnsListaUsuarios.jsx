@@ -8,7 +8,7 @@ export const columnsValue = (multiDelete, setReload) => {
       accessorKey: 'dni',
       header: 'CODIGO',
       id: 'dni',
-      cell: (info) => info.getValue()
+      cell: (info) => <div className='text-center'>{info.getValue()}</div>
     },
     {
       accessorKey: 'usuario',
@@ -52,7 +52,7 @@ export const columnsValue = (multiDelete, setReload) => {
     }
   ];
 
-  if (!multiDelete) {
+  if (multiDelete) {
     columns.unshift({
       id: 'select',
       header: ({ table }) => (

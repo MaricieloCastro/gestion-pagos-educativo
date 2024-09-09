@@ -5,10 +5,11 @@ import Listas from '@/components/Listas';
 
 import { usuarioAPI } from '@/api/ApiRutas';
 import { columnsValue } from './columnsListaUsuarios';
+import FiltrosListaUsuarios from './FiltrosListaUsuarios';
+
+import { paramsConstructor } from '@/utils/querys';
 
 import './ListaUsuarios.scss';
-import FiltrosListaUsuarios from './FiltrosListaUsuarios/FiltrosListaUsuarios.jsx';
-import { paramsConstructor } from '@/utils/querys';
 
 const ListaUsuarios = () => {
   const [params, setParams] = useState({
@@ -27,7 +28,7 @@ const ListaUsuarios = () => {
           api={usuarioAPI}
           queryParams={queryParams}
           columnsValue={columnsValue}
-          classNameFiltros='usuarios-filtros'
+          classNameTable='usuarios-table'
           multiDelete={false}
         >
           <FiltrosListaUsuarios

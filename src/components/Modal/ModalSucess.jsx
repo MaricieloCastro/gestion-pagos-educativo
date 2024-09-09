@@ -1,34 +1,29 @@
-import React, { useState } from "react";
-import { Modal } from "antd";
+import { Modal } from 'antd';
 
-import "./Modal.scss";
+import PropTypes from 'prop-types';
+
+import './Modal.scss';
 
 const ModalSucess = (props) => {
-  const {
-    modalSucessfull,
-    setModalSucessfull,
-    reload,
-    setReload,
-    titulo,
-    subtitulo,
-  } = props;
+  const { modalSucessfull, setModalSucessfull, setReload, titulo, subtitulo } =
+    props;
 
   const handleOk = () => {
     setModalSucessfull(false);
-    setReload(!reload);
+    setReload((prev) => !prev);
   };
 
   return (
     <>
       <Modal
         closable={false}
-        className="modal-sucess"
+        className='modal-sucess'
         title={titulo}
         centered
         width={360}
         closeIcon={false}
         open={modalSucessfull}
-        okText="Aceptar"
+        okText='Aceptar'
         onOk={handleOk}
       >
         <p>{subtitulo}</p>
@@ -38,3 +33,11 @@ const ModalSucess = (props) => {
 };
 
 export default ModalSucess;
+
+ModalSucess.propTypes = {
+  modalSucessfull: PropTypes.bool,
+  setModalSucessfull: PropTypes.func,
+  setReload: PropTypes.func,
+  titulo: PropTypes.string,
+  subtitulo: PropTypes.string
+};

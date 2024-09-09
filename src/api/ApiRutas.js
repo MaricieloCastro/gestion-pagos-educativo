@@ -4,23 +4,19 @@ export const LOGIN_REFRESH_API = 'http://localhost:8000/api/token/refresh/';
 export const LOGOUT_API = 'http://127.0.0.1:8000/api/logout/';
 
 export const usuarioAPI = 'http://127.0.0.1:8000/api/usuario';
-export const usuariosActivosApi = 'http://127.0.0.1:8000/api/usuarios_activos/';
 
 export const permisosAPI = 'http://127.0.0.1:8000/api/permisos/';
 export const tipoUsuariosAPI = 'http://127.0.0.1:8000/api/tipo_usuario/';
 
 // DATOS ALUMNO
 
-export const estudiantesAPI = 'http://127.0.0.1:8000/datos_alumno/api/alumno/';
-export const alumnosApi =
-  'http://127.0.0.1:8000/datos_alumno/api/estudiantes_activos/';
-export const alumnosInactivosApi =
-  'http://127.0.0.1:8000/datos_alumno/api/estudiantes_eliminados/';
+export const estudiantesAPI = 'http://127.0.0.1:8000/datos_alumno/api/alumno';
 
 export const alumnosSolicitudDeleteApi =
   'http://127.0.0.1:8000/datos_alumno/api/estudiantes_solicitud_eliminacion/';
 
 export const beneficioAPI = 'http://127.0.0.1:8000/datos_alumno/api/beneficio/';
+
 export const INCRIRIBIR_ALUMNO_API =
   'http://127.0.0.1:8000/datos_alumno/inscribir-alumno/';
 

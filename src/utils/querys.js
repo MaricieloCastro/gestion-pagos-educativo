@@ -2,7 +2,7 @@ export const paramsConstructor = (params) => {
   let queryParams = '';
 
   for (const key in params) {
-    if (params[key]) {
+    if (params[key] !== '') {
       queryParams += `&${key}=${params[key]}`;
     }
   }

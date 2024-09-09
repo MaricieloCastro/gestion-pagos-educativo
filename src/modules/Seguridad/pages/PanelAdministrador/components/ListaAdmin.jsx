@@ -1,22 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import { useContext, useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
 import {
   useReactTable,
   getCoreRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  getFilteredRowModel,
-} from "@tanstack/react-table";
+  getFilteredRowModel
+} from '@tanstack/react-table';
 
-import AuthContext from "@/contexts/AuthContext";
-import { getAxios } from "@/functions/methods";
-import { usuariosActivosApi } from "@/api/ApiRutas";
-import TablaListaAdmin from "./TablaListaAdmin";
-import AvatarsListaAdmin from "./AvatarsListaAdmin";
-import { useNavigate } from "react-router-dom";
-import { enlaces } from "@/utils/rutas";
+import AuthContext from '@/contexts/AuthContext';
+import { getAxios } from '@/functions/methods';
+import TablaListaAdmin from './TablaListaAdmin';
+import AvatarsListaAdmin from './AvatarsListaAdmin';
+import { useNavigate } from 'react-router-dom';
+import { enlaces } from '@/utils/rutas';
 
 const ListaAdmin = () => {
   let { authTokens } = useContext(AuthContext);
@@ -28,12 +27,12 @@ const ListaAdmin = () => {
   const navigate = useNavigate();
 
   const headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + String(authTokens.access),
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer ' + String(authTokens.access)
   };
 
   useEffect(() => {
-    getAxios(usuariosActivosApi, headers, setUsuarios, setLoading, setError);
+    getAxios('', headers, setUsuarios, setLoading, setError);
   }, []);
 
   const data = usuarios;
@@ -44,29 +43,29 @@ const ListaAdmin = () => {
 
   const columns = [
     {
-      header: "USUARIO",
+      header: 'USUARIO',
       cell: (row) => {
         const usuario = row.cell.row.original.usuario;
 
         return <AvatarsListaAdmin usuario={usuario} />;
-      },
+      }
     },
     {
-      header: "CODIGO",
-      accessorKey: "codigo",
+      header: 'CODIGO',
+      accessorKey: 'codigo'
     },
     {
-      header: "TIPO",
-      accessorKey: "tipo",
+      header: 'TIPO',
+      accessorKey: 'tipo'
     },
     {
-      header: "CORREO",
-      accessorKey: "correo",
+      header: 'CORREO',
+      accessorKey: 'correo'
     },
     {
-      header: "ULT. INGRESO",
-      accessorKey: "fecha_inicio",
-    },
+      header: 'ULT. INGRESO',
+      accessorKey: 'fecha_inicio'
+    }
   ];
 
   const table = useReactTable({
@@ -75,29 +74,29 @@ const ListaAdmin = () => {
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
+    getFilteredRowModel: getFilteredRowModel()
   });
 
   return (
     <>
-      <div className="overflow-y-auto">
+      <div className='overflow-y-auto'>
         <div>
-          <p className="text-white-cabecera mx-4 mt-3">LISTA DE USUARIOS:</p>
+          <p className='text-white-cabecera mx-4 mt-3'>LISTA DE USUARIOS:</p>
         </div>
-        <div className="mx-4">
+        <div className='mx-4'>
           <TablaListaAdmin table={table} loading={loading} />
         </div>
       </div>
-      <div className="panel-administrador__seccion-2-1-1-botonLista">
-        <div className="flex justify-center items-center">
-          <p className="font-semibold text-white-linea my-1">
+      <div className='panel-administrador__seccion-2-1-1-botonLista'>
+        <div className='flex justify-center items-center'>
+          <p className='font-semibold text-white-linea my-1'>
             LISTA DE USUARIOS
           </p>
         </div>
-        <button className="bg-white-texto" onClick={handleClick}>
+        <button className='bg-white-texto' onClick={handleClick}>
           <FontAwesomeIcon
             icon={faCaretRight}
-            className="text-blue-oscuro h-[2.5vh]"
+            className='text-blue-oscuro h-[2.5vh]'
           />
         </button>
       </div>

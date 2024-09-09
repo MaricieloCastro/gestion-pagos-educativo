@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { tipoUsuariosAPI } from '@/api/ApiRutas';
 import ButtonWithIcon from '@/components/ButtonWithIcon';
 import { filterAdapter } from '@/components/Listas/CallFilter/filterAdapter';
@@ -14,12 +13,9 @@ import dayjs from 'dayjs';
 import InputConsult from '@/components/Listas/ConsultFilter/InputConsult';
 
 const FiltrosListaUsuarios = ({ classNameFiltros, setParams }) => {
-  const [tipoUsuario, setTipoUsuario] = useState('');
-
   const optionsTipoUsuario = filterAdapter(tipoUsuariosAPI);
 
   const handleTipoUsuario = (value) => {
-    setTipoUsuario(value);
     setParams((prev) => ({ ...prev, tipo_usuario: value }));
   };
 
@@ -37,8 +33,6 @@ const FiltrosListaUsuarios = ({ classNameFiltros, setParams }) => {
       setParams((prev) => ({ ...prev, buscador: '' }));
     }
   };
-
-  console.log(tipoUsuario);
 
   return (
     <div className={`${classNameFiltros}__caja gap-3`}>
