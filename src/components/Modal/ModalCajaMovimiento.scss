@@ -1,14 +1,19 @@
-.modal-movimiento {
+.modal-simple-movimiento {
   .ant-modal-footer {
     display: none;
   }
-  .hola {
-    height: 35vh;
+  .movimientos {
+    &-uno {
+      display: flex;
+      gap: 5px;
+    }
+    height: 25vh;
     label {
       display: flex;
-      margin-bottom: 3px;
+      margin-bottom: 8px;
       margin-top: 15px;
       color: #fff;
+      font-weight: normal;
     }
     .space-y-2 > :not([hidden]) ~ :not([hidden]) {
       margin-top: 0px;
@@ -17,11 +22,26 @@
       font-size: small;
     }
     input {
-      height: 5.5vh;
+      height: 6vh;
+      color: black !important;
+    }
+    .space-y-2 {
+      margin-top: 8px;
+    }
+    select {
+      width: 22vh;
+      height: 6vh;
+    }
+    .ant-form-item {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    button {
+      border-radius: 0px;
       color: black;
     }
     button {
-      color: black;
+      border-radius: 2px;
     }
   }
 }

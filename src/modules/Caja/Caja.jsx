@@ -14,6 +14,7 @@ export default function Caja() {
   const [aperturaMovimiento, setAperturaMovimiento] = useState([]);
   const [CajaActiva, setCajaActiva] = useState([]);
   const [loading, setLoading] = useState();
+  const [reload, setReload] = useState();
   let { authTokens } = useContext(AuthContext);
   const headers = {
     "Content-Type": "application/json",
@@ -43,9 +44,9 @@ export default function Caja() {
         setLoading(false);
       }
     };
-
     fetchUsuarios();
-  }, []);
+  }, [reload]);
+
   if (!loading) {
     return (
       <div className="h-full flex flex-col justify-center items-center">
@@ -60,6 +61,8 @@ export default function Caja() {
         cajaDatos={general}
         movimiento={aperturaMovimiento[0]}
         movimientos={CajaActiva}
+        setReloading={setReload}
+        reloading={reload}
       />
     </MenuLateral>
   );
