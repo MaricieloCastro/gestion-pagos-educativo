@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 
-import { getLevelKeys } from "./MenuLateralFunctions";
+import { getLevelKeys } from './MenuLateralFunctions';
 
-import { ConfigProvider, Menu } from "antd";
-import { useNavigate } from "react-router-dom";
-import AuthContext from "@/contexts/AuthContext";
-import { menuLateralConstants } from "./menuLateralConstants";
-import { enlaces } from "@/utils/rutas";
-import { getAxios } from "@/functions/methods";
-import { alumnosSolicitudDeleteApi } from "@/api/ApiRutas";
+import { ConfigProvider, Menu } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import AuthContext from '@/contexts/AuthContext';
+import { menuLateralConstants } from './menuLateralConstants';
+import { enlaces } from '@/utils/rutas';
+import { getAxios } from '@/functions/methods';
+import { alumnosSolicitudDeleteApi, estudiantesAPI } from '@/api/ApiRutas';
 
 const MenuAnt = (props) => {
   const { collapsed } = props;
@@ -17,25 +17,21 @@ const MenuAnt = (props) => {
   let { user, logoutUser, authTokens } = useContext(AuthContext);
   let { id_tipo_usuario } = user;
 
-  const [stateOpenKeys, setStateOpenKeys] = useState(["2", "23"]);
+  const [stateOpenKeys, setStateOpenKeys] = useState(['2', '23']);
   const [selectedKeys, setSelectedKeys] = useState([]);
   const [solicitudDelete, setSolicitudDelete] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + String(authTokens?.access),
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer ' + String(authTokens?.access)
   };
 
+  const url = `${estudiantesAPI}/?estado=true&eliminacion_pendiente=true`;
+
   useEffect(() => {
-    getAxios(
-      alumnosSolicitudDeleteApi,
-      headers,
-      setSolicitudDelete,
-      setLoading,
-      setError
-    );
+    getAxios(url, headers, setSolicitudDelete, setLoading, setError);
   }, []);
 
   const num_solicitud = solicitudDelete.length;
@@ -47,77 +43,76 @@ const MenuAnt = (props) => {
   const onSelect = ({ key }) => {
     setSelectedKeys([key]);
 
-    if (key === "1") {
+    if (key === '1') {
       navigate(enlaces[4].actualPath);
     }
 
-    if (key === "21") {
+    if (key === '21') {
       // PENDIENTE DE REVISION
       navigate(enlaces[3].actualPath);
     }
 
-    if (key === "23") {
+    if (key === '23') {
       navigate(enlaces[9].actualPath);
     }
 
-    if (key === "3") {
+    if (key === '3') {
       navigate(enlaces[10].actualPath);
     }
 
-    if (key === "6") {
+    if (key === '6') {
       navigate(enlaces[11].actualPath);
     }
 
-    if (key === "71") {
+    if (key === '71') {
       navigate(enlaces[5].actualPath);
     }
 
-    if (key === "72") {
+    if (key === '72') {
       navigate(enlaces[13].actualPath);
     }
 
-    if (key === "73") {
+    if (key === '73') {
       navigate(enlaces[12].actualPath);
     }
 
-    if (key === "741") {
+    if (key === '741') {
       navigate(enlaces[6].actualPath);
     }
 
-    if (key === "742") {
+    if (key === '742') {
       navigate(enlaces[7].actualPath);
     }
 
-    if (key === "44") {
+    if (key === '44') {
       navigate(enlaces[20].actualPath);
     }
 
-    if (key === "8") {
+    if (key === '8') {
       logoutUser();
     }
 
-    if (key === "91") {
+    if (key === '91') {
       navigate(enlaces[16].actualPath);
     }
-    if (key === "5") {
+    if (key === '5') {
       navigate(enlaces[17].actualPath);
     }
-    if (key === "92") {
+    if (key === '92') {
       navigate(enlaces[18].actualPath);
     }
-    if (key === "41") {
-      navigate(enlaces[22].actualPath)
+    if (key === '41') {
+      navigate(enlaces[22].actualPath);
     }
-    if (key === "42") {
-      navigate(enlaces[19].actualPath)
+    if (key === '42') {
+      navigate(enlaces[19].actualPath);
     }
-    if (key === "43") {
-      navigate(enlaces[20].actualPath)
+    if (key === '43') {
+      navigate(enlaces[20].actualPath);
     }
-    if (key === "44") {
-      navigate(enlaces[21].actualPath)
+    if (key === '44') {
+      navigate(enlaces[21].actualPath);
     }
-
   };
 
   const onOpenChange = (openKeys) => {
@@ -146,28 +141,28 @@ const MenuAnt = (props) => {
     <ConfigProvider
       theme={{
         token: {
-          colorBgContainer: "none",
-          colorText: "#C1C1C1",
+          colorBgContainer: 'none',
+          colorText: '#C1C1C1'
         },
         components: {
           Menu: {
-            itemBorderRadius: "none",
+            itemBorderRadius: 'none',
             activeBarBorderWidth: 0,
-            colorTextDisabled: "#001F36",
-            itemActiveBg: "#008AF0",
-            itemSelectedBg: "#004B82",
-            itemSelectedColor: "#C1C1C1",
+            colorTextDisabled: '#001F36',
+            itemActiveBg: '#008AF0',
+            itemSelectedBg: '#004B82',
+            itemSelectedColor: '#C1C1C1',
             borderRadiusOuter: 1,
-            itemHoverBg: "#004B82",
-            subMenuItemBg: "#003154",
-          },
-        },
+            itemHoverBg: '#004B82',
+            subMenuItemBg: '#003154'
+          }
+        }
       }}
     >
       <Menu
-        className="menu-lateral__component-ant"
-        mode="inline"
-        defaultSelectedKeys={["231"]}
+        className='menu-lateral__component-ant'
+        mode='inline'
+        defaultSelectedKeys={['231']}
         openKeys={stateOpenKeys}
         selectedKeys={selectedKeys}
         onSelect={onSelect}

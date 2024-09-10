@@ -46,7 +46,7 @@ const ListaUsuarios = (props) => {
       Authorization: 'Bearer ' + String(authTokens?.access)
     };
 
-    let url = `${api}/?page=${page + 1}&page_size=${pageSize}&${queryParams}`;
+    let url = `${api}/?page=${page + 1}&page_size=${pageSize}${queryParams}`;
     getAxios(url, headers, setDataApi, setLoading);
   }, [reload, page, api, authTokens, pageSize, queryParams]);
 

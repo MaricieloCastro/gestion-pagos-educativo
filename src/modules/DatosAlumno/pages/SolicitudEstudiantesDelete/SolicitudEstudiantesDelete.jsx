@@ -1,27 +1,38 @@
+import { useContext, useState } from 'react';
 
-import React, { useContext, useState } from "react";
+import MenuLateral from '@/components/MenuLateral';
+import Listas from '@/components/Listas';
 
-import MenuLateral from "@/components/MenuLateral";
-import Listas from "@/components/Listas";
+import { estudiantesAPI } from '@/api/ApiRutas';
+import { columnsValue } from './columnsSolicitudEstudiantesDelete';
 
-import { filtrosSolicitudEstudiantesDelete } from "./FiltrosSolicitudEstudiantesDelete/filtrosSolicitudEstudiantesDelete";
-import { alumnosSolicitudDeleteApi, estudiantesAPI } from "@/api/ApiRutas";
-import { columnsValue } from "./columnsSolicitudEstudiantesDelete";
+import AuthContext from '@/contexts/AuthContext';
+import ListasContext from '@/contexts/ListasContext';
+import ModalConfirmacion from '@/components/Modal/ModalConfirmacion';
+import ModalSucess from '@/components/Modal/ModalSucess';
+import ModalCarga from '@/components/Modal/ModalCarga';
+import ModalError from '@/components/Modal/ModalError';
+import FiltrosSolicitudEstudiantesDelete from './FiltrosSolicitudEstudiantesDelete';
+import { multiPatchModal } from '@/functions/multiMethods';
 
-import "./SolicitudEstudiantesDelete.scss";
-import "./FiltrosSolicitudEstudiantesDelete/FiltrosSolicitudEstudiantesDelete.scss";
-import AuthContext from "@/contexts/AuthContext";
-import ListasContext from "@/contexts/ListasContext";
-import ModalConfirmacion from "@/components/Modal/ModalConfirmacion";
-import ModalSucess from "@/components/Modal/ModalSucess";
-import ModalCarga from "@/components/Modal/ModalCarga";
-import ModalError from "@/components/Modal/ModalError";
-import { multiPatchModal } from "@/functions/multiMethods";
+import { paramsConstructor } from '@/utils/querys';
+
+import './SolicitudEstudiantesDelete.scss';
 
 const SolicitudEstudiantesDelete = () => {
-
   let { authTokens } = useContext(AuthContext);
   let { reload, setReload } = useContext(ListasContext);
+
+  const [params, setParams] = useState({
+    estado: true,
+    deuda: '',
+    eliminacion_pendiente: true,
+    beneficio: '',
+    turno: '',
+    grado: '',
+    seccion: '',
+    buscador: ''
+  });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -29,56 +40,69 @@ const SolicitudEstudiantesDelete = () => {
   const [modalSucessfull, setModalSucessfull] = useState(false);
   const [modalFailed, setModalFailed] = useState(false);
 
-  const [solicitudesData, setSolicitudesData] = useState([])
+  const [solicitudesData, setSolicitudesData] = useState([]);
 
   const handleModal = (estudiantes) => {
-    setIsModalOpen(true)
-    setSolicitudesData(estudiantes)
-  }
+    setIsModalOpen(true);
+    setSolicitudesData(estudiantes);
+  };
 
   const rechazarSolicitudes = async () => {
-
     const headers = {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + String(authTokens?.access),
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + String(authTokens?.access)
     };
 
     const data = {
-      eliminacion_pendiente: false,
-    }
+      eliminacion_pendiente: false
+    };
 
-    await multiPatchModal(estudiantesAPI, solicitudesData, data, headers, setModalLoading, setModalSucessfull, setModalFailed)
-  }
+    await multiPatchModal(
+      estudiantesAPI,
+      solicitudesData,
+      data,
+      headers,
+      setModalLoading,
+      setModalSucessfull,
+      setModalFailed
+    );
+  };
+
+  let queryParams = paramsConstructor(params);
 
   return (
     <MenuLateral>
-      <div className="estudiantes-delete h-full gap-3 min-w-[600px]">
+      <div className='estudiantes-delete h-full gap-3 min-w-[600px]'>
         <Listas
-          api={alumnosSolicitudDeleteApi}
+          api={estudiantesAPI}
+          queryParams={queryParams}
           columnsValue={columnsValue}
-          classNameTable="solicitud-estudiantes-delete-table"
-          classNameFiltros="solicitud-estudiantes-delete-filtros"
-          filtrosLista={filtrosSolicitudEstudiantesDelete}
+          classNameTable='solicitud-estudiantes-delete-table'
           multiDelete={true}
-          buttonTittle1="Rechazar"
-          buttonTittle2="solicitud(es)"
+          buttonTittle1='Rechazar'
+          buttonTittle2='solicitud(es)'
           buttonFunction={handleModal}
-        />
+        >
+          <FiltrosSolicitudEstudiantesDelete
+            classNameFiltros='solicitud-estudiantes-delete-filtros'
+            setParams={setParams}
+          />
+        </Listas>
       </div>
 
       <ModalConfirmacion
-        titulo="¿Estás seguro rechazar la(s) eliminación(es) de este(os) estudiante(s?"
-        subtitulo="Esta acción podria generar cambios en el sistema"
+        titulo='¿Estás seguro rechazar la(s) eliminación(es) de este(os) estudiante(s?'
+        subtitulo='Esta acción podria generar cambios en el sistema'
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         func={rechazarSolicitudes}
       />
 
-      <ModalCarga modalLoading={modalLoading} titulo="Cargando" />
+      <ModalCarga modalLoading={modalLoading} titulo='Cargando' />
 
       <ModalSucess
-        titulo="¡Acción realizada exitosamente!"
-        subtitulo=""
+        titulo='¡Acción realizada exitosamente!'
+        subtitulo=''
         modalSucessfull={modalSucessfull}
         setModalSucessfull={setModalSucessfull}
         reload={reload}
@@ -86,13 +110,13 @@ const SolicitudEstudiantesDelete = () => {
       />
 
       <ModalError
-        titulo="Ups ¡Ha ocurrido un error inesperado!"
-        subtitulo="Verifique su conexión a internet y vuelva a intentar la acción en unos minutos"
+        titulo='Ups ¡Ha ocurrido un error inesperado!'
+        subtitulo='Verifique su conexión a internet y vuelva a intentar la acción en unos minutos'
         modalFailed={modalFailed}
         setModalFailed={setModalFailed}
       />
     </MenuLateral>
-  )
-}
+  );
+};
 
-export default SolicitudEstudiantesDelete
+export default SolicitudEstudiantesDelete;

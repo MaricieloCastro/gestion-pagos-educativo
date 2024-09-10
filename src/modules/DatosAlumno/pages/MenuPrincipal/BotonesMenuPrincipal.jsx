@@ -1,68 +1,68 @@
-import { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import ButtonWithIcon from '@/components/ButtonWithIcon'
-import { patchModal } from '@/functions/methods'
-import { estudiantesAPI } from '@/api/ApiRutas'
-import AuthContext from '@/contexts/AuthContext'
-import ListasContext from '@/contexts/ListasContext'
-import ModalConfirmacion from '@/components/Modal/ModalConfirmacion'
-import ModalCarga from '@/components/Modal/ModalCarga'
-import ModalError from '@/components/Modal/ModalError'
-import ModalSucess from '@/components/Modal/ModalSucess'
-import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons'
-import PropTypes from 'prop-types'
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ButtonWithIcon from '@/components/ButtonWithIcon';
+import { patchModal } from '@/functions/methods';
+import { estudiantesAPI } from '@/api/ApiRutas';
+import AuthContext from '@/contexts/AuthContext';
+import ListasContext from '@/contexts/ListasContext';
+import ModalConfirmacion from '@/components/Modal/ModalConfirmacion';
+import ModalCarga from '@/components/Modal/ModalCarga';
+import ModalError from '@/components/Modal/ModalError';
+import ModalSucess from '@/components/Modal/ModalSucess';
+import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types';
 
 const BotonesMenuPrincipal = (props) => {
-  let { authTokens, user } = useContext(AuthContext)
-  let { reload, setReload } = useContext(ListasContext)
-  const { id, estado_deuda } = props
-  const navigate = useNavigate()
+  let { authTokens, user } = useContext(AuthContext);
+  let { reload, setReload } = useContext(ListasContext);
+  const { id, estado_deuda } = props;
+  const navigate = useNavigate();
 
   // MODAL SIMPLE
-  const [isModalOpenEliminar, setIsModalOpenEliminar] = useState(false)
+  const [isModalOpenEliminar, setIsModalOpenEliminar] = useState(false);
   const [isModalOpenEnviarSolicitud, setIsModalOpenEnviarSolicitud] =
-    useState(false)
-  const [isModalOpenDeuda, setIsModalOpenDeuda] = useState(false)
+    useState(false);
+  const [isModalOpenDeuda, setIsModalOpenDeuda] = useState(false);
 
   // CARGAS
-  const [modalLoading, setModalLoading] = useState(false)
-  const [modalSucessfull, setModalSucessfull] = useState(false)
-  const [modalFailed, setModalFailed] = useState(false)
+  const [modalLoading, setModalLoading] = useState(false);
+  const [modalSucessfull, setModalSucessfull] = useState(false);
+  const [modalFailed, setModalFailed] = useState(false);
 
-  const id_tipo_usuario = user.id_tipo_usuario
+  const id_tipo_usuario = user.id_tipo_usuario;
 
   const headers = {
     'Content-Type': 'application/json',
     Authorization: 'Bearer ' + String(authTokens.access)
-  }
+  };
 
-  const url = `${estudiantesAPI}${id}/`
+  const url = `${estudiantesAPI}/${id}/`;
 
   const handleClickEditar = () => {
-    navigate(`/editar-alumno/${id}`)
-  }
+    navigate(`/editar-alumno/${id}`);
+  };
 
   const dataEliminar = {
     eliminacion_pendiente: false,
     estado: false
-  }
+  };
 
   const dataEnviarSolicitud = {
     eliminacion_pendiente: true,
     estado: true
-  }
+  };
 
   const handleConfirmacion = () => {
     if (estado_deuda == false) {
-      setIsModalOpenDeuda(true)
+      setIsModalOpenDeuda(true);
     } else {
       if (id_tipo_usuario === 1) {
-        setIsModalOpenEliminar(true)
+        setIsModalOpenEliminar(true);
       } else {
-        setIsModalOpenEnviarSolicitud(true)
+        setIsModalOpenEnviarSolicitud(true);
       }
     }
-  }
+  };
 
   const handleEliminar = () => {
     patchModal(
@@ -72,8 +72,8 @@ const BotonesMenuPrincipal = (props) => {
       setModalLoading,
       setModalSucessfull,
       setModalFailed
-    )
-  }
+    );
+  };
 
   const handleEnviarSolicitud = () => {
     patchModal(
@@ -83,35 +83,35 @@ const BotonesMenuPrincipal = (props) => {
       setModalLoading,
       setModalSucessfull,
       setModalFailed
-    )
-  }
+    );
+  };
 
   //Para direccionar caja
-  const [isModalOpen, setIsModalOpen] = useState()
-  const estadoCaja = JSON.parse(localStorage.getItem('estadoCaja'))
+  const [isModalOpen, setIsModalOpen] = useState();
+  const estadoCaja = JSON.parse(localStorage.getItem('estadoCaja'));
   function NavigateMatricula() {
     if (estadoCaja == true) {
-      navigate(`/pagos/${id}/2`)
+      navigate(`/pagos/${id}/2`);
     } else {
-      setIsModalOpen(true)
+      setIsModalOpen(true);
     }
   }
   function NavigateMensualidad() {
     if (estadoCaja == true) {
-      navigate(`/pagos/${id}/1`)
+      navigate(`/pagos/${id}/1`);
     } else {
-      setIsModalOpen(true)
+      setIsModalOpen(true);
     }
   }
   function NavigateCursoDesaprobado() {
     if (estadoCaja == true) {
-      navigate(`/pagos/${id}/3`)
+      navigate(`/pagos/${id}/3`);
     } else {
-      setIsModalOpen(true)
+      setIsModalOpen(true);
     }
   }
   function ModalCaja() {
-    navigate('/caja')
+    navigate('/caja');
   }
   return (
     <div className='flex gap-2 justify-center items-center'>
@@ -218,12 +218,12 @@ const BotonesMenuPrincipal = (props) => {
         func={ModalCaja}
       />
     </div>
-  )
-}
+  );
+};
 
-export default BotonesMenuPrincipal
+export default BotonesMenuPrincipal;
 
 BotonesMenuPrincipal.propTypes = {
   id: PropTypes.number,
-  estado_deuda: PropTypes.bool
-}
+  estado_deuda: PropTypes.number
+};
