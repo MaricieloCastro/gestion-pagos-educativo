@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { getLevelKeys } from './MenuLateralFunctions';
 
@@ -8,7 +8,9 @@ import AuthContext from '@/contexts/AuthContext';
 import { menuLateralConstants } from './menuLateralConstants';
 import { enlaces } from '@/utils/rutas';
 import { getAxios } from '@/functions/methods';
-import { alumnosSolicitudDeleteApi, estudiantesAPI } from '@/api/ApiRutas';
+import { estudiantesAPI } from '@/api/ApiRutas';
+
+import PropTypes from 'prop-types';
 
 const MenuAnt = (props) => {
   const { collapsed } = props;
@@ -20,19 +22,17 @@ const MenuAnt = (props) => {
   const [stateOpenKeys, setStateOpenKeys] = useState(['2', '23']);
   const [selectedKeys, setSelectedKeys] = useState([]);
   const [solicitudDelete, setSolicitudDelete] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: 'Bearer ' + String(authTokens?.access)
-  };
 
   const url = `${estudiantesAPI}/?estado=true&eliminacion_pendiente=true`;
 
   useEffect(() => {
-    getAxios(url, headers, setSolicitudDelete, setLoading, setError);
-  }, []);
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + String(authTokens?.access)
+    };
+
+    getAxios(url, headers, setSolicitudDelete);
+  }, [url, authTokens]);
 
   const num_solicitud = solicitudDelete.length;
 
@@ -175,3 +175,7 @@ const MenuAnt = (props) => {
 };
 
 export default MenuAnt;
+
+MenuAnt.propTypes = {
+  collapsed: PropTypes.bool.isRequired
+};

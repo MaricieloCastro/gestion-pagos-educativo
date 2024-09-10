@@ -1,14 +1,14 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React from 'react';
+import { useState, useEffect } from 'react';
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-export default function formulario(props) {
+  FormMessage
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+export default function Formulario(props) {
   const { nameLabel, form, parametros, type, disabled, dato } = props;
   function handleInputChange(event) {
     setInputValue(event.target.value.toUpperCase());

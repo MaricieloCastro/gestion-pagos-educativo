@@ -1,46 +1,46 @@
-import { useState, useEffect, useContext } from 'react'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import Formulario from './formulario'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { useState, useEffect, useContext } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import Formulario from './Formulario';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { toast } from '@/components/ui/use-toast'
-import './formUsario.scss'
+  FormMessage
+} from '@/components/ui/form';
+import { toast } from '@/components/ui/use-toast';
+import './formUsario.scss';
 
-import { PlusOutlined } from '@ant-design/icons'
+import { PlusOutlined } from '@ant-design/icons';
 //Enlaces
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 //Para la imagen
 //Radio
-import { RadioGroupForm } from './RadioGroupForm'
+import { RadioGroupForm } from './RadioGroupForm';
 //Componenete tipo de usuario
-import { SelectForm } from './SelectForm'
-import { Input } from '@/components/ui/input'
+import { SelectForm } from './SelectForm';
+import { Input } from '@/components/ui/input';
 //Calendario
-import Calendario from '../../compenetes/reuse/Calendario'
+import Calendario from '../../compenetes/reuse/Calendario';
 //API
-import { postAxios } from '@/functions/methods'
-import AuthContext from '@/contexts/AuthContext'
+import { postAxios } from '@/functions/methods';
+import AuthContext from '@/contexts/AuthContext';
 import {
   TIPOUSUARIOURL,
   SEXOURL,
-  CONFIRMACIONURL,
-} from '../../compenetes/reuse/ConstObj'
+  CONFIRMACIONURL
+} from '../../compenetes/reuse/ConstObj';
 //Modals
-import ModaForm from '../../compenetes/Modal/ModalForm'
+import ModaForm from '../../compenetes/Modal/ModalForm';
 // Lógica del componente
 const FormSchema = z.object({
   //Contra cuátos caracteres hay en el input
   nombres: z.string().min(1, {
-    message: 'Campo Obligatorio',
+    message: 'Campo Obligatorio'
   }),
   // APpaterno: z.string().min(1, {
   //   message: "Campo Obligatorio",
@@ -49,48 +49,48 @@ const FormSchema = z.object({
   //   message: "Campo Obligatorio",
   // }),
   dni: z.string().min(8, {
-    message: 'Campo Obligatorio',
+    message: 'Campo Obligatorio'
   }),
   celular: z.string().min(9, {
-    message: 'Campo Obligatorio',
+    message: 'Campo Obligatorio'
   }),
   domicilio: z.string().min(10, {
-    message: 'Campo Obligatorio',
+    message: 'Campo Obligatorio'
   }),
   edad: z.string().min(2, {
-    message: 'Campo Obligatorio',
+    message: 'Campo Obligatorio'
   }),
   email: z.string().min(10, {
-    message: 'Campo Obligatorio',
+    message: 'Campo Obligatorio'
   }),
   sexo: z.string().min(1, {
-    message: 'Campo Obligatorio',
+    message: 'Campo Obligatorio'
   }),
   username: z.string().min(8, {
-    message: 'Campo Obligatorio',
+    message: 'Campo Obligatorio'
   }),
   password: z.string().min(8, {
-    message: 'Campo Obligatorio',
+    message: 'Campo Obligatorio'
   }),
   id_tipo_usuario: z.string().min(1, {
-    message: 'Campo Obligatorio',
+    message: 'Campo Obligatorio'
   }),
   fecha_nacimiento: z.string().min(1, {
-    message: 'Campo Obligatorio',
+    message: 'Campo Obligatorio'
   }),
   apellido_paterno: z.string().min(1, {
-    message: 'Campo Obligatorio',
+    message: 'Campo Obligatorio'
   }),
   apellido_materno: z.string().min(1, {
-    message: 'Campo Obligatorio',
+    message: 'Campo Obligatorio'
   }),
   ruta_fotografia: z.string(),
   usuario_responsable: z.string().min(1, {
-    message: 'Campo Obligatorio',
-  }),
-})
-import { putAxios } from '@/functions/methods'
-import { Mail, User } from 'lucide-react'
+    message: 'Campo Obligatorio'
+  })
+});
+import { putAxios } from '@/functions/methods';
+import { Mail, User } from 'lucide-react';
 //Lógica de programación
 function onSubmit(data) {
   toast({
@@ -100,20 +100,20 @@ function onSubmit(data) {
       '<code className="text-white">' +
       JSON.stringify(data, null, 2) +
       '</code>' +
-      '</pre>',
-  })
+      '</pre>'
+  });
 }
 
 export default function InputFormI(props) {
-  let { authTokens, user } = useContext(AuthContext)
-  const [reload, setReload] = useState(true)
-  const [usuario, setUsuarios] = useState({})
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  let { authTokens, user } = useContext(AuthContext);
+  const [reload, setReload] = useState(true);
+  const [usuario, setUsuarios] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const headers = {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer ' + String(authTokens.access),
-  }
+    Authorization: 'Bearer ' + String(authTokens.access)
+  };
 
   //PROPS
   const {
@@ -123,8 +123,8 @@ export default function InputFormI(props) {
     usuarios,
     load,
     edad,
-    tipoUsuario,
-  } = props
+    tipoUsuario
+  } = props;
   //DESILACHADO("NO SÉ ESCRIBIR DECONSTRUCTURING")
 
   const {
@@ -142,8 +142,8 @@ export default function InputFormI(props) {
     tipo_usuario,
     fecha_nacimiento,
     uuid,
-    ruta_fotografia,
-  } = usuarios || {}
+    ruta_fotografia
+  } = usuarios || {};
 
   //HOOK DE FORMULARIO
   const form = useForm({
@@ -163,52 +163,52 @@ export default function InputFormI(props) {
       id_tipo_usuario: tipo_usuario.nombre,
       fecha_nacimiento: fecha_nacimiento || '',
       ruta_fotografia: '',
-      usuario_responsable: user.username || '',
-    },
-  })
+      usuario_responsable: user.username || ''
+    }
+  });
 
   // console.log("1: ", ruta_fotografia)
 
   //PARA LOS MÉTODOS
-  const url = 'http://127.0.0.1:8000/api/usuario/'
-  const urlUp = `/login/update/${uuid}`
-  const [open, setOpen] = useState(false)
+  const url = 'http://127.0.0.1:8000/api/usuario/';
+  const urlUp = `/login/update/${uuid}`;
+  const [open, setOpen] = useState(false);
   function Methods(values) {
-    const contraseña = values.password
-    const usuario = values.username
+    const contraseña = values.password;
+    const usuario = values.username;
     for (let clave in values) {
       // Verificar si el valor es una cadena
       if (typeof values[clave] === 'string') {
         // Convertir a mayúsculas y actualizar el valor en el objeto
-        values[clave] = values[clave].toUpperCase()
+        values[clave] = values[clave].toUpperCase();
       }
     }
-    const data = values
-    values.password = contraseña
-    values.username = usuario
-    console.log('foto: ', values.ruta_fotografia)
+    const data = values;
+    values.password = contraseña;
+    values.username = usuario;
+    console.log('foto: ', values.ruta_fotografia);
     if (data.id_tipo_usuario == 'SECRETARIA') {
-      data.id_tipo_usuario = '2'
+      data.id_tipo_usuario = '2';
     } else {
-      data.id_tipo_usuario = '1'
+      data.id_tipo_usuario = '1';
     }
     if (load == true) {
-      postAxios(url, data, headers, setReload, reload, setError)
+      postAxios(url, data, headers, setReload, reload, setError);
     }
-    const Nurl = `http://127.0.0.1:8000/api/usuario/${id}/`
-    putAxios(Nurl, data, headers, setReload, reload, setError, setOpen)
+    const Nurl = `http://127.0.0.1:8000/api/usuario/${id}/`;
+    putAxios(Nurl, data, headers, setReload, reload, setError, setOpen);
   }
   //Para mostrar o no el boton según la página
-  const [mostrarBoton, setMostrarBoton] = useState(true)
+  const [mostrarBoton, setMostrarBoton] = useState(true);
   useEffect(() => {
     // Lógica para determinar si mostrar o no el botón
-    const usuarioEnInicio = ButtonView // Cambia esto a tu lógica real
+    const usuarioEnInicio = ButtonView; // Cambia esto a tu lógica real
     if (usuarioEnInicio) {
-      setMostrarBoton(true)
+      setMostrarBoton(true);
     } else {
-      setMostrarBoton(false)
+      setMostrarBoton(false);
     }
-  }, [])
+  }, []);
 
   return (
     <Form {...form}>
@@ -375,7 +375,7 @@ export default function InputFormI(props) {
                 <Button
                   className={buttonVariants({
                     variant: 'default',
-                    className: 'rounded-sm bg-blue-claro mr-5',
+                    className: 'rounded-sm bg-blue-claro mr-5'
                   })}
                   type='button'
                 >
@@ -387,7 +387,7 @@ export default function InputFormI(props) {
           <Button
             className={buttonVariants({
               variant: 'default',
-              className: 'rounded-sm bg-green-boton w-100  ',
+              className: 'rounded-sm bg-green-boton w-100  '
             })}
             type='submit'
           >
@@ -398,5 +398,5 @@ export default function InputFormI(props) {
         </div>
       </form>
     </Form>
-  )
+  );
 }

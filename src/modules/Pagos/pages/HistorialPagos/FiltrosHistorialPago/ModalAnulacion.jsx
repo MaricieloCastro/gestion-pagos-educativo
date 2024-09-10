@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import { Modal } from 'antd'
-import Formulario from '@/modules/Seguridad/components/ui/formulario'
-import { Form } from '@/components/ui/form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import '../../../../../components/Modal/Modal.scss'
-import { AwardIcon } from 'lucide-react'
-import axios from 'axios'
+import React, { useState } from 'react';
+import { Modal } from 'antd';
+import Formulario from '@/modules/Seguridad/components/ui/Formulario';
+import { Form } from '@/components/ui/form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import '../../../../../components/Modal/Modal.scss';
+import { AwardIcon } from 'lucide-react';
+import axios from 'axios';
 const FormSchema = z.object({
   reason: z
     .string()
@@ -26,11 +26,11 @@ const FormSchema = z.object({
   documentId: z.string().min(3, {
     message: 'Minimo 3 dígitos'
   })
-})
+});
 const ModalAnulacion = (props) => {
   //Contraseña para el permiso de anulaciónde boletas
-  const accesPassword = 'jawni123'
-  const { anular, setAnular, reload, setReload, titulo, idDocument } = props
+  const accesPassword = 'jawni123';
+  const { anular, setAnular, reload, setReload, titulo, idDocument } = props;
 
   const form = useForm({
     resolver: zodResolver(FormSchema),
@@ -41,32 +41,32 @@ const ModalAnulacion = (props) => {
       documentId: idDocument,
       reason: ''
     }
-  })
+  });
 
   const handleOk = () => {
-    form.handleSubmit(ConfirmarAdmins)()
+    form.handleSubmit(ConfirmarAdmins)();
     //setModalSucessfull(false);
-    setReload(!reload)
-  }
+    setReload(!reload);
+  };
 
   //FUNCIÓN PARA CANCELAR LA OPERACIÓN Y RESETAERA EL FORMULARIOS
   function handleCancel() {
-    setAnular(false)
-    form.reset()
+    setAnular(false);
+    form.reset();
   }
 
   //MOSTRAR Y ENVIAR LOS VALORES QUE ESTÁN EN EL FORMULARIOS
   async function ConfirmarAdmins(values) {
-    const ANULACION = values
+    const ANULACION = values;
     try {
-      console.log(values)
+      console.log(values);
       const responses = await axios.post(
         'https://back.apisunat.com/personas/v1/voidBill',
         ANULACION
-      )
-      console.log('operacion exitosa:', responses.data)
+      );
+      console.log('operacion exitosa:', responses.data);
     } catch (error) {
-      console.error('Error al hacer la solicitud:', error)
+      console.error('Error al hacer la solicitud:', error);
     }
   }
 
@@ -104,7 +104,7 @@ const ModalAnulacion = (props) => {
         </form>
       </Form>
     </Modal>
-  )
-}
+  );
+};
 
-export default ModalAnulacion
+export default ModalAnulacion;

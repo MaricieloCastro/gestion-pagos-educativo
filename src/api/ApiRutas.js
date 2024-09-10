@@ -12,9 +12,6 @@ export const tipoUsuariosAPI = 'http://127.0.0.1:8000/api/tipo_usuario/';
 
 export const estudiantesAPI = 'http://127.0.0.1:8000/datos_alumno/api/alumno';
 
-export const alumnosSolicitudDeleteApi =
-  'http://127.0.0.1:8000/datos_alumno/api/estudiantes_solicitud_eliminacion/';
-
 export const beneficioAPI = 'http://127.0.0.1:8000/datos_alumno/api/beneficio/';
 
 export const INCRIRIBIR_ALUMNO_API =
